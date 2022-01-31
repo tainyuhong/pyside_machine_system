@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="mu_baseinfo">
+    <property name="title">
+     <string>基础信息</string>
+    </property>
+    <addaction name="actionjfgl"/>
+    <addaction name="actionjg"/>
+    <addaction name="actionu"/>
+   </widget>
+   <widget class="QMenu" name="mu_machine">
+    <property name="title">
+     <string>设备管理</string>
+    </property>
+    <addaction name="actiontjsb"/>
+    <addaction name="actionxg"/>
+    <addaction name="actionpldr"/>
+   </widget>
+   <widget class="QMenu" name="mu_select">
+    <property name="title">
+     <string>查询管理</string>
+    </property>
+    <addaction name="actioncxsb"/>
+   </widget>
+   <widget class="QMenu" name="mu_shelf">
+    <property name="title">
+     <string>上下架管理</string>
+    </property>
+    <addaction name="actionsjgl"/>
+    <addaction name="actionxjgl"/>
+   </widget>
+   <widget class="QMenu" name="mu_poll">
+    <property name="title">
+     <string>巡检管理</string>
+    </property>
+    <addaction name="actionsjpz"/>
+    <addaction name="actionsj"/>
+   </widget>
+   <addaction name="mu_baseinfo"/>
+   <addaction name="mu_machine"/>
+   <addaction name="mu_select"/>
+   <addaction name="mu_shelf"/>
+   <addaction name="mu_poll"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionjfgl">
+   <property name="text">
+    <string>机房管理</string>
+   </property>
+  </action>
+  <action name="actionjg">
+   <property name="text">
+    <string>机柜管理</string>
+   </property>
+  </action>
+  <action name="actionu">
+   <property name="text">
+    <string>U位管理</string>
+   </property>
+  </action>
+  <action name="actiontjsb">
+   <property name="text">
+    <string>添加设备</string>
+   </property>
+  </action>
+  <action name="actionxg">
+   <property name="text">
+    <string>修改设备信息</string>
+   </property>
+  </action>
+  <action name="actionsjgl">
+   <property name="text">
+    <string>上架管理</string>
+   </property>
+  </action>
+  <action name="actionxjgl">
+   <property name="text">
+    <string>下架管理</string>
+   </property>
+  </action>
+  <action name="actionsjpz">
+   <property name="text">
+    <string>巡检配置</string>
+   </property>
+  </action>
+  <action name="actionsj">
+   <property name="text">
+    <string>巡检操作</string>
+   </property>
+  </action>
+  <action name="actioncxsb">
+   <property name="text">
+    <string>查询设备</string>
+   </property>
+  </action>
+  <action name="actionpldr">
+   <property name="text">
+    <string>批量导入设备</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
