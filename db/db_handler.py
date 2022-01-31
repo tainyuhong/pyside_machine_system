@@ -12,7 +12,8 @@ class DBMysql(object):
         #     raise RuntimeError('数据库配置错误！')
         cf = configparser.ConfigParser(allow_no_value=True)
         try:
-            cf.read('db.ini')
+            cf.read(r'E:\PycharmProjects\pyside_machine_system\db\db.ini')
+            # cf.read('db.ini')
             self.host = cf.get('db', 'host')
             self.password = cf.get('db', 'password')
             self.user = cf.get('db', 'user')

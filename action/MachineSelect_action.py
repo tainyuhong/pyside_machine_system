@@ -1,7 +1,7 @@
 import sys
 from PySide6 import QtWidgets, QtGui, QtCore
-from MachineSelect import *
-from db_handler import *
+from ui.MachineSelect import *
+from db.db_handler import *
 
 
 class Ui_MachineSelect(QtWidgets.QMainWindow, Ui_MachineSelect):
