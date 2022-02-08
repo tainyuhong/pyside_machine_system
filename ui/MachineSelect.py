@@ -200,21 +200,25 @@ class Ui_MachineSelect(object):
         self.page_layout.setContentsMargins(0, 0, 0, 0)
         self.home_btn = QPushButton(self.layoutWidget)
         self.home_btn.setObjectName(u"home_btn")
+        self.home_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.home_btn)
 
         self.pre_btn = QPushButton(self.layoutWidget)
         self.pre_btn.setObjectName(u"pre_btn")
+        self.pre_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.pre_btn)
 
         self.next_btn = QPushButton(self.layoutWidget)
         self.next_btn.setObjectName(u"next_btn")
+        self.next_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.next_btn)
 
         self.last_btn = QPushButton(self.layoutWidget)
         self.last_btn.setObjectName(u"last_btn")
+        self.last_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.last_btn)
 
@@ -235,6 +239,7 @@ class Ui_MachineSelect(object):
 
         self.go_btn = QPushButton(self.layoutWidget)
         self.go_btn.setObjectName(u"go_btn")
+        self.go_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.go_btn)
 

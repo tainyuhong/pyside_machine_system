@@ -35,11 +35,12 @@ class Ui_MachineSelect(QtWidgets.QMainWindow, Ui_MachineSelect):
 
     # 根据查询进行查询获取数据
     def get_input_data(self):
-        # room = self.room.text()
-        # cabinet = self.cabinet.text()
-        # machine_name = self.machine_name.text()
-        # mg_ip = self.mg_ip.text()
-        # print(room, mg_ip, cabinet, machine_name)
+        # 在未进行查询时，翻页按钮不可用
+        self.pre_btn.setDisabled(False)  # 上一页按钮可用
+        self.next_btn.setDisabled(False)  # 下一页按钮可用
+        self.home_btn.setDisabled(False)  # 首页按钮可用
+        self.last_btn.setDisabled(False)  # 最后一页按钮可用
+        self.go_btn.setDisabled(False)      # 转到指定页可用
 
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表

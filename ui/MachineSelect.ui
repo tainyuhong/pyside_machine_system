@@ -354,6 +354,9 @@
     </property>
     <item>
      <widget class="QPushButton" name="home_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>首页</string>
       </property>
@@ -361,6 +364,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="pre_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>上一页</string>
       </property>
@@ -368,6 +374,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="next_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>下一页</string>
       </property>
@@ -375,6 +384,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="last_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>最后一页</string>
       </property>
@@ -399,6 +411,9 @@
     </item>
     <item>
      <widget class="QPushButton" name="go_btn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>转到</string>
       </property>
