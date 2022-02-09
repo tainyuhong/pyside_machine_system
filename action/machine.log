@@ -1,10 +1,5 @@
-2022-01-31 21:35:47,586 ERROR 数据库错误：No section: 'db'
-2022-01-31 21:35:49,048 ERROR 数据库错误：'DBMysql' object has no attribute 'cursor'
-2022-01-31 21:39:54,045 ERROR 数据库错误：No section: 'db'
-2022-01-31 21:39:55,008 ERROR 数据库错误：'DBMysql' object has no attribute 'cursor'
-2022-01-31 21:40:12,541 ERROR 数据库错误：No section: 'db'
-2022-01-31 21:40:13,880 ERROR 数据库错误：'DBMysql' object has no attribute 'cursor'
-2022-01-31 21:40:41,768 ERROR 数据库错误：No section: 'db'
-2022-01-31 21:40:43,161 ERROR 数据库错误：'DBMysql' object has no attribute 'cursor'
-2022-01-31 21:40:49,741 ERROR 数据库错误：No section: 'db'
-2022-01-31 21:40:51,032 ERROR 数据库错误：'DBMysql' object has no attribute 'cursor'
+2022-02-09 16:00:49,776 ERROR openpyxl does not support the old .xls file format, please use xlrd to read this file, or convert it to the more recent .xlsx file format.
+2022-02-09 16:01:57,357 ERROR 数据库错误：(1292, "Incorrect date value: '8/17/2016' for column 'factory_date' at row 5")
+2022-02-09 16:33:57,436 ERROR 数据库错误：(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
+2022-02-09 16:39:30,300 ERROR openpyxl does not support the old .xls file format, please use xlrd to read this file, or convert it to the more recent .xlsx file format.
+2022-02-09 16:43:55,372 ERROR openpyxl does not support  file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm

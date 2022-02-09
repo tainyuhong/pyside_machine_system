@@ -15,21 +15,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QHBoxLayout, QLabel, QLineEdit, QPushButton,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QWidget)
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
         Dialog.resize(486, 320)
-        self.buttonBox = QDialogButtonBox(Dialog)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setGeometry(QRect(0, 230, 471, 32))
-        self.buttonBox.setLayoutDirection(Qt.LeftToRight)
-        self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
         self.label = QLabel(Dialog)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(90, 20, 331, 31))
@@ -48,22 +41,29 @@ class Ui_Dialog(object):
         self.horizontalLayout.setSpacing(10)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(5, 5, 5, 5)
+        self.label_3 = QLabel(self.layoutWidget)
+        self.label_3.setObjectName(u"label_3")
+
+        self.horizontalLayout.addWidget(self.label_3)
+
         self.path_le = QLineEdit(self.layoutWidget)
         self.path_le.setObjectName(u"path_le")
+        self.path_le.setReadOnly(False)
 
         self.horizontalLayout.addWidget(self.path_le)
 
-        self.import_btn = QPushButton(self.layoutWidget)
+        self.select_btn = QPushButton(self.layoutWidget)
+        self.select_btn.setObjectName(u"select_btn")
+
+        self.horizontalLayout.addWidget(self.select_btn)
+
+        self.horizontalLayout.setStretch(1, 8)
+        self.horizontalLayout.setStretch(2, 2)
+        self.import_btn = QPushButton(Dialog)
         self.import_btn.setObjectName(u"import_btn")
-
-        self.horizontalLayout.addWidget(self.import_btn)
-
-        self.horizontalLayout.setStretch(0, 8)
-        self.horizontalLayout.setStretch(1, 2)
+        self.import_btn.setGeometry(QRect(170, 210, 75, 24))
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
 
         QMetaObject.connectSlotsByName(Dialog)
     # setupUi
@@ -72,6 +72,13 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u6279\u91cf\u5bfc\u5165\u8bbe\u5907\u4fe1\u606f", None))
         self.label.setText(QCoreApplication.translate("Dialog", u"\u6279\u91cf\u5bfc\u5165\u8bbe\u5907\u4fe1\u606f", None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"\u6ce8\uff1a\u7528\u4e8e\u5927\u91cf\u6570\u636e\u5bfc\u5165\u65f6\u7528", None))
-        self.import_btn.setText(QCoreApplication.translate("Dialog", u"\u9009\u62e9", None))
+        self.label_3.setText(QCoreApplication.translate("Dialog", u"\u8def\u5f84\uff1a", None))
+#if QT_CONFIG(tooltip)
+        self.path_le.setToolTip(QCoreApplication.translate("Dialog", u"\u8bf7\u9009\u62e9\u9700\u8981\u5bfc\u5165\u7684\u6587\u4ef6", None))
+#endif // QT_CONFIG(tooltip)
+        self.path_le.setText("")
+        self.path_le.setPlaceholderText(QCoreApplication.translate("Dialog", u"\u8bf7\u9009\u62e9\u9700\u8981\u5bfc\u5165\u7684\u6587\u4ef6", None))
+        self.select_btn.setText(QCoreApplication.translate("Dialog", u"\u9009\u62e9", None))
+        self.import_btn.setText(QCoreApplication.translate("Dialog", u"\u5bfc\u5165", None))
     # retranslateUi
 
