@@ -12,7 +12,7 @@ class UiImport(QtWidgets.QDialog, Ui_Dialog):
         self.setupUi(self)
         self.select_btn.clicked.connect(self.open_file)
         self.import_btn.clicked.connect(lambda :self.imp_file(self.path_le.text()))
-        self.template_lb.linkActivated.connect(self.download_template())
+        self.template_lb.linkActivated.connect(self.download_template)
 
     def open_file(self):
         # 创建文件选择框实例，并接收文件路径信息
