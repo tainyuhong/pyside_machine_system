@@ -12,6 +12,7 @@ class UiImport(QtWidgets.QDialog, Ui_Dialog):
         self.setupUi(self)
         self.select_btn.clicked.connect(self.open_file)
         self.import_btn.clicked.connect(lambda :self.imp_file(self.path_le.text()))
+        self.template_lb.linkActivated.connect(self.download_template())
 
     def open_file(self):
         # 创建文件选择框实例，并接收文件路径信息
@@ -69,7 +70,8 @@ class UiImport(QtWidgets.QDialog, Ui_Dialog):
         else:
             QtWidgets.QMessageBox.warning(self, '设备信息导入', '请选择需要导入的文件！')
 
-
+    def download_template(self):
+        print('点击了模板下载')
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

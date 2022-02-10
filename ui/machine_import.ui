@@ -59,9 +59,12 @@
      <height>34</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,8,2">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,8,2">
     <property name="spacing">
      <number>10</number>
+    </property>
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMinimumSize</enum>
     </property>
     <property name="leftMargin">
      <number>5</number>
@@ -100,6 +103,12 @@
     </item>
     <item>
      <widget class="QPushButton" name="select_btn">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>选择</string>
       </property>
@@ -118,6 +127,25 @@
    </property>
    <property name="text">
     <string>导入</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="template_lb">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>270</y>
+     <width>54</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:blue</string>
+   </property>
+   <property name="text">
+    <string>模板下载</string>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
