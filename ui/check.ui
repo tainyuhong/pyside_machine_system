@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>check_form</class>
+ <widget class="QWidget" name="check_form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1007</width>
+    <width>1000</width>
     <height>720</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>720</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -29,12 +41,21 @@
     <enum>QFrame::Raised</enum>
    </property>
    <property name="lineWidth">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="orientation">
     <enum>Qt::Vertical</enum>
    </property>
+   <property name="handleWidth">
+    <number>0</number>
+   </property>
    <widget class="QFrame" name="top_frame">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="minimumSize">
      <size>
       <width>1000</width>
@@ -47,6 +68,9 @@
       <height>100</height>
      </size>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
@@ -56,8 +80,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>293</x>
-       <y>25</y>
+       <x>320</x>
+       <y>20</y>
        <width>311</width>
        <height>51</height>
       </rect>
@@ -66,6 +90,9 @@
       <font>
        <pointsize>30</pointsize>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:blue</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -82,6 +109,12 @@
     </widget>
    </widget>
    <widget class="QSplitter" name="h_splitter">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
@@ -89,10 +122,10 @@
      <enum>QFrame::Raised</enum>
     </property>
     <property name="lineWidth">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="midLineWidth">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -100,14 +133,17 @@
     <property name="opaqueResize">
      <bool>true</bool>
     </property>
+    <property name="handleWidth">
+     <number>0</number>
+    </property>
     <property name="childrenCollapsible">
      <bool>true</bool>
     </property>
     <widget class="QFrame" name="l_frame">
      <property name="minimumSize">
       <size>
-       <width>200</width>
-       <height>300</height>
+       <width>0</width>
+       <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
@@ -125,7 +161,7 @@
      <property name="lineWidth">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -134,9 +170,9 @@
         <height>571</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
+      <layout class="QGridLayout" name="l_gridLayout">
        <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="check_cb">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -149,7 +185,7 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="hosts_lb">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -162,7 +198,11 @@
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QTextEdit" name="textEdit"/>
+        <widget class="QTextEdit" name="hostlist_te">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -176,8 +216,8 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>500</width>
-       <height>300</height>
+       <width>0</width>
+       <height>0</height>
       </size>
      </property>
      <property name="frameShape">
@@ -187,12 +227,12 @@
       <enum>QFrame::Raised</enum>
      </property>
      <property name="lineWidth">
-      <number>5</number>
+      <number>0</number>
      </property>
      <property name="midLineWidth">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -201,18 +241,21 @@
         <height>571</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2" columnstretch="2,3,3,2">
+      <layout class="QGridLayout" name="r_gridLayout" columnstretch="2,3,3,2">
        <property name="leftMargin">
         <number>5</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
        </property>
        <property name="spacing">
         <number>6</number>
        </property>
        <item row="0" column="2">
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="stat_radio">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -225,7 +268,7 @@
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="exec_btn">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -235,10 +278,19 @@
          <property name="text">
           <string>执行</string>
          </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="ping_radio">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -258,7 +310,7 @@
         </widget>
        </item>
        <item row="1" column="0" colspan="4">
-        <widget class="QTextEdit" name="textEdit_2">
+        <widget class="QTextEdit" name="dispaly_te">
          <property name="lineWidth">
           <number>0</number>
          </property>
@@ -271,6 +323,34 @@
      </widget>
     </widget>
    </widget>
+  </widget>
+  <widget class="QLabel" name="stat_lb">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>700</y>
+     <width>995</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:blue</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="text">
+    <string>就绪</string>
+   </property>
   </widget>
  </widget>
  <resources/>
