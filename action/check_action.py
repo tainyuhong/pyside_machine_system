@@ -31,6 +31,10 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         self.addhost_btn.clicked.connect(self.select_hosts)     # 查询所有设备
 
     def select_hosts(self):
+
+        def select_item():
+            print()
+
         db = DBMysql()
         host_win = AddHosts()
         sort_infos = db.query_single(sort_sql)          # 分类信息

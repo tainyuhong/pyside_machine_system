@@ -1,6 +1,7 @@
 import pymysql
 import configparser
 import logging
+import os
 
 # 定义日志格式
 logging.basicConfig(level=logging.WARN, format='%(asctime)s %(levelname)s %(message)s', filename='machine.log')
@@ -8,12 +9,10 @@ logging.basicConfig(level=logging.WARN, format='%(asctime)s %(levelname)s %(mess
 
 class DBMysql(object):
     def __init__(self, **kwargs):
-        # if not db:
-        #     raise RuntimeError('数据库配置错误！')
         cf = configparser.ConfigParser(allow_no_value=True)
+        base_file = os.path.dirname(os.path.abspath(__file__))      # 获取文件的绝对路径
         try:
-            cf.read(r'E:\PycharmProjects\pyside_machine_system\db\db.ini')
-            # cf.read('db.ini')
+            cf.read(os.path.join(base_file,'db.ini'))       # 动态读取ini文件
             self.host = cf.get('db', 'host')
             self.password = cf.get('db', 'password')
             self.user = cf.get('db', 'user')
@@ -24,9 +23,10 @@ class DBMysql(object):
                                         port=self.port, charset=self.charset, **kwargs)
         except Exception as e:
             # print('数据库错误：',e)
-            logging.error('数据库错误：{}'.format(e))
+            logging.error('数据库连接错误：{}'.format(e))
         else:
             self.cursor = self.conn.cursor()
+            print('数据库连接成功')
             logging.info('数据库连接正常')
 
 
