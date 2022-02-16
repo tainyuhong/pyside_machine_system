@@ -3,3 +3,6 @@
 2022-02-09 16:33:57,436 ERROR 数据库错误：(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
 2022-02-09 16:39:30,300 ERROR openpyxl does not support the old .xls file format, please use xlrd to read this file, or convert it to the more recent .xlsx file format.
 2022-02-09 16:43:55,372 ERROR openpyxl does not support  file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
+2022-02-16 10:13:42,369 ERROR 数据库错误：(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] 由于目标计算机积极拒绝，无法连接。)")
+2022-02-16 15:55:42,596 ERROR 数据库错误：not all arguments converted during string formatting
+2022-02-16 15:56:01,890 ERROR 数据库错误：not all arguments converted during string formatting
