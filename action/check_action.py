@@ -2,6 +2,7 @@ import os
 import sys
 import openpyxl
 from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6.QtWidgets import QTreeWidgetItemIterator
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
@@ -18,6 +19,43 @@ class AddHosts(QDialog,Ui_addhost_win):
     def __init__(self,parent=None):
         super(AddHosts, self).__init__(parent)
         self.setupUi(self)
+        self.treeWidget.itemChanged.connect(self.select_item)       # 树形控件变动时触发复选框事件
+
+    # 复选框事件
+    def select_item(self,item):
+        topitem = self.treeWidget.indexOfTopLevelItem(item)     # 获取顶级项索引
+        if item.checkState(0) == Qt.Checked:  # checkState(0)表示第0列选择状态
+            print('被选择', item.text(0))
+            if topitem >= 0:        # 返回索引大于等于0，不为顶级项时，为-1
+                item_count = item.childCount()  # 获取项级项下子项个数
+                print('顶级项名：', topitem)
+                print('子项个数：', item_count)
+
+                # 显示出所有子项
+                item_list = []      # 用于接收子项
+                for i in range(item_count):
+                    item_list.append([item.child(i).text(1),item.child(i).text(2)])     # 将子项的第二项和第三列以列表添加到子项列表中
+                    item.child(i).setCheckState(0,Qt.Checked)
+                print(item_list)
+            else:
+                print('不是父项！父项为：',item.parent().text(0))      # 查询父节点项名称
+                print('子项索引',item)
+        # if item.checkState(col) == Qt.Unchecked:
+        #     print('取消被选择', item.text(0))
+        #
+        #     if topitem >= 0 :
+        #         print('顶级项名：', topitem)
+        #         item_count=item.childCount()
+        #         print('子项个数：', item_count)
+        #         # 显示出所有子项
+        #         item_list = []      # 用于接收子项
+        #         for i in range(item_count):
+        #             item_list.append([item.child(i).text(1),item.child(i).text(2)])     # 将子项的第二项和第三列以列表添加到子项列表中
+        #             item.child(i).setCheckState(0,Qt.Unchecked)
+
+
+
+
 
 
 class UiCheck(Ui_check_form,QtWidgets.QFrame):
@@ -27,16 +65,14 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
     def __init__(self,parent=None):
         super(UiCheck, self).__init__(parent)
         self.setupUi(self)
-
         self.addhost_btn.clicked.connect(self.select_hosts)     # 查询所有设备
+
 
     def select_hosts(self):
 
-        def select_item():
-            print()
-
         db = DBMysql()
         host_win = AddHosts()
+
         sort_infos = db.query_single(sort_sql)          # 分类信息
 
         # 遍历分类，显示设备信息
@@ -49,10 +85,10 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
             # 遍历主机信息显示并添加到列表中
             for child_item in hosts_infos:
                 Child_Item = QTreeWidgetItem(RootItem)
-                print('子项',child_item)
                 Child_Item.setText(1, child_item[0])        # 显示第二列
                 Child_Item.setText(2, child_item[1])        # 显示第三列
                 Child_Item.setCheckState(0,Qt.Unchecked)       # 添加复选框
+
         host_win.exec()
 
 
