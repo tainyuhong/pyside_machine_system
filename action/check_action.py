@@ -26,6 +26,7 @@ class AddHosts(QDialog,Ui_addhost_win):
         topitem = self.treeWidget.indexOfTopLevelItem(item)     # 获取顶级项索引
         if item.checkState(0) == Qt.Checked:  # checkState(0)表示第0列选择状态
             print('被选择', item.text(0))
+            item_selected = []
             if topitem >= 0:        # 返回索引大于等于0，不为顶级项时，为-1
                 item_count = item.childCount()  # 获取项级项下子项个数
                 print('顶级项名：', topitem)
@@ -39,7 +40,7 @@ class AddHosts(QDialog,Ui_addhost_win):
                 print(item_list)
             else:
                 print('不是父项！父项为：',item.parent().text(0))      # 查询父节点项名称
-                print('子项索引',item)
+                print('子项索引',item.text(1))
         # if item.checkState(col) == Qt.Unchecked:
         #     print('取消被选择', item.text(0))
         #
