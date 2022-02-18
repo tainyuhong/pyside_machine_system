@@ -2,7 +2,7 @@ import os
 import sys
 import openpyxl
 from PySide6 import QtWidgets, QtGui, QtCore
-from PySide6.QtWidgets import QTreeWidgetItemIterator
+# from PySide6.QtWidgets import QTreeWidgetItemIterator
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
@@ -16,22 +16,22 @@ class AddHosts(QDialog,Ui_addhost_win):
     '''
     添加主机窗口类
     '''
+    host_message = QtCore.Signal(str)       # 定义信号
     def __init__(self,parent=None):
         super(AddHosts, self).__init__(parent)
         self.setupUi(self)
         self.treeWidget.itemChanged.connect(self.select_item)       # 树形控件变动时触发复选框事件
+        self.add_btn.clicked.connect(self.get_checked_item)            # 点击添加按钮
 
     # 复选框事件
     def select_item(self,item):
         topitem = self.treeWidget.indexOfTopLevelItem(item)     # 获取顶级项索引
+        # 选择项
         if item.checkState(0) == Qt.Checked:  # checkState(0)表示第0列选择状态
-            print('被选择', item.text(0))
-            item_selected = []
-            if topitem >= 0:        # 返回索引大于等于0，不为顶级项时，为-1
+            if topitem >= 0:        # 返回索引大于等于0为顶级项，值为-1时，当前选择项是子项
                 item_count = item.childCount()  # 获取项级项下子项个数
-                print('顶级项名：', topitem)
+                print('顶级项名索引：', topitem, '项名：', item.text(0))      # 显示顶级项索引及项名
                 print('子项个数：', item_count)
-
                 # 显示出所有子项
                 item_list = []      # 用于接收子项
                 for i in range(item_count):
@@ -40,24 +40,37 @@ class AddHosts(QDialog,Ui_addhost_win):
                 print(item_list)
             else:
                 print('不是父项！父项为：',item.parent().text(0))      # 查询父节点项名称
-                print('子项索引',item.text(1))
-        # if item.checkState(col) == Qt.Unchecked:
-        #     print('取消被选择', item.text(0))
-        #
-        #     if topitem >= 0 :
-        #         print('顶级项名：', topitem)
-        #         item_count=item.childCount()
-        #         print('子项个数：', item_count)
-        #         # 显示出所有子项
-        #         item_list = []      # 用于接收子项
-        #         for i in range(item_count):
-        #             item_list.append([item.child(i).text(1),item.child(i).text(2)])     # 将子项的第二项和第三列以列表添加到子项列表中
-        #             item.child(i).setCheckState(0,Qt.Unchecked)
+                print('选择子项：',item.text(1),item.text(2))
 
+        # 取消选择
+        if item.checkState(0) == Qt.Unchecked:
+            if topitem >= 0:        # 返回索引大于等于0为顶级项，值为-1时，当前选择项是子项
+                item_count = item.childCount()  # 获取项级项下子项个数
+                print('顶级项名索引：', topitem,'项名：', item.text(0))
+                print('子项个数：', item_count)
+                # 显示出所有子项
+                item_list = []      # 用于接收子项
+                for i in range(item_count):
+                    item_list.append([item.child(i).text(1),item.child(i).text(2)])     # 将子项的第二项和第三列以列表添加到子项列表中
+                    item.child(i).setCheckState(0,Qt.Unchecked)
+                print(item_list)
+            else:
+                print('不是父项！父项为：',item.parent().text(0))      # 查询父节点项名称
+                print('选择子项：',item.text(1),item.text(2))
 
-
-
-
+    def get_checked_item(self):
+        top_item_count = self.treeWidget.topLevelItemCount()
+        select_item = []
+        for top_index in range(top_item_count):
+            top_item = self.treeWidget.topLevelItem(top_index)  # 获取项级项下子项个数
+            print('顶级项：',top_item.text(0),'子项数：',top_item.childCount())
+            for i in range(top_item.childCount()):
+                if top_item.child(i).checkState(0) == Qt.Checked:
+                    select_item.append([top_item.child(i).text(1), top_item.child(i).text(2)])  # 将子项的第二项和第三列以列表添加到子项列表中
+                    top_item.child(i).setCheckState(0, Qt.Unchecked)
+                # else:
+                #     pass
+        print(select_item)
 
 class UiCheck(Ui_check_form,QtWidgets.QFrame):
     '''
@@ -89,7 +102,7 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
                 Child_Item.setText(1, child_item[0])        # 显示第二列
                 Child_Item.setText(2, child_item[1])        # 显示第三列
                 Child_Item.setCheckState(0,Qt.Unchecked)       # 添加复选框
-
+        host_win.host_message.connect()
         host_win.exec()
 
 
