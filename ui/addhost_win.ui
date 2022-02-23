@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>添加主机</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -28,18 +28,11 @@
      <height>391</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="7,1,2">
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="add_btn">
-      <property name="text">
-       <string>添加</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0" colspan="3">
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
@@ -77,6 +70,20 @@
         <string>管理IP</string>
        </property>
       </column>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="add_btn">
+      <property name="text">
+       <string>添加</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </item>
    </layout>

@@ -6,30 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1006</width>
-    <height>734</height>
+    <width>1012</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1006</width>
-    <height>734</height>
+    <width>1012</width>
+    <height>733</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1006</width>
-    <height>734</height>
+    <width>1012</width>
+    <height>733</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>设备巡检</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>1</x>
+     <y>1</y>
      <width>1002</width>
      <height>731</height>
     </rect>
@@ -133,7 +133,7 @@
         <property name="lineWidth">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="layoutWidget_2">
+        <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
            <x>11</x>
@@ -221,7 +221,7 @@
         <property name="midLineWidth">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="layoutWidget_3">
+        <widget class="QWidget" name="">
          <property name="geometry">
           <rect>
            <x>13</x>
@@ -309,12 +309,9 @@
      </layout>
     </item>
     <item>
-     <widget class="QLabel" name="status_le">
-      <property name="styleSheet">
-       <string notr="true">color:blue</string>
-      </property>
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>就绪</string>
+       <string>TextLabel</string>
       </property>
      </widget>
     </item>
