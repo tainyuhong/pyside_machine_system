@@ -6,6 +6,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
+from connect import SshToHost
 
 
 # SQL查询语句
@@ -67,7 +68,7 @@ class AddHosts(QDialog,Ui_addhost_win):
             # print('顶级项：',top_item.text(0),'子项数：',top_item.childCount())
             for i in range(top_item.childCount()):
                 if top_item.child(i).checkState(0) == Qt.Checked:
-                    select_item.append('{} {}'.format(top_item.child(i).text(1), top_item.child(i).text(2)))  # 将子项的第二项和第三列以列表添加到子项列表中
+                    select_item.append('{}:{}'.format(top_item.child(i).text(1), top_item.child(i).text(2)))  # 将子项的第二项和第三列以列表添加到子项列表中
                     top_item.child(i).setCheckState(0, Qt.Unchecked)
                 # else:
                 #     pass
@@ -81,8 +82,10 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
     '''
     def __init__(self,parent=None):
         super(UiCheck, self).__init__(parent)
+        self.hosts_list = []    # 初始化主机列表为空列表
         self.setupUi(self)
         self.addhost_btn.clicked.connect(self.select_hosts)     # 查询所有设备
+        self.exec_btn.clicked.connect(self.do_ping)         # 执行ping
 
     def select_hosts(self):
         db = DBMysql()
@@ -105,10 +108,35 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         host_win.host_message.connect(self.display_to_text)
         host_win.exec()
 
-    # 将获取的主机列表显示至主机添加窗口中
+    # 将获取的主机列表显示至主机添加窗口中，hosts为列表格式
     def display_to_text(self,hosts):
         print('子窗口返回数据：',hosts)
-        self.host_listw.addItems(hosts)
+        self.hosts_list = hosts
+        self.host_listw.addItems(self.hosts_list)
+
+
+    def do_ping(self):
+        """
+                    主机主机存活状态检查函数
+                    :type info: tuple
+                    :param info: 主机列表信息  ，传入格式：（('hostname','ip','user','passwd')，('hostname','ip','user','passwd')。。。）
+                    :return:
+                    """
+        print('正在检测主机连通性状态，请稍候. \n\n')
+        print(self.hosts_list)
+        up = []
+        down = []
+        hosts_ip = []
+        for i in self.hosts_list:
+            hosts_ip.append(i.split(':'))
+        print('新的主机IP表',hosts_ip)
+        for host in hosts_ip:
+
+            cursor = self.dispaly_te.textCursor()
+            self.dispaly_te.moveCursor(cursor.End)      # 将光标移动到最后
+            self.dispaly_te.append(SshToHost.is_alive(host,up,down))        # 将返回的结果显示至文本框
+            QtWidgets.QApplication.processEvents()      # 实时刷新页面，防止页面无响应
+
 
 
 if __name__ == '__main__':
