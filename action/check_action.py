@@ -84,6 +84,7 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         super(UiCheck, self).__init__(parent)
         self.hosts_list = []    # 初始化主机列表为空列表
         self.setupUi(self)
+        self.ping_radio.setChecked(True)        # 设置ping按钮默认为选择
         self.addhost_btn.clicked.connect(self.select_hosts)     # 查询所有设备
         self.exec_btn.clicked.connect(self.do_ping)         # 执行ping
 
@@ -124,19 +125,17 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
                     """
         print('正在检测主机连通性状态，请稍候. \n\n')
         print(self.hosts_list)
-        up = []
-        down = []
-        hosts_ip = []
+        up = []     # 初始定义存活主机
+        down = []       # 初始定义非存活主机
+        hosts_ip = []   # 用于接收存活主机列表
         for i in self.hosts_list:
             hosts_ip.append(i.split(':'))
         print('新的主机IP表',hosts_ip)
         for host in hosts_ip:
-
             cursor = self.dispaly_te.textCursor()
             self.dispaly_te.moveCursor(cursor.End)      # 将光标移动到最后
-            self.dispaly_te.append(SshToHost.is_alive(host,up,down))        # 将返回的结果显示至文本框
+            self.dispaly_te.append(SshToHost.is_alive(host,up,down))     # 将返回的结果显示至文本框 SshToHost.is_alive ping函数
             QtWidgets.QApplication.processEvents()      # 实时刷新页面，防止页面无响应
-
 
 
 if __name__ == '__main__':

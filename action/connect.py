@@ -30,11 +30,11 @@ class SshToHost(object):
         except Exception as e:
             # logging.error('连接错误：'.format(e))
             logging.warning('{}:{} IP或端口异常,将不执行巡检任务！！！'.format(host[0], host[1]))
-            return '\t{}:{}  IP或端口异常,将不执行巡检任务！！！'.format(host[0], host[1])
+            return '  {}:{}  IP或端口异常,将不执行巡检任务！！！'.format(host[0], host[1])
         else:
             logging.info(' {}:{}  网络及22端口正常！'.format(host[0], host[1]))
             good_host.append(host)  # 添加到正常主机列表中
-            return '\t{} : {}  网络及22端口正常！'.format(host[0], host[1])
+            return '  {} : {}  网络及22端口正常！'.format(host[0], host[1])
         finally:
             t.close()  # 关闭连接
 
