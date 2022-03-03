@@ -76,6 +76,18 @@ class AddHosts(QDialog,Ui_addhost_win):
         self.host_message.emit(select_item)
         self.close()
 
+
+# 多线程
+class WorkThread(QtCore.QThread):
+    trigger = QtCore.Signal()
+    def __init__(self):
+        super(WorkThread, self).__init__()
+
+    def run(self):
+        self.ssh.exec_cmd( )  # (i[2],1) 1:为命令类型
+        self.trigger.emit()
+
+
 class UiCheck(Ui_check_form,QtWidgets.QFrame):
     '''
     设备巡检窗口类
@@ -84,9 +96,19 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         super(UiCheck, self).__init__(parent)
         self.hosts_list = []    # 初始化主机列表为空列表
         self.setupUi(self)
+        self.ssh = SshToHost()
         self.ping_radio.setChecked(True)        # 设置ping按钮默认为选择
         self.addhost_btn.clicked.connect(self.select_hosts)     # 查询所有设备
-        self.exec_btn.clicked.connect(self.do_ping)         # 执行ping
+        # 判断是执行ping还是巡检命令
+        self.exec_btn.clicked.connect(self.chose_action)         # 执行ping
+
+        # # 设定任务栏时间
+        # self.timer = QtCore.QTimer()
+        # time = QDateTime().currentDateTime()    # 时间对象
+        # timedisplay = time.toString('yyyy-MM-dd hh:mm:ss')
+        # self.status_le.setText(timedisplay)
+        # self.timer.start(0.1)
+
 
     def select_hosts(self):
         db = DBMysql()
@@ -115,6 +137,13 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         self.hosts_list = hosts
         self.host_listw.addItems(self.hosts_list)
 
+    def chose_action(self):
+        if self.ping_radio.isChecked():
+            print('ping状态',self.ping_radio.isChecked())
+            self.do_ping()       # 执行ping
+        else:
+            print('stat状态', self.stat_radio.isChecked())
+            self.do_check()       # 执行巡检
 
     def do_ping(self):
         """
@@ -134,8 +163,20 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         for host in hosts_ip:
             cursor = self.dispaly_te.textCursor()
             self.dispaly_te.moveCursor(cursor.End)      # 将光标移动到最后
-            self.dispaly_te.append(SshToHost.is_alive(host,up,down))     # 将返回的结果显示至文本框 SshToHost.is_alive ping函数
+            self.dispaly_te.append(self.ssh.is_alive(host,up,down))     # 将返回的结果显示至文本框 SshToHost.is_alive ping函数
             QtWidgets.QApplication.processEvents()      # 实时刷新页面，防止页面无响应
+
+    # 执行巡检任务
+    def do_check(self):
+        check_sql = ''' select * from view_check_cmd c '''
+        check_cmd_sql = ''' select c.cmd from view_check_cmd c where c.ip=%s and c.cmd_id=%s  '''
+        db = DBMysql()
+        check_hosts = db.query_single(check_sql)
+        print(check_hosts)
+        for i in check_hosts:
+            print('巡检中主机：',i)
+            self.ssh.exec_cmd(i[1:5],check_cmd_sql,(i[2],1))       # (i[2],1) 1:为命令类型
+
 
 
 if __name__ == '__main__':

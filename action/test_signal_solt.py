@@ -1,3 +1,4 @@
+# 测试多窗口signal信号传递
 import sys
 
 from PySide6.QtCore import *

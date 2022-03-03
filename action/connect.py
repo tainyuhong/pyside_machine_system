@@ -5,13 +5,13 @@ import logging
 import time
 import pathlib
 import subprocess
-# import sqlite_handler as sqlite
+from db.db_handler import *
 
 # 定义日志格式
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
 
 # 创建数据库对象实例
-# db = sqlite.DbHandler()
+db = DBMysql()
 
 
 # 建立连通性及检查类
@@ -64,8 +64,10 @@ class SshToHost(object):
     def exec_cmd(self, host, cmd_sql, args):
         """
         ssh到主机执行命令，并发送到终端，必须传入4元元组数据
-        :param normal_hosts: 传入22端口能正常访问的主机，格式('hostname','ip','user','passwd')
-        :return:返回执行成功数
+        :param host: 传入22端口能正常访问的主机，格式('hostname','ip','user','passwd')
+        :param cmd_sql:巡检命令查询SQL
+        :param args:巡检命令传入参数 ，需要传入ip,命令类型
+        :return:
         """
         count = 0  # 计数巡检主机数
         hostname, ip, username, password = host
@@ -86,14 +88,17 @@ class SshToHost(object):
             logging.info('连接主机:{}:{}正常'.format(hostname, ip))
             # 打开一个通道
             self.channel = self.trans.open_session()
-            self.channel.settimeout(1000)
+            self.channel.settimeout(100)
             # 获取一个终端
             self.channel.get_pty()
             # 激活器
             self.channel.invoke_shell()
             # 根据配置文件定义command项执行脚本
             # 获取脚本命令内容
-            cmd_file = db.select_sql(cmd_sql, args)     # 查看有几个可执行的脚本配置文件
+            print('cmd_sql',cmd_sql)
+            print('args',args)
+            cmd_file = db.query_single(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
+            print('cmd_file',cmd_file)
             if len(cmd_file) > 0:
                 # print('cmd_file',cmd_file)
                 for i in cmd_file:      # 遍历脚本配置文件
