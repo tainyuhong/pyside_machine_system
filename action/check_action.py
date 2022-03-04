@@ -78,14 +78,16 @@ class AddHosts(QDialog,Ui_addhost_win):
 
 
 # 多线程
-class WorkThread(QtCore.QThread):
-    trigger = QtCore.Signal()
-    def __init__(self):
-        super(WorkThread, self).__init__()
-
-    def run(self):
-        self.ssh.exec_cmd( )  # (i[2],1) 1:为命令类型
-        self.trigger.emit()
+# class WorkThread(QtCore.QThread):
+#     trigger = QtCore.Signal()
+#     def __init__(self):
+#         super(WorkThread, self).__init__()
+#
+#     def run(self,h,sql):
+#         for i in h:
+#             print('巡检中主机：', i)
+#             self.ssh.exec_cmd(i[1:5], sql, (i[2], 1))  # (i[2],1) 1:为命令类型
+#         self.trigger.emit()
 
 
 class UiCheck(Ui_check_form,QtWidgets.QFrame):
@@ -143,7 +145,13 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
             self.do_ping()       # 执行ping
         else:
             print('stat状态', self.stat_radio.isChecked())
-            self.do_check()       # 执行巡检
+            print('主线程',QtCore.QThread.currentThread())
+            check_thread = QtCore.QThread()
+            # self.do_check()       # 执行巡检
+            check_thread.moveToThread(self.do_check())
+            check_thread.start()
+            print('任务线程：',check_thread.currentThread())
+            check_thread.emit()
 
     def do_ping(self):
         """
@@ -173,6 +181,7 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame):
         db = DBMysql()
         check_hosts = db.query_single(check_sql)
         print(check_hosts)
+
         for i in check_hosts:
             print('巡检中主机：',i)
             self.ssh.exec_cmd(i[1:5],check_cmd_sql,(i[2],1))       # (i[2],1) 1:为命令类型
