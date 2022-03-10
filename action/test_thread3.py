@@ -1,20 +1,17 @@
-# 测试多线程moveToThread
+# 测试多线程moveToThread  静态参数
 import sys
 import time
-from PySide6.QtCore import  *
+from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import paramiko
 
 class MyObject(QObject):
     update_signal = Signal(str)
+    end_signal = Signal(str)
+
     def __init__(self,parent=None):
         super(MyObject, self).__init__(parent)
-
-    def worker(self):
-        while True:
-            time.sleep(2)
-            self.update_signal.emit('发送定时任务消息')
 
     # 执行巡检
     def ssh_to_host(self):
@@ -32,7 +29,7 @@ class MyObject(QObject):
         except Exception as e:
             print('连接错误：', e)
         else:
-            print('连接主机:{}:{}正常'.format('host-70', '192.168.1.70'))
+            print('连接主机:{}:{}   ---> 正常'.format('host-70', '192.168.1.70'))
             # 打开一个通道
             self.channel = self.trans.open_session()
             self.channel.settimeout(100)
@@ -50,11 +47,12 @@ class MyObject(QObject):
             if len(cmd_file) > 0:
                 # print('cmd_file',cmd_file)
                 single_cmd = cmd_file[0][0].split('\r\n')  # 提取配置文件中脚本命令
-                print('single_cmd',single_cmd)
+                # print('single_cmd',single_cmd)
+                print('00000', QThread.currentThread())
                 for c in single_cmd:  # 遍历每个命令
                     # print('命令c：', c,type(c))
                     # 发送要执行的命令
-                    time.sleep(2)
+                    time.sleep(1)
                     # logging.info('执行命令：【{}】'.format(c))  # 记录需要执行的命令到日志
                     self.channel.send(c + '\n')  # 在每一个命令后加上换行
                     # self.channel.send(c)  # 在每一个命令后加上换行
@@ -76,18 +74,20 @@ class MyObject(QObject):
                             break
                     self.update_signal.emit(display_result)   # 发送命令返回结果
                 print()
+                print('\n111111', QThread.currentThread())
                 print('=' * 80)
             else:
                 print('没有配置相关命令！，请配置检查脚本命令后再操作！！')
                 return
+        finally:
             self.channel.close()
             self.trans.close()
-        print('\n')
-        # return count  # 返回执行成功数
-
+            print('\n2222')
+            self.end_signal.emit('断开SSH连接')  # 发送命令返回结果
 
 
 class MainForm(QWidget):
+
     def __init__(self, parent=None):
         super(MainForm, self).__init__(parent)
         self.setWindowTitle('多线程测试-定时发送消息')
@@ -98,18 +98,26 @@ class MainForm(QWidget):
         self.text = QTextEdit(self)
         layout.addWidget(self.text)
         self.setLayout(layout)
+
+        self.my_thread = QThread()
         self.start_btu.clicked.connect(self.do_worker)
 
-
     def do_worker(self):
+        print('开始运行程序。。')
+        print('当前线程：', QThread.currentThread(), self.my_thread.isRunning())
         self.text.clear()
         self.obj = MyObject()
         self.obj.update_signal.connect(self.update_text)
-        self.mythread = QThread()
-        self.obj.moveToThread(self.mythread)
+        self.obj.end_signal.connect(self.stop)
+        self.obj.moveToThread(self.my_thread)
         # self.mythread.started.connect(self.obj.worker)
-        self.mythread.started.connect(self.obj.ssh_to_host)
-        self.mythread.start()
+        self.my_thread.started.connect(self.obj.ssh_to_host)
+
+        print('启动新线程')
+        self.my_thread.start()
+        print('新线程self.mythread：', self.my_thread.currentThread(), self.my_thread.isRunning())
+
+
 
     # 更新文本框显示内容
     def update_text(self,text):
@@ -117,6 +125,12 @@ class MainForm(QWidget):
         cursor = self.text.textCursor()
         self.text.moveCursor(cursor.End)  # 将光标移动到最后
         self.text.insertPlainText(text)
+
+    # 关闭线程
+    def stop(self):
+        print('关闭当前线程')
+        self.my_thread.quit()
+        self.my_thread.wait()
 
 
 if __name__ == '__main__':
