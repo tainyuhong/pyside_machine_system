@@ -244,10 +244,10 @@ INSERT INTO `cab_position` VALUES ('42', '42', '42U', null, null, null);
 DROP TABLE IF EXISTS `cmd_file`;
 CREATE TABLE `cmd_file` (
   `cmd_id` int NOT NULL COMMENT 'id',
-  `cmd_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '命令集名称',
+  `cmd_name` varchar(255)  DEFAULT NULL COMMENT '命令集名称',
   `cmd` varchar(255) DEFAULT NULL COMMENT '命令内容',
   PRIMARY KEY (`cmd_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Records of cmd_file
@@ -271,7 +271,7 @@ CREATE TABLE `machine_check_user` (
   PRIMARY KEY (`id`),
   KEY `machine_check_user_idfk_machine_id` (`machine_id`),
   CONSTRAINT `machine_check_user_idfk_machine_id` FOREIGN KEY (`machine_id`) REFERENCES `machine_infos` (`machine_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='设备巡检用户信息';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci COMMENT='设备巡检用户信息';
 
 -- ----------------------------
 -- Records of machine_check_user
@@ -797,7 +797,7 @@ CREATE TABLE `manufacturer` (
   `manufacturer_name` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 -- ----------------------------
 -- Records of manufacturer

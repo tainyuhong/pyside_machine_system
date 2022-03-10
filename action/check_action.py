@@ -1,8 +1,7 @@
-import os
 import sys
-import openpyxl
+import paramiko
+import time
 from PySide6 import QtWidgets, QtGui, QtCore
-# from PySide6.QtWidgets import QTreeWidgetItemIterator
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
@@ -13,6 +12,7 @@ from connect import SshToHost
 hosts_sql = ''' select m.machine_name,m.mg_ip from machine_list m where m.mg_ip is not Null and m.machine_sort_name= %s;'''
 sort_sql = '''select s.sort_name from machine_sort s  where s.part_sort_id is not Null ;'''
 
+# 添加主机窗口类
 class AddHosts(QDialog,Ui_addhost_win):
     '''
     添加主机窗口 子窗口
@@ -77,24 +77,14 @@ class AddHosts(QDialog,Ui_addhost_win):
         self.close()
 
 
-# 多线程
-# class WorkThread(QtCore.QThread):
-#     # trigger = QtCore.Signal()
-#     def __init__(self):
-#         super(WorkThread, self).__init__()
-#
-#     def run(self,h,sql):
-#         for i in h:
-#             print('巡检中主机：', i)
-#             self.ssh.exec_cmd(i[1:5], sql, (i[2], 1))  # (i[2],1) 1:为命令类型
-#         self.trigger.emit()
-
-
+# 主机巡检窗口类
 class UiCheck(Ui_check_form,QtWidgets.QFrame,QObject):
     '''
     设备巡检窗口类
     '''
-    def __init__(self,parent=None):
+    host_signal = QtCore.Signal(list)  # 定义主机信息信号
+
+    def __init__(self, parent=None):
         super(UiCheck, self).__init__(parent)
         self.hosts_list = []    # 初始化主机列表为空列表
         self.setupUi(self)
@@ -104,12 +94,6 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame,QObject):
         # 判断是执行ping还是巡检命令
         self.exec_btn.clicked.connect(self.chose_action)         # 执行ping
 
-        # # 设定任务栏时间
-        # self.timer = QtCore.QTimer()
-        # time = QDateTime().currentDateTime()    # 时间对象
-        # timedisplay = time.toString('yyyy-MM-dd hh:mm:ss')
-        # self.status_le.setText(timedisplay)
-        # self.timer.start(0.1)
 
     def select_hosts(self):
         db = DBMysql()
@@ -144,15 +128,14 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame,QObject):
             self.do_ping()       # 执行ping
         else:
             print('stat状态', self.stat_radio.isChecked())
-            print('主线程前',QtCore.QThread.currentThread())
-            # self.do_check()        # 执行巡检
-
-            check_thread = QtCore.QThread()
-            check = Actin_Thread()
-            check.moveToThread(check_thread)
-            check.check_signal.connect(check.do_check())
-            check_thread.start()
-            print('主线程执行后',QtCore.QThread.currentThread())
+            # print('主线程前',QtCore.QThread.currentThread())
+            self.check_thread = QtCore.QThread()
+            self.check = Actin_Thread()
+            self.check.moveToThread(self.check_thread)
+            self.check.update_signal.connect(self.update_text)
+            self.check_thread.started.connect(self.check.do_check)
+            self.check_thread.start()
+            # print('主线程执行后',QtCore.QThread.currentThread())
 
 
     def do_ping(self):
@@ -176,35 +159,115 @@ class UiCheck(Ui_check_form,QtWidgets.QFrame,QObject):
             self.dispaly_te.append(self.ssh.is_alive(host,up,down))     # 将返回的结果显示至文本框 SshToHost.is_alive ping函数
             QtWidgets.QApplication.processEvents()      # 实时刷新页面，防止页面无响应
 
-    # # 执行巡检任务
-    # def do_check(self):
-    #     check_sql = ''' select * from view_check_cmd c '''
-    #     check_cmd_sql = ''' select c.cmd from view_check_cmd c where c.ip=%s and c.cmd_id=%s  '''
-    #     db = DBMysql()
-    #     check_hosts = db.query_single(check_sql)
-    #     print(check_hosts)
-    #     for i in check_hosts:
-    #         print('巡检中主机：',i)
-    #         self.ssh.exec_cmd(i[1:5],check_cmd_sql,(i[2],1))       # (i[2],1) 1:为命令类型
+    # 更新文本框显示内容
+    def update_text(self,text):
+        cursor = self.dispaly_te.textCursor()
+        self.dispaly_te.moveCursor(cursor.End)  # 将光标移动到最后
+        self.dispaly_te.insertPlainText(text)     # 插入文本
 
+    # 关闭线程
+    def stop(self):
+        print('关闭当前线程')
+        self.my_thread.quit()       # 退出子线程
+        self.my_thread.wait()
 
+# 巡检任务类
 class Actin_Thread(QObject):
-    check_signal = QtCore.Signal()
+    update_signal = QtCore.Signal(str)  # 发送执行命令结果给主进程用于返回显示至界面
+    end_signal = QtCore.Signal(str)  # 处理完任务发送信息
+
     def __init__(self):
         super(Actin_Thread, self).__init__()
         self.ssh = SshToHost()
+        self.check_hosts = None
+
     # 执行巡检任务
     def do_check(self):
         check_sql = ''' select * from view_check_cmd c '''
         check_cmd_sql = ''' select c.cmd from view_check_cmd c where c.ip=%s and c.cmd_id=%s  '''
         db = DBMysql()
-        check_hosts = db.query_single(check_sql)
-        print(check_hosts)
-        print('子线程', QtCore.QThread.currentThread())
-        for i in check_hosts:
-            print('巡检中主机：', i)
-            self.ssh.exec_cmd(i[1:5], check_cmd_sql, (i[2], 1))  # (i[2],1) 1:为命令类型
-            self.check_signal.emit()
+        self.check_hosts = db.query_single(check_sql)
+        # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
+        # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
+        print('执行任务中的Ip:', self.check_hosts)
+        for i in self.check_hosts:
+            try:
+                # self.trans = paramiko.Transport(('192.168.1.70', 22))  # 使用Transport方式连接
+                self.trans = paramiko.Transport((i[2], 22))  # 使用Transport方式连接
+                self.trans.start_client(timeout=0.5)
+                # paramiko.util.log_to_file('paramiko-log.log')  # 记录执行日志
+                # 用户名密码方式
+                self.trans.auth_timeout = 3
+                self.trans.auth_password(username=i[3], password=i[4], fallback=True)
+            # except paramiko.ssh_exception.AuthenticationException as pass_err:
+            #     # logging.error('{}:{} {}'.format(hostname, ip, pass_err))
+            #     print('{}:{} 用户名或密码错误，跳过巡检'.format(hostname, ip))
+            #     # continue
+            except Exception as e:
+                print('连接错误：', e)
+                self.update_signal.emit(str(e))  # 发送错误至主窗口结果
+            else:
+                print('连接主机:{}:{}   ---> 正常'.format('host-70', i))
+                # 打开一个通道
+                self.channel = self.trans.open_session()
+                self.channel.settimeout(10)
+                # 获取一个终端
+                self.channel.get_pty()
+                # 激活器
+                self.channel.invoke_shell()
+                # 根据配置文件定义command项执行脚本
+                # 获取脚本命令内容
+                # print('cmd_sql', cmd_sql)
+                # print('args', args)
+                # cmd_file = db.query_single(cmd_sql, args)  # 查看有几个可执行的脚本配置文件
+                cmd_file = i[6]
+                print('cmd_file', cmd_file)  # 'date\r\nhostname\r\nuname'
+                if len(cmd_file) > 0:
+                    # print('cmd_file',cmd_file)
+                    single_cmd = cmd_file.split('\r\n')  # 提取配置文件中脚本命令
+                    # print('single_cmd',single_cmd)
+                    # print('00000', QtCore.QThread.currentThread())
+                    for c in single_cmd:  # 遍历每个命令
+                        # print('命令c：', c,type(c))
+                        # 发送要执行的命令
+                        time.sleep(1)
+                        # logging.info('执行命令：【{}】'.format(c))  # 记录需要执行的命令到日志
+                        self.channel.send(c + '\n')  # 在每一个命令后加上换行
+                        # self.channel.send(c)  # 在每一个命令后加上换行
+                        end_symbol = ('# ', '$ ', '$', '> ', '>')  # 设置我们定义的结束符
+                        # 将命令执行结果保存到display_result
+                        display_result = ''
+                        # # 回显很长的命令可能执行较久，通过循环分批次取回回显
+                        time.sleep(0.1)
+                        while True:
+                            result = self.channel.recv(256)
+                            try:
+                                result = result.decode('utf-8')
+                                # logging.warning('使用UTF-8编码！')
+                            except:
+                                result = result.decode('gb18030')
+                                # logging.warning('使用gb18030编码！')
+                            display_result += result  # 输出到日志显示窗口
+                            if result.endswith(end_symbol):
+                                break
+                        self.update_signal.emit(display_result)  # 发送命令返回至主窗口结果
+                    print()
+                    # print('\n111111', QtCore.QThread.currentThread())
+                    print('=' * 80)
+                else:
+                    print('没有配置相关命令！，请配置检查脚本命令后再操作！！')
+                    return
+            finally:
+                self.channel.close()
+                self.trans.close()
+                print('\n2222')
+        self.end_signal.emit('断开SSH连接')  # 发送巡检命令执行完信号
+
+        # 接收主界面线程发送的主机IP信息
+
+    def accpet_hostsinfo(self, host_info):
+        print('子进程接收到信息：', host_info)
+        self.check_hosts = host_info
 
 
 if __name__ == '__main__':

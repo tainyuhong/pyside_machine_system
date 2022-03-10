@@ -25,7 +25,7 @@ class MyObject(QObject):
                 self.trans.start_client(timeout=0.5)
                 # paramiko.util.log_to_file('paramiko-log.log')  # 记录执行日志
                 # 用户名密码方式
-                self.trans.auth_timeout = 5
+                self.trans.auth_timeout = 3
                 self.trans.auth_password(username='root', password='123456', fallback=True)
             # except paramiko.ssh_exception.AuthenticationException as pass_err:
             #     # logging.error('{}:{} {}'.format(hostname, ip, pass_err))
@@ -33,11 +33,12 @@ class MyObject(QObject):
             #     # continue
             except Exception as e:
                 print('连接错误：', e)
+                self.update_signal.emit(str(e))  # 发送错误至主窗口结果
             else:
                 print('连接主机:{}:{}   ---> 正常'.format('host-70', i))
                 # 打开一个通道
                 self.channel = self.trans.open_session()
-                self.channel.settimeout(100)
+                self.channel.settimeout(10)
                 # 获取一个终端
                 self.channel.get_pty()
                 # 激活器
