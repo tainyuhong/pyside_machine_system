@@ -68,7 +68,7 @@ class DBMysql(object):
         :param args: 需要传入的SQL参数
         :return: 返回二元组数据，格式：（（第一条记录）,（第二条记录））
         '''
-        # print(args)
+        print('数据库中args：',args)
         try:
             self.cursor.execute(sql, args)
             # print('传入的sql:',sql)
