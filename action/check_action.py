@@ -74,7 +74,7 @@ class AddHosts(QDialog, Ui_addhost_win):
                     top_item.child(i).setCheckState(0, Qt.Unchecked)
                 # else:
                 #     pass
-        print(select_item)
+        # print(select_item)
         self.host_message.emit(select_item)
         self.close()
 
@@ -121,7 +121,7 @@ class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
 
     # 将获取的主机列表显示至主机添加窗口中，hosts为列表格式
     def display_to_text(self, hosts):
-        print('子窗口返回数据：', hosts)
+        # print('子窗口返回数据：', hosts)
         self.hosts_list = hosts
         self.host_listw.addItems(self.hosts_list)
 
@@ -134,15 +134,15 @@ class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
             hosts_ip = []  # 用于接收存活主机列表
             for i in self.hosts_list:
                 hosts_ip.append(i.split(':'))
-            print('新的主机IP表', hosts_ip)
+            # print('新的主机IP表', hosts_ip)
 
             # print('巡检中选择IP',self.hosts_list)    # ['k8s-node1:192.168.1.61', 'K8S-node2:192.168.1.62', 'K8S-NODE3:192.168.1.63']
             ip_list = []
             for _ in hosts_ip:
                 ip_list.append(_[1])
-            print('ip集合',tuple(ip_list))
-            check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in ({} ) '''.format(tuple(ip_list))  # 查询指定设备SQL
-            self.check_hosts = self.db.query_single(check_cmd_sql,ip_list)
+            # print('ip集合',tuple(ip_list))
+            check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(tuple(ip_list))  # 查询指定设备SQL
+            self.check_hosts = self.db.query_single(check_cmd_sql)
             # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
             # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
             self.exec_btn.setDisabled(True)
@@ -164,13 +164,13 @@ class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
         :return:
         """
         print('正在检测主机连通性状态，请稍候. \n\n')
-        print(self.hosts_list)
+        # print(self.hosts_list)
         up = []  # 初始定义存活主机
         down = []  # 初始定义非存活主机
         hosts_ip = []  # 用于接收存活主机列表
         for i in self.hosts_list:
             hosts_ip.append(i.split(':'))
-        print('新的主机IP表', hosts_ip)
+        # print('新的主机IP表', hosts_ip)
         for host in hosts_ip:
             cursor = self.dispaly_te.textCursor()
             self.dispaly_te.moveCursor(cursor.End)  # 将光标移动到最后
@@ -202,7 +202,7 @@ class Actin_Thread(QObject):
 
     # 执行巡检任务
     def do_check(self):
-        print('执行任务中的Ip:', self.check_hosts)
+        # print('执行任务中的Ip:', self.check_hosts)
         for i in self.check_hosts:
             try:
                 self.trans = paramiko.Transport((i[2], 22))  # 使用Transport方式连接
@@ -279,7 +279,7 @@ class Actin_Thread(QObject):
 
     # 接收主界面线程发送的主机IP信息
     def accpet_hostsinfo(self, host_info):
-        print('子进程接收到信息：', host_info)
+        # print('子进程接收到信息：', host_info)
         self.check_hosts = host_info
 
 
