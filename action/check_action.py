@@ -5,7 +5,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
-from connect import SshToHost
+from action.connect  import SshToHost
 
 # SQL查询语句
 hosts_sql = ''' select m.machine_name,m.mg_ip from machine_list m where m.mg_ip is not Null and m.machine_sort_name= %s;'''
@@ -80,7 +80,7 @@ class AddHosts(QDialog, Ui_addhost_win):
 
 
 # 主机巡检窗口类
-class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
+class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
     '''
     设备巡检窗口类
     '''
@@ -129,31 +129,38 @@ class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
         if self.ping_radio.isChecked():
             # 执行ping检查
             # print('ping状态', self.ping_radio.isChecked())
-            self.do_ping()  # 执行ping
+            if len(self.hosts_list) >0:
+                self.do_ping()  # 执行ping
+            else:
+                QtWidgets.QMessageBox.warning(self,'选择主机','请先添加要巡检的主机！')
         else:
             hosts_ip = []  # 用于接收存活主机列表
-            for i in self.hosts_list:
-                hosts_ip.append(i.split(':'))
-            # print('新的主机IP表', hosts_ip)
+            if len(self.hosts_list) > 0:
 
-            # print('巡检中选择IP',self.hosts_list)    # ['k8s-node1:192.168.1.61', 'K8S-node2:192.168.1.62', 'K8S-NODE3:192.168.1.63']
-            ip_list = []
-            for _ in hosts_ip:
-                ip_list.append(_[1])
-            # print('ip集合',tuple(ip_list))
-            check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(tuple(ip_list))  # 查询指定设备SQL
-            self.check_hosts = self.db.query_single(check_cmd_sql)
-            # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
-            # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
-            self.exec_btn.setDisabled(True)
-            self.check_thread = QtCore.QThread()
-            self.check = Actin_Thread()     # 实例化子线程巡检
-            self.host_signal.connect(self.check.accpet_hostsinfo(self.check_hosts))     # 主机信号连接至任务处理的子线程获取主机信息槽函数
-            self.check.update_signal.connect(self.update_text)      # 任务处理子线程显示巡检结果信号连接至主线程更新槽函数self.update_text)
-            self.check_thread.started.connect(self.check.do_check)  # 将多线程连接到执行巡检任务的槽函数
-            self.check.end_signal.connect(self.stop)  # 任务子线程执行巡检结果完毕信号连接至主线程关闭子线程槽函数self.stop
-            self.check.moveToThread(self.check_thread)      # # 将子线程移至子线程中处理
-            self.check_thread.start()       # 启动子线程
+                for i in self.hosts_list:
+                    hosts_ip.append(i.split(':'))
+                # print('新的主机IP表', hosts_ip)
+
+                # print('巡检中选择IP',self.hosts_list)    # ['k8s-node1:192.168.1.61', 'K8S-node2:192.168.1.62', 'K8S-NODE3:192.168.1.63']
+                ip_list = []
+                for _ in hosts_ip:
+                    ip_list.append(_[1])
+                # print('ip集合',tuple(ip_list))
+                check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(tuple(ip_list))  # 查询指定设备SQL
+                self.check_hosts = self.db.query_single(check_cmd_sql)
+                # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
+                # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
+                self.exec_btn.setDisabled(True)
+                self.check_thread = QtCore.QThread()
+                self.check = Actin_Thread()     # 实例化子线程巡检
+                self.host_signal.connect(self.check.accpet_hostsinfo(self.check_hosts))     # 主机信号连接至任务处理的子线程获取主机信息槽函数
+                self.check.update_signal.connect(self.update_text)      # 任务处理子线程显示巡检结果信号连接至主线程更新槽函数self.update_text)
+                self.check_thread.started.connect(self.check.do_check)  # 将多线程连接到执行巡检任务的槽函数
+                self.check.end_signal.connect(self.stop)  # 任务子线程执行巡检结果完毕信号连接至主线程关闭子线程槽函数self.stop
+                self.check.moveToThread(self.check_thread)      # # 将子线程移至子线程中处理
+                self.check_thread.start()       # 启动子线程
+            else:
+                QtWidgets.QMessageBox.warning(self,'选择主机','请先添加要巡检的主机！')
 
 
     def do_ping(self):
@@ -179,9 +186,11 @@ class UiCheck(Ui_check_form, QtWidgets.QFrame, QObject):
 
     # 更新文本框显示内容
     def update_text(self, text):
+        # self.dispaly_te.setTextColor(QColor('#0000FF'))
         cursor = self.dispaly_te.textCursor()
         self.dispaly_te.moveCursor(cursor.End)  # 将光标移动到最后
         self.dispaly_te.insertPlainText(text)  # 插入文本
+
 
     # 关闭线程
     def stop(self):
