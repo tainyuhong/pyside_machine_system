@@ -12,15 +12,22 @@ class MainUi(Ui_MainWindow,QMainWindow):
         super(MainUi, self).__init__(parent)
         self.setupUi(self)
         self.pushButton.clicked.connect(self.to_markdown)
-        self.html_btn.clicked.connect(self.tohtml)
+        self.html_btn.clicked.connect(self.hide_list)
 
     def to_markdown(self):
         str = self.textEdit.toPlainText()
         self.textEdit.setMarkdown(str)
 
-    def tohtml(self):
-        str = self.textEdit.toPlainText()
-        self.textEdit.toHtml(str)
+    def hide_list(self):
+        if self.listWidget.isVisible():
+            self.listWidget.setHidden(True)
+            self.html_btn.setText('显示')
+        else:
+            self.listWidget.setHidden(False)
+            self.html_btn.setText('隐藏')
+        # str = self.textEdit.toPlainText()
+        # self.textEdit.toHtml(str)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
