@@ -11,49 +11,69 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Base笔记</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QSplitter" name="splitter">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
-      </property>
-      <property name="midLineWidth">
-       <number>3</number>
-      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <property name="handleWidth">
-       <number>2</number>
-      </property>
-      <property name="childrenCollapsible">
-       <bool>true</bool>
-      </property>
-      <widget class="QListWidget" name="file_list">
+      <widget class="QTabWidget" name="tabWidget">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>1</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(240,255,255)</string>
        </property>
+       <property name="tabPosition">
+        <enum>QTabWidget::West</enum>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <property name="elideMode">
+        <enum>Qt::ElideNone</enum>
+       </property>
+       <widget class="QWidget" name="tab_file">
+        <attribute name="title">
+         <string>文件</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QTreeWidget" name="treeWidget">
+           <property name="styleSheet">
+            <string notr="true">background-color:rgb(225,255,255)</string>
+           </property>
+           <column>
+            <property name="text">
+             <string/>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_profile">
+        <attribute name="title">
+         <string>大纲</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QTreeWidget" name="treeWidget_2">
+           <column>
+            <property name="text">
+             <string/>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QTextEdit" name="input_text">
        <property name="sizePolicy">
@@ -61,6 +81,17 @@
          <horstretch>4</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(253,245,230)</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::WinPanel</enum>
@@ -79,26 +110,11 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(240,255,240)</string>
+       </property>
       </widget>
      </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>markdown</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="html_btn">
-        <property name="text">
-         <string>隐藏</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
@@ -115,38 +131,63 @@
     <property name="title">
      <string>文件</string>
     </property>
-    <addaction name="actionnew"/>
-    <addaction name="actionopen"/>
+    <addaction name="action_open"/>
+    <addaction name="action_save"/>
+    <addaction name="separator"/>
+    <addaction name="action_exit"/>
    </widget>
    <widget class="QMenu" name="menu_format">
     <property name="title">
      <string>格式</string>
     </property>
-    <addaction name="action_title1"/>
+    <addaction name="action_bold"/>
+    <addaction name="action_italic"/>
+    <addaction name="action_underline"/>
+    <addaction name="separator"/>
+    <addaction name="action_annotate"/>
+    <addaction name="action_deleteline"/>
+    <addaction name="separator"/>
+    <addaction name="action_removestyle"/>
+    <addaction name="separator"/>
+    <addaction name="action_markdown"/>
    </widget>
    <widget class="QMenu" name="menu_help">
     <property name="title">
      <string>帮助</string>
     </property>
+    <addaction name="action_about"/>
+    <addaction name="action_web"/>
    </widget>
    <widget class="QMenu" name="menu_edit">
     <property name="title">
      <string>编辑</string>
     </property>
-    <addaction name="actionnew"/>
+    <widget class="QMenu" name="menufindandreplace">
+     <property name="title">
+      <string>查找替换</string>
+     </property>
+     <addaction name="action_find"/>
+     <addaction name="action_replace"/>
+    </widget>
+    <addaction name="action_copy"/>
+    <addaction name="actioncut"/>
+    <addaction name="actionpate"/>
+    <addaction name="separator"/>
+    <addaction name="actionselectall"/>
+    <addaction name="separator"/>
+    <addaction name="menufindandreplace"/>
    </widget>
-   <widget class="QMenu" name="menu">
+   <widget class="QMenu" name="menu_view">
     <property name="title">
      <string>视图</string>
     </property>
-    <addaction name="action_hide"/>
-    <addaction name="action_display"/>
+    <addaction name="action_displaylist"/>
     <addaction name="action_full"/>
    </widget>
    <addaction name="menu_file"/>
    <addaction name="menu_edit"/>
    <addaction name="menu_format"/>
-   <addaction name="menu"/>
+   <addaction name="menu_view"/>
    <addaction name="menu_help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -160,38 +201,139 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionnew"/>
-   <addaction name="actionopen"/>
-   <addaction name="action_title1"/>
+   <addaction name="action_open"/>
+   <addaction name="action_save"/>
+   <addaction name="action_exit"/>
   </widget>
-  <action name="actionnew">
-   <property name="text">
-    <string>新建</string>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
    </property>
-  </action>
-  <action name="actionopen">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_to_md"/>
+   <addaction name="action_displaylist"/>
+   <addaction name="separator"/>
+  </widget>
+  <action name="action_open">
    <property name="text">
     <string>打开</string>
    </property>
   </action>
-  <action name="action_title1">
+  <action name="action_bold">
    <property name="text">
-    <string>标题1</string>
+    <string>加粗</string>
    </property>
   </action>
-  <action name="action_hide">
-   <property name="text">
-    <string>隐藏列表</string>
+  <action name="action_displaylist">
+   <property name="checkable">
+    <bool>true</bool>
    </property>
-  </action>
-  <action name="action_display">
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>显示列表</string>
+    <string>显示/隐藏列表</string>
    </property>
   </action>
   <action name="action_full">
    <property name="text">
     <string>全屏预览</string>
+   </property>
+  </action>
+  <action name="action_to_md">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>MD显示</string>
+   </property>
+   <property name="toolTip">
+    <string>markdown方式显示</string>
+   </property>
+  </action>
+  <action name="action_save">
+   <property name="text">
+    <string>保存</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </action>
+  <action name="actioncut">
+   <property name="text">
+    <string>剪切</string>
+   </property>
+  </action>
+  <action name="actionpate">
+   <property name="text">
+    <string>粘贴</string>
+   </property>
+  </action>
+  <action name="actionselectall">
+   <property name="text">
+    <string>全选</string>
+   </property>
+  </action>
+  <action name="action_find">
+   <property name="text">
+    <string>查找</string>
+   </property>
+  </action>
+  <action name="action_replace">
+   <property name="text">
+    <string>替换</string>
+   </property>
+  </action>
+  <action name="action_copy">
+   <property name="text">
+    <string>复制</string>
+   </property>
+  </action>
+  <action name="action_italic">
+   <property name="text">
+    <string>斜体</string>
+   </property>
+  </action>
+  <action name="action_underline">
+   <property name="text">
+    <string>下划线</string>
+   </property>
+  </action>
+  <action name="action_annotate">
+   <property name="text">
+    <string>注释</string>
+   </property>
+  </action>
+  <action name="action_deleteline">
+   <property name="text">
+    <string>删除线</string>
+   </property>
+  </action>
+  <action name="action_removestyle">
+   <property name="text">
+    <string>清除样式</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="action_markdown">
+   <property name="text">
+    <string>markdown预览</string>
+   </property>
+  </action>
+  <action name="action_web">
+   <property name="text">
+    <string>网站</string>
    </property>
   </action>
  </widget>
