@@ -16,7 +16,7 @@ class MainUi(Ui_MainWindow,QMainWindow):
         self.input_text.textChanged.connect(self.to_markdown)
         self.action_displaylist.changed.connect(self.hide_tabview)       # 显示与隐藏tabwidget预览窗口
         self.action_to_md.changed.connect(self.hide_textbrowser)    # 显示与隐藏markdown预览窗口
-        self.action_save.ac.connect(self.save)
+        self.action_save.triggered.connect(self.save)
 
     # 隐藏显示文件大纲tab窗口
     def hide_tabview(self):
@@ -40,10 +40,11 @@ class MainUi(Ui_MainWindow,QMainWindow):
 
     # 保存文档
     def save(self):
-        str = self.input_text.toPlainText()
+        str = self.input_text.document().toHtml()
+        print(str)
         os.chdir('d:\\')
-        with open('test.doc','a+') as f :
-            f.write(str)
+        with open('test.html','wb') as f :
+            f.write(bytes(str),encoding='utf8')
 
 
 if __name__ == '__main__':
