@@ -16,7 +16,7 @@ class MainUi(Ui_MainWindow,QMainWindow):
         self.input_text.textChanged.connect(self.to_markdown)
         self.action_displaylist.changed.connect(self.hide_tabview)       # 显示与隐藏tabwidget预览窗口
         self.action_to_md.changed.connect(self.hide_textbrowser)    # 显示与隐藏markdown预览窗口
-        self.action_save.triggered.connect(self.save)
+        self.action_save.triggered.connect(self.dis_clip)
 
     # 隐藏显示文件大纲tab窗口
     def hide_tabview(self):
@@ -46,6 +46,18 @@ class MainUi(Ui_MainWindow,QMainWindow):
         with open('test.html','wb') as f :
             f.write(bytes(str),encoding='utf8')
 
+    def dis_clip(self):
+        clip = QApplication.clipboard()
+
+        print(clip.mimeData().formats())
+        print(clip.mimeData().text())
+        # print('是否有HTML',clip.hasHtml(),clip.html())
+        # print('是否有hasUrls',clip.hasUrls(),clip.urls())
+        print('是否有hasImage',clip.mimeData().hasImage(),'data',clip.mimeData().imageData())
+        cur = self.display_text.textCursor()
+        cur.insertImage(clip.mimeData().text())     # 图片地址
+        # doc = self.input_text.document()
+        # print(doc.toHtml())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
