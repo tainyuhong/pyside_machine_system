@@ -16,7 +16,8 @@ class MainUi(Ui_MainWindow,QMainWindow):
         self.input_text.textChanged.connect(self.to_markdown)
         self.action_displaylist.changed.connect(self.hide_tabview)       # 显示与隐藏tabwidget预览窗口
         self.action_to_md.changed.connect(self.hide_textbrowser)    # 显示与隐藏markdown预览窗口
-        self.action_save.triggered.connect(self.save)
+        self.action_save.triggered.connect(self.save)               # 保存数据
+        self.action_clip.triggered.connect(self.display_clipp)      # 显示粘贴板信息
 
     # 隐藏显示文件大纲tab窗口
     def hide_tabview(self):
@@ -41,14 +42,24 @@ class MainUi(Ui_MainWindow,QMainWindow):
     # 保存文档
     def save(self):
         str = self.input_text.document().toHtml()
+        print(type(str))
         print(str)
         os.chdir('d:\\')
-        with open('test.html','wb') as f :
-            f.write(bytes(str),encoding='utf8')
+        with open('test.html','wb+') as f :
+            f.write(bytes(str,encoding='utf8'))
+
+    def display_clipp(self):
+        print('剪贴板',QClipboard.ownsClipboard())
+        clip=QClipboard.pixmap(mode=QClipboard.Clipboard)
+        print('剪贴板内容：',clip)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    # clipboard = app.clipboard()
+    # data = clipboard.mimeData()
+    # print('剪贴板内容：',data.formats())
+
     win = MainUi()
     win.show()
     sys.exit(app.exec())
