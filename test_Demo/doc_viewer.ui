@@ -34,7 +34,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -205,7 +205,7 @@
    <addaction name="action_save"/>
    <addaction name="action_exit"/>
   </widget>
-  <widget class="QToolBar" name="toolBar_2">
+  <widget class="QToolBar" name="toolBar_quick">
    <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
