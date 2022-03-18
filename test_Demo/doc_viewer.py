@@ -163,9 +163,9 @@ class Ui_MainWindow(object):
         self.toolBar = QToolBar(MainWindow)
         self.toolBar.setObjectName(u"toolBar")
         MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
-        self.toolBar_2 = QToolBar(MainWindow)
-        self.toolBar_2.setObjectName(u"toolBar_2")
-        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar_2)
+        self.toolBar_quick = QToolBar(MainWindow)
+        self.toolBar_quick.setObjectName(u"toolBar_quick")
+        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar_quick)
 
         self.menubar.addAction(self.menu_file.menuAction())
         self.menubar.addAction(self.menu_edit.menuAction())
@@ -202,14 +202,14 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.action_open)
         self.toolBar.addAction(self.action_save)
         self.toolBar.addAction(self.action_exit)
-        self.toolBar_2.addAction(self.action_to_md)
-        self.toolBar_2.addAction(self.action_displaylist)
-        self.toolBar_2.addSeparator()
-        self.toolBar_2.addAction(self.action_clip)
+        self.toolBar_quick.addAction(self.action_to_md)
+        self.toolBar_quick.addAction(self.action_displaylist)
+        self.toolBar_quick.addSeparator()
+        self.toolBar_quick.addAction(self.action_clip)
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -251,6 +251,6 @@ class Ui_MainWindow(object):
         self.menufindandreplace.setTitle(QCoreApplication.translate("MainWindow", u"\u67e5\u627e\u66ff\u6362", None))
         self.menu_view.setTitle(QCoreApplication.translate("MainWindow", u"\u89c6\u56fe", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
-        self.toolBar_2.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar_2", None))
+        self.toolBar_quick.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar_2", None))
     # retranslateUi
 
