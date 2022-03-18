@@ -72,6 +72,8 @@ class Ui_MainWindow(object):
         self.action_markdown.setObjectName(u"action_markdown")
         self.action_web = QAction(MainWindow)
         self.action_web.setObjectName(u"action_web")
+        self.action_clip = QAction(MainWindow)
+        self.action_clip.setObjectName(u"action_clip")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -203,6 +205,7 @@ class Ui_MainWindow(object):
         self.toolBar_2.addAction(self.action_to_md)
         self.toolBar_2.addAction(self.action_displaylist)
         self.toolBar_2.addSeparator()
+        self.toolBar_2.addAction(self.action_clip)
 
         self.retranslateUi(MainWindow)
 
@@ -238,6 +241,7 @@ class Ui_MainWindow(object):
         self.action_about.setText(QCoreApplication.translate("MainWindow", u"\u5173\u4e8e", None))
         self.action_markdown.setText(QCoreApplication.translate("MainWindow", u"markdown\u9884\u89c8", None))
         self.action_web.setText(QCoreApplication.translate("MainWindow", u"\u7f51\u7ad9", None))
+        self.action_clip.setText(QCoreApplication.translate("MainWindow", u"\u663e\u793a\u7c98\u8d34\u677f\u5185\u5bb9", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_file), QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_profile), QCoreApplication.translate("MainWindow", u"\u5927\u7eb2", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))

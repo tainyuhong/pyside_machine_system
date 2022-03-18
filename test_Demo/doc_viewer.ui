@@ -218,6 +218,7 @@
    <addaction name="action_to_md"/>
    <addaction name="action_displaylist"/>
    <addaction name="separator"/>
+   <addaction name="action_clip"/>
   </widget>
   <action name="action_open">
    <property name="text">
@@ -334,6 +335,11 @@
   <action name="action_web">
    <property name="text">
     <string>网站</string>
+   </property>
+  </action>
+  <action name="action_clip">
+   <property name="text">
+    <string>显示粘贴板内容</string>
    </property>
   </action>
  </widget>
