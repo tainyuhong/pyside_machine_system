@@ -45,13 +45,13 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QTreeWidget" name="treeWidget">
+          <widget class="QTreeWidget" name="tree_file">
            <property name="styleSheet">
             <string notr="true">background-color:rgb(225,255,255)</string>
            </property>
            <column>
             <property name="text">
-             <string/>
+             <string>我的</string>
             </property>
            </column>
           </widget>
@@ -64,7 +64,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QTreeWidget" name="treeWidget_2">
+          <widget class="QTreeWidget" name="tree_profile">
            <column>
             <property name="text">
              <string/>
@@ -251,10 +251,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>MD显示</string>
+    <string>源码/预览</string>
    </property>
    <property name="toolTip">
-    <string>markdown方式显示</string>
+    <string>源码/预览</string>
    </property>
   </action>
   <action name="action_save">

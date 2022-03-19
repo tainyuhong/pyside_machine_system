@@ -16,6 +16,9 @@ class MainUi(Ui_MainWindow,QMainWindow):
         self.add_tool()     # 添加按钮工具至工具栏中
         self.font_size=''
 
+        self.tree_file.setContextMenuPolicy(Qt.CustomContextMenu)   # 文件列表右键菜单
+        self.tree_file.customContextMenuRequested.connect(self.tree_file_menu)
+
         self.input_text.textChanged.connect(self.to_markdown)
         self.action_displaylist.changed.connect(self.hide_tabview)       # 显示与隐藏tabwidget预览窗口
         # self.action_to_md.changed.connect(self.hide_textbrowser)    # 显示与隐藏markdown预览窗口
@@ -70,17 +73,27 @@ class MainUi(Ui_MainWindow,QMainWindow):
         self.font_size.setCurrentText('12')  # 设置默认字号
         self.toolBar_quick.addWidget(self.font_size)
         self.font = QFontComboBox()
+        self.font.setMaximumWidth(100)      # 设置字体选择下拉框的最大宽度
         self.toolBar_quick.addWidget(self.font)
-        self.color = QPushButton('颜色')
+        self.color = QPushButton('颜色')        # 颜色
+        self.color.setMaximumSize(40,40)
         self.toolBar_quick.addWidget(self.color)
+
 
     # 颜色选择
     def chioce_color(self):
         color = QColorDialog.getColor()
         if color.isValid():
-            self.color.setStyleSheet("background-color:rgb{}".format(color.name()))
+            self.color.setStyleSheet("background-color:{}".format(color.name()))
 
-
+    # 文件列表框右键菜单
+    def tree_file_menu(self,pos):
+        self.tree_file_menu = QMenu()
+        self.tree_file_menu.addAction('新建文件夹')
+        self.tree_file_menu.addAction('新建文件')
+        self.tree_file_menu.addAction('修改文件名')
+        self.tree_file_menu.move(QCursor.pos())
+        self.tree_file_menu.show()
 
 
 if __name__ == '__main__':
