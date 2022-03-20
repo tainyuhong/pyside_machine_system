@@ -88,9 +88,11 @@ class MainUi(Ui_MainWindow,QMainWindow):
 
     # 文件列表框右键菜单
     def tree_file_menu(self,pos):
-        self.tree_file_menu = QMenu()
-        self.tree_file_menu.addAction('新建文件夹')
-        self.tree_file_menu.addAction('新建文件')
+        self.tree_file_menu = QMenu(self)
+        self.action_create_dir = QAction('新建文件夹',self)  # 新建文件夹菜单
+        self.tree_file_menu.addAction(self.action_create_dir)   # 添加到菜单
+        self.action_file = QAction('新建文件',self)
+        self.tree_file_menu.addAction(self.action_file)
         self.tree_file_menu.addAction('修改文件名')
         self.tree_file_menu.move(QCursor.pos())
         self.tree_file_menu.show()
