@@ -86,8 +86,7 @@ class MainUi(Ui_MainWindow, QMainWindow):
 
     # 文件列表框右键菜单
     def tree_file_menu(self, pos):
-        item = self.tree_file.currentItem()
-        item1 = self.tree_file.itemAt(pos)
+        item = self.tree_file.itemAt(pos)
         # print(item.text(0), item1.text(0))
         self.file_menu = QMenu()
         action_create_dir = QAction('新建文件夹')  # 新建文件夹菜单
@@ -97,7 +96,7 @@ class MainUi(Ui_MainWindow, QMainWindow):
         self.file_menu.addAction(action_create_dir)  # 添加到菜单
         self.file_menu.addAction(action_file)
         self.file_menu.addAction(action_alter)
-        if item1 is None:
+        if item is None:
             print('在空白处')
             action_file.setDisabled(True)
             action_alter.setDisabled(True)
@@ -106,17 +105,28 @@ class MainUi(Ui_MainWindow, QMainWindow):
             action_file.setDisabled(False)
             action_alter.setDisabled(False)
         action_create_dir.triggered.connect(self.add_dirs)
-        # action_file.triggered.connect(self.quick_click)
+        action_file.triggered.connect(self.add_files)
         # action_alter.triggered.connect(self.quick_click)
 
-        self.file_menu.exec(self.mapToGlobal(pos))
+        self.file_menu.exec(self.mapToGlobal(pos))  # 在光标位置显示菜单
 
-    def add_dirs(self,dir_name):
-        value,ok = QInputDialog.getText(self,'文件名','请输入文件名：',QLineEdit.Normal,'新文件夹')
+    # 文件列表添加文件夹功能
+    def add_dirs(self):
+        value,ok = QInputDialog.getText(self,'文件名','请输入文件名：',QLineEdit.Normal,'新文件夹')   # 获取输入弹出框文本
         print(value)
-        root_dir = QTreeWidgetItem(value)
-        root_dir.setText(0,str(dir_name))
-        self.tree_file.addTopLevelItem(root_dir)
+        root_dir = QTreeWidgetItem(value)   # 定义项，作为顶级项
+        root_dir.setText(0,value)           # 设置项名称
+        self.tree_file.addTopLevelItem(root_dir)    # 设置为顶级项
+
+
+    # 文件列表添加文件功能
+    def add_files(self):
+        parent_item = self.tree_file.currentItem() # 当前待定项
+        value, ok = QInputDialog.getText(self, '文件名', '请输入文件名：', QLineEdit.Normal, '新文件')   # 获取输入弹出框文本
+        print(value)
+        child_item = QTreeWidgetItem(parent_item, value)    # 创建子项
+        child_item.setText(0, value)                        # 设置项名称
+        self.tree_file.setExpanded()    # 展开当前节点
 
 
 if __name__ == '__main__':
