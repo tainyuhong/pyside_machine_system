@@ -51,7 +51,7 @@
            </property>
            <column>
             <property name="text">
-             <string>我的</string>
+             <string>文件列表</string>
             </property>
            </column>
           </widget>

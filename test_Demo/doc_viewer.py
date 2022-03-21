@@ -242,7 +242,7 @@ class Ui_MainWindow(object):
         self.action_web.setText(QCoreApplication.translate("MainWindow", u"\u7f51\u7ad9", None))
         self.action_clip.setText(QCoreApplication.translate("MainWindow", u"\u663e\u793a\u7c98\u8d34\u677f\u5185\u5bb9", None))
         ___qtreewidgetitem = self.tree_file.headerItem()
-        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u6211\u7684", None));
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u5217\u8868", None));
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_file), QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_profile), QCoreApplication.translate("MainWindow", u"\u5927\u7eb2", None))
         self.menu_file.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
