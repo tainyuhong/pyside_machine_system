@@ -1,9 +1,10 @@
-2022-02-09 16:55:06,462 ERROR Êý¾Ý¿â´íÎó£ºnot enough arguments for format string
-2022-02-09 16:58:45,362 ERROR Êý¾Ý¿â´íÎó£ºnot enough arguments for format string
-2022-02-09 17:00:09,040 ERROR Êý¾Ý¿â´íÎó£º(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
-2022-02-09 17:00:49,543 ERROR Êý¾Ý¿â´íÎó£ºnot enough arguments for format string
-2022-02-09 17:01:04,142 ERROR Êý¾Ý¿â´íÎó£º(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
-2022-02-09 17:02:35,122 ERROR Êý¾Ý¿â´íÎó£º(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
-2022-02-09 17:02:47,879 ERROR Êý¾Ý¿â´íÎó£ºnot all arguments converted during string formatting
-2022-02-10 16:29:40,797 ERROR Êý¾Ý¿â´íÎó£º(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ÓÉÓÚÄ¿±ê¼ÆËã»ú»ý¼«¾Ü¾ø£¬ÎÞ·¨Á¬½Ó¡£)")
-2022-02-10 16:29:56,776 ERROR Êý¾Ý¿â´íÎó£º(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ÓÉÓÚÄ¿±ê¼ÆËã»ú»ý¼«¾Ü¾ø£¬ÎÞ·¨Á¬½Ó¡£)")
+2022-02-09 16:55:06,462 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½not enough arguments for format string
+2022-02-09 16:58:45,362 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½not enough arguments for format string
+2022-02-09 17:00:09,040 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
+2022-02-09 17:00:49,543 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½not enough arguments for format string
+2022-02-09 17:01:04,142 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
+2022-02-09 17:02:35,122 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½(1062, "Duplicate entry '5373' for key 'machine_infos.PRIMARY'")
+2022-02-09 17:02:47,879 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½not all arguments converted during string formatting
+2022-02-10 16:29:40,797 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½)")
+2022-02-10 16:29:56,776 ERROR ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½)")
+111
