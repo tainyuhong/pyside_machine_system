@@ -16,6 +16,8 @@ class RightClick(QWidget):
         self.setLayout(layout)
         self.treewidget.setContextMenuPolicy(Qt.CustomContextMenu)
         self.treewidget.customContextMenuRequested.connect(self.menu_file)
+        time = QDateTime.currentDateTime()
+        print('时间：',time.toSecsSinceEpoch())
 
     def menu_file(self,pos):
         # item = self.treewidget.currentItem()

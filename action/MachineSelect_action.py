@@ -28,6 +28,7 @@ class Ui_MachineSelect(QtWidgets.QMainWindow, Ui_MachineSelect):
         # 分页查询按钮事件
         if self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1])):  # 定义转到按钮点击事件
             self.db = DBMysql()     # 点击按钮时创建数据库连接对象
+            # print(self.db.is_connected())
         self.next_btn.clicked.connect(lambda: self.nextPage(self.data_sql, self.select_values[:-1]))  # 定义下一页按钮事件
         self.pre_btn.clicked.connect(lambda: self.prePage(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
         self.home_btn.clicked.connect(lambda: self.firstPage(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件

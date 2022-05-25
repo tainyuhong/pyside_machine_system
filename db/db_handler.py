@@ -26,7 +26,7 @@ class DBMysql(object):
             logging.error('数据库连接错误：{}'.format(e))
         else:
             self.cursor = self.conn.cursor()
-            print('数据库连接成功')
+            # print('数据库连接成功')
             logging.info('数据库连接正常')
 
 
@@ -48,17 +48,20 @@ class DBMysql(object):
         '''
         data = ''
         count = 0
-        try:
-            self.cursor.execute(sql, args)
-            # print('传入的sql:',select_all_sql)
-        except Exception as e:
-            logging.error('数据库错误：{}'.format(e))
+        if self.is_connected():
+            try:
+                self.cursor.execute(sql, args)
+                # print('传入的sql:',select_all_sql)
+            except Exception as e:
+                logging.error('数据库错误：{}'.format(e))
+            else:
+                data = self.cursor.fetchall()  # 获取所有查询记录
+                count = self.cursor.rowcount
+                self.conn.commit()
+                logging.info('执行成功！{}'.format(self.cursor.rowcount))
+            return count, data
         else:
-            data = self.cursor.fetchall()  # 获取所有查询记录
-            count = self.cursor.rowcount
-            self.conn.commit()
-            logging.info('执行成功！{}'.format(self.cursor.rowcount))
-        return count, data
+            pass
 
     # 不返回查询数量的函数
     def query_single(self, sql, args=None):
@@ -69,57 +72,79 @@ class DBMysql(object):
         :return: 返回二元组数据，格式：（（第一条记录）,（第二条记录））
         '''
         # print('数据库中args：',args,sql)
-        try:
-            self.cursor.execute(sql, args)
-            # print('传入的sql:',sql)
-            # print('传入的args:',args)
-        except Exception as e:
-            logging.error('数据库错误：{}'.format(e))
+        if self.is_connected():
+            try:
+                self.cursor.execute(sql, args)
+                # print('传入的sql:',sql)
+                # print('传入的args:',args)
+            except Exception as e:
+                logging.error('数据库错误：{}'.format(e))
+            else:
+                data = self.cursor.fetchall()  # 获取所有查询记录
+                # count = self.cursor.rowcount
+                self.conn.commit()
+                logging.info('执行成功！{}'.format(self.cursor.rowcount))
+                # print('DB',data)
+            return data
         else:
-            data = self.cursor.fetchall()  # 获取所有查询记录
-            # count = self.cursor.rowcount
-            self.conn.commit()
-            logging.info('执行成功！{}'.format(self.cursor.rowcount))
-            # print('DB',data)
-        return data
+            pass
 
     def alter(self, sql, args=None):
         # 修改、插入、删除数据
-        try:
-            self.cursor.execute(sql, args)
-        except Exception as e:
-            logging.error('数据库错误：{}'.format(e))
-            self.conn.rollback()
+        if self.is_connected():
+            try:
+                self.cursor.execute(sql, args)
+            except Exception as e:
+                logging.error('数据库错误：{}'.format(e))
+                self.conn.rollback()
+            else:
+                self.conn.commit()  # 提交记录
+                #
+                logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
+            return self.cursor.rowcount
         else:
-            self.conn.commit()  # 提交记录
-            #
-            logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
-        return self.cursor.rowcount
+            pass
 
     def alter_many(self, sql1, sql2, args1, args2):
         # 修改、插入、删除数据 多条记录
-        try:
-            self.cursor.execute(sql1, args1)
-            self.cursor.execute(sql2, args2)
-        except Exception as e:
-            logging.error('数据库错误：{}'.format(e))
-            self.conn.rollback()
-        else:
-            self.conn.commit()  # 提交记录
+        if self.is_connected():
+            try:
+                self.cursor.execute(sql1, args1)
+                self.cursor.execute(sql2, args2)
+            except Exception as e:
+                logging.error('数据库错误：{}'.format(e))
+                self.conn.rollback()
+            else:
+                self.conn.commit()  # 提交记录
 
-            logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
-        return self.cursor.rowcount
+                logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
+            return self.cursor.rowcount
+        else:
+            pass
 
     def alter_multi(self, sql, args=None):
         # 修改、插入、删除数据
-        try:
-            self.cursor.executemany(sql, args)
-            # print(args)
-        except Exception as e:
-            logging.error('数据库错误：{}'.format(e))
-            self.conn.rollback()
-        else:
-            self.conn.commit()  # 提交记录
+        if self.is_connected():
+            try:
+                self.cursor.executemany(sql, args)
+                # print(args)
+            except Exception as e:
+                logging.error('数据库错误：{}'.format(e))
+                self.conn.rollback()
+            else:
+                self.conn.commit()  # 提交记录
 
-            logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
-        return self.cursor.rowcount
+                logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
+            return self.cursor.rowcount
+        else:
+            pass
+
+    def is_connected(self):
+        """Check if the server is alive"""
+        try:
+            self.conn.ping(reconnect=True)
+            print('db is connecting')
+            return True
+        except BaseException as e:
+            print('数据库连接异常：{}'.format(e))
+            return False
