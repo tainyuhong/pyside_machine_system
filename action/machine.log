@@ -1,0 +1,24 @@
+2022-03-11 08:47:57,225 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-03-11 16:09:45,864 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%s' at line 1")
+2022-03-11 16:42:49,511 ERROR ���ݿ����not enough arguments for format string
+2022-03-11 16:43:06,959 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 16:43:37,546 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 16:46:45,870 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 16:50:04,971 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 16:50:53,353 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 16:54:13,694 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 17:09:59,352 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''192.168.1.70192.168.1.61192.168.1.62'' at line 1")
+2022-03-11 17:11:42,594 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''192.168.1.70192.168.1.61192.168.1.62'' at line 1")
+2022-03-11 17:13:33,412 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''192.168.1.70,192.168.1.61,192.168.1.62,'' at line 1")
+2022-03-11 17:14:43,766 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''192.168.1.70,192.168.1.61,192.168.1.62,'' at line 1")
+2022-03-11 17:19:58,325 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 17:23:25,299 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-11 17:24:11,016 ERROR ���ݿ����not all arguments converted during string formatting
+2022-03-14 13:47:33,257 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1")
+2022-03-14 13:47:52,663 ERROR ���ݿ����(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1")
+2022-05-25 09:01:13,260 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-05-25 09:04:31,955 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-05-25 09:13:55,212 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-05-25 09:15:30,231 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-05-25 09:15:57,412 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
+2022-05-25 09:17:57,385 ERROR ���ݿ����Ӵ���(2003, "Can't connect to MySQL server on '127.0.0.1' ([WinError 10061] ����Ŀ�����������ܾ����޷����ӡ�)")
