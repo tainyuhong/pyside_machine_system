@@ -5,7 +5,7 @@ from ui.add_machine import *
 from db.db_orm import *
 
 
-class UiModifyMachine(Ui_modify, QtWidgets.QDialog):
+class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(UiModifyMachine, self).__init__(parent)
         self.setupUi(self)

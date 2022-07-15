@@ -4,7 +4,7 @@ from ui.add_machine import *
 from db.db_orm import *
 
 
-class UiAdd(Ui_add_machine_form, QtWidgets.QDialog):
+class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
     """
     添加设备窗口类
     """
