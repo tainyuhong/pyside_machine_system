@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>add_machine_form</class>
  <widget class="QWidget" name="add_machine_form">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,30 +16,336 @@
   <property name="windowTitle">
    <string>添加设备</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,1,1,1,1,1,1,4,2">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,1,1,1,1,1,1,1,4,2">
+     <property name="leftMargin">
+      <number>15</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>15</number>
+     </property>
      <property name="bottomMargin">
       <number>20</number>
      </property>
-     <property name="spacing">
-      <number>10</number>
+     <property name="verticalSpacing">
+      <number>15</number>
      </property>
-     <item row="0" column="2" colspan="2">
-      <widget class="QLabel" name="label">
+     <item row="2" column="5">
+      <widget class="QComboBox" name="down_position">
        <property name="font">
         <font>
-         <pointsize>28</pointsize>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
         </font>
        </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
+       <property name="placeholderText">
+        <string>点击选择U位</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="lb_machine_admin">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>负 责 人</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="3">
+      <widget class="QLineEdit" name="admin">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="5">
+      <widget class="QDateEdit" name="install_date">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="lb_mg_ip_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>BMC IP</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="5">
+      <widget class="QComboBox" name="up_position">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择U位</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QComboBox" name="cabinet">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择机柜</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QLineEdit" name="model">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="QLabel" name="lb_last_date">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>到保日期</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="4">
+      <widget class="QLabel" name="lb_install_date">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>上架日期</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLabel" name="lb_admin">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>管 理 员</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="3">
+      <widget class="QCheckBox" name="single_power">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <bold>false</bold>
+        </font>
        </property>
        <property name="styleSheet">
         <string notr="true">color:blue</string>
        </property>
        <property name="text">
-        <string>添加设备</string>
+        <string>单电源</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="room">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择机房</string>
+       </property>
+       <property name="duplicatesEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="lb_sn">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>设 备 SN</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="lb_fa_date">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>出厂日期</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2">
+      <widget class="QPushButton" name="save">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>保    存</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="machine_sn">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="4">
+      <widget class="QLabel" name="lb_down">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:red</string>
+       </property>
+       <property name="text">
+        <string>下  U 位</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="lb_comments">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>备      注</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="4">
+      <widget class="QLabel" name="lb_up">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:red</string>
+       </property>
+       <property name="text">
+        <string>上  U 位</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="machine_admin">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="4">
+      <widget class="QLabel" name="lb_app_ip">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>业务 IP</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -61,66 +370,23 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1" colspan="3">
-      <widget class="QLineEdit" name="machine_name">
+     <item row="6" column="1">
+      <widget class="QDateEdit" name="factory_date">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QLabel" name="lb_sort">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
+       <property name="calendarPopup">
+        <bool>true</bool>
        </property>
-       <property name="styleSheet">
-        <string notr="true">color:red</string>
-       </property>
-       <property name="text">
-        <string>设备类型</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QComboBox" name="sort_name">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="lb_room">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:red</string>
-       </property>
-       <property name="text">
-        <string>机房</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="room">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
        </property>
       </widget>
      </item>
@@ -135,46 +401,73 @@
         <string notr="true">color:red</string>
        </property>
        <property name="text">
-        <string>机柜</string>
+        <string>机     柜</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QComboBox" name="cabinet">
+     <item row="4" column="5">
+      <widget class="QComboBox" name="work_are">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择业务类型</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>1生产</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2电渠</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3灾备</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4开发</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="9" column="0" colspan="6">
+      <widget class="QTextEdit" name="comments">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+         <bold>false</bold>
+         <kerning>true</kerning>
         </font>
        </property>
       </widget>
      </item>
-     <item row="2" column="4">
-      <widget class="QLabel" name="lb_up">
+     <item row="4" column="2">
+      <widget class="QLabel" name="lb_mg_ip">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:red</string>
        </property>
        <property name="text">
-        <string>上U位</string>
+        <string>管 理 IP</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="5">
-      <widget class="QComboBox" name="up_position">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
        </property>
       </widget>
      </item>
@@ -196,12 +489,21 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="machine_factory">
+     <item row="1" column="4">
+      <widget class="QLabel" name="lb_sort">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:red</string>
+       </property>
+       <property name="text">
+        <string>设备类型</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -216,82 +518,7 @@
         <string notr="true">color:red</string>
        </property>
        <property name="text">
-        <string>型号</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QLineEdit" name="model">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4">
-      <widget class="QLabel" name="lb_down">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>下U位</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="5">
-      <widget class="QComboBox" name="down_position">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="lb_sn">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:red</string>
-       </property>
-       <property name="text">
-        <string>设备SN</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="machine_sn">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLabel" name="lb_mg_ip">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>管理IP</string>
+        <string>型     号</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -302,6 +529,7 @@
       <widget class="QLineEdit" name="lmg_ip">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
        </property>
@@ -322,72 +550,110 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="5">
-      <widget class="QLineEdit" name="work_are">
+     <item row="3" column="1">
+      <widget class="QComboBox" name="machine_factory">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="placeholderText">
+        <string>点击选择品牌</string>
+       </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="lb_machine_admin">
+     <item row="6" column="3">
+      <widget class="QDateEdit" name="end_ma_date">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+       <property name="date">
+        <date>
+         <year>2000</year>
+         <month>1</month>
+         <day>1</day>
+        </date>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="4">
+      <widget class="QPushButton" name="clear">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>负责人</string>
+        <string>清    空</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="3">
+      <widget class="QLineEdit" name="machine_name">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" colspan="2">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>28</pointsize>
+         <bold>true</bold>
+         <underline>true</underline>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:blue</string>
+       </property>
+       <property name="text">
+        <string>添加设备</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="machine_admin">
+     <item row="1" column="5">
+      <widget class="QComboBox" name="sort_name">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择类型</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lb_room">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="QLabel" name="lb_admin">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
+       <property name="styleSheet">
+        <string notr="true">color:red</string>
        </property>
        <property name="text">
-        <string>管理员</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="3">
-      <widget class="QLineEdit" name="admin">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="4">
-      <widget class="QLabel" name="lb_app_ip">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>业务IP</string>
+        <string>机      房</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -398,128 +664,19 @@
       <widget class="QLineEdit" name="app_ip">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="lb_fa_date">
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="bmc_ip">
        <property name="font">
         <font>
+         <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
-       </property>
-       <property name="text">
-        <string>出厂日期</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QDateEdit" name="factory_date">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="QLabel" name="lb_last_date">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>到保日期</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="QDateEdit" name="end_ma_date">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="4">
-      <widget class="QLabel" name="lb_install_date">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>上架日期</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="5">
-      <widget class="QDateEdit" name="install_date">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="lb_comments">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>备注</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0" colspan="6">
-      <widget class="QTextEdit" name="comments">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2">
-      <widget class="QPushButton" name="save">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>保存</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="4">
-      <widget class="QPushButton" name="clear">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>清空</string>
        </property>
       </widget>
      </item>
@@ -527,6 +684,28 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>machine_name</tabstop>
+  <tabstop>sort_name</tabstop>
+  <tabstop>room</tabstop>
+  <tabstop>cabinet</tabstop>
+  <tabstop>down_position</tabstop>
+  <tabstop>machine_factory</tabstop>
+  <tabstop>model</tabstop>
+  <tabstop>up_position</tabstop>
+  <tabstop>machine_sn</tabstop>
+  <tabstop>lmg_ip</tabstop>
+  <tabstop>work_are</tabstop>
+  <tabstop>machine_admin</tabstop>
+  <tabstop>admin</tabstop>
+  <tabstop>app_ip</tabstop>
+  <tabstop>factory_date</tabstop>
+  <tabstop>end_ma_date</tabstop>
+  <tabstop>install_date</tabstop>
+  <tabstop>comments</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>clear</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
