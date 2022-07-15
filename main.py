@@ -7,10 +7,9 @@ from action.check_action import *
 from action.add_machine_action import *
 
 
-
-class Ui_MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
+class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
-        super(Ui_MainWindow, self).__init__(parent)
+        super(UiMainWindow, self).__init__(parent)
         self.setupUi(self)
 
         # 定义设备查询菜单触发事件
@@ -22,11 +21,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         # 定义添加设备菜单触发事件
         self.actiontjsb.triggered.connect(self.add_machine_win)
 
-
     # 定义设备查询窗口显示
     def show_select_win(self):
-        select_window = Ui_MachineSelect()
-        select_window.show()
+        self.select_window = UiMachineSelect()
+        self.select_window.show()
 
     # 定义批量导入窗口显示
     def imp_machine_win(self):
@@ -40,12 +38,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
     # 定义巡检窗口显示
     def check_win(self):
-        self.check_window = UiCheck()       # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
+        self.check_window = UiCheck()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
         self.check_window.show()
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    win = Ui_MainWindow()
+    win = UiMainWindow()
     win.show()
     sys.exit(app.exec())
-

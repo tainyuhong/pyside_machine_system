@@ -4,9 +4,9 @@ from ui.MachineSelect import *
 from db.db_handler import *
 
 
-class Ui_MachineSelect(QtWidgets.QMainWindow, Ui_MachineSelect):
+class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
     def __init__(self, parent=None):
-        super(Ui_MachineSelect, self).__init__(parent)
+        super(UiMachineSelect, self).__init__(parent)
         self.setupUi(self)
         # 设置表格相关信息
         self.select_table.setHorizontalHeaderLabels(
@@ -220,6 +220,6 @@ class Ui_MachineSelect(QtWidgets.QMainWindow, Ui_MachineSelect):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    mainWindow = Ui_MachineSelect()
+    mainWindow = UiMachineSelect()
     mainWindow.show()
     sys.exit(app.exec())
