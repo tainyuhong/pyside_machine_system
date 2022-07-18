@@ -15,17 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_modify(object):
     def setupUi(self, modify):
         if not modify.objectName():
             modify.setObjectName(u"modify")
         modify.setWindowModality(Qt.WindowModal)
-        modify.resize(900, 553)
+        modify.resize(1000, 800)
         self.verticalLayout_2 = QVBoxLayout(modify)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
@@ -84,24 +84,12 @@ class Ui_modify(object):
 
         self.gridLayout.addWidget(self.lb_room, 1, 0, 1, 1)
 
-        self.room = QLineEdit(self.groupBox)
-        self.room.setObjectName(u"room")
-        self.room.setFont(font1)
-
-        self.gridLayout.addWidget(self.room, 1, 1, 1, 1)
-
         self.lb_cabinet = QLabel(self.groupBox)
         self.lb_cabinet.setObjectName(u"lb_cabinet")
         self.lb_cabinet.setFont(font1)
         self.lb_cabinet.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.lb_cabinet, 1, 2, 1, 1)
-
-        self.cabinet = QLineEdit(self.groupBox)
-        self.cabinet.setObjectName(u"cabinet")
-        self.cabinet.setFont(font1)
-
-        self.gridLayout.addWidget(self.cabinet, 1, 3, 1, 1)
 
         self.bt_select = QPushButton(self.groupBox)
         self.bt_select.setObjectName(u"bt_select")
@@ -115,11 +103,25 @@ class Ui_modify(object):
 
         self.gridLayout.addWidget(self.bt_clear, 1, 5, 1, 1)
 
-        self.machine_machine = QLineEdit(self.groupBox)
-        self.machine_machine.setObjectName(u"machine_machine")
-        self.machine_machine.setFont(font1)
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
+        self.machine_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.machine_machine, 0, 1, 1, 3)
+        self.gridLayout.addWidget(self.machine_name, 0, 1, 1, 3)
+
+        self.room = QComboBox(self.groupBox)
+        self.room.addItem("")
+        self.room.setObjectName(u"room")
+        self.room.setFont(font1)
+
+        self.gridLayout.addWidget(self.room, 1, 1, 1, 1)
+
+        self.cabinet = QComboBox(self.groupBox)
+        self.cabinet.addItem("")
+        self.cabinet.setObjectName(u"cabinet")
+        self.cabinet.setFont(font1)
+
+        self.gridLayout.addWidget(self.cabinet, 1, 3, 1, 1)
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 1)
@@ -215,7 +217,7 @@ class Ui_modify(object):
     # setupUi
 
     def retranslateUi(self, modify):
-        modify.setWindowTitle(QCoreApplication.translate("modify", u"Form", None))
+        modify.setWindowTitle(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.lb_title.setText(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.groupBox.setTitle(QCoreApplication.translate("modify", u"\u67e5\u8be2\u6761\u4ef6", None))
         self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
@@ -223,9 +225,12 @@ class Ui_modify(object):
         self.mg_ip.setText("")
         self.lb_room.setText(QCoreApplication.translate("modify", u"\u673a      \u623f", None))
         self.lb_cabinet.setText(QCoreApplication.translate("modify", u"\u673a    \u67dc", None))
-        self.cabinet.setText("")
         self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
         self.bt_clear.setText(QCoreApplication.translate("modify", u"\u6e05\u7a7a", None))
+        self.room.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
+
+        self.cabinet.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
+
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)

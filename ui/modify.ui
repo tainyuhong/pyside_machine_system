@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
-    <height>553</height>
+    <width>1000</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -122,15 +122,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="room">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2">
          <widget class="QLabel" name="lb_cabinet">
           <property name="font">
@@ -143,18 +134,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="cabinet">
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string/>
           </property>
          </widget>
         </item>
@@ -183,12 +162,40 @@
          </widget>
         </item>
         <item row="0" column="1" colspan="3">
-         <widget class="QLineEdit" name="machine_machine">
+         <widget class="QLineEdit" name="machine_name">
           <property name="font">
            <font>
             <pointsize>12</pointsize>
            </font>
           </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="room">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>所有</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QComboBox" name="cabinet">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>所有</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

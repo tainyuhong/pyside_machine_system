@@ -27,10 +27,6 @@ class CabPosition(BaseModel):
 
     class Meta:
         table_name = 'cab_position'
-        indexes = (
-            (('id', 'num'), True),
-        )
-        primary_key = CompositeKey('id', 'num')
 
 
 class MachineRoom(BaseModel):
@@ -80,7 +76,7 @@ class MachineSort(BaseModel):
     """
     设备分类表
     """
-    sort_id = IntegerField(index=True)
+    sort_id = AutoField()
     sort_name = CharField(index=True)
     part_sort = ForeignKeyField(column_name='part_sort_id', field='sort_id', model='self', null=True)
     part_sort_name = CharField(index=True, null=True)
@@ -88,10 +84,6 @@ class MachineSort(BaseModel):
 
     class Meta:
         table_name = 'machine_sort'
-        indexes = (
-            (('sort_id', 'sort_name'), True),
-        )
-        primary_key = CompositeKey('sort_id', 'sort_name')
 
 
 class MachineInfos(BaseModel):
