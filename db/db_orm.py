@@ -76,7 +76,7 @@ class MachineSort(BaseModel):
     """
     设备分类表
     """
-    sort_id = AutoField()
+    sort_id = PrimaryKeyField()
     sort_name = CharField(index=True)
     part_sort = ForeignKeyField(column_name='part_sort_id', field='sort_id', model='self', null=True)
     part_sort_name = CharField(index=True, null=True)

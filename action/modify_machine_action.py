@@ -48,35 +48,47 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         cabinet = self.cabinet.currentText()
         print('name：{},ip:{},romm:{},cabinet:{}'.format(machine_name, mg_ip, room, cabinet))
         if machine_name != '':
-            data_model = MachineInfos.select('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
-                                             'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
-                                             'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
-                                             'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip',
-                                             'comments').where(
+            data_model = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid,
+                                             MachineInfos.cabinet_name, MachineInfos.start_position,
+                                             MachineInfos.end_position, MachineInfos.machine_name,
+                                             MachineInfos.machine_sort_name, MachineInfos.machine_factory,
+                                             MachineInfos.model, MachineInfos.machine_sn, MachineInfos.factory_date,
+                                             MachineInfos.end_ma_date, MachineInfos.work_are,
+                                             MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
+                                             MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments).where(
                 MachineInfos.machine_name == machine_name)
             print('查询设备名 SQL', data_model)
         if mg_ip != '':
-            data_model = MachineInfos.select('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
-                                             'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
-                                             'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
-                                             'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip',
-                                             'comments').where(
+            data_model = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid,
+                                             MachineInfos.cabinet_name, MachineInfos.start_position,
+                                             MachineInfos.end_position, MachineInfos.machine_name,
+                                             MachineInfos.machine_sort_name, MachineInfos.machine_factory,
+                                             MachineInfos.model, MachineInfos.machine_sn, MachineInfos.factory_date,
+                                             MachineInfos.end_ma_date, MachineInfos.work_are,
+                                             MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
+                                             MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments).where(
                 MachineInfos.mg_ip == mg_ip)
             print('查询IP SQL', data_model)
         if room != 0:  # 所有机房，采用索引进行查询
-            data_model = MachineInfos.select('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
-                                             'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
-                                             'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
-                                             'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip',
-                                             'comments').where(
+            data_model = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid,
+                                             MachineInfos.cabinet_name, MachineInfos.start_position,
+                                             MachineInfos.end_position, MachineInfos.machine_name,
+                                             MachineInfos.machine_sort_name, MachineInfos.machine_factory,
+                                             MachineInfos.model, MachineInfos.machine_sn, MachineInfos.factory_date,
+                                             MachineInfos.end_ma_date, MachineInfos.work_are,
+                                             MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
+                                             MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments).where(
                 MachineInfos.machine_roomid == self.room.currentIndex())
             print('查询机房SQL', data_model)
         if cabinet != '所有':  # 所有机柜，采用项名 进行查询
-            data_model = MachineInfos().select('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
-                                               'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
-                                               'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
-                                               'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip',
-                                               'comments').where(
+            data_model = MachineInfos().select(MachineInfos.machine_id, MachineInfos.machine_roomid,
+                                             MachineInfos.cabinet_name, MachineInfos.start_position,
+                                             MachineInfos.end_position, MachineInfos.machine_name,
+                                             MachineInfos.machine_sort_name, MachineInfos.machine_factory,
+                                             MachineInfos.model, MachineInfos.machine_sn, MachineInfos.factory_date,
+                                             MachineInfos.end_ma_date, MachineInfos.work_are,
+                                             MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
+                                             MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments).where(
                 MachineInfos.cabinet_name == self.cabinet.currentText())
             print('查询机柜SQL', data_model)
         else:
@@ -89,20 +101,29 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                                              MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
                                              MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments)
             print('查询所有SQL', data_model)
-            data = [(i.machine_id, i.machine_roomid,
-                                               i.cabinet_name, i.start_position,
-                                               i.end_position, i.machine_name,
-                                               i.machine_sort_name, i.machine_factory,
-                                               i.model, i.machine_sn, i.factory_date,
-                                               i.end_ma_date, i.work_are,
-                                               i.machine_admin, i.app_admin, i.mg_ip,
-                                               i.app_ip1, i.bmc_ip, i.comments) for i in data_model]
+            data = [(i.machine_id, i.machine_roomid.room_id,
+                      i.cabinet_name.cab_num, i.start_position.num,
+                      i.end_position.num, i.machine_name,
+                      i.machine_sort_name.sort_name, i.machine_factory,
+                      i.model, i.machine_sn, i.factory_date,
+                      i.end_ma_date, i.work_are,
+                      i.machine_admin, i.app_admin, i.mg_ip,
+                      i.app_ip1, i.bmc_ip, i.comments) for i in data_model]
             print(data)
+            self.tb_display.setRowCount(len(data))
+            self.tb_display.setColumnCount(len(data[0]))
+            for row,d1 in enumerate(data):
+                print('row',row)
+                for col,d2 in enumerate(d1):
+                    print('col', col)
+                    # print(data[row][col])
+                    self.tb_display.setItem(row,col,QTableWidgetItem(str(data[row][col])))
+            self.tb_display.resizeColumnsToContents()
             # for i in data_model:
             #     print(i.machine_id, i.machine_roomid,
             #           i.cabinet_name, i.start_position,
             #           i.end_position, i.machine_name,
-            #           i.machine_sort_name, i.machine_factory,
+            #           i.machine_sort_name.sort_name, i.machine_factory,
             #           i.model, i.machine_sn, i.factory_date,
             #           i.end_ma_date, i.work_are,
             #           i.machine_admin, i.app_admin, i.mg_ip,
