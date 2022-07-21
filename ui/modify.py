@@ -15,7 +15,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLayout,
     QGroupBox, QHBoxLayout, QHeaderView, QLabel,
     QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
@@ -51,45 +51,48 @@ class Ui_modify(object):
         self.groupBox.setStyleSheet(u"")
         self.groupBox.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.groupBox.setFlat(False)
-        self.gridLayout = QGridLayout(self.groupBox)
+        self.horizontalLayout_2 = QHBoxLayout(self.groupBox)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setSpacing(15)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setHorizontalSpacing(20)
-        self.gridLayout.setVerticalSpacing(15)
-        self.lb_machine_name = QLabel(self.groupBox)
-        self.lb_machine_name.setObjectName(u"lb_machine_name")
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
         font1 = QFont()
         font1.setPointSize(12)
-        self.lb_machine_name.setFont(font1)
-        self.lb_machine_name.setAlignment(Qt.AlignCenter)
+        self.machine_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.lb_machine_name, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.machine_name, 0, 1, 1, 2)
+
+        self.mg_ip = QLineEdit(self.groupBox)
+        self.mg_ip.setObjectName(u"mg_ip")
+        self.mg_ip.setFont(font1)
+
+        self.gridLayout.addWidget(self.mg_ip, 0, 4, 1, 1)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 1, 1, 1)
+
+        self.bt_clear = QPushButton(self.groupBox)
+        self.bt_clear.setObjectName(u"bt_clear")
+        self.bt_clear.setFont(font1)
+
+        self.gridLayout.addWidget(self.bt_clear, 1, 2, 1, 1)
 
         self.lb_mgip = QLabel(self.groupBox)
         self.lb_mgip.setObjectName(u"lb_mgip")
         self.lb_mgip.setFont(font1)
         self.lb_mgip.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lb_mgip, 0, 4, 1, 1)
+        self.gridLayout.addWidget(self.lb_mgip, 0, 3, 1, 1)
 
-        self.mg_ip = QLineEdit(self.groupBox)
-        self.mg_ip.setObjectName(u"mg_ip")
-        self.mg_ip.setFont(font1)
+        self.lb_machine_name = QLabel(self.groupBox)
+        self.lb_machine_name.setObjectName(u"lb_machine_name")
+        self.lb_machine_name.setFont(font1)
+        self.lb_machine_name.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.mg_ip, 0, 5, 1, 1)
-
-        self.lb_room = QLabel(self.groupBox)
-        self.lb_room.setObjectName(u"lb_room")
-        self.lb_room.setFont(font1)
-        self.lb_room.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lb_room, 1, 0, 1, 1)
-
-        self.lb_cabinet = QLabel(self.groupBox)
-        self.lb_cabinet.setObjectName(u"lb_cabinet")
-        self.lb_cabinet.setFont(font1)
-        self.lb_cabinet.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lb_cabinet, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.lb_machine_name, 0, 0, 1, 1)
 
         self.bt_select = QPushButton(self.groupBox)
         self.bt_select.setObjectName(u"bt_select")
@@ -97,38 +100,14 @@ class Ui_modify(object):
 
         self.gridLayout.addWidget(self.bt_select, 1, 4, 1, 1)
 
-        self.bt_clear = QPushButton(self.groupBox)
-        self.bt_clear.setObjectName(u"bt_clear")
-        self.bt_clear.setFont(font1)
-
-        self.gridLayout.addWidget(self.bt_clear, 1, 5, 1, 1)
-
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
-        self.machine_name.setFont(font1)
-
-        self.gridLayout.addWidget(self.machine_name, 0, 1, 1, 3)
-
-        self.room = QComboBox(self.groupBox)
-        self.room.addItem("")
-        self.room.setObjectName(u"room")
-        self.room.setFont(font1)
-
-        self.gridLayout.addWidget(self.room, 1, 1, 1, 1)
-
-        self.cabinet = QComboBox(self.groupBox)
-        self.cabinet.addItem("")
-        self.cabinet.setObjectName(u"cabinet")
-        self.cabinet.setFont(font1)
-
-        self.gridLayout.addWidget(self.cabinet, 1, 3, 1, 1)
-
         self.gridLayout.setColumnStretch(0, 1)
-        self.gridLayout.setColumnStretch(1, 1)
+        self.gridLayout.setColumnStretch(1, 2)
         self.gridLayout.setColumnStretch(2, 1)
         self.gridLayout.setColumnStretch(3, 1)
-        self.gridLayout.setColumnStretch(4, 1)
-        self.gridLayout.setColumnStretch(5, 1)
+        self.gridLayout.setColumnStretch(4, 2)
+
+        self.horizontalLayout_2.addLayout(self.gridLayout)
+
 
         self.verticalLayout.addWidget(self.groupBox)
 
@@ -173,7 +152,14 @@ class Ui_modify(object):
         self.tb_display.setHorizontalHeaderItem(17, __qtablewidgetitem17)
         __qtablewidgetitem18 = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(18, __qtablewidgetitem18)
+        if (self.tb_display.rowCount() < 10):
+            self.tb_display.setRowCount(10)
         self.tb_display.setObjectName(u"tb_display")
+        self.tb_display.setEditTriggers(QAbstractItemView.DoubleClicked)
+        self.tb_display.setAlternatingRowColors(True)
+        self.tb_display.setGridStyle(Qt.SolidLine)
+        self.tb_display.setSortingEnabled(False)
+        self.tb_display.setRowCount(10)
 
         self.verticalLayout.addWidget(self.tb_display)
 
@@ -220,17 +206,11 @@ class Ui_modify(object):
         modify.setWindowTitle(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.lb_title.setText(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.groupBox.setTitle(QCoreApplication.translate("modify", u"\u67e5\u8be2\u6761\u4ef6", None))
-        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
-        self.lb_mgip.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406 IP", None))
         self.mg_ip.setText("")
-        self.lb_room.setText(QCoreApplication.translate("modify", u"\u673a      \u623f", None))
-        self.lb_cabinet.setText(QCoreApplication.translate("modify", u"\u673a    \u67dc", None))
-        self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
         self.bt_clear.setText(QCoreApplication.translate("modify", u"\u6e05\u7a7a", None))
-        self.room.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
-
-        self.cabinet.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
-
+        self.lb_mgip.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406 IP", None))
+        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)
