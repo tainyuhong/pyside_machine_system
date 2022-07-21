@@ -14,11 +14,11 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         super(UiModifyMachine, self).__init__(parent)
         self.setupUi(self)
 
-        self.tb_display.cellChanged.connect(self.display_changed)
-
         # 定义按钮功能
         self.bt_select.clicked.connect(self.select)       # 查询内容
         self.bt_clear.clicked.connect(self.clear)       # 清空条件框内容
+        self.bt_modify.clicked.connect(self.submit_modify)
+
 
     def select(self):
         machine_name = self.machine_name.text().strip()
@@ -28,6 +28,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         if machine_name != '' or mg_ip != '':
             print('设备名或IP有一项不为空')
             print('machine_name',machine_name,'mg_ip',mg_ip)
+
             if machine_name == '':
                 print('设备名为空')
                 data_model = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid,
@@ -94,7 +95,8 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                             self.tb_display.item(row, 0).setFlags(Qt.ItemIsEnabled)  # 第一列设置为不可编辑
                         else:
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                self.tb_display.resizeColumnsToContents()
+                self.tb_display.resizeColumnsToContents()       # 设置自适应列宽
+
             elif machine_name != '' and mg_ip != '':
                 print('两个都不为空',machine_name,mg_ip)
                 data_model = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid,
@@ -130,6 +132,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                 self.tb_display.resizeColumnsToContents()
         else:
             print('请输入查询条件')
+        self.tb_display.cellChanged.connect(self.display_changed)  # 启用单元格式信号
 
     def clear(self):
         """
@@ -141,6 +144,13 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
 
     def display_changed(self):
         print('有变化')
+
+
+    def submit_modify(self):
+        print('提交修改')
+        self.tb_display.cellChanged.disconnect(self.display_changed)  # 启用单元格式信号
+        # self.tb_display.blockSignals(True)    # 进入阻塞模式
+        print('断开连接')
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
