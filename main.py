@@ -5,6 +5,7 @@ from action.MachineSelect_action import *
 from action.machine_imp_exp import *
 from action.check_action import *
 from action.add_machine_action import *
+from action.modify_machine_action import *
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -20,6 +21,9 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionsj.triggered.connect(self.check_win)
         # 定义添加设备菜单触发事件
         self.actiontjsb.triggered.connect(self.add_machine_win)
+        # 定义修改设备菜单触发事件
+        self.actionxg.triggered.connect(self.modify_win)
+
 
     # 定义设备查询窗口显示
     def show_select_win(self):
@@ -35,6 +39,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def add_machine_win(self):
         self.add_window = UiAdd()
         self.add_window.show()
+
+    # 定义修改设备窗口显示
+    def modify_win(self):
+        self.modify_window = UiModifyMachine()
+        self.modify_window.show()
 
     # 定义巡检窗口显示
     def check_win(self):

@@ -28,9 +28,10 @@ class Pet(Model):
 
 # # 添加记录 方法一save
 # jim = Person(name='jim', birthday=date(1960, 1, 12))
-# tom = Person(name='tom', birthday=date(1960, 1, 12))
-# n = tom.save()   # 保存到数据库,返回执行的行数
-# print(n)
+# # tom = Person(name='tom', birthday=date(1960, 1, 12))
+# # n = tom.save()   # 保存到数据库,返回执行的行数
+# # print(n)
+# jim.save()
 
 
 # # 添加记录方法二create
@@ -79,5 +80,8 @@ class Pet(Model):
 # d = Pet.delete().where(Pet.name == 'peet').execute()
 # print(d)
 
-p = Person.get(Person.name=='jim')
-p.delete_instance(recursive=True)
+# p = Person.get(Person.name=='jim')
+# p.delete_instance(recursive=True)
+
+tom_modify = Person.update(birthday=date(1111,3,3)).where(Person.id==3).execute()
+print(tom_modify)
