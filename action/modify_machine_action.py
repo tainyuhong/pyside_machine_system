@@ -1,6 +1,6 @@
 import sys, time
 from ui.modify import *
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets
 from ui.add_machine import *
 from db.db_orm import *
 import logging

@@ -1,7 +1,7 @@
 import sys
 import paramiko
 import time
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets, QtCore
 from ui.check import *
 from ui.addhost_win import *
 from db.db_handler import *
