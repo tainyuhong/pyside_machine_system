@@ -678,7 +678,7 @@ class Ui_BaseInfo(object):
 
         self.retranslateUi(BaseInfo)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(BaseInfo)
