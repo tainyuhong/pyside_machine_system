@@ -16,10 +16,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
-    QGridLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QTableWidget, QTableWidgetItem, QTreeWidget, QTreeWidgetItem,
-    QVBoxLayout, QWidget)
+    QFrame, QGridLayout, QHeaderView, QLabel,
+    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QTabWidget, QTableWidget, QTableWidgetItem, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_BaseInfo(object):
     def setupUi(self, BaseInfo):
@@ -30,6 +30,8 @@ class Ui_BaseInfo(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.tabWidget = QTabWidget(BaseInfo)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setTabPosition(QTabWidget.North)
+        self.tabWidget.setTabShape(QTabWidget.Triangular)
         self.tab_room = QWidget()
         self.tab_room.setObjectName(u"tab_room")
         self.verticalLayout_3 = QVBoxLayout(self.tab_room)
@@ -50,31 +52,24 @@ class Ui_BaseInfo(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setVerticalSpacing(15)
         self.gridLayout.setContentsMargins(5, 5, 6, -1)
-        self.tb_room = QTableWidget(self.tab_room)
-        if (self.tb_room.columnCount() < 3):
-            self.tb_room.setColumnCount(3)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tb_room.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tb_room.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.tb_room.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        if (self.tb_room.rowCount() < 8):
-            self.tb_room.setRowCount(8)
-        self.tb_room.setObjectName(u"tb_room")
+        self.bt_del_room = QPushButton(self.tab_room)
+        self.bt_del_room.setObjectName(u"bt_del_room")
         font1 = QFont()
         font1.setPointSize(12)
-        self.tb_room.setFont(font1)
-        self.tb_room.setAlternatingRowColors(True)
-        self.tb_room.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tb_room.setRowCount(8)
-        self.tb_room.horizontalHeader().setCascadingSectionResizes(False)
-        self.tb_room.horizontalHeader().setProperty("showSortIndicator", False)
-        self.tb_room.horizontalHeader().setStretchLastSection(True)
-        self.tb_room.verticalHeader().setVisible(False)
-        self.tb_room.verticalHeader().setStretchLastSection(False)
+        self.bt_del_room.setFont(font1)
 
-        self.gridLayout.addWidget(self.tb_room, 0, 0, 6, 1)
+        self.gridLayout.addWidget(self.bt_del_room, 4, 2, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer, 3, 1, 1, 1)
+
+        self.room_name_alias = QLabel(self.tab_room)
+        self.room_name_alias.setObjectName(u"room_name_alias")
+        self.room_name_alias.setFont(font1)
+        self.room_name_alias.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.room_name_alias, 2, 1, 1, 1)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -87,28 +82,17 @@ class Ui_BaseInfo(object):
 
         self.gridLayout.addWidget(self.room_name, 1, 1, 1, 1)
 
-        self.le_room_name = QLineEdit(self.tab_room)
-        self.le_room_name.setObjectName(u"le_room_name")
-        self.le_room_name.setFont(font1)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout.addWidget(self.le_room_name, 1, 2, 1, 2)
+        self.gridLayout.addItem(self.horizontalSpacer_2, 4, 1, 1, 1)
 
-        self.room_name_alias = QLabel(self.tab_room)
-        self.room_name_alias.setObjectName(u"room_name_alias")
-        self.room_name_alias.setFont(font1)
-        self.room_name_alias.setAlignment(Qt.AlignCenter)
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout.addWidget(self.room_name_alias, 2, 1, 1, 1)
+        self.gridLayout.addItem(self.horizontalSpacer_3, 3, 3, 1, 1)
 
-        self.le_room_alias = QLineEdit(self.tab_room)
-        self.le_room_alias.setObjectName(u"le_room_alias")
-        self.le_room_alias.setFont(font1)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout.addWidget(self.le_room_alias, 2, 2, 1, 2)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer, 3, 1, 1, 1)
+        self.gridLayout.addItem(self.horizontalSpacer_4, 4, 3, 1, 1)
 
         self.bt_add_room = QPushButton(self.tab_room)
         self.bt_add_room.setObjectName(u"bt_add_room")
@@ -116,27 +100,54 @@ class Ui_BaseInfo(object):
 
         self.gridLayout.addWidget(self.bt_add_room, 3, 2, 1, 1)
 
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.le_room_alias = QLineEdit(self.tab_room)
+        self.le_room_alias.setObjectName(u"le_room_alias")
+        self.le_room_alias.setFont(font1)
 
-        self.gridLayout.addItem(self.horizontalSpacer_3, 3, 3, 1, 1)
+        self.gridLayout.addWidget(self.le_room_alias, 2, 2, 1, 2)
 
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.tb_room = QTableWidget(self.tab_room)
+        if (self.tb_room.columnCount() < 3):
+            self.tb_room.setColumnCount(3)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.tb_room.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tb_room.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.tb_room.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        if (self.tb_room.rowCount() < 8):
+            self.tb_room.setRowCount(8)
+        self.tb_room.setObjectName(u"tb_room")
+        self.tb_room.setFont(font1)
+        self.tb_room.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tb_room.setAlternatingRowColors(True)
+        self.tb_room.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tb_room.setRowCount(8)
+        self.tb_room.horizontalHeader().setCascadingSectionResizes(False)
+        self.tb_room.horizontalHeader().setProperty("showSortIndicator", False)
+        self.tb_room.horizontalHeader().setStretchLastSection(True)
+        self.tb_room.verticalHeader().setVisible(False)
+        self.tb_room.verticalHeader().setStretchLastSection(False)
 
-        self.gridLayout.addItem(self.horizontalSpacer_2, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.tb_room, 0, 0, 6, 1)
 
-        self.bt_del_room = QPushButton(self.tab_room)
-        self.bt_del_room.setObjectName(u"bt_del_room")
-        self.bt_del_room.setFont(font1)
+        self.le_room_name = QLineEdit(self.tab_room)
+        self.le_room_name.setObjectName(u"le_room_name")
+        self.le_room_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.bt_del_room, 4, 2, 1, 1)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_4, 4, 3, 1, 1)
+        self.gridLayout.addWidget(self.le_room_name, 1, 2, 1, 2)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer_2, 5, 2, 1, 1)
+
+        self.label_2 = QLabel(self.tab_room)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setStyleSheet(u"color:blue")
+        self.label_2.setFrameShape(QFrame.NoFrame)
+        self.label_2.setFrameShadow(QFrame.Plain)
+
+        self.gridLayout.addWidget(self.label_2, 6, 0, 1, 4)
 
         self.gridLayout.setRowStretch(0, 2)
         self.gridLayout.setRowStretch(1, 1)
@@ -152,7 +163,7 @@ class Ui_BaseInfo(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
 
         self.verticalLayout_2.setStretch(0, 1)
-        self.verticalLayout_2.setStretch(1, 3)
+        self.verticalLayout_2.setStretch(1, 5)
 
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
@@ -175,6 +186,36 @@ class Ui_BaseInfo(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setVerticalSpacing(15)
         self.gridLayout_2.setContentsMargins(5, 6, 5, -1)
+        self.lb_cabinet_alias = QLabel(self.tab_cabinet)
+        self.lb_cabinet_alias.setObjectName(u"lb_cabinet_alias")
+        self.lb_cabinet_alias.setFont(font1)
+        self.lb_cabinet_alias.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.lb_cabinet_alias, 3, 1, 1, 1)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_2.addItem(self.horizontalSpacer_6, 6, 3, 1, 1)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_2.addItem(self.horizontalSpacer_5, 6, 1, 1, 1)
+
+        self.le_cabinet_alias = QLineEdit(self.tab_cabinet)
+        self.le_cabinet_alias.setObjectName(u"le_cabinet_alias")
+        self.le_cabinet_alias.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.le_cabinet_alias, 3, 2, 1, 1)
+
+        self.cb_room = QComboBox(self.tab_cabinet)
+        self.cb_room.setObjectName(u"cb_room")
+
+        self.gridLayout_2.addWidget(self.cb_room, 1, 2, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_3, 0, 2, 1, 1)
+
         self.tb_cabinet = QTableWidget(self.tab_cabinet)
         if (self.tb_cabinet.columnCount() < 6):
             self.tb_cabinet.setColumnCount(6)
@@ -194,6 +235,7 @@ class Ui_BaseInfo(object):
             self.tb_cabinet.setRowCount(15)
         self.tb_cabinet.setObjectName(u"tb_cabinet")
         self.tb_cabinet.setFont(font1)
+        self.tb_cabinet.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_cabinet.setAlternatingRowColors(True)
         self.tb_cabinet.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tb_cabinet.setRowCount(15)
@@ -206,7 +248,23 @@ class Ui_BaseInfo(object):
         self.tb_cabinet.verticalHeader().setDefaultSectionSize(28)
         self.tb_cabinet.verticalHeader().setStretchLastSection(False)
 
-        self.gridLayout_2.addWidget(self.tb_cabinet, 0, 0, 8, 1)
+        self.gridLayout_2.addWidget(self.tb_cabinet, 0, 0, 10, 1)
+
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_2.addItem(self.horizontalSpacer_7, 8, 1, 1, 1)
+
+        self.bt_del_cabinet = QPushButton(self.tab_cabinet)
+        self.bt_del_cabinet.setObjectName(u"bt_del_cabinet")
+        self.bt_del_cabinet.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.bt_del_cabinet, 8, 2, 1, 1)
+
+        self.le_U_count = QLineEdit(self.tab_cabinet)
+        self.le_U_count.setObjectName(u"le_U_count")
+        self.le_U_count.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.le_U_count, 4, 2, 1, 1)
 
         self.lb_room_name = QLabel(self.tab_cabinet)
         self.lb_room_name.setObjectName(u"lb_room_name")
@@ -215,78 +273,15 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_2.addWidget(self.lb_room_name, 1, 1, 1, 1)
 
-        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_2.addItem(self.horizontalSpacer_6, 5, 3, 1, 1)
-
-        self.lb_cabinet_alias = QLabel(self.tab_cabinet)
-        self.lb_cabinet_alias.setObjectName(u"lb_cabinet_alias")
-        self.lb_cabinet_alias.setFont(font1)
-        self.lb_cabinet_alias.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_2.addWidget(self.lb_cabinet_alias, 3, 1, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_4, 7, 2, 1, 1)
-
         self.bt_add_cabinet = QPushButton(self.tab_cabinet)
         self.bt_add_cabinet.setObjectName(u"bt_add_cabinet")
         self.bt_add_cabinet.setFont(font1)
 
-        self.gridLayout_2.addWidget(self.bt_add_cabinet, 5, 2, 1, 1)
-
-        self.lb_cabinet_name = QLabel(self.tab_cabinet)
-        self.lb_cabinet_name.setObjectName(u"lb_cabinet_name")
-        self.lb_cabinet_name.setFont(font1)
-        self.lb_cabinet_name.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_2.addWidget(self.lb_cabinet_name, 2, 1, 1, 1)
-
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_2.addItem(self.horizontalSpacer_7, 6, 1, 1, 1)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_2.addItem(self.horizontalSpacer_5, 5, 1, 1, 1)
-
-        self.bt_del_cabinet = QPushButton(self.tab_cabinet)
-        self.bt_del_cabinet.setObjectName(u"bt_del_cabinet")
-        self.bt_del_cabinet.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.bt_del_cabinet, 6, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.bt_add_cabinet, 6, 2, 1, 1)
 
         self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_2.addItem(self.horizontalSpacer_8, 6, 3, 1, 1)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_3, 0, 2, 1, 1)
-
-        self.cb_room = QComboBox(self.tab_cabinet)
-        self.cb_room.setObjectName(u"cb_room")
-
-        self.gridLayout_2.addWidget(self.cb_room, 1, 2, 1, 1)
-
-        self.le_cab_name = QLineEdit(self.tab_cabinet)
-        self.le_cab_name.setObjectName(u"le_cab_name")
-        self.le_cab_name.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.le_cab_name, 2, 2, 1, 1)
-
-        self.le_cabinet_alias = QLineEdit(self.tab_cabinet)
-        self.le_cabinet_alias.setObjectName(u"le_cabinet_alias")
-        self.le_cabinet_alias.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.le_cabinet_alias, 3, 2, 1, 1)
-
-        self.ckb_is_used = QCheckBox(self.tab_cabinet)
-        self.ckb_is_used.setObjectName(u"ckb_is_used")
-        self.ckb_is_used.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.ckb_is_used, 4, 3, 1, 1)
+        self.gridLayout_2.addItem(self.horizontalSpacer_8, 8, 3, 1, 1)
 
         self.lb_count = QLabel(self.tab_cabinet)
         self.lb_count.setObjectName(u"lb_count")
@@ -295,11 +290,43 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_2.addWidget(self.lb_count, 4, 1, 1, 1)
 
-        self.le_U_count = QLineEdit(self.tab_cabinet)
-        self.le_U_count.setObjectName(u"le_U_count")
-        self.le_U_count.setFont(font1)
+        self.ckb_is_used = QCheckBox(self.tab_cabinet)
+        self.ckb_is_used.setObjectName(u"ckb_is_used")
+        self.ckb_is_used.setFont(font1)
+        self.ckb_is_used.setChecked(True)
 
-        self.gridLayout_2.addWidget(self.le_U_count, 4, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.ckb_is_used, 5, 2, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_4, 9, 2, 1, 1)
+
+        self.lb_cabinet_name = QLabel(self.tab_cabinet)
+        self.lb_cabinet_name.setObjectName(u"lb_cabinet_name")
+        self.lb_cabinet_name.setFont(font1)
+        self.lb_cabinet_name.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.lb_cabinet_name, 2, 1, 1, 1)
+
+        self.lb_cab_status = QLabel(self.tab_cabinet)
+        self.lb_cab_status.setObjectName(u"lb_cab_status")
+        self.lb_cab_status.setStyleSheet(u"color:blue")
+        self.lb_cab_status.setFrameShape(QFrame.NoFrame)
+        self.lb_cab_status.setFrameShadow(QFrame.Raised)
+
+        self.gridLayout_2.addWidget(self.lb_cab_status, 10, 0, 1, 4)
+
+        self.le_cab_name = QLineEdit(self.tab_cabinet)
+        self.le_cab_name.setObjectName(u"le_cab_name")
+        self.le_cab_name.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.le_cab_name, 2, 2, 1, 1)
+
+        self.bt_cab_modify = QPushButton(self.tab_cabinet)
+        self.bt_cab_modify.setObjectName(u"bt_cab_modify")
+        self.bt_cab_modify.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.bt_cab_modify, 7, 2, 1, 1)
 
         self.gridLayout_2.setRowStretch(0, 2)
         self.gridLayout_2.setRowStretch(1, 1)
@@ -308,16 +335,17 @@ class Ui_BaseInfo(object):
         self.gridLayout_2.setRowStretch(4, 1)
         self.gridLayout_2.setRowStretch(5, 1)
         self.gridLayout_2.setRowStretch(6, 1)
-        self.gridLayout_2.setRowStretch(7, 2)
+        self.gridLayout_2.setRowStretch(7, 1)
+        self.gridLayout_2.setRowStretch(8, 1)
+        self.gridLayout_2.setRowStretch(9, 1)
         self.gridLayout_2.setColumnStretch(0, 6)
         self.gridLayout_2.setColumnStretch(1, 1)
         self.gridLayout_2.setColumnStretch(2, 2)
-        self.gridLayout_2.setColumnStretch(3, 1)
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
         self.verticalLayout_4.setStretch(0, 1)
-        self.verticalLayout_4.setStretch(1, 3)
+        self.verticalLayout_4.setStretch(1, 5)
 
         self.verticalLayout_5.addLayout(self.verticalLayout_4)
 
@@ -340,33 +368,11 @@ class Ui_BaseInfo(object):
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setVerticalSpacing(15)
         self.gridLayout_3.setContentsMargins(5, 6, 5, -1)
-        self.horizontalSpacer_11 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_3.addItem(self.horizontalSpacer_11, 3, 1, 1, 1)
-
-        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_3.addItem(self.horizontalSpacer_9, 3, 3, 1, 1)
-
-        self.le_u_name = QLineEdit(self.tab_U)
-        self.le_u_name.setObjectName(u"le_u_name")
-        self.le_u_name.setFont(font1)
-
-        self.gridLayout_3.addWidget(self.le_u_name, 1, 2, 1, 1)
-
         self.bt_add_u = QPushButton(self.tab_U)
         self.bt_add_u.setObjectName(u"bt_add_u")
         self.bt_add_u.setFont(font1)
 
         self.gridLayout_3.addWidget(self.bt_add_u, 3, 2, 1, 1)
-
-        self.horizontalSpacer_12 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_3.addItem(self.horizontalSpacer_12, 4, 3, 1, 1)
-
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_3.addItem(self.verticalSpacer_6, 0, 2, 1, 1)
 
         self.horizontalSpacer_10 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -382,6 +388,30 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_3.addItem(self.verticalSpacer_5, 5, 2, 1, 1)
 
+        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer_6, 0, 2, 1, 1)
+
+        self.le_u_name = QLineEdit(self.tab_U)
+        self.le_u_name.setObjectName(u"le_u_name")
+        self.le_u_name.setFont(font1)
+
+        self.gridLayout_3.addWidget(self.le_u_name, 1, 2, 1, 1)
+
+        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_3.addItem(self.horizontalSpacer_9, 3, 3, 1, 1)
+
+        self.bt_del_u = QPushButton(self.tab_U)
+        self.bt_del_u.setObjectName(u"bt_del_u")
+        self.bt_del_u.setFont(font1)
+
+        self.gridLayout_3.addWidget(self.bt_del_u, 4, 2, 1, 1)
+
+        self.horizontalSpacer_11 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_3.addItem(self.horizontalSpacer_11, 3, 1, 1, 1)
+
         self.tb_u = QTableWidget(self.tab_U)
         if (self.tb_u.columnCount() < 3):
             self.tb_u.setColumnCount(3)
@@ -395,6 +425,7 @@ class Ui_BaseInfo(object):
             self.tb_u.setRowCount(15)
         self.tb_u.setObjectName(u"tb_u")
         self.tb_u.setFont(font1)
+        self.tb_u.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_u.setAlternatingRowColors(True)
         self.tb_u.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tb_u.setRowCount(15)
@@ -409,11 +440,9 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_3.addWidget(self.tb_u, 0, 0, 6, 1)
 
-        self.bt_del_u = QPushButton(self.tab_U)
-        self.bt_del_u.setObjectName(u"bt_del_u")
-        self.bt_del_u.setFont(font1)
+        self.horizontalSpacer_12 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_3.addWidget(self.bt_del_u, 4, 2, 1, 1)
+        self.gridLayout_3.addItem(self.horizontalSpacer_12, 4, 3, 1, 1)
 
         self.lb_u_name_alias = QLabel(self.tab_U)
         self.lb_u_name_alias.setObjectName(u"lb_u_name_alias")
@@ -429,6 +458,12 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_3.addWidget(self.lb_u_name, 1, 1, 1, 1)
 
+        self.label_3 = QLabel(self.tab_U)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setStyleSheet(u"color:blue")
+
+        self.gridLayout_3.addWidget(self.label_3, 6, 0, 1, 4)
+
         self.gridLayout_3.setRowStretch(0, 2)
         self.gridLayout_3.setRowStretch(1, 1)
         self.gridLayout_3.setRowStretch(2, 1)
@@ -442,7 +477,7 @@ class Ui_BaseInfo(object):
         self.verticalLayout_6.addLayout(self.gridLayout_3)
 
         self.verticalLayout_6.setStretch(0, 1)
-        self.verticalLayout_6.setStretch(1, 3)
+        self.verticalLayout_6.setStretch(1, 5)
 
         self.verticalLayout_10.addLayout(self.verticalLayout_6)
 
@@ -465,27 +500,6 @@ class Ui_BaseInfo(object):
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setVerticalSpacing(15)
         self.gridLayout_4.setContentsMargins(5, 6, -1, -1)
-        self.horizontalSpacer_15 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_15, 4, 1, 1, 1)
-
-        self.tree_sort = QTreeWidget(self.tab_sort)
-        self.tree_sort.setObjectName(u"tree_sort")
-        self.tree_sort.header().setStretchLastSection(True)
-
-        self.gridLayout_4.addWidget(self.tree_sort, 0, 0, 7, 1)
-
-        self.cb_prarent_sort = QComboBox(self.tab_sort)
-        self.cb_prarent_sort.addItem("")
-        self.cb_prarent_sort.setObjectName(u"cb_prarent_sort")
-        self.cb_prarent_sort.setFont(font1)
-
-        self.gridLayout_4.addWidget(self.cb_prarent_sort, 1, 2, 1, 1)
-
-        self.horizontalSpacer_16 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_16, 5, 3, 1, 1)
-
         self.lb_parent_sort = QLabel(self.tab_sort)
         self.lb_parent_sort.setObjectName(u"lb_parent_sort")
         self.lb_parent_sort.setFont(font1)
@@ -493,21 +507,12 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_4.addWidget(self.lb_parent_sort, 1, 1, 1, 1)
 
-        self.verticalSpacer_8 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.tree_sort = QTreeWidget(self.tab_sort)
+        self.tree_sort.setObjectName(u"tree_sort")
+        self.tree_sort.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tree_sort.header().setStretchLastSection(True)
 
-        self.gridLayout_4.addItem(self.verticalSpacer_8, 0, 2, 1, 1)
-
-        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_13, 4, 3, 1, 1)
-
-        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_4.addItem(self.verticalSpacer_7, 6, 2, 1, 1)
-
-        self.horizontalSpacer_14 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_14, 5, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.tree_sort, 0, 0, 8, 1)
 
         self.bt_add_sort = QPushButton(self.tab_sort)
         self.bt_add_sort.setObjectName(u"bt_add_sort")
@@ -519,7 +524,22 @@ class Ui_BaseInfo(object):
         self.bt_del_sort.setObjectName(u"bt_del_sort")
         self.bt_del_sort.setFont(font1)
 
-        self.gridLayout_4.addWidget(self.bt_del_sort, 5, 2, 1, 1)
+        self.gridLayout_4.addWidget(self.bt_del_sort, 6, 2, 1, 1)
+
+        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_7, 7, 2, 1, 1)
+
+        self.cb_prarent_sort = QComboBox(self.tab_sort)
+        self.cb_prarent_sort.addItem("")
+        self.cb_prarent_sort.setObjectName(u"cb_prarent_sort")
+        self.cb_prarent_sort.setFont(font1)
+
+        self.gridLayout_4.addWidget(self.cb_prarent_sort, 1, 2, 1, 1)
+
+        self.horizontalSpacer_14 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_14, 6, 1, 1, 1)
 
         self.le_sort_name = QLineEdit(self.tab_sort)
         self.le_sort_name.setObjectName(u"le_sort_name")
@@ -540,12 +560,40 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_4.addWidget(self.lb_sort_name, 3, 1, 1, 1)
 
+        self.bt_sort_modify = QPushButton(self.tab_sort)
+        self.bt_sort_modify.setObjectName(u"bt_sort_modify")
+        self.bt_sort_modify.setFont(font1)
+
+        self.gridLayout_4.addWidget(self.bt_sort_modify, 5, 2, 1, 1)
+
+        self.horizontalSpacer_15 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_15, 4, 1, 1, 1)
+
+        self.horizontalSpacer_13 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_13, 4, 3, 1, 1)
+
+        self.horizontalSpacer_16 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_16, 6, 3, 1, 1)
+
+        self.verticalSpacer_8 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_8, 0, 2, 1, 1)
+
         self.lb_sort_id = QLabel(self.tab_sort)
         self.lb_sort_id.setObjectName(u"lb_sort_id")
         self.lb_sort_id.setFont(font1)
         self.lb_sort_id.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_4.addWidget(self.lb_sort_id, 2, 1, 1, 1)
+
+        self.label_5 = QLabel(self.tab_sort)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setStyleSheet(u"color:blue")
+
+        self.gridLayout_4.addWidget(self.label_5, 8, 0, 1, 4)
 
         self.gridLayout_4.setColumnStretch(0, 5)
         self.gridLayout_4.setColumnStretch(1, 1)
@@ -559,7 +607,7 @@ class Ui_BaseInfo(object):
         self.verticalLayout_7.addLayout(self.gridLayout_4)
 
         self.verticalLayout_7.setStretch(0, 1)
-        self.verticalLayout_7.setStretch(1, 3)
+        self.verticalLayout_7.setStretch(1, 5)
 
         self.verticalLayout_9.addLayout(self.verticalLayout_7)
 
@@ -583,37 +631,26 @@ class Ui_BaseInfo(object):
         self.gridLayout_5.setHorizontalSpacing(10)
         self.gridLayout_5.setVerticalSpacing(20)
         self.gridLayout_5.setContentsMargins(5, 6, 5, -1)
+        self.horizontalSpacer_18 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer_18, 3, 1, 1, 1)
+
+        self.lb_name = QLabel(self.tab_manufacturer)
+        self.lb_name.setObjectName(u"lb_name")
+        self.lb_name.setFont(font1)
+        self.lb_name.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_5.addWidget(self.lb_name, 1, 1, 1, 1)
+
+        self.horizontalSpacer_20 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer_20, 3, 3, 1, 1)
+
         self.bt_del_manufacturer = QPushButton(self.tab_manufacturer)
         self.bt_del_manufacturer.setObjectName(u"bt_del_manufacturer")
         self.bt_del_manufacturer.setFont(font1)
 
         self.gridLayout_5.addWidget(self.bt_del_manufacturer, 3, 2, 1, 1)
-
-        self.horizontalSpacer_17 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_5.addItem(self.horizontalSpacer_17, 2, 3, 1, 1)
-
-        self.horizontalSpacer_18 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_5.addItem(self.horizontalSpacer_18, 3, 1, 1, 1)
-
-        self.bt_add_manufacturer = QPushButton(self.tab_manufacturer)
-        self.bt_add_manufacturer.setObjectName(u"bt_add_manufacturer")
-        self.bt_add_manufacturer.setFont(font1)
-
-        self.gridLayout_5.addWidget(self.bt_add_manufacturer, 2, 2, 1, 1)
-
-        self.verticalSpacer_9 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_5.addItem(self.verticalSpacer_9, 4, 2, 1, 1)
-
-        self.verticalSpacer_10 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_5.addItem(self.verticalSpacer_10, 0, 2, 1, 1)
-
-        self.horizontalSpacer_20 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_5.addItem(self.horizontalSpacer_20, 3, 3, 1, 1)
 
         self.tb_manfacturer = QTableWidget(self.tab_manufacturer)
         if (self.tb_manfacturer.columnCount() < 2):
@@ -626,6 +663,7 @@ class Ui_BaseInfo(object):
             self.tb_manfacturer.setRowCount(15)
         self.tb_manfacturer.setObjectName(u"tb_manfacturer")
         self.tb_manfacturer.setFont(font1)
+        self.tb_manfacturer.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_manfacturer.setAlternatingRowColors(True)
         self.tb_manfacturer.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tb_manfacturer.setRowCount(15)
@@ -644,18 +682,35 @@ class Ui_BaseInfo(object):
 
         self.gridLayout_5.addItem(self.horizontalSpacer_19, 2, 1, 1, 1)
 
+        self.verticalSpacer_10 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_5.addItem(self.verticalSpacer_10, 0, 2, 1, 1)
+
+        self.verticalSpacer_9 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_5.addItem(self.verticalSpacer_9, 4, 2, 1, 1)
+
+        self.horizontalSpacer_17 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer_17, 2, 3, 1, 1)
+
+        self.bt_add_manufacturer = QPushButton(self.tab_manufacturer)
+        self.bt_add_manufacturer.setObjectName(u"bt_add_manufacturer")
+        self.bt_add_manufacturer.setFont(font1)
+
+        self.gridLayout_5.addWidget(self.bt_add_manufacturer, 2, 2, 1, 1)
+
         self.le__manufacturer_name = QLineEdit(self.tab_manufacturer)
         self.le__manufacturer_name.setObjectName(u"le__manufacturer_name")
         self.le__manufacturer_name.setFont(font1)
 
         self.gridLayout_5.addWidget(self.le__manufacturer_name, 1, 2, 1, 1)
 
-        self.lb_name = QLabel(self.tab_manufacturer)
-        self.lb_name.setObjectName(u"lb_name")
-        self.lb_name.setFont(font1)
-        self.lb_name.setAlignment(Qt.AlignCenter)
+        self.label_6 = QLabel(self.tab_manufacturer)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setStyleSheet(u"color:blue")
 
-        self.gridLayout_5.addWidget(self.lb_name, 1, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.label_6, 5, 0, 1, 4)
 
         self.gridLayout_5.setRowStretch(0, 2)
         self.gridLayout_5.setRowStretch(1, 1)
@@ -667,7 +722,7 @@ class Ui_BaseInfo(object):
         self.verticalLayout_8.addLayout(self.gridLayout_5)
 
         self.verticalLayout_8.setStretch(0, 1)
-        self.verticalLayout_8.setStretch(1, 3)
+        self.verticalLayout_8.setStretch(1, 5)
 
         self.verticalLayout_11.addLayout(self.verticalLayout_8)
 
@@ -675,10 +730,40 @@ class Ui_BaseInfo(object):
 
         self.verticalLayout.addWidget(self.tabWidget)
 
+        QWidget.setTabOrder(self.tabWidget, self.le_room_name)
+        QWidget.setTabOrder(self.le_room_name, self.le_room_alias)
+        QWidget.setTabOrder(self.le_room_alias, self.bt_add_room)
+        QWidget.setTabOrder(self.bt_add_room, self.bt_del_room)
+        QWidget.setTabOrder(self.bt_del_room, self.cb_room)
+        QWidget.setTabOrder(self.cb_room, self.le_cab_name)
+        QWidget.setTabOrder(self.le_cab_name, self.le_cabinet_alias)
+        QWidget.setTabOrder(self.le_cabinet_alias, self.le_U_count)
+        QWidget.setTabOrder(self.le_U_count, self.ckb_is_used)
+        QWidget.setTabOrder(self.ckb_is_used, self.bt_add_cabinet)
+        QWidget.setTabOrder(self.bt_add_cabinet, self.bt_cab_modify)
+        QWidget.setTabOrder(self.bt_cab_modify, self.bt_del_cabinet)
+        QWidget.setTabOrder(self.bt_del_cabinet, self.le_u_name)
+        QWidget.setTabOrder(self.le_u_name, self.le_u_name_alias)
+        QWidget.setTabOrder(self.le_u_name_alias, self.bt_add_u)
+        QWidget.setTabOrder(self.bt_add_u, self.bt_del_u)
+        QWidget.setTabOrder(self.bt_del_u, self.cb_prarent_sort)
+        QWidget.setTabOrder(self.cb_prarent_sort, self.le_sort_id)
+        QWidget.setTabOrder(self.le_sort_id, self.le_sort_name)
+        QWidget.setTabOrder(self.le_sort_name, self.bt_add_sort)
+        QWidget.setTabOrder(self.bt_add_sort, self.bt_sort_modify)
+        QWidget.setTabOrder(self.bt_sort_modify, self.bt_del_sort)
+        QWidget.setTabOrder(self.bt_del_sort, self.le__manufacturer_name)
+        QWidget.setTabOrder(self.le__manufacturer_name, self.bt_add_manufacturer)
+        QWidget.setTabOrder(self.bt_add_manufacturer, self.bt_del_manufacturer)
+        QWidget.setTabOrder(self.bt_del_manufacturer, self.tree_sort)
+        QWidget.setTabOrder(self.tree_sort, self.tb_room)
+        QWidget.setTabOrder(self.tb_room, self.tb_manfacturer)
+        QWidget.setTabOrder(self.tb_manfacturer, self.tb_u)
+        QWidget.setTabOrder(self.tb_u, self.tb_cabinet)
 
         self.retranslateUi(BaseInfo)
 
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(BaseInfo)
@@ -687,18 +772,20 @@ class Ui_BaseInfo(object):
     def retranslateUi(self, BaseInfo):
         BaseInfo.setWindowTitle(QCoreApplication.translate("BaseInfo", u"\u57fa\u7840\u4fe1\u606f\u7ef4\u62a4", None))
         self.label.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u4fe1\u606f\u7ba1\u7406", None))
+        self.bt_del_room.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
+        self.room_name_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u522b\u540d", None))
+        self.room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
+        self.bt_add_room.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         ___qtablewidgetitem = self.tb_room.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));
         ___qtablewidgetitem1 = self.tb_room.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None));
         ___qtablewidgetitem2 = self.tb_room.horizontalHeaderItem(2)
         ___qtablewidgetitem2.setText(QCoreApplication.translate("BaseInfo", u"\u522b\u540d", None));
-        self.room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
-        self.room_name_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u522b\u540d", None))
-        self.bt_add_room.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
-        self.bt_del_room.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
+        self.label_2.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_room), QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u7ba1\u7406", None))
         self.label_4.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u4fe1\u606f\u7ba1\u7406", None))
+        self.lb_cabinet_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u522b\u540d", None))
         ___qtablewidgetitem3 = self.tb_cabinet.horizontalHeaderItem(0)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));
         ___qtablewidgetitem4 = self.tb_cabinet.horizontalHeaderItem(1)
@@ -711,48 +798,53 @@ class Ui_BaseInfo(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None));
         ___qtablewidgetitem8 = self.tb_cabinet.horizontalHeaderItem(5)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None));
-        self.lb_room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
-        self.lb_cabinet_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u522b\u540d", None))
-        self.bt_add_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
-        self.lb_cabinet_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u540d\u79f0", None))
         self.bt_del_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
-        self.ckb_is_used.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None))
+        self.lb_room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
+        self.bt_add_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         self.lb_count.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None))
+        self.ckb_is_used.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None))
+        self.lb_cabinet_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u540d\u79f0", None))
+        self.lb_cab_status.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664; \u53cc\u51fb\u884c\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f", None))
+        self.bt_cab_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_cabinet), QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u7ba1\u7406", None))
         self.label_9.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u4fe1\u606f\u7ba1\u7406", None))
         self.bt_add_u.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
+        self.bt_del_u.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
         ___qtablewidgetitem9 = self.tb_u.horizontalHeaderItem(0)
         ___qtablewidgetitem9.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));
         ___qtablewidgetitem10 = self.tb_u.horizontalHeaderItem(1)
         ___qtablewidgetitem10.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u540d\u79f0", None));
         ___qtablewidgetitem11 = self.tb_u.horizontalHeaderItem(2)
         ___qtablewidgetitem11.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u522b\u540d", None));
-        self.bt_del_u.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
         self.lb_u_name_alias.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u522b\u540d", None))
         self.lb_u_name.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u540d\u79f0", None))
+        self.label_3.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_U), QCoreApplication.translate("BaseInfo", u"U\u4f4d\u7ba1\u7406", None))
         self.label_14.setText(QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u5206\u7c7b\u4fe1\u606f\u7ba1\u7406", None))
+        self.lb_parent_sort.setText(QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7b", None))
         ___qtreewidgetitem = self.tree_sort.headerItem()
         ___qtreewidgetitem.setText(3, QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7b\u540d\u79f0", None));
         ___qtreewidgetitem.setText(2, QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7bID", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("BaseInfo", u"\u5206\u7c7b\u540d\u79f0", None));
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("BaseInfo", u"ID", None));
-        self.cb_prarent_sort.setItemText(0, QCoreApplication.translate("BaseInfo", u"\u65e0", None))
-
-        self.lb_parent_sort.setText(QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7b", None))
         self.bt_add_sort.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         self.bt_del_sort.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
+        self.cb_prarent_sort.setItemText(0, QCoreApplication.translate("BaseInfo", u"\u65e0", None))
+
         self.lb_sort_name.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7b\u540d\u79f0", None))
+        self.bt_sort_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
         self.lb_sort_id.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7bID", None))
+        self.label_5.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664; \u53cc\u51fb\u884c\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_sort), QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u5206\u7c7b", None))
         self.label_19.setText(QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u54c1\u724c\u4fe1\u606f", None))
+        self.lb_name.setText(QCoreApplication.translate("BaseInfo", u"\u54c1\u724c\u540d\u79f0", None))
         self.bt_del_manufacturer.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
-        self.bt_add_manufacturer.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         ___qtablewidgetitem12 = self.tb_manfacturer.horizontalHeaderItem(0)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));
         ___qtablewidgetitem13 = self.tb_manfacturer.horizontalHeaderItem(1)
         ___qtablewidgetitem13.setText(QCoreApplication.translate("BaseInfo", u"\u54c1\u724c\u540d\u79f0", None));
-        self.lb_name.setText(QCoreApplication.translate("BaseInfo", u"\u54c1\u724c\u540d\u79f0", None))
+        self.bt_add_manufacturer.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
+        self.label_6.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_manufacturer), QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u54c1\u724c", None))
     # retranslateUi
 
