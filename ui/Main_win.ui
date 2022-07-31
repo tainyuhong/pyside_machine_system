@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>机房设备管理系统pyside6-V1.0-</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -27,9 +27,7 @@
     <property name="title">
      <string>基础信息</string>
     </property>
-    <addaction name="actionjfgl"/>
-    <addaction name="actionjg"/>
-    <addaction name="actionu"/>
+    <addaction name="action_base"/>
    </widget>
    <widget class="QMenu" name="mu_machine">
     <property name="title">
@@ -119,6 +117,11 @@
   <action name="actionpldr">
    <property name="text">
     <string>批量导入设备</string>
+   </property>
+  </action>
+  <action name="action_base">
+   <property name="text">
+    <string>基础信息管理</string>
    </property>
   </action>
  </widget>

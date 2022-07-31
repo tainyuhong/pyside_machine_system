@@ -32,8 +32,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
 
         # U位信息界面
         self.display_u()  # U位信息窗口
-        self.bt_add_u.clicked.connect(self.add_u)       # 添加U位
-        self.bt_del_u.clicked.connect(self.del_u)       # 删除U位
+        self.bt_add_u.clicked.connect(self.add_u)  # 添加U位
+        self.bt_del_u.clicked.connect(self.del_u)  # 删除U位
 
         # 品牌信息界面
         self.display_manfacturer()  # 品牌信息窗口
@@ -41,7 +41,11 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         self.bt_del_manufacturer.clicked.connect(self.del_manfacturer)  # 删除U位
 
         # 分类信息界面
-        self.display_sort()  # 分类信息窗口
+        # 设置分类id输入条件
+        self.le_sort_id.setValidator(QtGui.QIntValidator())  # 设置只请允许整数
+        self.display_sort()  # 显示设备分类信息树结构
+        self.bt_add_sort.clicked.connect(self.add_sort)  # 添加分类
+        self.bt_del_sort.clicked.connect(self.del_sort)  # 删除分类
 
     # 机房窗口
     # 显示机房信息
@@ -65,7 +69,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 self.tb_room.setItem(row, col, QTableWidgetItem(str(data[row][col])))
 
     # 机房名与id互转
-    def room_to_id(self,name=None, room_id=None):
+    def room_to_id(self, name=None, room_id=None):
         """
         将传入的机房名或机房id转换为对应的id或机房名
         :param name: 机房名称
@@ -97,7 +101,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 except Exception as e:
                     print(e)
                 else:
-                    self.room_and_id[result] = room_name        # 更新全局机房与id字典的信息
+                    self.room_and_id[result] = room_name  # 更新全局机房与id字典的信息
                     # print('添加机房后的字典变量：',self.room_and_id)
                     # print('返回ID:', result)  # 返回主键id
                     index = self.tb_room.rowCount()  # 定义索引为总行数
@@ -122,15 +126,15 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         # 从数据库中删除
         if QtWidgets.QMessageBox.question(self, '删除机房信息', '是否确定要删除该机房信息！') == QtWidgets.QMessageBox.Yes:
             try:
-                result = MachineRoom.get_by_id(room_id).delete().where(MachineRoom.room_id == room_id).execute()
-                print(result)  # 打印执行结果，为1时代表执行成功，0失败
+                MachineRoom.get_by_id(room_id).delete().where(MachineRoom.room_id == room_id).execute()
+                # print(result)  # 打印执行结果，为1时代表执行成功，0失败
             except Exception as e:
                 print('删除机房错误：', e)
             else:
                 self.tb_room.removeRow(item)  # 页面中删除一行
-                self.room_and_id.pop(int(room_id))      # 从机房变量中删除
+                self.room_and_id.pop(int(room_id))  # 从机房变量中删除
                 QtWidgets.QMessageBox.information(self, '删除成功', '删除机房信息成功！')
-                self.get_room()         # 更新机柜信息界面中机房名称下拉菜单值
+                self.get_room()  # 更新机柜信息界面中机房名称下拉菜单值
                 # print('删除机房后字典值',self.room_and_id)
         else:
             pass
@@ -144,7 +148,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                                                                                         Cabinet.cab_num).prefetch(
             MachineRoom, Cabinet)
         # 输出查询内容
-        data = [(i.cab_id, self.room_to_id(room_id=i.room.room_id), i.cab_num, i.cab_name, i.count_position, i.is_use) for i in cabinet_model]
+        data = [(i.cab_id, self.room_to_id(room_id=i.room.room_id), i.cab_num, i.cab_name, i.count_position, i.is_use)
+                for i in cabinet_model]
         self.tb_cabinet.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
         # 显示机柜内容至表格
@@ -226,7 +231,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         u_count = self.tb_cabinet.item(item, 4).text()  # 获取u_count
         is_used = self.tb_cabinet.item(item, 5).text()  # 获取is_used
         # print(cabinet_id, room_id, cab_name, cab_alias, u_count, is_used)
-        self.modify_cabinet_id = (cabinet_id, room_id, cab_name, cab_alias, u_count, is_used)   # 获取修改的信息
+        self.modify_cabinet_id = (cabinet_id, room_id, cab_name, cab_alias, u_count, is_used)  # 获取修改的信息
 
         # 将双击选择的行内容加载到对应文本框中
         self.cb_room.setCurrentText(room_id)  # 设置机房名
@@ -248,7 +253,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             # print('修改后的数据', data)
             old_data = self.modify_cabinet_id[1:]
             # print('查询到的结果', old_data)
-            if old_data != data and cab_name != '' :
+            if old_data != data and cab_name != '':
                 # 定义要修改传入数据库的数据格式为字典
                 item = {'room': self.room_to_id(name=room), 'cab_num': cab_name, 'cab_name': cab_alias,
                         'count_position': u_count, 'is_use': is_used}
@@ -258,10 +263,10 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                         result_model = Cabinet.update(item).where(Cabinet.cab_id == self.modify_cabinet_id[0]).execute()
                         # print('修改SQL', result_model)
                     except Exception as e:
-                        print('删除机柜信息错误：',e)
+                        print('删除机柜信息错误：', e)
                     else:
-                        self.tb_cabinet.clearContents()     # 删除表中内容
-                        self.display_cabinet()              # 调用显示表格数据函数重新查询，刷新表格数据
+                        self.tb_cabinet.clearContents()  # 删除表中内容
+                        self.display_cabinet()  # 调用显示表格数据函数重新查询，刷新表格数据
                         # 清除输入框信息
                         self.le_cab_name.setText('')
                         self.le_cabinet_alias.setText('')
@@ -403,26 +408,150 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         else:
             pass
 
-    # 显示设备分类
+    # 显示设备分类信息树结构
     def display_sort(self):
         sort_infos = MachineSort.select(MachineSort.sort_id, MachineSort.sort_name).where(
             MachineSort.part_sort == None)  # 分类信息
-        data = [(i.sort_id, i.sort_name) for i in sort_infos]
-        # print(data)
-        # 遍历分类，显示设备信息
-        # for sort in sort_infos:
-        #     hosts_infos = self.db.query_single(hosts_sql, sort)  # 从数据库读取主机信息
-        #     RootItem = QTreeWidgetItem()  # 定义根项
-        #     RootItem.setText(0, sort[0])  # 设置根项内容
-        #     RootItem.setCheckState(0, Qt.Unchecked)  # 添加复选框
-        #     host_win.treeWidget.addTopLevelItem(RootItem)  # 设置为顶层项
-        #     # 遍历主机信息显示并添加到列表中
-        #     for child_item in hosts_infos:
-        #         Child_Item = QTreeWidgetItem(RootItem)
-        #         Child_Item.setText(1, child_item[0])  # 显示第二列
-        #         Child_Item.setText(2, child_item[1])  # 显示第三列
-        #         Child_Item.setCheckState(0, Qt.Unchecked)  # 添加复选框
+        top_sort_data = [(i.sort_id, i.sort_name) for i in sort_infos]
+        # print(top_sort_data)
+        top_sort_name = [(i.sort_name) for i in sort_infos]  # 获取上级分类信息
+        self.cb_prarent_sort.clear()  # 清空列表
+        self.cb_prarent_sort.addItem('无')
+        self.cb_prarent_sort.addItems(top_sort_name)  # 添加列表信息到上级分类菜单中
+        # 遍历主分类
+        for sort in top_sort_data:
+            RootItem = QTreeWidgetItem()  # 定义根项
+            RootItem.setText(0, str(sort[0]))  # 设置根项第一列内容
+            RootItem.setText(1, str(sort[1]))  # 设置根项第二列内容
+            self.tree_sort.addTopLevelItem(RootItem)  # 设置为顶层项
+            # 遍历子分类
+            child_sort_infos = MachineSort.select(MachineSort.sort_id, MachineSort.sort_name).where(
+                MachineSort.part_sort == sort[0])  # 分类信息
+            child_sort_data = [(i.sort_id, i.sort_name) for i in child_sort_infos]
+            # print('子分类信息',child_sort_data)
+            for child_item in child_sort_data:
+                Child_Item = QTreeWidgetItem(RootItem)
+                Child_Item.setText(2, str(child_item[0]))  # 设置第三列
+                Child_Item.setText(3, child_item[1])  # 设置第四列
+        self.tree_sort.expandItem(self.tree_sort.topLevelItem(0))
+        self.tree_sort.resizeColumnToContents(3)  # 自动设置第4列列宽
 
+    # 添加分类信息
+    def add_sort(self):
+        # 获取输入的id/分类名信息
+        sort_id = self.le_sort_id.text().strip()
+        sort_name = self.le_sort_name.text().strip()  # 获取输入的分类名称
+        if sort_id and sort_name != '':
+            sort_id = '{:0>4}'.format(self.le_sort_id.text().strip())  # 获取输入的分类id,将分类id格式化为4位长度，不足的前面补0
+            # 判断是否作为父类，索引为0时创建父类，否则为子类
+            if self.cb_prarent_sort.currentIndex() != 0:  # 索引不为0创建子类：即选择下菜菜单中其它父类
+                top_sort_id = MachineSort.get_or_none(
+                    MachineSort.sort_name == self.cb_prarent_sort.currentText())  # 上级分类信息
+
+                # 从数据库中获取分类id及名称
+                new_sort_id = MachineSort.get_or_none(MachineSort.sort_id == str(top_sort_id) + sort_id)  # 新分类id str(top_sort_id)+sort_id
+                new_sort_name = MachineSort.get_or_none(MachineSort.sort_name == sort_name)     # 当前新分类名, sort_name
+                # print('新ID是否存在：', new_sort_id, '分类名', new_sort_name)
+                # 判断数据库中分类ID和分类名称与输入的是否重复
+                if new_sort_id or new_sort_name is not None:
+                    QtWidgets.QMessageBox.warning(self, '添加分类信息', '分类ID或分类名称重复，请重新输入！')
+                else:
+                    # 不重复：作为子类添加到列表及数据库中
+                    try:
+                        MachineSort.insert_many(
+                            [(str(top_sort_id) + sort_id, sort_name, top_sort_id, self.cb_prarent_sort.currentText())],
+                            fields=(MachineSort.sort_id, MachineSort.sort_name, MachineSort.part_sort,
+                                    MachineSort.part_sort_name)).execute()
+
+                    except Exception as e:
+                        print('添加子分类错误：', e)
+                    else:
+                        print('上级分类id:',top_sort_id)
+                        item = self.tree_sort.findItems(str(top_sort_id), Qt.MatchExactly)  # 获取父类在树中的位置,返回的为一个列表
+                        # 展开当前项并添加到树中
+                        self.tree_sort.expandItem(item[0])
+                        child_item = QTreeWidgetItem(item[0])
+                        child_item.setText(2, str(top_sort_id) + sort_id)   # 设置第三列
+                        child_item.setText(3, sort_name)                    # 设置第四列
+                        QtWidgets.QMessageBox.information(self, '添加分类信息', '添加分类信息成功！')
+                        self.tree_sort.setCurrentItem(child_item)  # 标记为当前选择项
+                        # 置空输入框内容
+                        self.cb_prarent_sort.setCurrentIndex(0)
+                        self.le_sort_id.setText('')
+                        self.le_sort_name.setText('')
+            # 作为你父类创建
+            else:
+                if int(sort_id) > 1000:
+                    # print('没有选择上级分类')
+                    # print('当前分类新id', sort_id)
+                    # print('当前分类名', sort_name)
+                    try:
+                        MachineSort.insert_many([(sort_id, sort_name)],
+                                                fields=(MachineSort.sort_id, MachineSort.sort_name)).execute()
+                    except Exception as e:
+                        print('添加分类错误：', e)
+                    else:
+                        # 添加到树中
+                        top_item = QTreeWidgetItem()
+                        top_item.setText(0, sort_id)  # 设置第一列
+                        top_item.setText(1, sort_name)  # 设置第二列
+                        self.tree_sort.addTopLevelItem(top_item)  # 设置为顶级项
+                        QtWidgets.QMessageBox.information(self, '添加分类信息', '添加分类信息成功！')
+                        self.tree_sort.setCurrentItem(top_item)  # 标记为当前选择项
+                        self.cb_prarent_sort.addItem(sort_name)  # 添加至上级分类下拉菜单中
+                        # 置空输入框内容
+                        self.cb_prarent_sort.setCurrentIndex(0)
+                        self.le_sort_id.setText('')
+                        self.le_sort_name.setText('')
+                else:
+                    QtWidgets.QMessageBox.warning(self, '添加分类信息', '主分类的ID应该大于1000！')
+        else:
+            print('请输入需要添加的分类ID及分类名称信息！')
+
+    # 删除分类信息
+    def del_sort(self):
+        item = self.tree_sort.currentItem()  # 获取当前选择的行号的索引
+        # 判断当前选择的项是否为父类
+        if item.parent() is None:
+            # print('当前为父类，ID：',item.text(0))
+            # print('当前项的索引', self.tree_sort.indexOfTopLevelItem(item))
+            # print('子项数量：',item.childCount())
+            # 判断是否存在子项，存在时，不能删除当前主分类
+            if item.childCount() > 0:
+                QtWidgets.QMessageBox.warning(self, '删除分类信息', '存在子分类，不能删除！！')
+            # 没有子分类，# 从数据库中删除
+            else:
+                if QtWidgets.QMessageBox.question(self, '删除分类信息', '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
+                    try:
+                        MachineSort.delete().where(MachineSort.sort_id == item.text(0)).execute()
+                        # print(result)  # 打印执行结果，为1时代表执行成功，0失败
+                    except Exception as e:
+                        print('删除分类错误：', e)
+                    else:
+                        self.tree_sort.takeTopLevelItem(self.tree_sort.indexOfTopLevelItem(item))  # 删除当前选择项
+                        QtWidgets.QMessageBox.information(self, '删除成功', '删除分类成功！')
+                else:
+                    pass
+        else:
+            # print('当前为子分类，ID：',item.text(2))
+            # print('当前子项的索引', item.parent().indexOfChild(item))
+            # 从数据库中删除
+            if QtWidgets.QMessageBox.question(self, '删除分类信息', '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
+                try:
+                    MachineSort.delete().where(MachineSort.sort_id == item.text(2)).execute()
+                    # print(result)  # 打印执行结果，为1时代表执行成功，0失败
+                except Exception as e:
+                    print('删除分类错误：', e)
+                else:
+                    item.parent().takeChild(item.parent().indexOfChild(item))       # 删除当前选择项
+                    QtWidgets.QMessageBox.information(self, '删除成功', '删除分类成功！')
+            else:
+                pass
+
+    # todo 待完成
+    # 修改分类
+    def modify_sort(self):
+        pass
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

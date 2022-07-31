@@ -6,6 +6,7 @@ from action.machine_imp_exp import *
 from action.check_action import *
 from action.add_machine_action import *
 from action.modify_machine_action import *
+from action.base_info_action import *
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -13,6 +14,8 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(UiMainWindow, self).__init__(parent)
         self.setupUi(self)
 
+        # 定义设备查询菜单触发事件
+        self.action_base.triggered.connect(self.base_info_win)
         # 定义设备查询菜单触发事件
         self.actioncxsb.triggered.connect(self.show_select_win)
         # 定义批量导入菜单触发事件
@@ -24,6 +27,10 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 定义修改设备菜单触发事件
         self.actionxg.triggered.connect(self.modify_win)
 
+    # 定义基础数据窗口显示
+    def base_info_win(self):
+        self.base_info_window = UiBaseInfo()
+        self.base_info_window.show()
 
     # 定义设备查询窗口显示
     def show_select_win(self):

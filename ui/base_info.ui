@@ -23,7 +23,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab_room">
       <attribute name="title">
@@ -978,6 +978,9 @@
            <property name="topMargin">
             <number>6</number>
            </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
            <property name="verticalSpacing">
             <number>15</number>
            </property>
@@ -1001,6 +1004,9 @@
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
              </property>
+             <attribute name="headerDefaultSectionSize">
+              <number>90</number>
+             </attribute>
              <attribute name="headerStretchLastSection">
               <bool>true</bool>
              </attribute>
@@ -1016,12 +1022,12 @@
              </column>
              <column>
               <property name="text">
-               <string>上级分类ID</string>
+               <string>子分类ID</string>
               </property>
              </column>
              <column>
               <property name="text">
-               <string>上级分类名称</string>
+               <string>子分类名称</string>
               </property>
              </column>
             </widget>
@@ -1105,6 +1111,18 @@
               <font>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="inputMethodHints">
+              <set>Qt::ImhNone</set>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>4</number>
+             </property>
+             <property name="placeholderText">
+              <string>输入1-9999的数字</string>
              </property>
             </widget>
            </item>

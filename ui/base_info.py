@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'base_info.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -499,7 +499,7 @@ class Ui_BaseInfo(object):
         self.gridLayout_4 = QGridLayout()
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setVerticalSpacing(15)
-        self.gridLayout_4.setContentsMargins(5, 6, -1, -1)
+        self.gridLayout_4.setContentsMargins(5, 6, -1, 5)
         self.lb_parent_sort = QLabel(self.tab_sort)
         self.lb_parent_sort.setObjectName(u"lb_parent_sort")
         self.lb_parent_sort.setFont(font1)
@@ -510,6 +510,7 @@ class Ui_BaseInfo(object):
         self.tree_sort = QTreeWidget(self.tab_sort)
         self.tree_sort.setObjectName(u"tree_sort")
         self.tree_sort.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tree_sort.header().setDefaultSectionSize(90)
         self.tree_sort.header().setStretchLastSection(True)
 
         self.gridLayout_4.addWidget(self.tree_sort, 0, 0, 8, 1)
@@ -550,6 +551,8 @@ class Ui_BaseInfo(object):
         self.le_sort_id = QLineEdit(self.tab_sort)
         self.le_sort_id.setObjectName(u"le_sort_id")
         self.le_sort_id.setFont(font1)
+        self.le_sort_id.setInputMethodHints(Qt.ImhNone)
+        self.le_sort_id.setMaxLength(4)
 
         self.gridLayout_4.addWidget(self.le_sort_id, 2, 2, 1, 1)
 
@@ -763,7 +766,7 @@ class Ui_BaseInfo(object):
 
         self.retranslateUi(BaseInfo)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(BaseInfo)
@@ -823,14 +826,16 @@ class Ui_BaseInfo(object):
         self.label_14.setText(QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u5206\u7c7b\u4fe1\u606f\u7ba1\u7406", None))
         self.lb_parent_sort.setText(QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7b", None))
         ___qtreewidgetitem = self.tree_sort.headerItem()
-        ___qtreewidgetitem.setText(3, QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7b\u540d\u79f0", None));
-        ___qtreewidgetitem.setText(2, QCoreApplication.translate("BaseInfo", u"\u4e0a\u7ea7\u5206\u7c7bID", None));
+        ___qtreewidgetitem.setText(3, QCoreApplication.translate("BaseInfo", u"\u5b50\u5206\u7c7b\u540d\u79f0", None));
+        ___qtreewidgetitem.setText(2, QCoreApplication.translate("BaseInfo", u"\u5b50\u5206\u7c7bID", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("BaseInfo", u"\u5206\u7c7b\u540d\u79f0", None));
         ___qtreewidgetitem.setText(0, QCoreApplication.translate("BaseInfo", u"ID", None));
         self.bt_add_sort.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         self.bt_del_sort.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
         self.cb_prarent_sort.setItemText(0, QCoreApplication.translate("BaseInfo", u"\u65e0", None))
 
+        self.le_sort_id.setInputMask("")
+        self.le_sort_id.setPlaceholderText(QCoreApplication.translate("BaseInfo", u"\u8f93\u51651-9999\u7684\u6570\u5b57", None))
         self.lb_sort_name.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7b\u540d\u79f0", None))
         self.bt_sort_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
         self.lb_sort_id.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7bID", None))

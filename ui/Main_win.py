@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1100, 760)
+        MainWindow.resize(1100, 700)
         self.actionjfgl = QAction(MainWindow)
         self.actionjfgl.setObjectName(u"actionjfgl")
         self.actionjg = QAction(MainWindow)
@@ -46,6 +46,8 @@ class Ui_MainWindow(object):
         self.actioncxsb.setObjectName(u"actioncxsb")
         self.actionpldr = QAction(MainWindow)
         self.actionpldr.setObjectName(u"actionpldr")
+        self.action_base = QAction(MainWindow)
+        self.action_base.setObjectName(u"action_base")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -72,9 +74,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.mu_select.menuAction())
         self.menubar.addAction(self.mu_shelf.menuAction())
         self.menubar.addAction(self.mu_poll.menuAction())
-        self.mu_baseinfo.addAction(self.actionjfgl)
-        self.mu_baseinfo.addAction(self.actionjg)
-        self.mu_baseinfo.addAction(self.actionu)
+        self.mu_baseinfo.addAction(self.action_base)
         self.mu_machine.addAction(self.actiontjsb)
         self.mu_machine.addAction(self.actionxg)
         self.mu_machine.addAction(self.actionpldr)
@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u673a\u623f\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edfpyside6-V1.0-", None))
         self.actionjfgl.setText(QCoreApplication.translate("MainWindow", u"\u673a\u623f\u7ba1\u7406", None))
         self.actionjg.setText(QCoreApplication.translate("MainWindow", u"\u673a\u67dc\u7ba1\u7406", None))
         self.actionu.setText(QCoreApplication.translate("MainWindow", u"U\u4f4d\u7ba1\u7406", None))
@@ -102,6 +102,7 @@ class Ui_MainWindow(object):
         self.actionsj.setText(QCoreApplication.translate("MainWindow", u"\u5de1\u68c0\u64cd\u4f5c", None))
         self.actioncxsb.setText(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u8bbe\u5907", None))
         self.actionpldr.setText(QCoreApplication.translate("MainWindow", u"\u6279\u91cf\u5bfc\u5165\u8bbe\u5907", None))
+        self.action_base.setText(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f\u7ba1\u7406", None))
         self.mu_baseinfo.setTitle(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f", None))
         self.mu_machine.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u7ba1\u7406", None))
         self.mu_select.setTitle(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u7ba1\u7406", None))

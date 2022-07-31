@@ -2,7 +2,7 @@ from peewee import *
 
 database = MySQLDatabase('equipment_mg',
                          **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',
-                            'port': 3306, 'user': 'root', 'password': '123456'})
+                            'port': 3307, 'user': 'root', 'password': '123456'})
 
 
 class UnknownField(object):
