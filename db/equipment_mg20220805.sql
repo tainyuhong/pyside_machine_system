@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80025
 File Encoding         : 65001
 
-Date: 2022-07-29 17:20:00
+Date: 2022-08-05 17:20:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `cabinet` (
   KEY `cab_name` (`cab_name`),
   KEY `cab_num` (`cab_num`),
   CONSTRAINT `roomid` FOREIGN KEY (`room_id`) REFERENCES `machine_room` (`room_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb3 COMMENT='机柜信息';
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb3 COMMENT='机柜信息';
 
 -- ----------------------------
 -- Records of cabinet
@@ -172,6 +172,7 @@ INSERT INTO `cabinet` VALUES ('136', 'KF09', 'KF09', '4', '1', null, '42', null,
 INSERT INTO `cabinet` VALUES ('137', 'KF10', 'KF10', '4', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('138', 'KF11', 'KF11', '4', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('139', 'A11', '波分机柜', '2', '1', null, '42', null, '（电信、中信）');
+INSERT INTO `cabinet` VALUES ('149', 'A01', 'A01', '23', '1', null, '42', null, null);
 
 -- ----------------------------
 -- Table structure for cab_position
@@ -312,12 +313,12 @@ CREATE TABLE `machine_infos` (
   KEY `s_position` (`start_position`),
   KEY `e_position` (`end_position`),
   KEY `fr_cabinet_name` (`cabinet_name`),
-  CONSTRAINT `cabinet_name` FOREIGN KEY (`cabinet_name`) REFERENCES `cabinet` (`cab_num`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `e_position` FOREIGN KEY (`end_position`) REFERENCES `cab_position` (`num`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `room_id` FOREIGN KEY (`machine_roomid`) REFERENCES `machine_room` (`room_id`) ON UPDATE CASCADE,
-  CONSTRAINT `s_position` FOREIGN KEY (`start_position`) REFERENCES `cab_position` (`num`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `sort_name` FOREIGN KEY (`machine_sort_name`) REFERENCES `machine_sort` (`sort_name`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5786 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `cabinet_name` FOREIGN KEY (`cabinet_name`) REFERENCES `cabinet` (`cab_num`),
+  CONSTRAINT `e_position` FOREIGN KEY (`end_position`) REFERENCES `cab_position` (`num`),
+  CONSTRAINT `room_id` FOREIGN KEY (`machine_roomid`) REFERENCES `machine_room` (`room_id`),
+  CONSTRAINT `s_position` FOREIGN KEY (`start_position`) REFERENCES `cab_position` (`num`),
+  CONSTRAINT `sort_name` FOREIGN KEY (`machine_sort_name`) REFERENCES `machine_sort` (`sort_name`) ON DELETE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=5815 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of machine_infos
@@ -394,7 +395,7 @@ INSERT INTO `machine_infos` VALUES ('5447', '灾备信贷内管RAC1', '小型机
 INSERT INTO `machine_infos` VALUES ('5448', '外联区防火墙B', '防火墙', null, '迪普', 'FW1000', '1', 'C01', '12', '12', '2013-10-01', null, null, '1', '吴君华', null, '192.168.210.106', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5449', '外联区防火墙A', '防火墙', null, '迪普', 'FW1000', '1', 'C01', '13', '13', '2013-10-01', null, null, '1', '吴君华', null, '192.168.210.105', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5450', '人民银行开发测试VPN', '路由器', null, 'CISCO', 'cisco2800', '1', 'C01', '21', '21', '2013-10-01', null, null, '1', '吴君华', null, '192.168.120.12', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5451', '移动外联区防DOS设备B', '安全设备', '13-49-P-034', '绿盟', 'ADS 1200', '1', 'C01', '23', '24', '2013-10-01', null, null, '1', '吴君华', null, null, null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5451', '移动外联区防DOS设备B', '安全设备', '13-49-P-034', '绿盟', 'ADS 1200', '1', 'C01', '23', '24', '2013-10-01', null, null, '4', '吴君华', null, null, null, null, null, '2022-08-04', '0', null);
 INSERT INTO `machine_infos` VALUES ('5452', '联通外联区防DOS设备B', '安全设备', '13-36-P-013', '绿盟', 'ADS 1200', '1', 'C01', '26', '27', '2013-10-01', null, null, '1', '吴君华', null, '192.168.210.100', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5453', '电信外联区防DOS设备A', '安全设备', '13-36-P-014', '绿盟', 'ADS 1200', '1', 'C01', '28', '29', '2013-10-01', null, null, '1', '吴君华', null, '192.168.210.101', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5454', '外联区链路负载B', '负载均衡', null, 'Radware', 'LP2008', '1', 'C01', '31', '31', '2013-10-01', null, null, '1', '吴君华', null, '192.168.210.102', null, null, null, null, '0', null);
@@ -496,15 +497,15 @@ INSERT INTO `machine_infos` VALUES ('5552', '业务2区万兆防火墙1', '防�
 INSERT INTO `machine_infos` VALUES ('5553', '业务1区汇聚交换机', '交换机', null, 'H3C', 'S12504X', '2', 'A03', '16', '21', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.11', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5554', '业务1区万兆防火墙1', '防火墙', null, '山石', 'sg-6000 E5560', '2', 'A03', '23', '24', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.13', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5555', '骨干交换机1', '交换机', null, 'H3C', 'S12504X', '2', 'A04', '6', '11', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.1', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5556', '管理DNS设备', '其它网络设备', '05-1708E-205', 'ZDNS', 'T7100', '2', 'A04', '14', '15', null, null, '1', '1', '肖申波', null, '6.127.253.5', null, null, null, '2020-08-25', '0', '2020/8/25上架');
-INSERT INTO `machine_infos` VALUES ('5557', '业务DNS设备', '其它网络设备', '05-1707E-1024', 'ZDNS', 'T5100', '2', 'A04', '16', '16', null, null, '1', '1', '肖申波', null, '6.127.253.8', null, null, null, '2020-08-25', '0', '2020/8/25上架');
-INSERT INTO `machine_infos` VALUES ('5558', 'DNS集群负载均衡B', '负载均衡', 'f5-mgea-mgjh', 'F5', 'BIG-IP 2000 SERIES', '2', 'A04', '26', '26', null, null, '1', '1', '肖申波', null, '6.127.253.7', null, null, null, '2020-08-27', '0', '2020/8/27上架');
+INSERT INTO `machine_infos` VALUES ('5556', '管理DNS设备', '其它网络设备', '05-1708E-205', 'ZDNS', 'T7100', '2', 'A04', '14', '15', null, null, '1', '4', '肖申波', null, '6.127.253.5', null, null, null, '2020-08-25', '0', '2020/8/25上架');
+INSERT INTO `machine_infos` VALUES ('5557', '业务DNS设备', '其它网络设备', '05-1707E-1024', 'ZDNS', 'T5100', '2', 'A04', '16', '16', null, null, '1', '4', '肖申波', null, '6.127.253.8', null, null, null, '2020-08-25', '0', '2020/8/25上架');
+INSERT INTO `machine_infos` VALUES ('5558', 'DNS集群负载均衡B', '负载均衡', 'f5-mgea-mgjh', 'F5', 'BIG-IP 2000 SERIES', '2', 'A04', '26', '26', null, null, '1', '4', '肖申波', null, '6.127.253.7', null, null, null, '2020-08-27', '0', '2020/8/27上架');
 INSERT INTO `machine_infos` VALUES ('5559', '带外接入交换机1', '交换机', null, 'H3C', 'S6800', '2', 'A04', '13', '13', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.253', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5560', '骨干交换机2', '交换机', null, 'H3C', 'S12504X', '2', 'A05', '6', '11', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.2', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5561', '骨干交换区入侵检测系统1', '安全设备', null, '绿盟', 'NIDS NX3 N2010A', '2', 'A05', '13', '14', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.3', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5562', '带外接入交换机2', '交换机', null, 'H3C', 'S5120S', '2', 'A05', '16', '16', '2019-05-01', null, null, '1', '肖申波', null, null, null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5563', 'TAP', '交换机', null, 'MAIPU', 'my power t5820', '2', 'A05', '18', '18', '2019-05-01', null, null, '1', '肖申波', null, null, null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5564', 'DNS集群负载均衡A', '负载均衡', 'f5-hjqs-lric', 'F5', 'BIG-IP 2000 SERIES', '2', 'A05', '26', '26', null, null, '1', '1', '肖申波', null, '6.127.253.6', null, null, null, '2020-08-27', '0', '2020/8/27上架');
+INSERT INTO `machine_infos` VALUES ('5564', 'DNS集群负载均衡A', '负载均衡', 'f5-hjqs-lric', 'F5', 'BIG-IP 2000 SERIES', '2', 'A05', '26', '26', null, null, '1', '4', '肖申波', null, '6.127.253.6', null, null, null, '2022-08-04', '0', '2020/8/27上架');
 INSERT INTO `machine_infos` VALUES ('5565', 'L2汇聚交换机', '交换机', null, 'H3C', 'S12504X', '2', 'A06', '6', '11', '2019-05-01', null, null, '1', '肖申波', null, '172.251.0.4', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5566', 'VMAX 存储', '磁盘阵列', 'CN498700243', 'EMC', 'VMAX 10K', '2', 'A09', '1', '42', '2014-01-01', null, null, '1', '肖申波', null, '192.168.210.205', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5567', 'VMAX 存储', '磁盘阵列', 'CN498700243', 'EMC', 'VMAX 10K', '2', 'A10', '1', '42', '2014-01-01', null, null, '1', '肖申波', null, '192.168.210.205', null, null, null, null, '0', null);
@@ -683,7 +684,20 @@ INSERT INTO `machine_infos` VALUES ('5739', '分行OA邮件服务器', 'X86服�
 INSERT INTO `machine_infos` VALUES ('5740', '分行OAWEB', 'X86服务器', 'XTSC0017', 'DELL', '2950', '4', 'KF11', '38', '39', null, null, '4', '1', null, null, '192.168.110.88', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5748', 'mysql-node1', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5749', 'mysql-node2', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5750', 'mysql-node1', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5751', 'mysql-node2', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5752', 'mysql-node1', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5753', 'mysql-node2', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5785', '12', '小型机', 's', 'IBM', '型号', '2', 'A02', '1', '2', '2000-01-01', '2000-01-01', '0', '1', '', '', '', '', '', '2022-07-15', null, '0', '12');
+INSERT INTO `machine_infos` VALUES ('5786', 'mysql-node1', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5787', 'mysql-node2', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5805', '设备名称1', '其它设备', 'sn0001', '测试', 'model1', '4', 'KF01', '2', '3', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '3.3.3.3', '2022-08-02', null, '0', '备注信息');
+INSERT INTO `machine_infos` VALUES ('5806', '添加设备2', '测试子分类1', 'sn0001', '测试', 'model001', '23', 'A01', '10', '10', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '3.3.3.3', '2022-08-02', null, '0', '由小王来安装上架');
+INSERT INTO `machine_infos` VALUES ('5807', '测试设备2', '测试子分类1', 'sn0001', 'IBM', 'MODEL1', '4', 'A01', '1', '2', '2000-01-01', '2000-01-01', '1', '1', 'ADMIN', 'APP-ADMIN', '1.1.1.1', '2.2.2.2', null, '2022-08-02', null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5808', '模块设备1', '安全设备', 'sn0001', '华为', 'HM01', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', '1', '1', null, null, '192.168.1.1', '2.2.2.23.3.3.3', null, null, null, '0', null);
+INSERT INTO `machine_infos` VALUES ('5810', '新上架设备', '测试子分类1', 'sn001', '测试', 'test01', '23', 'A01', '3', '4', '2000-01-01', '2000-01-01', '0', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '', '2022-08-03', null, '0', '第一台上架设备');
+INSERT INTO `machine_infos` VALUES ('5811', '第二台上架设备', '测试子分类1', 'sn0001', '测试', 'test1', '23', 'A01', '2', '5', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '8.8.8.8', '8.8.8.8', '', '2022-08-03', null, '0', '小王公司安装上架');
+INSERT INTO `machine_infos` VALUES ('5814', '8888888', '测试子分类1', 'sn', '测试', 'test', '23', 'A01', '2', '3', '2000-01-01', '2000-01-01', null, '1', null, null, null, null, null, null, null, '0', null);
 
 -- ----------------------------
 -- Table structure for machine_room
@@ -697,7 +711,7 @@ CREATE TABLE `machine_room` (
   PRIMARY KEY (`room_id`),
   UNIQUE KEY `room_id_UNIQUE` (`room_id`),
   UNIQUE KEY `room_name_UNIQUE` (`room_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3 AVG_ROW_LENGTH=1 COMMENT='机柜信息';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 AVG_ROW_LENGTH=1 COMMENT='机柜信息';
 
 -- ----------------------------
 -- Records of machine_room
@@ -707,6 +721,7 @@ INSERT INTO `machine_room` VALUES ('0002', 'ZB-2', '网络机房', null);
 INSERT INTO `machine_room` VALUES ('0003', 'ZB-3', '分行机房', null);
 INSERT INTO `machine_room` VALUES ('0004', 'ZB-4', '开发机房', null);
 INSERT INTO `machine_room` VALUES ('0022', 'CS-1', '测试', null);
+INSERT INTO `machine_room` VALUES ('0023', 'CS-2', '测试机房2', null);
 
 -- ----------------------------
 -- Table structure for machine_sort
@@ -735,6 +750,9 @@ INSERT INTO `machine_sort` VALUES ('1020', '网络', null, null, null);
 INSERT INTO `machine_sort` VALUES ('1030', '机房环境', null, null, null);
 INSERT INTO `machine_sort` VALUES ('1040', '安全加密', null, null, null);
 INSERT INTO `machine_sort` VALUES ('1070', '其它', null, null, null);
+INSERT INTO `machine_sort` VALUES ('1180', '分类修改', null, null, null);
+INSERT INTO `machine_sort` VALUES ('1190', '测试主分类', null, null, null);
+INSERT INTO `machine_sort` VALUES ('1193', '主分类31', null, null, null);
 INSERT INTO `machine_sort` VALUES ('10010001', 'X86服务器', '1001', '主机', null);
 INSERT INTO `machine_sort` VALUES ('10010010', '小型机', '1001', '主机', null);
 INSERT INTO `machine_sort` VALUES ('10100001', '磁盘阵列', '1010', '存储', null);
@@ -759,6 +777,9 @@ INSERT INTO `machine_sort` VALUES ('10400010', '数字签名', '1040', '安全�
 INSERT INTO `machine_sort` VALUES ('10600020', '其它设备', '1070', '其它', null);
 INSERT INTO `machine_sort` VALUES ('10600030', '排队机', '1070', '其它', null);
 INSERT INTO `machine_sort` VALUES ('10600040', '运营商设备', '1070', '其它', null);
+INSERT INTO `machine_sort` VALUES ('11800020', '子分类88', '1180', '测试分类', null);
+INSERT INTO `machine_sort` VALUES ('11800030', '子分类123', '1180', '测试分类', null);
+INSERT INTO `machine_sort` VALUES ('11900010', '测试子分类1', '1190', '测试主分类', null);
 
 -- ----------------------------
 -- Table structure for manufacturer
@@ -769,7 +790,7 @@ CREATE TABLE `manufacturer` (
   `manufacturer_name` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of manufacturer
@@ -782,40 +803,36 @@ INSERT INTO `manufacturer` VALUES ('5', '华为', null);
 INSERT INTO `manufacturer` VALUES ('6', '联想', null);
 INSERT INTO `manufacturer` VALUES ('7', 'HP', null);
 INSERT INTO `manufacturer` VALUES ('8', 'EMC', null);
+INSERT INTO `manufacturer` VALUES ('13', '测试', null);
 
 -- ----------------------------
 -- Table structure for shelf_manage
 -- ----------------------------
 DROP TABLE IF EXISTS `shelf_manage`;
 CREATE TABLE `shelf_manage` (
-  `machine_id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `machine_name` char(255) DEFAULT NULL COMMENT '设备名称',
-  `machine_sort_name` char(255) DEFAULT NULL COMMENT '分类名称',
-  `machine_sn` char(255) DEFAULT NULL COMMENT '序列号',
-  `machine_factory` char(255) DEFAULT NULL COMMENT '设备厂商',
-  `model` char(255) DEFAULT NULL COMMENT '型号',
-  `machine_roomid` int unsigned NOT NULL COMMENT '机房ID',
-  `cabinet_id` int DEFAULT NULL COMMENT '机柜ID',
-  `cabinet_name` varchar(255) DEFAULT NULL COMMENT '机房编号',
-  `start_position` int DEFAULT NULL COMMENT '开始U位',
-  `end_position` int DEFAULT NULL COMMENT '结束U位',
-  `machine_admin` char(255) DEFAULT NULL COMMENT '管理员',
-  `state` int DEFAULT NULL COMMENT '状态：1上架，2下架',
-  `app_admin` char(255) DEFAULT NULL COMMENT '应用管理员',
-  `mg_ip` char(255) DEFAULT NULL COMMENT '业务管理IP地址',
-  `app_ip1` char(255) DEFAULT NULL COMMENT '业务IP1',
-  `machine_use` char(255) DEFAULT NULL COMMENT '用途',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `machine_id` int NOT NULL COMMENT '设备ID',
+  `up_or_down` int NOT NULL COMMENT '上架或下架：1：上架，2：下架',
   `operator` char(255) DEFAULT NULL COMMENT '执行人',
   `date` date DEFAULT NULL COMMENT '上下架日期',
   `reason` char(255) DEFAULT NULL COMMENT '原因',
   `comments` char(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`machine_id`),
-  KEY `idx_room_cabinet_start_position` (`machine_roomid`,`cabinet_name`,`start_position`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id`),
+  KEY `shelf_manage_ibfk_machina_id` (`machine_id`),
+  CONSTRAINT `shelf_manage_ibfk_machina_id` FOREIGN KEY (`machine_id`) REFERENCES `machine_infos` (`machine_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of shelf_manage
 -- ----------------------------
+INSERT INTO `shelf_manage` VALUES ('1', '5811', '1', '小王公司', '2022-08-03', null, '小王公司安装上架');
+INSERT INTO `shelf_manage` VALUES ('2', '5556', '2', '虚竹', '2022-08-04', null, '下架至仓库');
+INSERT INTO `shelf_manage` VALUES ('3', '5557', '2', '虚竹', '2022-08-04', null, '下架至仓库');
+INSERT INTO `shelf_manage` VALUES ('4', '5556', '2', '小明', '2022-08-04', null, '下架说明');
+INSERT INTO `shelf_manage` VALUES ('5', '5557', '2', '小明', '2022-08-04', null, '下架说明');
+INSERT INTO `shelf_manage` VALUES ('6', '5558', '2', '小明', '2022-08-04', null, '下架说明');
+INSERT INTO `shelf_manage` VALUES ('7', '5564', '2', '小王', '2022-08-04', null, '下架');
+INSERT INTO `shelf_manage` VALUES ('8', '5451', '2', '小王', '2022-08-04', null, '下架');
 
 -- ----------------------------
 -- View structure for machine_list
@@ -833,98 +850,10 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- View structure for view_downshelf
 -- ----------------------------
 DROP VIEW IF EXISTS `view_downshelf`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_downshelf` AS select `t`.`machine_id` AS `machine_id`,`t`.`machine_name` AS `machine_name`,`m`.`room_name` AS `room_name`,concat(`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`t`.`uninstall_date` AS `date`,`t`.`comments` AS `comments` from (`machine_infos` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) where (`t`.`run_state` = 4) order by `t`.`uninstall_date` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_downshelf` AS select `f`.`id` AS `id`,`t`.`machine_id` AS `machine_id`,`t`.`machine_name` AS `machine_name`,concat(`m`.`room_name`,'_',`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`f`.`date` AS `date`,`f`.`operator` AS `operator`,`t`.`machine_admin` AS `machine_admin`,`f`.`comments` AS `comments` from ((`machine_infos` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) join `shelf_manage` `f` on((`f`.`machine_id` = `t`.`machine_id`))) order by `f`.`id` ;
 
 -- ----------------------------
 -- View structure for view_upshelf
 -- ----------------------------
 DROP VIEW IF EXISTS `view_upshelf`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_upshelf` AS select `t`.`machine_name` AS `machine_name`,concat(`m`.`room_name`,'_',`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`t`.`date` AS `date`,`t`.`operator` AS `operator`,`t`.`machine_admin` AS `machine_admin`,`t`.`comments` AS `comments` from (`shelf_manage` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) where (`t`.`state` = 1) order by `t`.`date` desc ;
-
--- ----------------------------
--- Event structure for Evnt_addSortid
--- ----------------------------
-DROP EVENT IF EXISTS `Evnt_addSortid`;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` EVENT `Evnt_addSortid` ON SCHEDULE EVERY 1 MINUTE STARTS '2020-09-15 10:54:35' ON COMPLETION NOT PRESERVE ENABLE COMMENT '补全设备信息表中分类ID及机房编号' DO BEGIN
-
-# 更新并补全设备信息表中分类ID信息
-UPDATE machine_infos
- INNER JOIN machine_sort ON machine_infos.machine_sort_name = machine_sort.sort_name
-SET machine_infos.machine_sort_id = machine_sort.sort_id;
-
-
-UPDATE machine_infos
- INNER JOIN cabinet ON machine_infos.cabinet_name = cabinet.cab_num
-SET machine_infos.cabinet_id = cabinet.cab_id;
-
-# 更新并补全设备上下架表中分类ID信息
-
-UPDATE shelf_manage
- INNER JOIN cabinet ON shelf_manage.cabinet_name = cabinet.cab_num
-SET shelf_manage.cabinet_id = cabinet.cab_id;
-
-END
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `Tgr_update_machineinfo_u`;
-DELIMITER ;;
-CREATE TRIGGER `Tgr_update_machineinfo_u` AFTER UPDATE ON `machine_infos` FOR EACH ROW update shelf_manage 
-	set 
-		machine_name=new.machine_name,
-		machine_sort_name=new.machine_sort_name,
-		machine_sn=new.machine_sn,
-		machine_factory=new.machine_factory,
-		model=new.model,
-		machine_roomid=new.machine_roomid,
-		cabinet_name=new.cabinet_name,
-		start_position=new.start_position,
-		end_position=new.end_position,
-		machine_admin=new.machine_admin,
-		app_admin=new.app_admin,
-		mg_ip=new.mg_ip,
-		app_ip1=new.app_ip1
-	where shelf_manage .machine_id=new.machine_id
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `Tgr_add_machineinfo_i`;
-DELIMITER ;;
-CREATE TRIGGER `Tgr_add_machineinfo_i` AFTER INSERT ON `shelf_manage` FOR EACH ROW INSERT INTO machine_infos (
-	machine_id,
-	machine_name,
-	machine_sort_name,
-	machine_sn,
-	machine_factory,
-	model,
-	machine_roomid,
-	cabinet_name,
-	start_position,
-	end_position,
-	machine_admin,
-	app_admin,
-	mg_ip,
-	app_ip1,
-	machine_use,
-	install_date
-)
-VALUES
-	(
-		new.machine_id,
-		new.machine_name,
-		new.machine_sort_name,
-		new.machine_sn,
-		new.machine_factory,
-		new.model,
-		new.machine_roomid,
-		new.cabinet_name,
-		new.start_position,
-		new.end_position,
-		new.machine_admin,
-		new.app_admin,
-		new.mg_ip,
-		new.app_ip1,
-		new.machine_use,
-		new.date
-	)
-;;
-DELIMITER ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_upshelf` AS select `f`.`id` AS `id`,`t`.`machine_id` AS `machine_id`,`t`.`machine_name` AS `machine_name`,concat(`m`.`room_name`,'_',`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`f`.`date` AS `date`,`f`.`operator` AS `operator`,`t`.`machine_admin` AS `machine_admin`,`f`.`comments` AS `comments` from ((`machine_infos` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) join `shelf_manage` `f` on((`t`.`machine_id` = `f`.`machine_id`))) where (`f`.`up_or_down` = 1) order by `t`.`install_date` desc ;
