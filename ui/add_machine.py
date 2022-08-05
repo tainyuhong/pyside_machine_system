@@ -313,7 +313,7 @@ class Ui_add_machine_form(object):
         font4.setUnderline(True)
         self.label.setFont(font4)
         self.label.setLayoutDirection(Qt.LeftToRight)
-        self.label.setStyleSheet(u"color:blue")
+        self.label.setStyleSheet(u"")
         self.label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label, 0, 2, 1, 2)
@@ -357,6 +357,12 @@ class Ui_add_machine_form(object):
         self.gridLayout.setRowStretch(10, 2)
 
         self.verticalLayout.addLayout(self.gridLayout)
+
+        self.label_2 = QLabel(add_machine_form)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setStyleSheet(u"color:red")
+
+        self.verticalLayout.addWidget(self.label_2)
 
         QWidget.setTabOrder(self.machine_name, self.sort_name)
         QWidget.setTabOrder(self.sort_name, self.room)
@@ -423,5 +429,6 @@ class Ui_add_machine_form(object):
         self.label.setText(QCoreApplication.translate("add_machine_form", u"\u6dfb\u52a0\u8bbe\u5907", None))
         self.sort_name.setPlaceholderText(QCoreApplication.translate("add_machine_form", u"\u70b9\u51fb\u9009\u62e9\u7c7b\u578b", None))
         self.lb_room.setText(QCoreApplication.translate("add_machine_form", u"\u673a      \u623f", None))
+        self.label_2.setText(QCoreApplication.translate("add_machine_form", u"\u8be5\u6a21\u5757\u4e3b\u8981\u7528\u4e8e\u8865\u5f55\u5df2\u4e0a\u67b6\uff0c\u4f46\u4e0d\u9700\u8981\u4e0a\u67b6\u5355\u7684\u8bbe\u5907\u3002", None))
     # retranslateUi
 

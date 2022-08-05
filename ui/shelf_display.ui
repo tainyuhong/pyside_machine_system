@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>shelf_display</class>
+ <widget class="QWidget" name="shelf_display">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>上下架设备信息查询</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_up">
+      <attribute name="title">
+       <string>上架设备信息查询</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item row="0" column="0" colspan="5">
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <pointsize>30</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>上架设备信息查询</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="bt_up_select">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>查  询</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="0" colspan="5">
+          <widget class="QTableWidget" name="tb_up">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>80</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>设备ID</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备名称</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>位置</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备品牌</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备类型</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>型号</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>序列号</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>管理IP</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>上架日期</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>执行人</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>管理员</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>备注</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="3">
+          <widget class="QLabel" name="lb_state_up">
+           <property name="styleSheet">
+            <string notr="true">color:blue</string>
+           </property>
+           <property name="text">
+            <string>就绪</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QDateEdit" name="up_date">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="wrapping">
+            <bool>false</bool>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="ckb_up">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>上架日期</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_down">
+      <attribute name="title">
+       <string>下架设备信息查询</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1">
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item row="3" column="0" colspan="3">
+          <widget class="QLabel" name="lb_state_down">
+           <property name="styleSheet">
+            <string notr="true">color:blue</string>
+           </property>
+           <property name="text">
+            <string>就绪</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="5">
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>30</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>下架设备信息查询</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="bt_down_select">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>查  询</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="2">
+          <widget class="QDateEdit" name="down_date">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="wrapping">
+            <bool>false</bool>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="5">
+          <widget class="QTableWidget" name="tb_down">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>80</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>设备ID</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备名称</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>位置</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备品牌</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>设备类型</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>型号</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>序列号</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>管理IP</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>下架日期</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>执行人</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>管理员</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>备注</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="ckb_down">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>下架日期</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

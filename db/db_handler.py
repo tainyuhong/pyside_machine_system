@@ -137,7 +137,7 @@ class DBMysql(object):
                 logging.info('-->{} 条记录执行成功！'.format(self.cursor.rowcount))
             return self.cursor.rowcount
         else:
-            pas
+            pass
 
     def is_connected(self):
         """Check if the server is alive"""

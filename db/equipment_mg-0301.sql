@@ -317,7 +317,7 @@ CREATE TABLE `machine_infos` (
   `machine_use` char(255) DEFAULT NULL COMMENT '用途',
   `issinglepower` int DEFAULT NULL COMMENT '是否单电源：1：是，2：否',
   `install_date` date DEFAULT NULL COMMENT '上架安装时间',
-  `uninstatll_date` date DEFAULT NULL COMMENT '下架时间',
+  `uninstall_date` date DEFAULT NULL COMMENT '下架时间',
   `comments` char(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`machine_id`),
   KEY `cabinet_id` (`cabinet_id`),
@@ -861,7 +861,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- View structure for view_downshelf
 -- ----------------------------
 DROP VIEW IF EXISTS `view_downshelf`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_downshelf` AS select `t`.`machine_id` AS `machine_id`,`t`.`machine_name` AS `machine_name`,`m`.`room_name` AS `room_name`,concat(`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`t`.`uninstatll_date` AS `date`,`t`.`comments` AS `comments` from (`machine_infos` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) where (`t`.`run_state` = 4) order by `t`.`uninstatll_date` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_downshelf` AS select `t`.`machine_id` AS `machine_id`,`t`.`machine_name` AS `machine_name`,`m`.`room_name` AS `room_name`,concat(`t`.`cabinet_name`,'_',`t`.`start_position`,'U') AS `postion`,`t`.`machine_sort_name` AS `machine_sort_name`,`t`.`model` AS `model`,`t`.`machine_factory` AS `machine_factory`,`t`.`machine_sn` AS `machine_sn`,`t`.`mg_ip` AS `mg_ip`,`t`.`uninstall_date` AS `date`,`t`.`comments` AS `comments` from (`machine_infos` `t` join `machine_room` `m` on((`t`.`machine_roomid` = `m`.`room_id`))) where (`t`.`run_state` = 4) order by `t`.`uninstall_date` desc ;
 
 -- ----------------------------
 -- View structure for view_upshelf

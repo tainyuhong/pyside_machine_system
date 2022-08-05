@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>机房设备管理系统pyside6-V1.0-</string>
+   <string>机房设备管理系统pyside6-V1.0</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -49,6 +49,8 @@
     </property>
     <addaction name="actionsjgl"/>
     <addaction name="actionxjgl"/>
+    <addaction name="separator"/>
+    <addaction name="action_shelf_display"/>
    </widget>
    <widget class="QMenu" name="mu_poll">
     <property name="title">
@@ -122,6 +124,11 @@
   <action name="action_base">
    <property name="text">
     <string>基础信息管理</string>
+   </property>
+  </action>
+  <action name="action_shelf_display">
+   <property name="text">
+    <string>上下架信息查询</string>
    </property>
   </action>
  </widget>

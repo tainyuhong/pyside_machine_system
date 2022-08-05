@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Main_win.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.2
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -48,6 +48,8 @@ class Ui_MainWindow(object):
         self.actionpldr.setObjectName(u"actionpldr")
         self.action_base = QAction(MainWindow)
         self.action_base.setObjectName(u"action_base")
+        self.action_shelf_display = QAction(MainWindow)
+        self.action_shelf_display.setObjectName(u"action_shelf_display")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -81,6 +83,8 @@ class Ui_MainWindow(object):
         self.mu_select.addAction(self.actioncxsb)
         self.mu_shelf.addAction(self.actionsjgl)
         self.mu_shelf.addAction(self.actionxjgl)
+        self.mu_shelf.addSeparator()
+        self.mu_shelf.addAction(self.action_shelf_display)
         self.mu_poll.addAction(self.actionsjpz)
         self.mu_poll.addAction(self.actionsj)
 
@@ -90,7 +94,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u673a\u623f\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edfpyside6-V1.0-", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u673a\u623f\u8bbe\u5907\u7ba1\u7406\u7cfb\u7edfpyside6-V1.0", None))
         self.actionjfgl.setText(QCoreApplication.translate("MainWindow", u"\u673a\u623f\u7ba1\u7406", None))
         self.actionjg.setText(QCoreApplication.translate("MainWindow", u"\u673a\u67dc\u7ba1\u7406", None))
         self.actionu.setText(QCoreApplication.translate("MainWindow", u"U\u4f4d\u7ba1\u7406", None))
@@ -103,6 +107,7 @@ class Ui_MainWindow(object):
         self.actioncxsb.setText(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u8bbe\u5907", None))
         self.actionpldr.setText(QCoreApplication.translate("MainWindow", u"\u6279\u91cf\u5bfc\u5165\u8bbe\u5907", None))
         self.action_base.setText(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f\u7ba1\u7406", None))
+        self.action_shelf_display.setText(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e0b\u67b6\u4fe1\u606f\u67e5\u8be2", None))
         self.mu_baseinfo.setTitle(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f", None))
         self.mu_machine.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u7ba1\u7406", None))
         self.mu_select.setTitle(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u7ba1\u7406", None))

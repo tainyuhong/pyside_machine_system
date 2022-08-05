@@ -1,9 +1,9 @@
 import sys, time
 from ui.modify import *
 from PySide6 import QtWidgets
-from ui.add_machine import *
+# from ui.add_machine import *
 from db.db_orm import *
-import logging
+# import logging
 
 """
 业务判断逻辑
@@ -17,10 +17,10 @@ import logging
     + 保存修改：将save_flag标志设置为True,同时将is_selected设置为未查询
 
 """
-
-logger = logging.getLogger('peewee')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
+#
+# logger = logging.getLogger('peewee')
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel(logging.DEBUG)
 
 
 class UiModifyMachine(Ui_modify, QtWidgets.QWidget):

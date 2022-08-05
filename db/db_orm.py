@@ -2,7 +2,7 @@ from peewee import *
 
 database = MySQLDatabase('equipment_mg',
                          **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',
-                            'port': 3307, 'user': 'root', 'password': '123456'})
+                            'port': 3306, 'user': 'root', 'password': '123456'})
 
 
 class UnknownField(object):
@@ -18,7 +18,6 @@ class CabPosition(BaseModel):
     """
     U位信息表
     """
-    id = IntegerField(index=True)
     num = IntegerField(index=True)
     position_name = CharField(index=True)
     use = CharField(null=True)
@@ -76,7 +75,7 @@ class MachineSort(BaseModel):
     """
     设备分类表
     """
-    sort_id = PrimaryKeyField()
+    sort_id = AutoField()
     sort_name = CharField(index=True)
     part_sort = ForeignKeyField(column_name='part_sort_id', field='sort_id', model='self', null=True)
     part_sort_name = CharField(index=True, null=True)
@@ -112,7 +111,7 @@ class MachineInfos(BaseModel):
     app_ip1 = CharField(null=True)
     bmc_ip = CharField(null=True)
     install_date = DateField(null=True)
-    uninstatll_date = DateField(null=True)
+    uninstall_date = DateField(null=True)
     single_power = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
     comments = CharField(null=True)
 
@@ -173,23 +172,8 @@ class ShelfManage(BaseModel):
     """
         设备上下架信息表
     """
-    machine_id = AutoField()
-    machine_name = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    machine_sn = CharField(null=True)
-    machine_factory = CharField(null=True)
-    model = CharField(null=True)
-    machine_roomid = IntegerField()
-    cabinet_id = IntegerField(null=True)
-    cabinet_name = CharField(null=True)
-    start_position = IntegerField(null=True)
-    end_position = IntegerField(null=True)
-    machine_admin = CharField(null=True)
-    state = IntegerField(null=True)
-    app_admin = CharField(null=True)
-    mg_ip = CharField(null=True)
-    app_ip1 = CharField(null=True)
-    machine_use = CharField(null=True)
+    machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
+    up_or_down = IntegerField()
     operator = CharField(null=True)
     date = DateField(null=True)
     reason = CharField(null=True)
@@ -197,9 +181,6 @@ class ShelfManage(BaseModel):
 
     class Meta:
         table_name = 'shelf_manage'
-        indexes = (
-            (('machine_roomid', 'cabinet_name', 'start_position'), False),
-        )
 
 
 class ViewCheckCmd(BaseModel):
@@ -225,17 +206,20 @@ class ViewDownshelf(BaseModel):
     """
         设备下架信息视图
     """
+    comments = CharField(null=True)
+    date = DateField(null=True)
+    id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    machine_admin = CharField(null=True)
+    machine_factory = CharField(null=True)
     machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
     machine_name = CharField(null=True)
-    room_name = CharField()
-    postion = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    model = CharField(null=True)
-    machine_factory = CharField(null=True)
     machine_sn = CharField(null=True)
+    machine_sort_name = CharField(null=True)
     mg_ip = CharField(null=True)
-    date = DateField(null=True)
-    comments = CharField(null=True)
+    model = CharField(null=True)
+    operator = CharField(null=True)
+    postion = CharField(null=True)
+
     class Meta:
         table_name = 'view_downshelf'
         primary_key = False
@@ -245,18 +229,21 @@ class ViewUpshelf(BaseModel):
     """
         设备上架信息视图
     """
-    machine_name = CharField(null=True)
-    postion = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    model = CharField(null=True)
-    machine_factory = CharField(null=True)
-    machine_sn = CharField(null=True)
-    mg_ip = CharField(null=True)
-    date = DateField(null=True)
-    operator = CharField(null=True)
-    machine_admin = CharField(null=True)
     comments = CharField(null=True)
+    date = DateField(null=True)
+    id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    machine_admin = CharField(null=True)
+    machine_factory = CharField(null=True)
+    machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    machine_name = CharField(null=True)
+    machine_sn = CharField(null=True)
+    machine_sort_name = CharField(null=True)
+    mg_ip = CharField(null=True)
+    model = CharField(null=True)
+    operator = CharField(null=True)
+    postion = CharField(null=True)
 
     class Meta:
         table_name = 'view_upshelf'
         primary_key = False
+

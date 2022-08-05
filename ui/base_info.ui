@@ -23,7 +23,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_room">
       <attribute name="title">
@@ -634,7 +634,7 @@
               <enum>QFrame::Raised</enum>
              </property>
              <property name="text">
-              <string>删除：选择需要删除的行--&gt; 删除; 双击行进入修改模式</string>
+              <string>删除：选择需要删除的行--&gt; 删除；        修改：双击行--&gt;进入修改模式--&gt;修改</string>
              </property>
             </widget>
            </item>
@@ -1004,6 +1004,9 @@
              <property name="editTriggers">
               <set>QAbstractItemView::NoEditTriggers</set>
              </property>
+             <property name="expandsOnDoubleClick">
+              <bool>false</bool>
+             </property>
              <attribute name="headerDefaultSectionSize">
               <number>90</number>
              </attribute>
@@ -1122,7 +1125,7 @@
               <number>4</number>
              </property>
              <property name="placeholderText">
-              <string>输入1-9999的数字</string>
+              <string>输入1-9999</string>
              </property>
             </widget>
            </item>
@@ -1226,7 +1229,7 @@
               <string notr="true">color:blue</string>
              </property>
              <property name="text">
-              <string>删除：选择需要删除的行--&gt; 删除; 双击行进入修改模式</string>
+              <string>删除：选择需要删除的行--&gt; 删除;       修改：双击行--&gt;进入修改模式--&gt;修改</string>
              </property>
             </widget>
            </item>

@@ -1,17 +1,17 @@
 import sys
 from PySide6 import QtWidgets
-from ui.add_machine import *
+from ui.upshelf import *
 from db.db_orm import *
 
 
-class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
+class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
     """
     添加设备窗口类
     """
     room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
 
     def __init__(self, parent=None):
-        super(UiAdd, self).__init__(parent)
+        super(UiUpShelf, self).__init__(parent)
         self.setupUi(self)
 
         # 初始化下拉菜单数据
@@ -26,8 +26,8 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         self.install_date.setDate(QDate.currentDate())  # 设置默认为系统当天
 
         # 定义按钮功能
-        self.save.clicked.connect(self.save_infos)  # 保存提交内容
-        self.clear.clicked.connect(self.clear_all)  # 清空选项内容
+        self.bt_save.clicked.connect(self.save_infos)  # 保存提交内容
+        self.bt_clear.clicked.connect(self.clear_all)  # 清空选项内容
 
     # 机房名与id互转
     def room_to_id(self, name=None, room_id=None):
@@ -52,7 +52,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         获取数据库中机房信息显示至机房下拉菜单中
         :return: 机房列表
         """
-        room_data = MachineRoom.select(MachineRoom.room_name,MachineRoom.room_id)  # 查询父类不为空的分类
+        room_data = MachineRoom.select(MachineRoom.room_name, MachineRoom.room_id)  # 查询父类不为空的分类
         room = [i.room_name for i in room_data]  # 利用列表生成器生成设备分类
         # 将机房信息取出作为公共变量
         self.room_and_id = {}  # 定义一个机房ID与机房名称的映射字典
@@ -88,11 +88,14 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         bmc_ip = self.bmc_ip.text().strip()  # BMC IP
         single_power = '0' if not self.single_power.isChecked() else '1'  # 是否单电源
         comments = self.comments.toPlainText().strip()  # 备注信息
+        operator = self.le_operator.text().strip()  # 安装人员
+        # 添加到设备信息库的数据信息
         add_data = (
             machine_name, sort_name, room, cabinet, down_position, up_position, machine_factory, model, machine_sn,
             lmg_ip, work_are, machine_admin, admin, app_ip, factory_date, end_ma_date, install_date, bmc_ip,
-            single_power,
-            comments)
+            single_power, comments)
+        # 添加到设备上架库的信息
+        up_shelf_data = [1, operator, install_date, comments]
         # print(add_data)
         # 检查主要填写数据是否为空
         if machine_name == '' or sort_name == '' or room == 0 or cabinet == '' or down_position == '' or \
@@ -104,20 +107,27 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
             if QtWidgets.QMessageBox.question(self, '是否保存数据', '---> 是否保存数据 ？ <---') == QtWidgets.QMessageBox.Yes:
                 # 保存至数据库中
                 try:
-                    MachineInfos.insert_many([add_data, ], [
+                    # 添加到设备信息数据表
+                    result = MachineInfos.insert_many([add_data, ], [
                         'machine_name', 'machine_sort_name', 'machine_roomid', 'cabinet_name', 'start_position',
                         'end_position',
                         'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are', 'machine_admin', 'app_admin',
                         'app_ip1',
                         'factory_date', 'end_ma_date', 'install_date', 'bmc_ip', 'single_power', 'comments']).execute()
+                    # 添加到设备上架数据表
+                    up_shelf_data.insert(0, result)
+                    # print('上架设备信息：', up_shelf_data)
+                    ShelfManage.insert_many([up_shelf_data], fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
+                                                                     ShelfManage.operator, ShelfManage.date,
+                                                                     ShelfManage.comments]).execute()
                 except Exception as e:
-                    QtWidgets.QMessageBox.critical(self,'保存数据错误！', e)
+                    QtWidgets.QMessageBox.critical(self, '保存数据错误！', e)
                 else:
-                    if QtWidgets.QMessageBox.question(self,'数据保存','数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
-                        self.machine_name.setText('')       # 清空设备名称
-                        self.comments.setText('')           # 清空备注内容
+                    if QtWidgets.QMessageBox.question(self, '设备上架', '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
+                        self.machine_name.setText('')  # 清空设备名称
+                        self.comments.setText('')  # 清空备注内容
                     else:
-                        self.close()     # 退出窗口
+                        self.close()  # 退出窗口
             else:
                 pass
 
@@ -144,6 +154,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         self.end_ma_date.setDate(QDate(2000, 1, 1))  # 设置默认为2000/1/1
         self.install_date.setDate(QDate.currentDate())  # 设置默认为系统当天
         self.comments.setText('')
+        self.le_operator.setText('')
 
     def get_machine_sort(self):
         """
@@ -162,7 +173,8 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         :return: 机柜列表
         """
         # 当机房为ZB-1时，Cabinet.room=1，根据条件进行判断...
-        cabinet_data = Cabinet.select(Cabinet.cab_num).where(Cabinet.room ==self.room_to_id(name=self.room.currentText()))
+        cabinet_data = Cabinet.select(Cabinet.cab_num).where(
+            (Cabinet.room == self.room_to_id(name=self.room.currentText())) & (Cabinet.is_use == 1)).order_by(Cabinet.cab_num)
         # print(cabinet_data)
         cabinet = [i.cab_num for i in cabinet_data]  # 利用列表生成器生成设备分类
         # print(cabinet)
@@ -196,6 +208,6 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    add_win = UiAdd()
-    add_win.show()
+    up_shelf_win = UiUpShelf()
+    up_shelf_win.show()
     sys.exit(app.exec())

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'base_info.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.2
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -510,6 +510,7 @@ class Ui_BaseInfo(object):
         self.tree_sort = QTreeWidget(self.tab_sort)
         self.tree_sort.setObjectName(u"tree_sort")
         self.tree_sort.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tree_sort.setExpandsOnDoubleClick(False)
         self.tree_sort.header().setDefaultSectionSize(90)
         self.tree_sort.header().setStretchLastSection(True)
 
@@ -766,7 +767,7 @@ class Ui_BaseInfo(object):
 
         self.retranslateUi(BaseInfo)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(BaseInfo)
@@ -807,7 +808,7 @@ class Ui_BaseInfo(object):
         self.lb_count.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None))
         self.ckb_is_used.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None))
         self.lb_cabinet_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u540d\u79f0", None))
-        self.lb_cab_status.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664; \u53cc\u51fb\u884c\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f", None))
+        self.lb_cab_status.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664\uff1b        \u4fee\u6539\uff1a\u53cc\u51fb\u884c-->\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f-->\u4fee\u6539", None))
         self.bt_cab_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_cabinet), QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u7ba1\u7406", None))
         self.label_9.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u4fe1\u606f\u7ba1\u7406", None))
@@ -835,11 +836,11 @@ class Ui_BaseInfo(object):
         self.cb_prarent_sort.setItemText(0, QCoreApplication.translate("BaseInfo", u"\u65e0", None))
 
         self.le_sort_id.setInputMask("")
-        self.le_sort_id.setPlaceholderText(QCoreApplication.translate("BaseInfo", u"\u8f93\u51651-9999\u7684\u6570\u5b57", None))
+        self.le_sort_id.setPlaceholderText(QCoreApplication.translate("BaseInfo", u"\u8f93\u51651-9999", None))
         self.lb_sort_name.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7b\u540d\u79f0", None))
         self.bt_sort_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
         self.lb_sort_id.setText(QCoreApplication.translate("BaseInfo", u"\u5206\u7c7bID", None))
-        self.label_5.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664; \u53cc\u51fb\u884c\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f", None))
+        self.label_5.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664;       \u4fee\u6539\uff1a\u53cc\u51fb\u884c-->\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f-->\u4fee\u6539", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_sort), QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u5206\u7c7b", None))
         self.label_19.setText(QCoreApplication.translate("BaseInfo", u"\u8bbe\u5907\u54c1\u724c\u4fe1\u606f", None))
         self.lb_name.setText(QCoreApplication.translate("BaseInfo", u"\u54c1\u724c\u540d\u79f0", None))
