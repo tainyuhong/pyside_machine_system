@@ -42,6 +42,8 @@
      <string>查询管理</string>
     </property>
     <addaction name="actioncxsb"/>
+    <addaction name="separator"/>
+    <addaction name="action_top"/>
    </widget>
    <widget class="QMenu" name="mu_shelf">
     <property name="title">
@@ -129,6 +131,11 @@
   <action name="action_shelf_display">
    <property name="text">
     <string>上下架信息查询</string>
+   </property>
+  </action>
+  <action name="action_top">
+   <property name="text">
+    <string>设备落位图</string>
    </property>
   </action>
  </widget>

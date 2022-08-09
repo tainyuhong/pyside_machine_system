@@ -2,11 +2,11 @@ import sys, time
 from ui.shelf_display import *
 from PySide6 import QtWidgets
 from db.db_orm import *
-import logging
-
-logger = logging.getLogger('peewee')
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
+# import logging
+#
+# logger = logging.getLogger('peewee')
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel(logging.DEBUG)
 
 
 class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):

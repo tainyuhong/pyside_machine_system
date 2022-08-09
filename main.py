@@ -10,6 +10,7 @@ from action.base_info_action import UiBaseInfo
 from action.up_shelf_action import UiUpShelf
 from action.down_shelf_action import UiDownShelf
 from action.shelf_display_action import UiShelfDisplay
+from action.top_action import DisplayTop
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -21,6 +22,9 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.action_base.triggered.connect(self.base_info_win)
         # 定义设备查询菜单触发事件
         self.actioncxsb.triggered.connect(self.show_select_win)
+        # 定义设备落位图菜单触发事件
+        self.action_top.triggered.connect(self.show_top_win)
+
         # 定义批量导入菜单触发事件
         self.actionpldr.triggered.connect(self.imp_machine_win)
         # 定义设备巡检菜单触发事件
@@ -45,6 +49,12 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_select_win(self):
         self.select_window = UiMachineSelect()
         self.select_window.show()
+
+    # 定义设备落位图窗口显示
+    def show_top_win(self):
+        self.top_window = DisplayTop()
+        self.top_window.show()
+
 
     # 定义批量导入窗口显示
     def imp_machine_win(self):

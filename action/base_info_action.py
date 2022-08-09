@@ -1,6 +1,6 @@
 import sys
 from ui.base_info import *
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets, QtGui
 # import logging
 from db.db_orm import *
 #
