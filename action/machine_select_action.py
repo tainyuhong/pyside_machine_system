@@ -1,7 +1,14 @@
 import sys
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets
 from ui.MachineSelect import *
-from db.db_handler import *
+# from db.db_handler import *
+from db.db_orm import *
+# import logging
+#
+#
+# logger = logging.getLogger('peewee')
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel(logging.DEBUG)
 
 
 class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
@@ -26,8 +33,8 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # self.data_sql = '''  '''
         self.select_btn.clicked.connect(self.get_input_data)  # 按条件进行查询
         # 分页查询按钮事件
-        if self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1])):  # 定义转到按钮点击事件
-            self.db = DBMysql()     # 点击按钮时创建数据库连接对象
+        self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1]))  # 定义转到按钮点击事件
+            # self.db = DBMysql()     # 点击按钮时创建数据库连接对象
             # print(self.db.is_connected())
         self.next_btn.clicked.connect(lambda: self.nextPage(self.data_sql, self.select_values[:-1]))  # 定义下一页按钮事件
         self.pre_btn.clicked.connect(lambda: self.prePage(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
@@ -62,9 +69,12 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             sel_values.append(self.machine_name.text())
         self.data_sql = sql  # 获取按条件查询的sql语句
         self.select_values = sel_values  # 获取查询条件值
-        # print('查询条件',sel_values)
+        # print('查询条件',self.select_values)
         # print('查询SQL',self.data_sql)
-        self.recordQuery(self.data_sql, 0, self.select_values)  # 按查询查询记录
+        if not self.select_values:
+            self.recordQuery(self.data_sql, [0])
+        else:
+            self.recordQuery(self.data_sql, 0, self.select_values)  # 按查询查询记录
         # print('总页数', self.totalPage)
         self.current_page = 1
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
@@ -74,7 +84,8 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # 连接数据库并显示数据至页面
         # print('总页数条件：', values)
         # print('总页数SQL：', sql)
-        data = self.db.query_single(self.data_sql, values)  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
+        data = database.execute_sql(sql, values).fetchall()  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
+        # data = self.db.query_single(sql, values)  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
         # print('数据条数：',len(data))
         total_record = len(data)  # 查询到的数据总记录条数
         if total_record % 15 == 0:
@@ -96,13 +107,20 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         :return:
         '''
         sql_page = sql + ' limit %s,15 '  # 定义分页查询SQL
-        # print('sql_page',sql_page)
+        # print('sql_page：：',sql_page)
         # print('limiIndex',limiIndex)
         if sql_args is None:
-            page_data = self.db.query_single(sql_page, limiIndex)  # 每页数据内容
+            # print('------======-------')
+            page_data = database.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容
+            # print('查询页数据：',page_data)
+            # page_data = self.db.query_single(sql_page, limiIndex)  # 每页数据内容
         else:
+            # print('<<<<<<<<<')
             sql_args.append(limiIndex)  # 将索引记录放入SQL传入的参数列表中
-            page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
+            # print('有参数sql_args:',sql_args)
+            page_data = database.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容
+            # print('查询页数据：', page_data)
+            # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
             for _ in range(12):
@@ -150,6 +168,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         if self.current_page < self.totalPage:
             limiIndex = self.current_page * 15  # 获取当前索引号
             sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
+            # print('下一页按钮中sql_args：',sql_args)
             self.recordQuery(sql, sql_args)  # 传入值进行查询
             # print('当前页：',self.current_page)
             self.pre_btn.setDisabled(False)  # 上一页按钮可用

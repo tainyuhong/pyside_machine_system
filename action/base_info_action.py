@@ -1,4 +1,7 @@
 import sys
+
+import peewee
+
 from ui.base_info import *
 from PySide6 import QtWidgets, QtGui
 # import logging
@@ -127,22 +130,27 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
     def del_room(self):
         item = self.tb_room.currentRow()  # 获取当前选择的行号的索引
         room_id = self.tb_room.item(item, 0).text()  # 获取room_id
+
         # 从数据库中删除
         if QtWidgets.QMessageBox.question(self, '删除机房信息', '是否确定要删除该机房信息！') == QtWidgets.QMessageBox.Yes:
-            try:
-                MachineRoom.get_by_id(room_id).delete().where(MachineRoom.room_id == room_id).execute()
-                # print(result)  # 打印执行结果，为1时代表执行成功，0失败
-            except Exception as e:
-                print('删除机房错误：', e)
+            if Cabinet.get_or_none(Cabinet.room == room_id) is None:
+                try:
+                    MachineRoom.get_by_id(room_id).delete().where(MachineRoom.room_id == room_id).execute()
+                    # print(result)  # 打印执行结果，为1时代表执行成功，0失败
+                except Exception as e:
+                    print('删除机房错误：', e)
+                else:
+                    self.tb_room.removeRow(item)  # 页面中删除一行
+                    self.room_and_id.pop(int(room_id))  # 从机房变量中删除
+                    QtWidgets.QMessageBox.information(self, '删除成功', '删除机房信息成功！')
+                    self.get_room()  # 更新机柜信息界面中机房名称下拉菜单值
+                    self.tb_room.setCurrentItem(None)  # 设置为非选择状态
+                    # print('删除机房后字典值',self.room_and_id)
             else:
-                self.tb_room.removeRow(item)  # 页面中删除一行
-                self.room_and_id.pop(int(room_id))  # 从机房变量中删除
-                QtWidgets.QMessageBox.information(self, '删除成功', '删除机房信息成功！')
-                self.get_room()  # 更新机柜信息界面中机房名称下拉菜单值
-                self.tb_room.setCurrentItem(None)  # 设置为非选择状态
-                # print('删除机房后字典值',self.room_and_id)
+                QtWidgets.QMessageBox.warning(self, '删除机房信息错误', '该机房下存在机柜，请先删除机柜再删除机房！')
         else:
             pass
+
 
     # 机柜窗口
     # 显示机柜窗口
@@ -217,6 +225,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 # print(result)  # 打印执行结果，为1时代表执行成功，0失败
                 if result == 0:
                     return QtWidgets.QMessageBox.critical(self, '删除失败', '删除机柜信息失败！')
+            except peewee.IntegrityError:
+                QtWidgets.QMessageBox.critical(self, '删除失败', '该机柜存在设备，不能删除！')
             except Exception as e:
                 print('删除机房错误：', e)
                 QtWidgets.QMessageBox.critical(self, '删除失败', '删除机柜信息失败！\n {}'.format(e))

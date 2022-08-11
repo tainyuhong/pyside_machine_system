@@ -1,5 +1,5 @@
 import sys
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets
 from ui.Main_win import *
 from action.machine_select_action import UiMachineSelect
 from action.machine_imp_exp import UiImport

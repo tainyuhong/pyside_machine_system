@@ -17,23 +17,24 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QGridLayout, QGroupBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 
 class Ui_MachineSelect(object):
     def setupUi(self, MachineSelect):
         if not MachineSelect.objectName():
             MachineSelect.setObjectName(u"MachineSelect")
         MachineSelect.resize(1000, 750)
-        MachineSelect.setMinimumSize(QSize(1000, 750))
-        MachineSelect.setMaximumSize(QSize(1000, 750))
         icon = QIcon()
         icon.addFile(u"C:/Users/zl/.designer/backup/img/11.ico", QSize(), QIcon.Normal, QIcon.Off)
         MachineSelect.setWindowIcon(icon)
+        self.horizontalLayout = QHBoxLayout(MachineSelect)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.vbox = QGroupBox(MachineSelect)
         self.vbox.setObjectName(u"vbox")
-        self.vbox.setGeometry(QRect(0, 0, 1001, 701))
-        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.vbox.sizePolicy().hasHeightForWidth())
@@ -159,10 +160,6 @@ class Ui_MachineSelect(object):
 
         self.verticalLayout.addWidget(self.groupBox)
 
-        self.horizontalSpacer = QSpacerItem(800, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.verticalLayout.addItem(self.horizontalSpacer)
-
         self.select_table = QTableWidget(self.vbox)
         if (self.select_table.columnCount() < 12):
             self.select_table.setColumnCount(12)
@@ -191,64 +188,63 @@ class Ui_MachineSelect(object):
 
         self.verticalLayout.addWidget(self.select_table)
 
-        self.layoutWidget = QWidget(MachineSelect)
-        self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(10, 710, 981, 31))
-        self.page_layout = QHBoxLayout(self.layoutWidget)
+
+        self.verticalLayout_2.addWidget(self.vbox)
+
+        self.page_layout = QHBoxLayout()
         self.page_layout.setSpacing(20)
         self.page_layout.setObjectName(u"page_layout")
-        self.page_layout.setContentsMargins(0, 0, 0, 0)
-        self.home_btn = QPushButton(self.layoutWidget)
+        self.home_btn = QPushButton(MachineSelect)
         self.home_btn.setObjectName(u"home_btn")
         self.home_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.home_btn)
 
-        self.pre_btn = QPushButton(self.layoutWidget)
+        self.pre_btn = QPushButton(MachineSelect)
         self.pre_btn.setObjectName(u"pre_btn")
         self.pre_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.pre_btn)
 
-        self.next_btn = QPushButton(self.layoutWidget)
+        self.next_btn = QPushButton(MachineSelect)
         self.next_btn.setObjectName(u"next_btn")
         self.next_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.next_btn)
 
-        self.last_btn = QPushButton(self.layoutWidget)
+        self.last_btn = QPushButton(MachineSelect)
         self.last_btn.setObjectName(u"last_btn")
         self.last_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.last_btn)
 
-        self.go_page_lb = QLabel(self.layoutWidget)
+        self.go_page_lb = QLabel(MachineSelect)
         self.go_page_lb.setObjectName(u"go_page_lb")
 
         self.page_layout.addWidget(self.go_page_lb)
 
-        self.page_input_le = QLineEdit(self.layoutWidget)
+        self.page_input_le = QLineEdit(MachineSelect)
         self.page_input_le.setObjectName(u"page_input_le")
 
         self.page_layout.addWidget(self.page_input_le)
 
-        self.page_lb = QLabel(self.layoutWidget)
+        self.page_lb = QLabel(MachineSelect)
         self.page_lb.setObjectName(u"page_lb")
 
         self.page_layout.addWidget(self.page_lb)
 
-        self.go_btn = QPushButton(self.layoutWidget)
+        self.go_btn = QPushButton(MachineSelect)
         self.go_btn.setObjectName(u"go_btn")
         self.go_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.go_btn)
 
-        self.total_page_lb = QLabel(self.layoutWidget)
+        self.total_page_lb = QLabel(MachineSelect)
         self.total_page_lb.setObjectName(u"total_page_lb")
 
         self.page_layout.addWidget(self.total_page_lb)
 
-        self.current_page_lb = QLabel(self.layoutWidget)
+        self.current_page_lb = QLabel(MachineSelect)
         self.current_page_lb.setObjectName(u"current_page_lb")
 
         self.page_layout.addWidget(self.current_page_lb)
@@ -263,6 +259,12 @@ class Ui_MachineSelect(object):
         self.page_layout.setStretch(7, 1)
         self.page_layout.setStretch(8, 3)
         self.page_layout.setStretch(9, 3)
+
+        self.verticalLayout_2.addLayout(self.page_layout)
+
+
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
+
         QWidget.setTabOrder(self.room, self.mg_ip)
         QWidget.setTabOrder(self.mg_ip, self.cabinet)
         QWidget.setTabOrder(self.cabinet, self.machine_name)
