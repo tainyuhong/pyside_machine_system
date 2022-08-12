@@ -1,5 +1,6 @@
 import sys
-from PySide6 import QtWidgets
+import time
+from PySide6 import QtWidgets,QtCore
 from ui.Main_win import *
 from action.machine_select_action import UiMachineSelect
 from action.machine_imp_exp import UiImport
@@ -11,9 +12,12 @@ from action.up_shelf_action import UiUpShelf
 from action.down_shelf_action import UiDownShelf
 from action.shelf_display_action import UiShelfDisplay
 from action.top_action import DisplayTop
+from db.db_orm import get_db_status
+
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    status_signal = QtCore.Signal(str)
     def __init__(self, parent=None):
         super(UiMainWindow, self).__init__(parent)
         self.setupUi(self)
@@ -39,6 +43,22 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionxjgl.triggered.connect(self.down_shelf_win)
         # 定义上下架信息查询菜单触发事件
         self.action_shelf_display.triggered.connect(self.shelf_display_win)
+        self.lb_status = QtWidgets.QLabel('')
+
+        self.statusbar.showMessage('状态栏')
+        self.statusbar.addPermanentWidget(self.lb_status)
+
+    #     while True:
+    #         self.db_status()
+    #         time.sleep(3)
+    #
+    # def db_status(self):
+    #     if get_db_status():
+    #         # self.lb_status.setStyleSheet(u"background-color: rgb(85, 255, 0)")
+    #         self.status_signal.emit(True)
+    #     else:
+    #         # self.lb_status.setStyleSheet(u"background-color: rgb(255, 0, 0)")
+    #         self.status_signal.emit(False)
 
     # 定义基础数据窗口显示
     def base_info_win(self):
@@ -96,4 +116,5 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     win = UiMainWindow()
     win.show()
+
     sys.exit(app.exec())

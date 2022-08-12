@@ -1,5 +1,4 @@
 import sys
-
 import peewee
 
 from ui.base_info import *

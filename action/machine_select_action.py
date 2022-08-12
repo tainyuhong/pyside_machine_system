@@ -20,6 +20,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             ['ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称', '设备IP', '设备管理员'])
         self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
+
         # 初始化定义分页信息
         # self.pre_page = None
         # self.next_page = None
@@ -40,6 +41,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.pre_btn.clicked.connect(lambda: self.prePage(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
         self.home_btn.clicked.connect(lambda: self.firstPage(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件
         self.last_btn.clicked.connect(lambda: self.lastPage(self.data_sql, self.select_values[:-1]))  # 定义最后一页事件
+
 
     # 根据查询进行查询获取数据
     def get_input_data(self):
@@ -109,6 +111,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         sql_page = sql + ' limit %s,15 '  # 定义分页查询SQL
         # print('sql_page：：',sql_page)
         # print('limiIndex',limiIndex)
+
         if sql_args is None:
             # print('------======-------')
             page_data = database.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容

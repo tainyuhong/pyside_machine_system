@@ -1,8 +1,37 @@
+import configparser
+import os
 from peewee import *
+import logging
 
-database = MySQLDatabase('equipment_mg',
-                         **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',
-                            'port': 3306, 'user': 'root', 'password': '123456'})
+
+# database = MySQLDatabase('equipment_mg',
+#                          **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',
+#                             'port': 3306, 'user': 'root', 'password': '123456'})
+cf = configparser.ConfigParser(allow_no_value=True)
+base_file = os.path.dirname(os.path.abspath(__file__))      # 获取文件的绝对路径
+
+cf.read(os.path.join(base_file,'db.ini'))       # 动态读取ini文件
+host = cf.get('db', 'host')
+password = cf.get('db', 'password')
+user = cf.get('db', 'user')
+database = cf.get('db', 'database')
+port = cf.getint('db', 'port')
+charset = cf.get('db', 'charset')
+database = MySQLDatabase(database, **{'host':host, 'user':user, 'password':password,  'port':port, 'charset':charset})
+
+
+# 检查数据库是否连通
+def get_db_status():
+    try:
+        database.connect(True)
+    except Exception as e:
+        logging.error('--->数据库连接错误：{}'.format(e))
+        print('数据库连接失败')
+        # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
+        return False
+    else:
+        print('数据库连接成功')
+        return True
 
 
 class UnknownField(object):
