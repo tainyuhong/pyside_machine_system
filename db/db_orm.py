@@ -20,18 +20,18 @@ charset = cf.get('db', 'charset')
 database = MySQLDatabase(database, **{'host':host, 'user':user, 'password':password,  'port':port, 'charset':charset})
 
 
-# 检查数据库是否连通
-def get_db_status():
-    try:
-        database.connect(True)
-    except Exception as e:
-        logging.error('--->数据库连接错误：{}'.format(e))
-        print('数据库连接失败')
-        # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
-        return False
-    else:
-        print('数据库连接成功')
-        return True
+# # 检查数据库是否连通
+# def get_db_status():
+#     try:
+#         database.connect(True)
+#     except Exception as e:
+#         logging.error('--->数据库连接错误：{}'.format(e))
+#         print('数据库连接失败')
+#         # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
+#         return False
+#     else:
+#         print('数据库连接成功')
+#         return True
 
 
 class UnknownField(object):

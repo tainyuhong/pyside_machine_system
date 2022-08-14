@@ -4,8 +4,9 @@ import time
 from PySide6 import QtWidgets, QtCore
 from ui.check import *
 from ui.addhost_win import *
-from db.db_handler import *
-from action.connect  import SshToHost
+# from db.db_handler import *
+from action.connect import SshToHost
+from db.db_orm import database
 
 # SQL查询语句
 hosts_sql = ''' select m.machine_name,m.mg_ip from machine_list m where m.mg_ip is not Null and m.machine_sort_name= %s;'''
@@ -91,7 +92,7 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
         self.hosts_list = []  # 初始化主机列表为空列表
         self.setupUi(self)
         self.ssh = SshToHost()
-        self.db = DBMysql()
+        # self.db = DBMysql()
         self.check_thread = None
         self.ping_radio.setChecked(True)  # 设置ping按钮默认为选择
         self.addhost_btn.clicked.connect(self.select_hosts)  # 查询所有设备
@@ -101,11 +102,13 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
     def select_hosts(self):
 
         host_win = AddHosts()
-        sort_infos = self.db.query_single(sort_sql)  # 分类信息
+        sort_infos = database.execute_sql(sort_sql)  # 分类信息
+        # sort_infos = self.db.query_single(sort_sql)  # 分类信息
 
         # 遍历分类，显示设备信息
         for sort in sort_infos:
-            hosts_infos = self.db.query_single(hosts_sql, sort)  # 从数据库读取主机信息
+            hosts_infos = database.execute_sql(hosts_sql, sort)  # 从数据库读取主机信息
+            # hosts_infos = self.db.query_single(hosts_sql, sort)  # 从数据库读取主机信息
             RootItem = QTreeWidgetItem()  # 定义根项
             RootItem.setText(0, sort[0])  # 设置根项内容
             RootItem.setCheckState(0, Qt.Unchecked)  # 添加复选框
@@ -147,7 +150,8 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
                     ip_list.append(_[1])
                 # print('ip集合',tuple(ip_list))
                 check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(tuple(ip_list))  # 查询指定设备SQL
-                self.check_hosts = self.db.query_single(check_cmd_sql)
+                self.check_hosts = database.execute_sql(check_cmd_sql)
+                # self.check_hosts = self.db.query_single(check_cmd_sql)
                 # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
                 # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
                 self.exec_btn.setDisabled(True)
@@ -161,7 +165,6 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
                 self.check_thread.start()       # 启动子线程
             else:
                 QtWidgets.QMessageBox.warning(self,'选择主机','请先添加要巡检的主机！')
-
 
     def do_ping(self):
         """
@@ -190,7 +193,6 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
         cursor = self.dispaly_te.textCursor()
         self.dispaly_te.moveCursor(cursor.End)  # 将光标移动到最后
         self.dispaly_te.insertPlainText(text)  # 插入文本
-
 
     # 关闭线程
     def stop(self):

@@ -5,13 +5,14 @@ import logging
 import time
 import pathlib
 import subprocess
-from db.db_handler import *
+# from db.db_handler import *
+from db.db_orm import database
 
 # 定义日志格式
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
 
 # 创建数据库对象实例
-db = DBMysql()
+# db = DBMysql()
 
 
 # 建立连通性及检查类
@@ -97,7 +98,8 @@ class SshToHost(object):
             # 获取脚本命令内容
             print('cmd_sql',cmd_sql)
             print('args',args)
-            cmd_file = db.query_single(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
+            cmd_file = database.execute_sql(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
+            # cmd_file = db.query_single(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
             print('cmd_file',cmd_file)
             if len(cmd_file) > 0:
                 # print('cmd_file',cmd_file)

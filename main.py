@@ -12,12 +12,12 @@ from action.up_shelf_action import UiUpShelf
 from action.down_shelf_action import UiDownShelf
 from action.shelf_display_action import UiShelfDisplay
 from action.top_action import DisplayTop
-from db.db_orm import get_db_status
+from db.db_orm import database
 
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    status_signal = QtCore.Signal(str)
+
     def __init__(self, parent=None):
         super(UiMainWindow, self).__init__(parent)
         self.setupUi(self)
@@ -48,18 +48,6 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage('状态栏')
         self.statusbar.addPermanentWidget(self.lb_status)
 
-    #     while True:
-    #         self.db_status()
-    #         time.sleep(3)
-    #
-    # def db_status(self):
-    #     if get_db_status():
-    #         # self.lb_status.setStyleSheet(u"background-color: rgb(85, 255, 0)")
-    #         self.status_signal.emit(True)
-    #     else:
-    #         # self.lb_status.setStyleSheet(u"background-color: rgb(255, 0, 0)")
-    #         self.status_signal.emit(False)
-
     # 定义基础数据窗口显示
     def base_info_win(self):
         self.base_info_window = UiBaseInfo()
@@ -74,7 +62,6 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_top_win(self):
         self.top_window = DisplayTop()
         self.top_window.show()
-
 
     # 定义批量导入窗口显示
     def imp_machine_win(self):
@@ -111,10 +98,50 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.check_window = UiCheck()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
         self.check_window.show()
 
+    # 根据数据库的状态设置状态栏数据库状态颜色
+    def display(self,text):
+        # print(text)
+        if text == 'True':
+            self.lb_status.setText('数据库连接正常')
+            self.lb_status.setStyleSheet(u"background-color: rgb(85, 255, 0)")
+        else:
+            self.lb_status.setText('数据库连接断开')
+            self.lb_status.setStyleSheet(u"background-color: rgb(255, 0, 0)")
+
+
+# 数据库状态检测对象
+class DbStat(QObject):
+    db_signal = QtCore.Signal(str)      # 数据库状态信号
+
+    def __init__(self,parent=None):
+        super(DbStat, self).__init__(parent)
+
+    # 持续检测数据库当前状态
+    def check_db_stat(self):
+        while True:
+            self.db_status()        # 执行连接检查
+            time.sleep(3)           # 等待
+
+    # 检测数据库连接状态
+    def db_status(self):
+        try:
+            database._connect()     # 尝试连接数据库
+            # database.connect(True)
+        except Exception as e:
+            self.db_signal.emit('False')        # 连接异常发送False信号
+            # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
+        else:
+            self.db_signal.emit('True')         # 连接正常发送True信号
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     win = UiMainWindow()
     win.show()
-
+    mysql_stat = DbStat()        # 创建数据库检查实例
+    mysql_stat.db_signal.connect(win.display)   # 将数据库状态信号连接至页面状态栏
+    new_thread = QtCore.QThread()           # 创建一个线程用于获取数据库状态
+    mysql_stat.moveToThread(new_thread)     # 将数据库状态实例移到新线程上
+    new_thread.started.connect(mysql_stat.check_db_stat)    # 新线程开始时执行数据库状态检测
+    new_thread.start()      # 开始线程
     sys.exit(app.exec())
