@@ -6,11 +6,7 @@ from ui.check import *
 from ui.addhost_win import *
 # from db.db_handler import *
 from action.connect import SshToHost
-from db.db_orm import database
-
-# SQL查询语句
-hosts_sql = ''' select m.machine_name,m.mg_ip from machine_list m where m.mg_ip is not Null and m.machine_sort_name= %s;'''
-sort_sql = '''select s.sort_name from machine_sort s  where s.part_sort_id is not Null ;'''
+from db.db_orm import database, ViewCheckCmd, MachineSort, MachineList
 
 
 # 添加主机窗口类
@@ -99,25 +95,27 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
         # 判断是执行ping还是巡检命令
         self.exec_btn.clicked.connect(self.chose_action)  # 执行ping
 
+    # 显示各分类主机信息，并选择主机
     def select_hosts(self):
-
         host_win = AddHosts()
-        sort_infos = database.execute_sql(sort_sql)  # 分类信息
-        # sort_infos = self.db.query_single(sort_sql)  # 分类信息
+        sort_infos = MachineSort.select(MachineSort.sort_name).where(
+            MachineSort.part_sort_name.is_null(False)).execute()  # 分类信息
 
         # 遍历分类，显示设备信息
         for sort in sort_infos:
-            hosts_infos = database.execute_sql(hosts_sql, sort)  # 从数据库读取主机信息
-            # hosts_infos = self.db.query_single(hosts_sql, sort)  # 从数据库读取主机信息
+            # print('分类信息sort', sort.sort_name)
+            # 从数据库读取主机信息
+            hosts_infos = MachineList.select(MachineList.machine_name, MachineList.mg_ip).where(
+                (MachineList.mg_ip.is_null(False)) & (MachineList.machine_sort_name == sort.sort_name)).execute()
             RootItem = QTreeWidgetItem()  # 定义根项
-            RootItem.setText(0, sort[0])  # 设置根项内容
+            RootItem.setText(0, sort.sort_name)  # 设置根项内容
             RootItem.setCheckState(0, Qt.Unchecked)  # 添加复选框
             host_win.treeWidget.addTopLevelItem(RootItem)  # 设置为顶层项
             # 遍历主机信息显示并添加到列表中
             for child_item in hosts_infos:
                 Child_Item = QTreeWidgetItem(RootItem)
-                Child_Item.setText(1, child_item[0])  # 显示第二列
-                Child_Item.setText(2, child_item[1])  # 显示第三列
+                Child_Item.setText(1, child_item.machine_name)  # 显示第二列
+                Child_Item.setText(2, child_item.mg_ip)  # 显示第三列
                 Child_Item.setCheckState(0, Qt.Unchecked)  # 添加复选框
         host_win.host_message.connect(self.display_to_text)
         host_win.exec()
@@ -125,47 +123,84 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
     # 将获取的主机列表显示至主机添加窗口中，hosts为列表格式
     def display_to_text(self, hosts):
         # print('子窗口返回数据：', hosts)
+        self.host_listw.clear()  # 清空原有信息
         self.hosts_list = hosts
         self.host_listw.addItems(self.hosts_list)
 
+    # 根据任务选择框选择执行的任务
     def chose_action(self):
+        self.dispaly_te.clear()  # 清空页面内容
+        # 执行ping操作
         if self.ping_radio.isChecked():
+            self.exec_btn.setDisabled(True)  # 设置执行按钮为不可用
             # 执行ping检查
             # print('ping状态', self.ping_radio.isChecked())
-            if len(self.hosts_list) >0:
-                self.do_ping()  # 执行ping
-            else:
-                QtWidgets.QMessageBox.warning(self,'选择主机','请先添加要巡检的主机！')
-        else:
-            hosts_ip = []  # 用于接收存活主机列表
             if len(self.hosts_list) > 0:
-
-                for i in self.hosts_list:
-                    hosts_ip.append(i.split(':'))
-                # print('新的主机IP表', hosts_ip)
-
-                # print('巡检中选择IP',self.hosts_list)    # ['k8s-node1:192.168.1.61', 'K8S-node2:192.168.1.62', 'K8S-NODE3:192.168.1.63']
-                ip_list = []
-                for _ in hosts_ip:
-                    ip_list.append(_[1])
-                # print('ip集合',tuple(ip_list))
-                check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(tuple(ip_list))  # 查询指定设备SQL
-                self.check_hosts = database.execute_sql(check_cmd_sql)
-                # self.check_hosts = self.db.query_single(check_cmd_sql)
-                # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
-                # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
-                self.exec_btn.setDisabled(True)
-                self.check_thread = QtCore.QThread()
-                self.check = Actin_Thread()     # 实例化子线程巡检
-                self.host_signal.connect(self.check.accpet_hostsinfo(self.check_hosts))     # 主机信号连接至任务处理的子线程获取主机信息槽函数
-                self.check.update_signal.connect(self.update_text)      # 任务处理子线程显示巡检结果信号连接至主线程更新槽函数self.update_text)
-                self.check_thread.started.connect(self.check.do_check)  # 将多线程连接到执行巡检任务的槽函数
-                self.check.end_signal.connect(self.stop)  # 任务子线程执行巡检结果完毕信号连接至主线程关闭子线程槽函数self.stop
-                self.check.moveToThread(self.check_thread)      # # 将子线程移至子线程中处理
-                self.check_thread.start()       # 启动子线程
+                self.do_ping()  # 执行ping
+                self.exec_btn.setDisabled(False)  # 设置执行按钮为可用
             else:
-                QtWidgets.QMessageBox.warning(self,'选择主机','请先添加要巡检的主机！')
+                QtWidgets.QMessageBox.warning(self, '选择主机', '请先添加要巡检的主机！')
 
+        # 执行巡检选项
+        else:
+            self.exec_btn.setEnabled(False)  # 设置执行按钮为不可用
+            print('设置按钮不可用........\n', self.exec_btn.isEnabled())
+            no_exec_hosts = []  # 不进行巡检的主机
+            exec_hosts = []  # 需要巡检的主机
+            if len(self.hosts_list) > 0:
+                for i in self.hosts_list:
+                    # 从数据库获取对应ip主机信息，并判断是否有配置巡检任务
+                    data_model = ViewCheckCmd.select(ViewCheckCmd.hostname, ViewCheckCmd.ip, ViewCheckCmd.user,
+                                                     ViewCheckCmd.password).where(
+                        ViewCheckCmd.ip == i.split(':')[1]).execute()
+                    data = [(_.hostname, _.ip, _.user, _.password) for _ in data_model]
+                    # print('查询到的data', data)
+                    if not data:
+                        no_exec_hosts.append(i.split(':'))  # 将没有查询到配置的主机添加到不巡检的主机列表中
+                    else:
+                        # self.ssh.host_connectivity()
+                        exec_hosts.append(i.split(':'))
+                # print('没有配置巡检主机用户信息，请配置后再进行巡检！', no_exec_hosts)
+                # print('需要巡检的主机IP表', exec_hosts)
+                self.dispaly_te.append('{}没有配置巡检主机用户信息，请配置后再进行巡检！'.format(no_exec_hosts))
+                QtWidgets.QMessageBox.warning(self,'执行巡检操作','没有配置巡检主机用户信息，请配置后再进行巡检！')
+                self.dispaly_te.append('\n\n需要巡检的主机IP表:{} '.format(exec_hosts))
+                # 判断需要巡检的主机数量
+                if not exec_hosts:
+                    self.dispaly_te.append('\n\n--->没有需要巡检的主机IP ！！')
+                    self.exec_btn.setDisabled(False)  # 设置执行按钮为可用
+                else:
+                    # print('巡检中选择IP',self.hosts_list)    # ['k8s-node1:192.168.1.61', 'K8S-node2:192.168.1.62', 'K8S-NODE3:192.168.1.63']
+                    ip_list = []  # 定义要执行的IP列表，便于后面SQL动态传参
+                    for _ in exec_hosts:
+                        ip_list.append(_[1])
+                    # print('ip集合', tuple(ip_list))
+                    # 判断ip_list有几个元素，并选择相应的SQL语句
+                    if len(ip_list) == 1:
+                        check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip = '{}' '''.format(
+                            ip_list[0])
+                    else:
+                        check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(
+                            tuple(ip_list))  # 查询指定设备SQL
+                    # print('SQL', check_cmd_sql)
+                    self.check_hosts = database.execute_sql(check_cmd_sql)
+                    # print('self.check_hosts:', self.check_hosts)
+                    # self.check_hosts = self.db.query_single(check_cmd_sql)
+                    # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),
+                    # (2, 'k8s-node1', '192.168.1.61', 'root', '123456', 2, 'hostname', '主机名', 5742))
+                    self.exec_btn.setDisabled(True)
+                    self.check_thread = QtCore.QThread()
+                    self.check = ActinThread()  # 实例化子线程巡检
+                    self.host_signal.connect(self.check.accpet_hostsinfo(self.check_hosts))  # 主机信号连接至任务处理的子线程获取主机信息槽函数
+                    self.check.update_signal.connect(self.update_text)  # 任务处理子线程显示巡检结果信号连接至主线程更新槽函数self.update_text)
+                    self.check_thread.started.connect(self.check.do_check)  # 将多线程连接到执行巡检任务的槽函数
+                    self.check.end_signal.connect(self.stop)  # 任务子线程执行巡检结果完毕信号连接至主线程关闭子线程槽函数self.stop
+                    self.check.moveToThread(self.check_thread)  # # 将子线程移至子线程中处理
+                    self.check_thread.start()  # 启动子线程
+            else:
+                QtWidgets.QMessageBox.warning(self, '选择主机', '请先添加要巡检的主机！')
+
+    # 执行PING任务
     def do_ping(self):
         """
         主机主机存活状态检查函数
@@ -198,16 +233,17 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
     def stop(self):
         self.check_thread.quit()  # 退出子线程
         # self.check_thread.wait()
-        self.exec_btn.setEnabled(True)      # 在任务执行完在激活执行按钮
+        self.exec_btn.setEnabled(True)  # 在任务执行完在激活执行按钮
 
 
 # 巡检任务类
-class Actin_Thread(QObject):
+class ActinThread(QObject):
     update_signal = QtCore.Signal(str)  # 发送执行命令结果给主进程用于返回显示至界面
     end_signal = QtCore.Signal(str)  # 处理完任务发送信息
 
     def __init__(self):
-        super(Actin_Thread, self).__init__()
+        super(ActinThread, self).__init__()
+        self.channel = None  # 初始化通道
         self.ssh = SshToHost()
         self.check_hosts = None
 
@@ -215,6 +251,7 @@ class Actin_Thread(QObject):
     def do_check(self):
         # print('执行任务中的Ip:', self.check_hosts)
         for i in self.check_hosts:
+            print('执行命令时，主机信息：', i)
             try:
                 self.trans = paramiko.Transport((i[2], 22))  # 使用Transport方式连接
                 self.trans.start_client(timeout=0.5)
@@ -230,7 +267,7 @@ class Actin_Thread(QObject):
                 print('连接错误：', e)
                 self.update_signal.emit(str(e))  # 发送错误至主窗口结果
             else:
-                print('连接主机:{}:{}   ---> 正常'.format('host-70', i[2]))
+                print('连接主机:{}:{}   ---> 正常'.format(i[1], i[2]))
                 # 打开一个通道
                 self.channel = self.trans.open_session()
                 self.channel.settimeout(10)
@@ -281,10 +318,11 @@ class Actin_Thread(QObject):
                     print('=' * 80)
                 else:
                     print('没有配置相关命令！，请配置检查脚本命令后再操作！！')
-                    return
+                    continue
             finally:
-                self.channel.close()
-                self.trans.close()
+                if self.channel:
+                    self.channel.close()
+                    self.trans.close()
                 # print('\n2222')
         self.end_signal.emit('断开SSH连接')  # 发送巡检命令执行完信号
 

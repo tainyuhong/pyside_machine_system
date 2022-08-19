@@ -2,16 +2,19 @@
 <ui version="4.0">
  <class>addhost_win</class>
  <widget class="QDialog" name="addhost_win">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>399</height>
+    <width>850</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -19,75 +22,84 @@
   <property name="windowTitle">
    <string>添加主机</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>0</y>
-     <width>491</width>
-     <height>391</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout" columnstretch="7,1,2">
-    <property name="spacing">
-     <number>0</number>
-    </property>
-    <item row="0" column="0" colspan="3">
-     <widget class="QLabel" name="label">
-      <property name="font">
-       <font>
-        <pointsize>18</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>添加主机</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTreeWidget" name="treeWidget">
-      <property name="columnCount">
-       <number>3</number>
-      </property>
-      <attribute name="headerDefaultSectionSize">
-       <number>120</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>设备分类</string>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout" rowstretch="1,9" columnstretch="7,0,2">
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>10</number>
+     </property>
+     <property name="bottomMargin">
+      <number>10</number>
+     </property>
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
        </property>
-      </column>
-      <column>
        <property name="text">
-        <string>设备名称</string>
+        <string>添加主机</string>
        </property>
-      </column>
-      <column>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTreeWidget" name="treeWidget">
+       <property name="columnCount">
+        <number>3</number>
+       </property>
+       <attribute name="headerDefaultSectionSize">
+        <number>120</number>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>设备分类</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>设备名称</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>管理IP</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="add_btn">
        <property name="text">
-        <string>管理IP</string>
+        <string>添加</string>
        </property>
-      </column>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="add_btn">
-      <property name="text">
-       <string>添加</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

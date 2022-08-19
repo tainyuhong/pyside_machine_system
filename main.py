@@ -12,8 +12,8 @@ from action.up_shelf_action import UiUpShelf
 from action.down_shelf_action import UiDownShelf
 from action.shelf_display_action import UiShelfDisplay
 from action.top_action import DisplayTop
+from action.check_config_action import UiCconfigCheck
 from db.db_orm import database
-
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -31,8 +31,7 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 定义批量导入菜单触发事件
         self.actionpldr.triggered.connect(self.imp_machine_win)
-        # 定义设备巡检菜单触发事件
-        self.actionsj.triggered.connect(self.check_win)
+
         # 定义添加设备菜单触发事件
         self.actiontjsb.triggered.connect(self.add_machine_win)
         # 定义修改设备菜单触发事件
@@ -44,6 +43,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 定义上下架信息查询菜单触发事件
         self.action_shelf_display.triggered.connect(self.shelf_display_win)
         self.lb_status = QtWidgets.QLabel('')
+
+        # 定义设备巡检菜单触发事件
+        self.actionsj.triggered.connect(self.check_win)
+        # 定义设备巡检配置菜单触发事件
+        self.actionsjpz.triggered.connect(self.check_config_win)
 
         self.statusbar.showMessage('状态栏')
         self.statusbar.addPermanentWidget(self.lb_status)
@@ -97,6 +101,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def check_win(self):
         self.check_window = UiCheck()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
         self.check_window.show()
+
+    # 定义巡检配置窗口显示
+    def check_config_win(self):
+        self.check_config_window = UiCconfigCheck()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
+        self.check_config_window.show()
 
     # 根据数据库的状态设置状态栏数据库状态颜色
     def display(self,text):

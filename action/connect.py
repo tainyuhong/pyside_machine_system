@@ -7,7 +7,12 @@ import pathlib
 import subprocess
 # from db.db_handler import *
 from db.db_orm import database
+import logging
 
+
+logger = logging.getLogger('peewee')
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.DEBUG)
 # 定义日志格式
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
 

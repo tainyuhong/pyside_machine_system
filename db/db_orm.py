@@ -20,20 +20,6 @@ charset = cf.get('db', 'charset')
 database = MySQLDatabase(database, **{'host':host, 'user':user, 'password':password,  'port':port, 'charset':charset})
 
 
-# # 检查数据库是否连通
-# def get_db_status():
-#     try:
-#         database.connect(True)
-#     except Exception as e:
-#         logging.error('--->数据库连接错误：{}'.format(e))
-#         print('数据库连接失败')
-#         # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
-#         return False
-#     else:
-#         print('数据库连接成功')
-#         return True
-
-
 class UnknownField(object):
     def __init__(self, *_, **__): pass
 
@@ -152,13 +138,11 @@ class MachineCheckUser(BaseModel):
     """
         巡检用户信息表
     """
-    hostname = CharField(null=True)
-    ip = CharField()
-    user = CharField(null=True)
-    password = CharField(null=True)
     cmd_id = IntegerField(null=True)
     comment = CharField(null=True)
-    machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos, null=True)
+    machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
+    password = CharField(null=True)
+    user = CharField(null=True)
 
     class Meta:
         table_name = 'machine_check_user'
@@ -168,18 +152,18 @@ class MachineList(BaseModel):
     """
     设备信息视图表
     """
-    machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
-    room_name = CharField()
     cab_name = CharField(null=True)
-    start_position = IntegerField(null=True)
-    postion_u = BigIntegerField(null=True)
-    machine_sort_name = CharField(null=True)
-    machine_factory = CharField(null=True)
-    model = CharField(null=True)
-    machine_sn = CharField(null=True)
-    machine_name = CharField(null=True)
-    mg_ip = CharField(null=True)
     machine_admin = CharField(null=True)
+    machine_factory = CharField(null=True)
+    machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    machine_name = CharField(null=True)
+    machine_sn = CharField(null=True)
+    machine_sort_name = CharField(null=True)
+    mg_ip = CharField(null=True)
+    model = CharField(null=True)
+    postion_u = BigIntegerField(null=True)
+    room_name = CharField()
+    start_position = IntegerField(null=True)
 
     class Meta:
         table_name = 'machine_list'
@@ -216,15 +200,15 @@ class ViewCheckCmd(BaseModel):
     """
         设备巡检命令视图
     """
-    id = IntegerField(constraints=[SQL("DEFAULT 0")])
-    hostname = CharField(null=True)
-    ip = CharField()
-    user = CharField(null=True)
-    password = CharField(null=True)
-    cmd_id = IntegerField()
     cmd = CharField(null=True)
+    cmd_id = IntegerField(constraints=[SQL("DEFAULT 0")])
     cmd_name = CharField(null=True)
-    machine_id = IntegerField(null=True)
+    hostname = CharField(null=True)
+    id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    ip = CharField(null=True)
+    machine_id = IntegerField()
+    password = CharField(null=True)
+    user = CharField(null=True)
 
     class Meta:
         table_name = 'view_check_cmd'

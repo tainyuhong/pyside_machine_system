@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80025
 File Encoding         : 65001
 
-Date: 2022-08-05 17:20:19
+Date: 2022-08-19 17:13:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -77,7 +77,7 @@ INSERT INTO `cabinet` VALUES ('35', 'D04', 'D04', '1', '1', null, '42', null, nu
 INSERT INTO `cabinet` VALUES ('36', 'D05', 'D05', '1', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('37', 'D06', 'D06', '1', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('38', 'D07', 'D07', '1', '1', null, '42', null, null);
-INSERT INTO `cabinet` VALUES ('39', 'D08', 'D08', '1', '0', null, '42', null, null);
+INSERT INTO `cabinet` VALUES ('39', 'D08', 'D08', '1', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('40', 'D09', 'D09', '1', '0', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('41', 'D10', 'D10', '1', '1', null, '42', null, null);
 INSERT INTO `cabinet` VALUES ('48', 'A01', 'A01', '2', '1', null, '42', null, null);
@@ -244,17 +244,16 @@ INSERT INTO `cab_position` VALUES ('42', '42', '42U', null, null, null);
 -- ----------------------------
 DROP TABLE IF EXISTS `cmd_file`;
 CREATE TABLE `cmd_file` (
-  `cmd_id` int NOT NULL COMMENT 'id',
+  `cmd_id` int NOT NULL AUTO_INCREMENT COMMENT 'id',
   `cmd_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '命令集名称',
   `cmd` varchar(255) DEFAULT NULL COMMENT '命令内容',
   PRIMARY KEY (`cmd_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of cmd_file
 -- ----------------------------
 INSERT INTO `cmd_file` VALUES ('1', '日期', 'date\r\nhostname\r\nuname\r\nls\r\nhostname\r\nuname');
-INSERT INTO `cmd_file` VALUES ('2', '主机名', 'hostname');
 
 -- ----------------------------
 -- Table structure for machine_check_user
@@ -262,8 +261,6 @@ INSERT INTO `cmd_file` VALUES ('2', '主机名', 'hostname');
 DROP TABLE IF EXISTS `machine_check_user`;
 CREATE TABLE `machine_check_user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `hostname` varchar(255) DEFAULT NULL COMMENT '主机名称',
-  `ip` varchar(255) NOT NULL COMMENT 'ip',
   `user` varchar(255) DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `cmd_id` int DEFAULT NULL COMMENT '命令集合id',
@@ -272,12 +269,11 @@ CREATE TABLE `machine_check_user` (
   PRIMARY KEY (`id`),
   KEY `machine_check_user_FK` (`machine_id`),
   CONSTRAINT `machine_check_user_FK` FOREIGN KEY (`machine_id`) REFERENCES `machine_infos` (`machine_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='设备巡检用户信息';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='设备巡检用户信息';
 
 -- ----------------------------
 -- Records of machine_check_user
 -- ----------------------------
-INSERT INTO `machine_check_user` VALUES ('1', 'k8s-master', '192.168.1.70', 'root', '123456', '1', null, '5748');
 
 -- ----------------------------
 -- Table structure for machine_infos
@@ -684,16 +680,9 @@ INSERT INTO `machine_infos` VALUES ('5739', '分行OA邮件服务器', 'X86服�
 INSERT INTO `machine_infos` VALUES ('5740', '分行OAWEB', 'X86服务器', 'XTSC0017', 'DELL', '2950', '4', 'KF11', '38', '39', null, null, '4', '1', null, null, '192.168.110.88', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5748', 'mysql-node1', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5749', 'mysql-node2', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5750', 'mysql-node1', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5751', 'mysql-node2', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5752', 'mysql-node1', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5753', 'mysql-node2', '安全设备', 'vmware1', '123', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5785', '12', '小型机', 's', 'IBM', '型号', '2', 'A02', '1', '2', '2000-01-01', '2000-01-01', '0', '1', '', '', '', '', '', '2022-07-15', null, '0', '12');
-INSERT INTO `machine_infos` VALUES ('5786', 'mysql-node1', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.51', null, null, null, null, '0', null);
-INSERT INTO `machine_infos` VALUES ('5787', 'mysql-node2', '安全设备', 'vmware', 'vm', 'mysql', '1', 'A02', '7', '7', '2022-02-25', '2022-02-25', null, '1', null, null, '192.168.1.52', null, null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5805', '设备名称1', '其它设备', 'sn0001', '测试', 'model1', '4', 'KF01', '2', '3', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '3.3.3.3', '2022-08-02', null, '0', '备注信息');
 INSERT INTO `machine_infos` VALUES ('5806', '添加设备2', '测试子分类1', 'sn0001', '测试', 'model001', '23', 'A01', '10', '10', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '3.3.3.3', '2022-08-02', null, '0', '由小王来安装上架');
-INSERT INTO `machine_infos` VALUES ('5807', '测试设备2', '测试子分类1', 'sn0001', 'IBM', 'MODEL1', '4', 'A01', '1', '2', '2000-01-01', '2000-01-01', '1', '1', 'ADMIN', 'APP-ADMIN', '1.1.1.1', '2.2.2.2', null, '2022-08-02', null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5808', '模块设备1', '安全设备', 'sn0001', '华为', 'HM01', '1', 'A02', '5', '5', '2022-02-25', '2022-02-25', '1', '1', null, null, '192.168.1.1', '2.2.2.23.3.3.3', null, null, null, '0', null);
 INSERT INTO `machine_infos` VALUES ('5810', '新上架设备', '测试子分类1', 'sn001', '测试', 'test01', '23', 'A01', '3', '4', '2000-01-01', '2000-01-01', '0', '1', 'admin', 'app-admin', '1.1.1.1', '2.2.2.2', '', '2022-08-03', null, '0', '第一台上架设备');
 INSERT INTO `machine_infos` VALUES ('5811', '第二台上架设备', '测试子分类1', 'sn0001', '测试', 'test1', '23', 'A01', '2', '5', '2000-01-01', '2000-01-01', '1', '1', 'admin', 'app-admin', '8.8.8.8', '8.8.8.8', '', '2022-08-03', null, '0', '小王公司安装上架');
@@ -720,7 +709,6 @@ INSERT INTO `machine_room` VALUES ('0001', 'ZB-1', '主机房', '');
 INSERT INTO `machine_room` VALUES ('0002', 'ZB-2', '网络机房', null);
 INSERT INTO `machine_room` VALUES ('0003', 'ZB-3', '分行机房', null);
 INSERT INTO `machine_room` VALUES ('0004', 'ZB-4', '开发机房', null);
-INSERT INTO `machine_room` VALUES ('0022', 'CS-1', '测试', null);
 INSERT INTO `machine_room` VALUES ('0023', 'CS-2', '测试机房2', null);
 
 -- ----------------------------
@@ -844,7 +832,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- View structure for view_check_cmd
 -- ----------------------------
 DROP VIEW IF EXISTS `view_check_cmd`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_check_cmd` AS select `u`.`id` AS `id`,`u`.`hostname` AS `hostname`,`u`.`ip` AS `ip`,`u`.`user` AS `user`,`u`.`password` AS `password`,`c`.`cmd_id` AS `cmd_id`,`c`.`cmd` AS `cmd`,`c`.`cmd_name` AS `cmd_name`,`u`.`machine_id` AS `machine_id` from (`machine_check_user` `u` join `cmd_file` `c` on((`u`.`cmd_id` = `c`.`cmd_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_check_cmd` AS select `u`.`id` AS `id`,`mi`.`machine_name` AS `hostname`,`mi`.`mg_ip` AS `ip`,`u`.`user` AS `user`,`u`.`password` AS `password`,`c`.`cmd_id` AS `cmd_id`,`c`.`cmd` AS `cmd`,`c`.`cmd_name` AS `cmd_name`,`u`.`machine_id` AS `machine_id` from ((`machine_check_user` `u` join `cmd_file` `c` on((`u`.`cmd_id` = `c`.`cmd_id`))) join `machine_infos` `mi` on((`mi`.`machine_id` = `u`.`machine_id`))) ;
 
 -- ----------------------------
 -- View structure for view_downshelf

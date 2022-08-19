@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'check.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.2
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -160,6 +160,7 @@ class Ui_check_form(object):
         self.dispaly_te.setObjectName(u"dispaly_te")
         self.dispaly_te.setLineWidth(0)
         self.dispaly_te.setReadOnly(True)
+        self.dispaly_te.setTextInteractionFlags(Qt.TextBrowserInteraction)
 
         self.verticalLayout.addWidget(self.dispaly_te)
 
@@ -189,13 +190,13 @@ class Ui_check_form(object):
     # setupUi
 
     def retranslateUi(self, check_form):
-        check_form.setWindowTitle(QCoreApplication.translate("check_form", u"Form", None))
+        check_form.setWindowTitle(QCoreApplication.translate("check_form", u"\u8bbe\u5907\u5de1\u68c0\u7a97\u53e3", None))
         self.label.setText(QCoreApplication.translate("check_form", u"\u8bbe \u5907 \u5de1 \u68c0", None))
         self.addhost_btn.setText(QCoreApplication.translate("check_form", u"\u6dfb\u52a0", None))
         self.hosts_lb.setText(QCoreApplication.translate("check_form", u"\u4e3b\u673a\u5217\u8868", None))
         self.ping_radio.setText(QCoreApplication.translate("check_form", u"ping", None))
         self.stat_radio.setText(QCoreApplication.translate("check_form", u"\u5065\u5eb7\u72b6\u6001\u68c0\u67e5", None))
-        self.exec_btn.setText(QCoreApplication.translate("check_form", u"\u6267\u884c", None))
+        self.exec_btn.setText(QCoreApplication.translate("check_form", u"\u6267     \u884c", None))
         self.status_le.setText(QCoreApplication.translate("check_form", u"\u5c31\u7eea", None))
     # retranslateUi
 

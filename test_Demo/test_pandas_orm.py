@@ -1,6 +1,6 @@
 import sys
 from PySide6 import QtWidgets, QtGui, QtCore
-import pandas as pd
+# import pandas as pd
 from db.db_orm import *
 
 

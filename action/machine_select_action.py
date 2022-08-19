@@ -54,7 +54,8 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
-        sql = '''select * from machine_list  where 1 = 1 '''
+        sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, machine_factory, model, machine_sn, machine_name, mg_ip, machine_admin
+                    FROM equipment_mg.machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
         if self.room.text() != '':
