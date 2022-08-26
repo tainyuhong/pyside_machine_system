@@ -25,7 +25,8 @@ class Ui_check_config(object):
     def setupUi(self, check_config):
         if not check_config.objectName():
             check_config.setObjectName(u"check_config")
-        check_config.resize(1024, 800)
+        check_config.resize(1032, 800)
+        check_config.setStyleSheet(u"QHeaderView::section{ background-color: rgb(255,240,190)};")
         self.horizontalLayout = QHBoxLayout(check_config)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout = QVBoxLayout()
@@ -100,6 +101,7 @@ class Ui_check_config(object):
 
         self.bt_add_check = QPushButton(self.tab_machine)
         self.bt_add_check.setObjectName(u"bt_add_check")
+        self.bt_add_check.setFont(font1)
 
         self.gridLayout_2.addWidget(self.bt_add_check, 5, 5, 1, 1)
 
@@ -159,6 +161,7 @@ class Ui_check_config(object):
         self.cb_check_sort = QComboBox(self.tab_machine)
         self.cb_check_sort.addItem("")
         self.cb_check_sort.setObjectName(u"cb_check_sort")
+        self.cb_check_sort.setFont(font1)
 
         self.gridLayout_2.addWidget(self.cb_check_sort, 3, 5, 1, 1)
 
@@ -325,6 +328,7 @@ class Ui_check_config(object):
 
         self.bt_query_del = QPushButton(self.groupBox_2)
         self.bt_query_del.setObjectName(u"bt_query_del")
+        self.bt_query_del.setFont(font1)
 
         self.gridLayout_5.addWidget(self.bt_query_del, 1, 3, 1, 1)
 
@@ -421,6 +425,7 @@ class Ui_check_config(object):
 
         self.bt_modify_shell = QPushButton(self.tab_shell_config)
         self.bt_modify_shell.setObjectName(u"bt_modify_shell")
+        self.bt_modify_shell.setFont(font1)
 
         self.gridLayout_3.addWidget(self.bt_modify_shell, 4, 3, 1, 1)
 
@@ -435,17 +440,13 @@ class Ui_check_config(object):
 
         self.bt_add_shell = QPushButton(self.tab_shell_config)
         self.bt_add_shell.setObjectName(u"bt_add_shell")
+        self.bt_add_shell.setFont(font1)
 
         self.gridLayout_3.addWidget(self.bt_add_shell, 3, 3, 1, 1)
 
-        self.label_7 = QLabel(self.tab_shell_config)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setStyleSheet(u"color:red")
-
-        self.gridLayout_3.addWidget(self.label_7, 7, 1, 1, 1)
-
         self.bt_del_shell = QPushButton(self.tab_shell_config)
         self.bt_del_shell.setObjectName(u"bt_del_shell")
+        self.bt_del_shell.setFont(font1)
 
         self.gridLayout_3.addWidget(self.bt_del_shell, 5, 3, 1, 1)
 
@@ -510,6 +511,12 @@ class Ui_check_config(object):
         self.label_6.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_3.addWidget(self.label_6, 4, 0, 1, 1)
+
+        self.label_7 = QLabel(self.tab_shell_config)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setStyleSheet(u"color:red")
+
+        self.gridLayout_3.addWidget(self.label_7, 7, 1, 1, 3)
 
         self.gridLayout_3.setRowStretch(1, 1)
         self.gridLayout_3.setRowStretch(2, 1)
@@ -638,7 +645,6 @@ class Ui_check_config(object):
         self.lb_shell_status.setText(QCoreApplication.translate("check_config", u"\u72b6\u6001\u680f", None))
         self.bt_modify_shell.setText(QCoreApplication.translate("check_config", u"\u4fee  \u6539", None))
         self.bt_add_shell.setText(QCoreApplication.translate("check_config", u"\u6dfb  \u52a0", None))
-        self.label_7.setText(QCoreApplication.translate("check_config", u"\u4fee\u6539/\u5220\u9664\uff1a\u9009\u62e9\u4e0b\u9762\u8868\u683c\u4e2d\u76f8\u5e94\u7684\u884c\u518d\u70b9\u51fb\u76f8\u5e94\u6309\u94ae", None))
         self.bt_del_shell.setText(QCoreApplication.translate("check_config", u"\u5220  \u9664", None))
         ___qtablewidgetitem17 = self.tb_display_shell.horizontalHeaderItem(0)
         ___qtablewidgetitem17.setText(QCoreApplication.translate("check_config", u"ID", None));
@@ -648,6 +654,7 @@ class Ui_check_config(object):
         ___qtablewidgetitem19.setText(QCoreApplication.translate("check_config", u"Shell\u5185\u5bb9", None));
         self.label_5.setText(QCoreApplication.translate("check_config", u"\u5de1\u68c0shell\u540d\u79f0", None))
         self.label_6.setText(QCoreApplication.translate("check_config", u"Shell\u5185\u5bb9", None))
+        self.label_7.setText(QCoreApplication.translate("check_config", u"\u5220\u9664\uff1a\u9009\u62e9\u4e0b\u9762\u8868\u683c\u4e2d\u76f8\u5e94\u7684\u884c\u518d\u70b9\u51fb\u76f8\u5e94\u6309\u94ae   \u4fee\u6539\uff1a\u53cc\u51fb\u9700\u8981\u4fee\u6539\u7684\u884c\uff0c\u4fee\u6539\u540e\u518d\u70b9\u51fb\u4fee\u6539\u6309\u94ae\uff0c\u6309ESC\u952e\u9000\u51fa\u4fee\u6539\u6a21\u5f0f", None))
         self.tabWidg_check.setTabText(self.tabWidg_check.indexOf(self.tab_shell_config), QCoreApplication.translate("check_config", u"\u5de1\u68c0\u547d\u4ee4\u914d\u7f6e", None))
     # retranslateUi
 

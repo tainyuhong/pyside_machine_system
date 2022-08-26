@@ -42,7 +42,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
     def get_check_sort(self):
         sort_model = CmdFile.select(CmdFile.cmd_name).execute()
         sort = [i.cmd_name for i in sort_model]
-        print(sort)
+        # print(sort)
         self.cb_check_sort.clear()
         self.cb_check_sort.addItems(sort)
 
@@ -103,27 +103,33 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         if user == '' or passwd == '' or check_sort == '无':
             QtWidgets.QMessageBox.warning(self, '添加巡检用户信息', '请输入巡检用户及密码，并选择巡检类型！')
         else:
+            if QtWidgets.QMessageBox.question(self, '添加巡检配置信息', '你确定要添加巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
+                # 获取钩择的设备信息
+                row = self.tb_display.rowCount()  # 表格的总行数
+                checked_cell = []  # 钩选的单元格
+                for i in range(row):
+                    cell = self.tb_display.item(i, 0)
+                    if cell.checkState():
+                        checked_cell.append(cell.text())
+                # print('当前选择单元格：',checked_cell)
 
-            # 获取钩择的设备信息
-            row = self.tb_display.rowCount()  # 表格的总行数
-            checked_cell = []  # 钩选的单元格
-            for i in range(row):
-                cell = self.tb_display.item(i, 0)
-                if cell.checkState():
-                    checked_cell.append(cell.text())
-            # print('当前选择单元格：',checked_cell)
-
-            # 判断是否有选择设备
-            if checked_cell:
-                print('用户名和密码：{}-->{},{},{}'.format(user, passwd, check_sor_data[check_sort], checked_cell))
-                with database.atomic():
-                    for ma in checked_cell:
-                        MachineCheckUser.insert_many([(user, passwd, check_sor_data[check_sort], ma)], (
-                            MachineCheckUser.user, MachineCheckUser.password, MachineCheckUser.cmd_id,
-                            MachineCheckUser.machine)).execute()
-                    print('保存成功！')
+                # 判断是否有选择设备
+                if checked_cell:
+                    # print('用户名和密码：{}-->{},{},{}'.format(user, passwd, check_sor_data[check_sort], checked_cell))
+                    with database.atomic():
+                        for ma in checked_cell:
+                            MachineCheckUser.insert_many([(user, passwd, check_sor_data[check_sort], ma)], (
+                                MachineCheckUser.user, MachineCheckUser.password, MachineCheckUser.cmd_id,
+                                MachineCheckUser.machine)).execute()
+                        QtWidgets.QMessageBox.information(self, '添加巡检配置信息', '保存成功!')
+                        self.le_user.clear()        # 清空文本框
+                        self.le_passwd.clear()      # 清空文本框
+                        self.cb_check_sort.setCurrentIndex(0)
+                        self.display_machine()     # 取消选择
+                else:
+                    QtWidgets.QMessageBox.warning(self, '添加巡检配置信息', '请选择需要配置的主机!')
             else:
-                print('请选择需要配置的主机！')
+                pass
 
     # 巡检查询窗口界面
     def query_check_machine(self):
@@ -157,7 +163,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, '删除巡检配置信息', '请先选择需要删除巡检配置信息的行！')
         else:
             check_id = item[0].text()  # 获取id
-            print('选择的行的内容', check_id)
+            # print('选择的行的内容', check_id)
             if QtWidgets.QMessageBox.question(self, '删除巡检配置信息', '你确定要删除巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
                 try:
                     MachineCheckUser.delete_by_id(check_id) # 根据id进行删除
@@ -178,7 +184,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, '添加shell命令', '请填写完整的shell名及shell内容！')
         else:
             input_data = (shell_name, shell_content)
-            print(input_data)
+            # print(input_data)
             if QtWidgets.QMessageBox.question(self, '添加shell命令', '你确定要添加shell吗？') == QtWidgets.QMessageBox.Yes:
                 try:
                     with database.atomic():
@@ -212,7 +218,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, '删除shell命令', '请先选择需要删除的shell的行！')
         else:
             shell_id = item[0].text()  # 获取id
-            print('选择的行的内容', shell_id)
+            # print('选择的行的内容', shell_id)
             # 判断该shell是否有被主机使用
             if ViewCheckCmd.get_or_none(ViewCheckCmd.cmd_id == shell_id) is None:
                 CmdFile.delete_by_id(shell_id)  # 根据id进行删除
@@ -230,7 +236,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
             if shell_name == '' or shell_content == '':
                 QtWidgets.QMessageBox.warning(self, '修改shell命令', '请填写完整的shell名及shell内容！')
             else:
-                input_data = [shell_name, shell_content]
+                # input_data = [shell_name, shell_content]
                 if QtWidgets.QMessageBox.question(self, '修改shell命令', '你确定要修改shell吗？') == QtWidgets.QMessageBox.Yes:
                     try:
                         with database.atomic():
@@ -265,13 +271,14 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         if event.key() == Qt.Key_Escape:
             # 当在巡检命令配置窗口时，退出修改模式
             if self.tabWidg_check.currentIndex() == 2:
-                print('巡检命令配置窗口，按了ESC键')
+                # print('巡检命令配置窗口，按了ESC键')
                 self.le_shell_name.clear()
                 self.text_shell.clear()
                 self.selected_shell_id = None
                 self.tb_display_shell.setCurrentItem(None)  # 设置为非选择状态
         else:
             pass
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
