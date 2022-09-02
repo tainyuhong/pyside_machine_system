@@ -152,6 +152,7 @@ class MachineList(BaseModel):
     """
     设备信息视图表
     """
+    bmc_ip = CharField(null=True)
     cab_name = CharField(null=True)
     machine_admin = CharField(null=True)
     machine_factory = CharField(null=True)
@@ -168,6 +169,22 @@ class MachineList(BaseModel):
     class Meta:
         table_name = 'machine_list'
         primary_key = False
+
+
+class MachinePassword(BaseModel):
+    ip = CharField()
+    machine_id = IntegerField(null=True)
+    machine_name = CharField(null=True)
+    machine_type = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
+    password = CharField()
+    pid = AutoField()
+    remark = CharField(null=True)
+    room = CharField(null=True)
+    sn = CharField(null=True)
+    user = CharField()
+
+    class Meta:
+        table_name = 'machine_password'
 
 
 class Manufacturer(BaseModel):
