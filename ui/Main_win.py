@@ -16,8 +16,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QMainWindow, QMenu, QMenuBar,
-    QSizePolicy, QStatusBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
+    QMenu, QMenuBar, QSizePolicy, QStatusBar,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -52,8 +53,23 @@ class Ui_MainWindow(object):
         self.action_shelf_display.setObjectName(u"action_shelf_display")
         self.action_top = QAction(MainWindow)
         self.action_top.setObjectName(u"action_top")
+        self.actionuser_pass = QAction(MainWindow)
+        self.actionuser_pass.setObjectName(u"actionuser_pass")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.horizontalLayout = QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        font = QFont()
+        font.setPointSize(70)
+        self.label.setFont(font)
+        self.label.setStyleSheet(u"\n"
+"color: rgba(106, 106, 106, 20);")
+        self.label.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.label)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -68,6 +84,8 @@ class Ui_MainWindow(object):
         self.mu_shelf.setObjectName(u"mu_shelf")
         self.mu_poll = QMenu(self.menubar)
         self.mu_poll.setObjectName(u"mu_poll")
+        self.menu = QMenu(self.menubar)
+        self.menu.setObjectName(u"menu")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -78,6 +96,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.mu_select.menuAction())
         self.menubar.addAction(self.mu_shelf.menuAction())
         self.menubar.addAction(self.mu_poll.menuAction())
+        self.menubar.addAction(self.menu.menuAction())
         self.mu_baseinfo.addAction(self.action_base)
         self.mu_machine.addAction(self.actiontjsb)
         self.mu_machine.addAction(self.actionxg)
@@ -91,6 +110,7 @@ class Ui_MainWindow(object):
         self.mu_shelf.addAction(self.action_shelf_display)
         self.mu_poll.addAction(self.actionsjpz)
         self.mu_poll.addAction(self.actionsj)
+        self.menu.addAction(self.actionuser_pass)
 
         self.retranslateUi(MainWindow)
 
@@ -113,10 +133,14 @@ class Ui_MainWindow(object):
         self.action_base.setText(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f\u7ba1\u7406", None))
         self.action_shelf_display.setText(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e0b\u67b6\u4fe1\u606f\u67e5\u8be2", None))
         self.action_top.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u843d\u4f4d\u56fe", None))
+        self.actionuser_pass.setText(QCoreApplication.translate("MainWindow", u"\u7528\u6237\u767b\u5f55\u5bc6\u7801", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4fe1\u606f\u7ba1\u7406\u7cfb\u7edf\n"
+" PySide6-V1.0", None))
         self.mu_baseinfo.setTitle(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f", None))
         self.mu_machine.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u7ba1\u7406", None))
         self.mu_select.setTitle(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u7ba1\u7406", None))
         self.mu_shelf.setTitle(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e0b\u67b6\u7ba1\u7406", None))
         self.mu_poll.setTitle(QCoreApplication.translate("MainWindow", u"\u5de1\u68c0\u7ba1\u7406", None))
+        self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u5e38\u7528\u767b\u5f55\u4fe1\u606f", None))
     # retranslateUi
 

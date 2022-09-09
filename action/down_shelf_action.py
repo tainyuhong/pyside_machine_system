@@ -1,4 +1,4 @@
-import sys, time
+import sys
 from ui.down_shelf import *
 from PySide6 import QtWidgets
 from db.db_orm import *

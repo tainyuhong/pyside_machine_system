@@ -1,4 +1,4 @@
-import sys, time
+import sys
 from ui.modify import *
 from PySide6 import QtWidgets
 # from ui.add_machine import *

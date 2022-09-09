@@ -13,7 +13,30 @@
   <property name="windowTitle">
    <string>机房设备管理系统pyside6-V1.0</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>70</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+color: rgba(106, 106, 106, 20);</string>
+      </property>
+      <property name="text">
+       <string>设备信息管理系统
+ PySide6-V1.0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -61,11 +84,18 @@
     <addaction name="actionsjpz"/>
     <addaction name="actionsj"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>常用登录信息</string>
+    </property>
+    <addaction name="actionuser_pass"/>
+   </widget>
    <addaction name="mu_baseinfo"/>
    <addaction name="mu_machine"/>
    <addaction name="mu_select"/>
    <addaction name="mu_shelf"/>
    <addaction name="mu_poll"/>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionjfgl">
@@ -136,6 +166,11 @@
   <action name="action_top">
    <property name="text">
     <string>设备落位图</string>
+   </property>
+  </action>
+  <action name="actionuser_pass">
+   <property name="text">
+    <string>用户登录密码</string>
    </property>
   </action>
  </widget>

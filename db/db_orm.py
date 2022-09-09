@@ -138,11 +138,11 @@ class MachineCheckUser(BaseModel):
     """
         巡检用户信息表
     """
+    user = CharField(null=True)
+    password = CharField(null=True)
     cmd_id = IntegerField(null=True)
     comment = CharField(null=True)
     machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
-    password = CharField(null=True)
-    user = CharField(null=True)
 
     class Meta:
         table_name = 'machine_check_user'
@@ -152,19 +152,19 @@ class MachineList(BaseModel):
     """
     设备信息视图表
     """
-    bmc_ip = CharField(null=True)
-    cab_name = CharField(null=True)
-    machine_admin = CharField(null=True)
-    machine_factory = CharField(null=True)
     machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
-    machine_name = CharField(null=True)
-    machine_sn = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    mg_ip = CharField(null=True)
-    model = CharField(null=True)
-    postion_u = BigIntegerField(null=True)
     room_name = CharField()
+    cab_name = CharField(null=True)
     start_position = IntegerField(null=True)
+    postion_u = BigIntegerField(null=True)
+    machine_sort_name = CharField(null=True)
+    machine_factory = CharField(null=True)
+    model = CharField(null=True)
+    machine_sn = CharField(null=True)
+    machine_name = CharField(null=True)
+    mg_ip = CharField(null=True)
+    bmc_ip = CharField(null=True)
+    machine_admin = CharField(null=True)
 
     class Meta:
         table_name = 'machine_list'
@@ -172,16 +172,16 @@ class MachineList(BaseModel):
 
 
 class MachinePassword(BaseModel):
-    ip = CharField()
-    machine_id = IntegerField(null=True)
-    machine_name = CharField(null=True)
-    machine_type = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
-    password = CharField()
     pid = AutoField()
-    remark = CharField(null=True)
-    room = CharField(null=True)
+    machine_name = CharField(null=True)
+    ip = CharField()
     sn = CharField(null=True)
+    room = CharField(null=True)
     user = CharField()
+    password = CharField()
+    machine_type = IntegerField(constraints=[SQL("DEFAULT 0")])
+    machine_id = IntegerField(null=True)
+    remark = CharField(null=True)
 
     class Meta:
         table_name = 'machine_password'
@@ -236,19 +236,19 @@ class ViewDownshelf(BaseModel):
     """
         设备下架信息视图
     """
-    comments = CharField(null=True)
-    date = DateField(null=True)
     id = IntegerField(constraints=[SQL("DEFAULT 0")])
-    machine_admin = CharField(null=True)
-    machine_factory = CharField(null=True)
     machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
     machine_name = CharField(null=True)
-    machine_sn = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    mg_ip = CharField(null=True)
-    model = CharField(null=True)
-    operator = CharField(null=True)
     postion = CharField(null=True)
+    machine_sort_name = CharField(null=True)
+    model = CharField(null=True)
+    machine_factory = CharField(null=True)
+    machine_sn = CharField(null=True)
+    mg_ip = CharField(null=True)
+    date = DateField(null=True)
+    operator = CharField(null=True)
+    machine_admin = CharField(null=True)
+    comments = CharField(null=True)
 
     class Meta:
         table_name = 'view_downshelf'
@@ -259,19 +259,19 @@ class ViewUpshelf(BaseModel):
     """
         设备上架信息视图
     """
-    comments = CharField(null=True)
-    date = DateField(null=True)
     id = IntegerField(constraints=[SQL("DEFAULT 0")])
-    machine_admin = CharField(null=True)
-    machine_factory = CharField(null=True)
     machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
     machine_name = CharField(null=True)
-    machine_sn = CharField(null=True)
-    machine_sort_name = CharField(null=True)
-    mg_ip = CharField(null=True)
-    model = CharField(null=True)
-    operator = CharField(null=True)
     postion = CharField(null=True)
+    machine_sort_name = CharField(null=True)
+    model = CharField(null=True)
+    machine_factory = CharField(null=True)
+    machine_sn = CharField(null=True)
+    mg_ip = CharField(null=True)
+    date = DateField(null=True)
+    operator = CharField(null=True)
+    machine_admin = CharField(null=True)
+    comments = CharField(null=True)
 
     class Meta:
         table_name = 'view_upshelf'

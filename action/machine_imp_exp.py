@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys
 import openpyxl
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets
 from ui.machine_import import *
 from db.db_orm import *
 
