@@ -9,10 +9,12 @@ from db.db_orm import *
 # logger.addHandler(logging.StreamHandler())
 # logger.setLevel(logging.DEBUG)
 
-
+"""
+记录设备常用登录密码
+"""
 # 获取机房信息
 def get_room():
-    data_model = MachineRoom.select(MachineRoom.room_name).execute()
+    data_model = MachineRoom.select(MachineRoom.room_name).order_by(MachineRoom.room_id).execute()
     room = [i.room_name for i in data_model]
     # print(room)
     return room
@@ -63,7 +65,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                                                 MachinePassword.password, MachinePassword.sn,
                                                 Case(MachinePassword.machine_type, [(0, '物理机'), (1, '虚拟机')]),
                                                 MachinePassword.machine_id, MachinePassword.remark).where(
-                MachinePassword.ip == ip).tuples().execute()
+                MachinePassword.ip.startswith(ip)).tuples().execute()
         # 将查询数据显示到表格中
         self.tb_select.setRowCount(len(data_model))  # 表格数据行数
         self.lb_status.setText('查询到 {} 条记录'.format(len(data_model)))
@@ -124,7 +126,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
         # 从数据库中获取数据
         data_model = MachineList.select(MachineList.machine_id, MachineList.machine_name, MachineList.room_name,
                                         MachineList.machine_sn, MachineList.mg_ip, MachineList.bmc_ip).where(
-            MachineList.mg_ip == ip).orwhere(MachineList.bmc_ip == ip).tuples().execute()
+            MachineList.mg_ip.startswith(ip)).orwhere(MachineList.bmc_ip.startswith(ip)).tuples().execute()
         # 将查询数据显示到表格中
         self.tb_query_ma.setRowCount(len(data_model))  # 表格数据行数
         self.lb_ma_conut.setText('查询到 {} 条记录'.format(len(data_model)))
@@ -188,6 +190,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     print('添加用户密码错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '添加用户密码信息', '添加成功！')
+                    # 清空输入框信息
                     self.le_current_ip.clear()
                     self.le_user.clear()
                     self.le_password.clear()
@@ -197,7 +200,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     self.machine_info = None  # 自定义设备信息
             else:
                 value = [username, passwd, ip, remark, machine_name, machine_room, 1]  # 输入的信息
-                print('虚拟机设备信息：', value)
+                # print('虚拟机设备信息：', value)
                 # # 添加到数据库中
                 try:
                     MachinePassword.insert_many([value],
@@ -208,10 +211,13 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     print('添加用户密码错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '添加用户密码信息', '添加成功！')
+                    # 清空输入框信息
                     self.le_current_ip.clear()
                     self.le_user.clear()
                     self.le_password.clear()
                     self.te_remark.clear()
+                    self.le_machine_name.clear()
+                    self.cb_room.setCurrentIndex(-1)
                     self.machine_info = None  # 自定义设备信息
 
     # 修改删除页面
@@ -274,11 +280,16 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
             self.le_modify_password.setText(user_passwd)
             self.le_modify_ip.setText(ip)
             self.le_modify_machine_name.setText(machine_name)
-            self.cb_modify_room.setCurrentText(room)
+            # self.cb_modify_room.setCurrentText(room)
             self.te_modify_remark.setText(remark)
+            # 判断机房信息是否为空
+            if room == '':
+                self.cb_modify_room.setCurrentIndex(-1)
+            else:
+                self.cb_modify_room.setCurrentText(room)
             self.selected_data = (machine_type, pass_id)
             # 设置窗口状态
-            self.le_modify_ip.setDisabled(True)
+            self.le_modify_ip.setDisabled(False)
             self.le_modify_machine_name.setDisabled(False)
             self.cb_modify_room.setDisabled(False)
 
@@ -287,8 +298,12 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
             self.le_modify_password.setText(user_passwd)
             self.le_modify_ip.setText(ip)
             self.le_modify_machine_name.setText(machine_name)
-            self.cb_modify_room.setCurrentText(room)
             self.te_modify_remark.setText(remark)
+            # 判断机房信息是否为空
+            if room == '':
+                self.cb_modify_room.setCurrentIndex(-1)
+            else:
+                self.cb_modify_room.setCurrentText(room)
             self.selected_data = (machine_type, pass_id)
             # 设置窗口状态
             self.le_modify_ip.setDisabled(True)
@@ -300,9 +315,12 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
         username = self.le_modify_user.text().strip()
         user_passwd = self.le_modify_password.text().strip()
         machine_name = self.le_modify_machine_name.text().strip()
-        room = self.cb_modify_room.setCurrentIndex(-1)
+        room = self.cb_modify_room.currentText()
+        ip = self.le_modify_ip.text().strip()
         remark = self.te_modify_remark.toPlainText()
+        # 判断是否有选择行，并获取到行数据
         if self.selected_data:
+            # 判断为物理机
             if self.selected_data[0] == '物理机':
                 # data = (username,user_passwd)
                 pid = self.selected_data[1]
@@ -325,13 +343,14 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     self.te_modify_remark.clear()
                     self.le_modify_machine_name.setDisabled(False)
                     self.cb_modify_room.setDisabled(False)
+            # 判断为虚拟机
             else:
-                data = (username, user_passwd, machine_name, room, remark)
+                # data = (username, user_passwd, machine_name, room, remark)
                 pid = self.selected_data[1]
-                print(pid, data)
+                # print(pid, data)
                 try:
                     MachinePassword.update(user=username, password=user_passwd, machine_name=machine_name, room=room,
-                                           remark=remark).where(MachinePassword.pid == pid).execute()
+                                           ip=ip,remark=remark).where(MachinePassword.pid == pid).execute()
                 except Exception as e:
                     print('修改用户密码信息错误：', e)
                 else:

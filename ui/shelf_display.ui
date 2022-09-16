@@ -16,6 +16,12 @@
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -26,6 +32,18 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1">
+         <property name="leftMargin">
+          <number>6</number>
+         </property>
+         <property name="topMargin">
+          <number>6</number>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <property name="bottomMargin">
+          <number>6</number>
+         </property>
          <property name="spacing">
           <number>10</number>
          </property>
@@ -35,6 +53,9 @@
             <font>
              <pointsize>30</pointsize>
             </font>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
            </property>
            <property name="text">
             <string>上架设备信息查询</string>
@@ -84,15 +105,29 @@
          </item>
          <item row="2" column="0" colspan="5">
           <widget class="QTableWidget" name="tb_up">
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
            </property>
+           <property name="rowCount">
+            <number>8</number>
+           </property>
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>80</number>
            </attribute>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
            <column>
             <property name="text">
              <string>设备ID</string>
@@ -198,6 +233,19 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="4">
+          <widget class="QPushButton" name="btn_export_up">
+           <property name="toolTip">
+            <string>导出excel</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:blue</string>
+           </property>
+           <property name="text">
+            <string>导出上架信息</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -209,6 +257,18 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1">
+         <property name="leftMargin">
+          <number>6</number>
+         </property>
+         <property name="topMargin">
+          <number>6</number>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <property name="bottomMargin">
+          <number>6</number>
+         </property>
          <property name="spacing">
           <number>10</number>
          </property>
@@ -304,9 +364,20 @@
            <property name="alternatingRowColors">
             <bool>true</bool>
            </property>
+           <property name="rowCount">
+            <number>8</number>
+           </property>
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>80</number>
            </attribute>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
+           <row/>
            <column>
             <property name="text">
              <string>设备ID</string>
@@ -378,6 +449,19 @@
            </property>
            <property name="text">
             <string>下架日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="4">
+          <widget class="QPushButton" name="btn_export_down">
+           <property name="toolTip">
+            <string>导出excel</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:blue</string>
+           </property>
+           <property name="text">
+            <string>导出下架信息</string>
            </property>
           </widget>
          </item>

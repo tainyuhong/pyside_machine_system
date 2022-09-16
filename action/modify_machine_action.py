@@ -26,7 +26,7 @@ from db.db_orm import *
 class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
     save_flag = True  # 判断是否有修改
     is_selected = False  # 是否再次查询
-    modify_data = []        # 暂存修改数据元素及值
+    modify_data = None        # 暂存修改数据元素及值
 
     def __init__(self, parent=None):
         super(UiModifyMachine, self).__init__(parent)
@@ -182,6 +182,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                       'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
                       'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip', 'comments')
         # 将修改字段添加到修改数据列表中
+        self.modify_data=[]     # 初始化列表
         self.modify_data.append({'machine_id':machine_id,table_list[item_col]:item_name})
         # table_list[item_col]:item_name 数据库中要修改的字段名，对应修改后的值
         # print('要修改的数据集',self.modify_data)
@@ -203,21 +204,21 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             for item in self.modify_data:
                 try:
                     result = MachineInfos.update(item).where(MachineInfos.machine_id == item.get('machine_id')).execute()
-                    print(result)
+                    # print(result)
                 except Exception as e:
                     print('数据保存失败，错误：',e)
                 else:
                     if result == 0:
                         print(' xxxxxx 修改失败！')
                     else:
-                        print('-------> 成功修改 设备编号为{}的信息<-------'.format(item.get('machine_id')))
+                        print('-------> 成功修改 设备编号为  {} 的信息<-------'.format(item.get('machine_id')))
                         count += 1
             QtWidgets.QMessageBox.information(self, '修改设备', '成功修改【 {} 】处设备信息！'.format(count))
             self.modify_data = []       # 置空暂存列表数据
             self.save_flag = True  # 设置为已保存
             self.is_selected = False  # 设置为未查询过
         else:
-            print('没有数据需要保存！')
+            QtWidgets.QMessageBox.warning(self, '修改设备','没有数据需要保存！')
 
 
 if __name__ == '__main__':

@@ -3,7 +3,10 @@ from ui.top import Ui_top
 from PySide6 import QtWidgets, QtGui, QtCore
 from db.db_orm import *
 
+"""
+设备位图
 
+"""
 class DisplayTop(QtWidgets.QWidget, Ui_top):
     room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
     rooms = None
@@ -16,7 +19,7 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
 
     # 获取机房信息
     def get_room(self):
-        room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name).execute()  # 查询有几个机房数据
+        room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name).order_by(MachineRoom.room_id).execute()  # 查询有几个机房数据
         # 将机房信息取出作为公共变量
         self.room_and_id = {}  # 定义一个机房ID与机房名称的映射字典
         # 生成机房ID与机房名称的映射字典

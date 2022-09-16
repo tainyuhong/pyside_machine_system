@@ -29,6 +29,8 @@ class Ui_shelf_display(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.tabWidget = QTabWidget(shelf_display)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setAutoFillBackground(True)
+        self.tabWidget.setStyleSheet(u"")
         self.tab_up = QWidget()
         self.tab_up.setObjectName(u"tab_up")
         self.horizontalLayout = QHBoxLayout(self.tab_up)
@@ -36,11 +38,13 @@ class Ui_shelf_display(object):
         self.gridLayout = QGridLayout()
         self.gridLayout.setSpacing(10)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(6, 6, 6, 6)
         self.label = QLabel(self.tab_up)
         self.label.setObjectName(u"label")
         font = QFont()
         font.setPointSize(30)
         self.label.setFont(font)
+        self.label.setAutoFillBackground(False)
         self.label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 5)
@@ -88,9 +92,13 @@ class Ui_shelf_display(object):
         self.tb_up.setHorizontalHeaderItem(10, __qtablewidgetitem10)
         __qtablewidgetitem11 = QTableWidgetItem()
         self.tb_up.setHorizontalHeaderItem(11, __qtablewidgetitem11)
+        if (self.tb_up.rowCount() < 8):
+            self.tb_up.setRowCount(8)
         self.tb_up.setObjectName(u"tb_up")
+        self.tb_up.setAutoFillBackground(False)
         self.tb_up.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_up.setAlternatingRowColors(True)
+        self.tb_up.setRowCount(8)
         self.tb_up.horizontalHeader().setDefaultSectionSize(80)
 
         self.gridLayout.addWidget(self.tb_up, 2, 0, 1, 5)
@@ -117,6 +125,12 @@ class Ui_shelf_display(object):
 
         self.gridLayout.addWidget(self.ckb_up, 1, 1, 1, 1)
 
+        self.btn_export_up = QPushButton(self.tab_up)
+        self.btn_export_up.setObjectName(u"btn_export_up")
+        self.btn_export_up.setStyleSheet(u"color:blue")
+
+        self.gridLayout.addWidget(self.btn_export_up, 3, 4, 1, 1)
+
         self.gridLayout.setRowStretch(0, 2)
         self.gridLayout.setRowStretch(1, 1)
         self.gridLayout.setRowStretch(2, 9)
@@ -136,6 +150,7 @@ class Ui_shelf_display(object):
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setSpacing(10)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout_2.setContentsMargins(6, 6, 6, 6)
         self.lb_state_down = QLabel(self.tab_down)
         self.lb_state_down.setObjectName(u"lb_state_down")
         self.lb_state_down.setStyleSheet(u"color:blue")
@@ -200,9 +215,12 @@ class Ui_shelf_display(object):
         self.tb_down.setHorizontalHeaderItem(10, __qtablewidgetitem22)
         __qtablewidgetitem23 = QTableWidgetItem()
         self.tb_down.setHorizontalHeaderItem(11, __qtablewidgetitem23)
+        if (self.tb_down.rowCount() < 8):
+            self.tb_down.setRowCount(8)
         self.tb_down.setObjectName(u"tb_down")
         self.tb_down.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_down.setAlternatingRowColors(True)
+        self.tb_down.setRowCount(8)
         self.tb_down.horizontalHeader().setDefaultSectionSize(80)
 
         self.gridLayout_2.addWidget(self.tb_down, 2, 0, 1, 5)
@@ -212,6 +230,12 @@ class Ui_shelf_display(object):
         self.ckb_down.setFont(font1)
 
         self.gridLayout_2.addWidget(self.ckb_down, 1, 1, 1, 1)
+
+        self.btn_export_down = QPushButton(self.tab_down)
+        self.btn_export_down.setObjectName(u"btn_export_down")
+        self.btn_export_down.setStyleSheet(u"color:blue")
+
+        self.gridLayout_2.addWidget(self.btn_export_down, 3, 4, 1, 1)
 
         self.gridLayout_2.setRowStretch(0, 2)
         self.gridLayout_2.setRowStretch(1, 1)
@@ -267,6 +291,10 @@ class Ui_shelf_display(object):
         ___qtablewidgetitem11.setText(QCoreApplication.translate("shelf_display", u"\u5907\u6ce8", None));
         self.lb_state_up.setText(QCoreApplication.translate("shelf_display", u"\u5c31\u7eea", None))
         self.ckb_up.setText(QCoreApplication.translate("shelf_display", u"\u4e0a\u67b6\u65e5\u671f", None))
+#if QT_CONFIG(tooltip)
+        self.btn_export_up.setToolTip(QCoreApplication.translate("shelf_display", u"\u5bfc\u51faexcel", None))
+#endif // QT_CONFIG(tooltip)
+        self.btn_export_up.setText(QCoreApplication.translate("shelf_display", u"\u5bfc\u51fa\u4e0a\u67b6\u4fe1\u606f", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_up), QCoreApplication.translate("shelf_display", u"\u4e0a\u67b6\u8bbe\u5907\u4fe1\u606f\u67e5\u8be2", None))
         self.lb_state_down.setText(QCoreApplication.translate("shelf_display", u"\u5c31\u7eea", None))
         self.label_3.setText(QCoreApplication.translate("shelf_display", u"\u4e0b\u67b6\u8bbe\u5907\u4fe1\u606f\u67e5\u8be2", None))
@@ -296,6 +324,10 @@ class Ui_shelf_display(object):
         ___qtablewidgetitem23 = self.tb_down.horizontalHeaderItem(11)
         ___qtablewidgetitem23.setText(QCoreApplication.translate("shelf_display", u"\u5907\u6ce8", None));
         self.ckb_down.setText(QCoreApplication.translate("shelf_display", u"\u4e0b\u67b6\u65e5\u671f", None))
+#if QT_CONFIG(tooltip)
+        self.btn_export_down.setToolTip(QCoreApplication.translate("shelf_display", u"\u5bfc\u51faexcel", None))
+#endif // QT_CONFIG(tooltip)
+        self.btn_export_down.setText(QCoreApplication.translate("shelf_display", u"\u5bfc\u51fa\u4e0b\u67b6\u4fe1\u606f", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_down), QCoreApplication.translate("shelf_display", u"\u4e0b\u67b6\u8bbe\u5907\u4fe1\u606f\u67e5\u8be2", None))
     # retranslateUi
 

@@ -2,26 +2,32 @@ import sys
 from ui.shelf_display import *
 from PySide6 import QtWidgets
 from db.db_orm import *
+from openpyxl import Workbook
 # import logging
 #
 # logger = logging.getLogger('peewee')
 # logger.addHandler(logging.StreamHandler())
 # logger.setLevel(logging.DEBUG)
-
+"""
+设备上下架信息查看
+"""
 
 class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(UiShelfDisplay, self).__init__(parent)
         self.setupUi(self)
         # 上架信息窗口
-        self.display_up_data()  # 默认页面查询
-        self.bt_up_select.clicked.connect(lambda :self.select(self.ckb_up,self.up_date,self.display_up_data))      # 定义查询按钮事件
+        # self.display_up_data()  # 默认页面查询
+        self.bt_up_select.clicked.connect(lambda : self.select(self.ckb_up, self.up_date, self.display_up_data))      # 定义查询按钮事件
         self.ckb_up.stateChanged.connect(lambda:self.checkbox_state(self.ckb_up,self.up_date))
+        self.btn_export_up.clicked.connect(self.export_up_to_xls)       # 导出上架信息
 
         # 下架信息窗口
-        self.display_down_data()  # 默认页面查询
-        self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down,self.down_date,self.display_down_data))  # 定义查询按钮事件
-        self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
+        if self.tabWidget.currentIndex() == 1:
+            self.display_down_data()  # 默认页面查询
+            self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down, self.down_date,
+                                                                    self.display_down_data))  # 定义查询按钮事件
+            self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
 
     # 上架信息查询
     def display_up_data(self,up_date=None):
@@ -44,13 +50,39 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                     self.tb_up.setItem(row, col, QTableWidgetItem(str(updata[row][col])))
             self.tb_up.resizeColumnsToContents()        # 根据内容自定义列宽
             self.lb_state_up.setText('------> 查询到 {} 条记录 <------'.format(len(updata)))
+            self.btn_export_up.setDisabled(True)  # 启用导出按钮
         else:
             self.tb_up.clearContents()  # 清空表格中内容
             self.tb_up.horizontalHeader().setDefaultSectionSize(80)         # 设置默认宽度为80
             QtWidgets.QMessageBox.warning(self, '上架信息查询', '未查询到任何上架信息！')
+            self.btn_export_up.setDisabled(True)    # 禁用导出按钮
 
-        # 上架信息查询
+    # 导出上架信息至excel
+    def export_up_to_xls(self):
+        # 写入测试数据
+        for row,i in enumerate(range(8)):
+            for col,num in enumerate(range(12)):
+                self.tb_up.setItem(row,col,QTableWidgetItem('{}-{}'.format(i,num)))
 
+        wb = Workbook()
+        sh = wb.active
+        print('表格名称',sh.title)
+
+        # 导出至表格
+        table_title = self.tb_up.horizontalHeader()
+        print(table_title.)
+        filesave,ok = QtWidgets.QFileDialog.getSaveFileName(self,'保存到excel','','*.xlsx')
+        if ok:
+            print('filesave:',filesave)
+            row_count = self.tb_up.rowCount()
+            col_count = self.tb_up.columnCount()
+            for cell_row in range(row_count):
+                for cell_col in range(col_count):
+                    sh.cell(row=cell_row+1,column=cell_col+1,value=self.tb_up.item(cell_row,cell_col).text())
+            print('导出完成')
+            wb.save(filesave)       # 保存excel
+
+    # 下架信息查询
     def display_down_data(self, down_date=None):
         self.tb_down.clearContents()  # 清空表格中内容
         if down_date is not None:
@@ -77,20 +109,20 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, '上架信息查询', '未查询到任何上架信息！')
 
     # 查询按钮
-    def select(self,ckb,dt,fu):
+    def select(self,ckb,dt,fuc):
         """
         两个TAB窗口根据是否钩选日期来进行判断查询
         :param ckb: 复选框
         :param dt: 时间控件
-        :param fu: 查询函数
+        :param fuc: 查询函数
         :return:
         """
         if ckb.checkState()==Qt.Checked:
             date = dt.text()
             # print('选择日间：',date)
-            fu(date)
+            fuc(date)
         else:
-            fu()
+            fuc()
 
     # 定义是否启用时间选择控件
     def checkbox_state(self,ckbox,dt):
