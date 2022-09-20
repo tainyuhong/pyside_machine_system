@@ -20,15 +20,15 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         # self.display_up_data()  # 默认页面查询
         self.bt_up_select.clicked.connect(lambda : self.select(self.ckb_up, self.up_date, self.display_up_data))      # 定义查询按钮事件
         self.ckb_up.stateChanged.connect(lambda:self.checkbox_state(self.ckb_up,self.up_date))
-        self.btn_export_up.clicked.connect(self.export_up_to_xls)       # 导出上架信息
+        self.btn_export_up.clicked.connect(lambda:self.export_up_to_xls(self.tb_up))       # 导出上架信息
 
         # 下架信息窗口
-        if self.tabWidget.currentIndex() == 1:
-            self.display_down_data()  # 默认页面查询
-            self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down, self.down_date,
-                                                                    self.display_down_data))  # 定义查询按钮事件
-            self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
-
+        # if self.tabWidget.currentIndex() == 1:
+        self.display_down_data()  # 默认页面查询
+        self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down, self.down_date,
+                                                                self.display_down_data))  # 定义查询按钮事件
+        self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
+        self.btn_export_down.clicked.connect(lambda: self.export_up_to_xls(self.tb_down))  # 导出下架信息
     # 上架信息查询
     def display_up_data(self,up_date=None):
         self.tb_up.clearContents()                  # 清空表格中内容
@@ -58,29 +58,39 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             self.btn_export_up.setDisabled(True)    # 禁用导出按钮
 
     # 导出上架信息至excel
-    def export_up_to_xls(self):
-        # 写入测试数据
-        for row,i in enumerate(range(8)):
-            for col,num in enumerate(range(12)):
-                self.tb_up.setItem(row,col,QTableWidgetItem('{}-{}'.format(i,num)))
+    def export_up_to_xls(self,table):
+        """
+        导出上架信息至excel
+        :param table: 页面窗口表格显示控件
+        :return:
+        """
+        # # 写入测试数据
+        # for row,i in enumerate(range(8)):
+        #     for col,num in enumerate(range(12)):
+        #         self.tb_up.setItem(row,col,QTableWidgetItem('{}-{}'.format(i,num)))
 
-        wb = Workbook()
-        sh = wb.active
-        print('表格名称',sh.title)
+        wb = Workbook()     # 定义工作表
+        sh = wb.active      # 激活页
+        # print('表格名称',sh.title)
 
         # 导出至表格
-        table_title = self.tb_up.horizontalHeader()
-        print(table_title.)
+        table_title = []    # 获取表头信息
+        for i in range(12):
+            table_title.append(table.horizontalHeaderItem(i).text())    # 插入表格标题一行
+        # print(table_title)
+        # 判断是否保存文件
         filesave,ok = QtWidgets.QFileDialog.getSaveFileName(self,'保存到excel','','*.xlsx')
         if ok:
-            print('filesave:',filesave)
-            row_count = self.tb_up.rowCount()
-            col_count = self.tb_up.columnCount()
+            # print('filesave:',filesave)
+            sh.append(table_title)
+            row_count = table.rowCount()
+            col_count = table.columnCount()
             for cell_row in range(row_count):
                 for cell_col in range(col_count):
-                    sh.cell(row=cell_row+1,column=cell_col+1,value=self.tb_up.item(cell_row,cell_col).text())
-            print('导出完成')
+                    sh.cell(row=cell_row+2,column=cell_col+1,value=table.item(cell_row,cell_col).text())
+            # print('导出完成')
             wb.save(filesave)       # 保存excel
+            QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
 
     # 下架信息查询
     def display_down_data(self, down_date=None):

@@ -34,6 +34,8 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                 except Exception as e:
                     QtWidgets.QMessageBox.critical(self, '导入失败', '错误：{}'.format(e))
                 else:
+                    # print(sh.max_row,sh.max_column)
+                    # print(sh.dimensions)
                     rowdata = []
                     data = []
                     for row in range(3, sh.max_row + 1):
@@ -58,7 +60,6 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                         print('插入数据库中错误：', e)
                         QtWidgets.QMessageBox.warning(self, '设备信息导入', '导入失败，未导入任何信息！')
                     else:
-
                         # print('导入成功！！')
                         QtWidgets.QMessageBox.information(self, '设备信息导入','{}条记录插入成功 '.format(len(data)))
 

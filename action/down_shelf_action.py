@@ -2,6 +2,8 @@ import sys
 from ui.down_shelf import *
 from PySide6 import QtWidgets
 from db.db_orm import *
+
+
 # import logging
 #
 #
@@ -21,12 +23,12 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
 
         # 设置下架时间默认为系统当天
         self.down_time.setDate(QDate.currentDate())  # 设置默认为系统当天
-        self.bt_donw_shelf.clicked.connect(self.select_machine)     # 设置为下架状态
+        self.bt_donw_shelf.clicked.connect(self.select_machine)  # 设置为下架状态
 
     def display(self):
         machine_name = self.machine_name.text().strip()
         mg_ip = self.mg_ip.text().strip()
-        self.tb_display.clearContents()         # 清空表格中内容
+        self.tb_display.clearContents()  # 清空表格中内容
         # 查询结果数据处理
         if machine_name != '' or mg_ip != '':
             # print('machine_name', machine_name, 'mg_ip', mg_ip)
@@ -36,10 +38,12 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                                                  MachineInfos.cabinet_name, MachineInfos.start_position,
                                                  MachineInfos.end_position, MachineInfos.machine_name,
                                                  MachineInfos.machine_sort_name, MachineInfos.machine_factory,
-                                                 MachineInfos.model, MachineInfos.machine_sn,  MachineInfos.work_are,
+                                                 MachineInfos.model, MachineInfos.machine_sn, MachineInfos.work_are,
                                                  MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
                                                  MachineInfos.app_ip1, MachineInfos.comments) \
-                    .where((MachineInfos.mg_ip.contains(mg_ip)) & (MachineInfos.run_state != 4)).prefetch(MachineRoom, Cabinet, CabPosition)
+                    .where((MachineInfos.mg_ip.contains(mg_ip)) & (MachineInfos.run_state != 4)).prefetch(MachineRoom,
+                                                                                                          Cabinet,
+                                                                                                          CabPosition)
                 # print('查询IP SQL', data_model, len(data_model))
                 data = [(i.machine_id, i.machine_roomid.room_id,
                          i.cabinet_name.cab_num, i.start_position.num,
@@ -71,7 +75,8 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                                                  MachineInfos.model, MachineInfos.machine_sn, MachineInfos.work_are,
                                                  MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
                                                  MachineInfos.app_ip1, MachineInfos.comments) \
-                    .where((MachineInfos.machine_name.contains(machine_name)) & (MachineInfos.run_state != 4)).prefetch(MachineRoom, Cabinet, CabPosition)
+                    .where((MachineInfos.machine_name.contains(machine_name)) & (MachineInfos.run_state != 4)).prefetch(
+                    MachineRoom, Cabinet, CabPosition)
                 data = [(i.machine_id, i.machine_roomid.room_id,
                          i.cabinet_name.cab_num, i.start_position.num,
                          i.end_position.num, i.machine_name,
@@ -98,11 +103,12 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                                                  MachineInfos.cabinet_name, MachineInfos.start_position,
                                                  MachineInfos.end_position, MachineInfos.machine_name,
                                                  MachineInfos.machine_sort_name, MachineInfos.machine_factory,
-                                                 MachineInfos.model, MachineInfos.machine_sn,  MachineInfos.work_are,
+                                                 MachineInfos.model, MachineInfos.machine_sn, MachineInfos.work_are,
                                                  MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
-                                                 MachineInfos.app_ip1,  MachineInfos.comments) \
+                                                 MachineInfos.app_ip1, MachineInfos.comments) \
                     .where(
-                    (MachineInfos.machine_name.contains(machine_name)) & (MachineInfos.mg_ip.contains(mg_ip)) & (MachineInfos.run_state!=4)).prefetch(
+                    (MachineInfos.machine_name.contains(machine_name)) & (MachineInfos.mg_ip.contains(mg_ip)) & (
+                            MachineInfos.run_state != 4)).prefetch(
                     MachineRoom, Cabinet, CabPosition)
                 data = [(i.machine_id, i.machine_roomid.room_id,
                          i.cabinet_name.cab_num, i.start_position.num,
@@ -130,14 +136,14 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
 
     # 钩选的要下架的设备
     def select_machine(self):
-        rowconut = self.tb_display.rowCount()       # 获取表格中总行数
-        select_data = []                            # 定义钩选的设备列表
+        rowconut = self.tb_display.rowCount()  # 获取表格中总行数
+        select_data = []  # 定义钩选的设备列表
         # 遍历所有行的第一列，将钩选的设备ID添加到select_data设备列表中
         for i in range(rowconut):
-            select_row = self.tb_display.item(i, 0)     # 每行的第一列
+            select_row = self.tb_display.item(i, 0)  # 每行的第一列
             if select_row is not None:
-                if select_row.checkState() == Qt.Checked:   # 判断是否钩选
-                    print('设备id:',select_row.text())
+                if select_row.checkState() == Qt.Checked:  # 判断是否钩选
+                    print('设备id:', select_row.text())
                     select_data.append(select_row.text())
                 else:
                     pass
@@ -155,30 +161,24 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
             if comments == '' or operator == '':
                 QtWidgets.QMessageBox.warning(self, '设备下架', '请填写下架情况说明和执行人员！')
             else:
-                print('选择的设备：', select_data)
-                if QtWidgets.QMessageBox.question(self, '设备下架', '是否确认要下架选择的设备？') == QtWidgets.QMessageBox.Yes:
+                # print('选择的设备：', select_data)
+                if QtWidgets.QMessageBox.question(self, '设备下架',
+                                                  '是否确认要下架选择的设备？') == QtWidgets.QMessageBox.Yes:
                     # 按格式生成下架数据（machine_id,up_or_down,operator, down_time, comments）
                     data = []  # 定义下架数据
                     for _ in select_data:
                         data.append((_, 2, operator, down_time, comments))
                     try:
                         with database.atomic():
-                            res = ShelfManage.insert_many(data,fields=('machine_id','up_or_down','operator', 'date', 'comments'))
-                            print(res)
-                            res.execute()
+                            ShelfManage.insert_many(data, fields=(
+                                'machine_id', 'up_or_down', 'operator', 'date', 'comments')).execute()  # 插入下架设备信息到下架表中
+                            MachineInfos.update(run_state=4, uninstall_date=down_time).where(
+                                MachineInfos.machine_id.in_(select_data)).execute()  # 修改设备表运行状态为下架
                     except Exception as e:
-                        print('执行下架出错：',e)
+                        print('执行下架出错：', e)
                     else:
-                        try:
-                            ret = MachineInfos.update(run_state=4,uninstall_date=down_time).where(MachineInfos.machine_id.in_(select_data)) # 修改设备表运行状态为下架
-                            print(ret)
-                            ret.execute()
-                        except Exception as e:
-                            print('修改状态出错：',e)
-                        else:
-                            print('状态修改成功！')
                         QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
-                        self.tb_display.clearContents()
+                        self.tb_display.clearContents()     # 清空表格插件内容
                 else:
                     pass
 
@@ -187,10 +187,8 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
         清除条件框中内容
         :return:
         """
-        self.machine_name.setText('')
-        self.mg_ip.setText('')
-
-
+        self.machine_name.clear()
+        self.mg_ip.clear()
 
 
 if __name__ == '__main__':
@@ -198,4 +196,3 @@ if __name__ == '__main__':
     down_win = UiDownShelf()
     down_win.show()
     sys.exit(app.exec())
-
