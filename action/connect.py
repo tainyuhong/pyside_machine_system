@@ -14,7 +14,7 @@ from db.db_orm import database
 # logger.addHandler(logging.StreamHandler())
 # logger.setLevel(logging.DEBUG)
 # 定义日志格式
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
 
 # 创建数据库对象实例
 # db = DBMysql()

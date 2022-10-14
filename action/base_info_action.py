@@ -1,3 +1,4 @@
+import logging
 import sys
 import peewee
 
@@ -5,6 +6,8 @@ from ui.base_info import *
 from PySide6 import QtWidgets, QtGui
 # import logging
 from db.db_orm import *
+
+
 #
 # logger = logging.getLogger('peewee')
 # logger.addHandler(logging.StreamHandler())
@@ -26,6 +29,9 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         self.bt_del_room.clicked.connect(self.del_room)  # 删除机房信息
 
         # 机柜信息界面
+        self.lb_count_2.hide()  # 隐藏批量添加机柜数量框
+        self.le_conut.hide()  # 隐藏批量添加机柜数据输入框
+        self.chkb_multi.stateChanged.connect(self.multi_add_label)  # 绑定批量添加控件显示与否
         self.display_cabinet()  # 机柜信息窗口
         self.get_room()  # 显示机房信息列表
         self.bt_add_cabinet.clicked.connect(self.add_cabinet)  # 添加机柜信息
@@ -105,7 +111,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     result = MachineRoom.insert_many([data],
                                                      fields=[MachineRoom.room_name, MachineRoom.room_alias]).execute()
                 except Exception as e:
-                    print(e)
+                    logging.error('添加机房错误：{}'.format(e))
                 else:
                     self.room_and_id[result] = room_name  # 更新全局机房与id字典的信息
                     # print('添加机房后的字典变量：',self.room_and_id)
@@ -131,13 +137,14 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         room_id = self.tb_room.item(item, 0).text()  # 获取room_id
 
         # 从数据库中删除
-        if QtWidgets.QMessageBox.question(self, '删除机房信息', '是否确定要删除该机房信息！') == QtWidgets.QMessageBox.Yes:
+        if QtWidgets.QMessageBox.question(self, '删除机房信息',
+                                          '是否确定要删除该机房信息！') == QtWidgets.QMessageBox.Yes:
             if Cabinet.get_or_none(Cabinet.room == room_id) is None:
                 try:
                     MachineRoom.get_by_id(room_id).delete().where(MachineRoom.room_id == room_id).execute()
                     # print(result)  # 打印执行结果，为1时代表执行成功，0失败
                 except Exception as e:
-                    print('删除机房错误：', e)
+                    logging.error('删除机房错误：', e)
                 else:
                     self.tb_room.removeRow(item)  # 页面中删除一行
                     self.room_and_id.pop(int(room_id))  # 从机房变量中删除
@@ -150,8 +157,20 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         else:
             pass
 
-
     # 机柜窗口
+    # 批量添加控件是否显示
+    def multi_add_label(self):
+        if self.chkb_multi.checkState():
+            self.lb_count_2.show()  # 隐藏批量添加机柜数量框
+            self.le_conut.show()  # 隐藏批量添加机柜数据输入框
+            self.lb_cabinet_alias.hide()
+            self.le_cabinet_alias.hide()
+        else:
+            self.lb_count_2.hide()  # 隐藏批量添加机柜数量框
+            self.le_conut.hide()  # 隐藏批量添加机柜数据输入框
+            self.lb_cabinet_alias.show()
+            self.le_cabinet_alias.show()
+
     # 显示机柜窗口
     def display_cabinet(self):
         # 定义查询机柜数据
@@ -185,31 +204,59 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         cab_name = self.le_cab_name.text()
         cab_alias = self.le_cabinet_alias.text()
         u_count = self.le_U_count.text()
+        add_count = self.le_conut.text().strip()
         is_used = '1' if self.ckb_is_used.isChecked() is True else '0'
 
-        if cab_name != '' and QtWidgets.QMessageBox.question(self, '添加机柜', '确认是否添加！') == QtWidgets.QMessageBox.Yes:
-            try:
-                data = [str(self.room_to_id(name=room)), cab_name, cab_alias, u_count, is_used]  # 定义机柜信息数据
-                # print(data)
-                # 保存到数据库,并返回表格中id给result
-                result = Cabinet.insert_many([data], fields=[Cabinet.room, Cabinet.cab_num, Cabinet.cab_name,
-                                                             Cabinet.count_position, Cabinet.is_use]).execute()
-            except Exception as e:
-                print('添加机柜错误：', e)
-            else:
-                index = self.tb_cabinet.rowCount()  # 定义索引为总行数
-                self.tb_cabinet.insertRow(index)  # 表格中插入一行
-                data.insert(0, str(result))  # 将数据库中机柜ID插入到data中
-                # # print('插入数据库后的数据：', data)
-                for num, _ in enumerate(data):
-                    if num == 1:
-                        self.tb_cabinet.setItem(index, num, QTableWidgetItem(self.room_to_id(room_id=int(_))))  # 添加到表格中
-                    else:
-                        self.tb_cabinet.setItem(index, num, QTableWidgetItem(_))  # 添加到表格中
-                QtWidgets.QMessageBox.information(self, '添加机柜', '添加机柜信息成功！')
-                self.le_cab_name.setText('')
-                self.le_cabinet_alias.setText('')
-                self.le_U_count.setText('')
+        if cab_name != '' and QtWidgets.QMessageBox.question(self, '添加机柜',
+                                                             '确认是否添加！') == QtWidgets.QMessageBox.Yes:
+            # 批量添加
+            if self.chkb_multi.checkState() == 2 and int(add_count) > 0:
+                try:
+                    data = [(str(self.room_to_id(name=room)), cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i),
+                             cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i), u_count, is_used) for i in
+                            range(int(add_count))]  # 定义机柜信息数据
+                    # print(data)
+                    # 批量插入数据，保存到数据库
+                    Cabinet.insert_many(data,
+                                        fields=[Cabinet.room, Cabinet.cab_num, Cabinet.cab_name, Cabinet.count_position,
+                                                Cabinet.is_use]).execute()
+                    # print(result)
+                except Exception as e:
+                    logging.error('添加机柜错误：', e)
+                else:
+                    self.display_cabinet()  # 刷新机柜表页面
+                    QtWidgets.QMessageBox.information(self, '添加机柜', '添加机柜信息成功！')
+                    self.le_cab_name.clear()
+                    self.le_cabinet_alias.clear()
+                    self.le_U_count.clear()
+                    self.le_conut.clear()
+            # 单个机柜添加
+            elif self.chkb_multi.checkState() == 0:
+                try:
+                    data = [str(self.room_to_id(name=room)), cab_name, cab_alias, u_count, is_used]  # 定义机柜信息数据
+                    # print(data)
+                    # 保存到数据库,并返回表格中id给result
+                    result = Cabinet.insert_many([data], fields=[Cabinet.room, Cabinet.cab_num, Cabinet.cab_name,
+                                                                 Cabinet.count_position, Cabinet.is_use]).execute()
+                except Exception as e:
+                    logging.error('添加机柜错误：', e)
+                else:
+                    index = self.tb_cabinet.rowCount()  # 定义索引为总行数
+                    self.tb_cabinet.insertRow(index)  # 表格中插入一行
+                    data.insert(0, str(result))  # 将数据库中机柜ID插入到data中
+                    # # print('插入数据库后的数据：', data)
+                    for num, _ in enumerate(data):
+                        if num == 1:
+                            self.tb_cabinet.setItem(index, num,
+                                                    QTableWidgetItem(self.room_to_id(room_id=int(_))))  # 添加到表格中
+                        else:
+                            self.tb_cabinet.setItem(index, num, QTableWidgetItem(_))  # 添加到表格中
+                    QtWidgets.QMessageBox.information(self, '添加机柜', '添加机柜信息成功！')
+                    self.le_cab_name.clear()
+                    self.le_cabinet_alias.clear()
+                    self.le_U_count.clear()
+        else:
+            pass
 
     # 删除机柜
     def del_cabinet(self):
@@ -217,7 +264,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         cabinet_id = self.tb_cabinet.item(item, 0).text()  # 获取cabinet_id
         # print('cabinet_id', cabinet_id)
         # 从数据库中删除
-        if QtWidgets.QMessageBox.question(self, '删除机柜信息', '是否确定要删除该机柜信息！') == QtWidgets.QMessageBox.Yes:
+        if QtWidgets.QMessageBox.question(self, '删除机柜信息',
+                                          '是否确定要删除该机柜信息！') == QtWidgets.QMessageBox.Yes:
             try:
                 # 从数据库中删除
                 result = Cabinet.delete().where(Cabinet.cab_id == cabinet_id).execute()
@@ -227,7 +275,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             except peewee.IntegrityError:
                 QtWidgets.QMessageBox.critical(self, '删除失败', '该机柜存在设备，不能删除！')
             except Exception as e:
-                print('删除机房错误：', e)
+                logging.error('删除机房错误：', e)
                 QtWidgets.QMessageBox.critical(self, '删除失败', '删除机柜信息失败！\n {}'.format(e))
             else:
                 self.tb_cabinet.removeRow(item)  # 页面中删除一行
@@ -273,12 +321,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 item = {'room': self.room_to_id(name=room), 'cab_num': cab_name, 'cab_name': cab_alias,
                         'count_position': u_count, 'is_use': is_used}
                 # print('要传入数据库中数据格式：', item)
-                if QtWidgets.QMessageBox.question(self, '删除机柜信息', '是否确定要删除该机柜信息！') == QtWidgets.QMessageBox.Yes:
+                if QtWidgets.QMessageBox.question(self, '删除机柜信息',
+                                                  '是否确定要删除该机柜信息！') == QtWidgets.QMessageBox.Yes:
                     try:
                         result_model = Cabinet.update(item).where(Cabinet.cab_id == self.modify_cabinet_id[0]).execute()
                         # print('修改SQL', result_model)
                     except Exception as e:
-                        print('删除机柜信息错误：', e)
+                        logging.error('删除机柜信息错误：', e)
                     else:
                         self.tb_cabinet.clearContents()  # 删除表中内容
                         self.display_cabinet()  # 调用显示表格数据函数重新查询，刷新表格数据
@@ -325,7 +374,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     result = CabPosition.insert_many([data],
                                                      fields=[CabPosition.num, CabPosition.position_name]).execute()
                 except Exception as e:
-                    print(e)
+                    logging.error('添加设备U位信息错误：{}'.format(e))
                 else:
                     # print('返回ID:', result)  # 返回主键id
                     index = self.tb_u.rowCount()  # 定义索引为总行数
@@ -353,7 +402,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 CabPosition.get_by_id(u_id).delete().where(CabPosition.id == u_id).execute()
                 # print(result)  # 打印执行结果，为1时代表执行成功，0失败
             except Exception as e:
-                print('删除U位错误：', e)
+                logging.error('删除U位错误：', e)
             else:
                 self.tb_u.removeRow(item)  # 页面中删除一行
                 QtWidgets.QMessageBox.information(self, '删除成功', '删除U位信息成功！')
@@ -383,13 +432,14 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         name = self.le__manufacturer_name.text().strip()
         # 查询room_name是否在数据库中存在
         if Manufacturer.get_or_none(Manufacturer.manufacturer_name == name) is None and name != '':
-            if QtWidgets.QMessageBox.question(self, '添加设备品牌信息', '是否需要添加设备品牌信息！') == QtWidgets.QMessageBox.Yes:
+            if QtWidgets.QMessageBox.question(self, '添加设备品牌信息',
+                                              '是否需要添加设备品牌信息！') == QtWidgets.QMessageBox.Yes:
                 try:
                     data = [name]  # 定义获取到的设备品牌信息
                     # 保存到数据库
                     result = Manufacturer.insert_many([data], fields=[Manufacturer.manufacturer_name]).execute()
                 except Exception as e:
-                    print(e)
+                    logging.error('添加设备品牌信息错误：',e)
                 else:
                     # print('返回ID:', result)  # 返回主键id
                     index = self.tb_manfacturer.rowCount()  # 定义索引为总行数
@@ -411,12 +461,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         item = self.tb_manfacturer.currentRow()  # 获取当前选择的行号的索引
         manufacturer_id = self.tb_manfacturer.item(item, 0).text()  # 获取u_id
         # 从数据库中删除
-        if QtWidgets.QMessageBox.question(self, '删除设备品牌信息', '是否确定要删除该设备品牌信息！') == QtWidgets.QMessageBox.Yes:
+        if QtWidgets.QMessageBox.question(self, '删除设备品牌信息',
+                                          '是否确定要删除该设备品牌信息！') == QtWidgets.QMessageBox.Yes:
             try:
                 Manufacturer.get_by_id(manufacturer_id).delete().where(Manufacturer.id == manufacturer_id).execute()
                 # print(result)  # 打印执行结果，为1时代表执行成功，0失败
             except Exception as e:
-                print('删除设备品牌信息：', e)
+                logging.error('删除设备品牌信息：', e)
             else:
                 self.tb_manfacturer.removeRow(item)  # 页面中删除一行
                 QtWidgets.QMessageBox.information(self, '删除成功', '删除设备品牌信息成功！')
@@ -456,8 +507,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
 
     # 添加分类信息
     def add_sort(self):
-        print('状态', self.modify_item, self.old_sort_data)
-        if self.modify_item is None and self.old_sort_data is None:         # 修改模式，不能进行添加操作
+        # print('状态', self.modify_item, self.old_sort_data)
+        if self.modify_item is None and self.old_sort_data is None:  # 修改模式，不能进行添加操作
             # 获取输入的id/分类名信息
             sort_id = self.le_sort_id.text().strip()
             sort_name = self.le_sort_name.text().strip()  # 获取输入的分类名称
@@ -480,14 +531,15 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                         # 不重复：作为子类添加到列表及数据库中
                         try:
                             MachineSort.insert_many(
-                                [(str(top_sort_id) + sort_id, sort_name, top_sort_id, self.cb_prarent_sort.currentText())],
+                                [(str(top_sort_id) + sort_id, sort_name, top_sort_id,
+                                  self.cb_prarent_sort.currentText())],
                                 fields=(MachineSort.sort_id, MachineSort.sort_name, MachineSort.part_sort,
                                         MachineSort.part_sort_name)).execute()
 
                         except Exception as e:
-                            print('添加子分类错误：', e)
+                            logging.error('添加子分类错误：', e)
                         else:
-                            print('上级分类id:', top_sort_id)
+                            # print('上级分类id:', top_sort_id)
                             item = self.tree_sort.findItems(str(top_sort_id), Qt.MatchExactly)  # 获取父类在树中的位置,返回的为一个列表
                             # 展开当前项并添加到树中
                             self.tree_sort.expandItem(item[0])
@@ -500,7 +552,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                             self.cb_prarent_sort.setCurrentIndex(0)
                             self.le_sort_id.setText('')
                             self.le_sort_name.setText('')
-                            self.tree_sort.setCurrentItem(None)         # 设置为非选择状态
+                            self.tree_sort.setCurrentItem(None)  # 设置为非选择状态
                 # 作为你父类创建,且sort_id必须大于1000
                 else:
                     if int(sort_id) > 1000:
@@ -521,7 +573,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                                 MachineSort.insert_many([(sort_id, sort_name)],
                                                         fields=(MachineSort.sort_id, MachineSort.sort_name)).execute()
                             except Exception as e:
-                                print('添加分类错误：', e)
+                                logging.error('添加分类错误：', e)
                             else:
                                 # 添加到树中
                                 top_item = QTreeWidgetItem()
@@ -539,13 +591,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     else:
                         QtWidgets.QMessageBox.warning(self, '添加分类信息', '主分类的ID应该大于1000！')
             else:
-                print('请输入需要添加的分类ID及分类名称信息！')
+                logging.error('请输入需要添加的分类ID及分类名称信息！')
         else:
             QtWidgets.QMessageBox.warning(self, '添加分类信息', '修改模式，不能进行添加操作！！')
 
     # 删除分类信息
     def del_sort(self):
-        if self.modify_item is None and self.old_sort_data is None:   # 修改模式，不能进行删除操作
+        if self.modify_item is None and self.old_sort_data is None:  # 修改模式，不能进行删除操作
             item = self.tree_sort.currentItem()  # 获取当前选择的行项对象
             if item is not None:
                 # 判断当前选择的项是否为父类
@@ -558,12 +610,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                         QtWidgets.QMessageBox.warning(self, '删除分类信息', '存在子分类，不能删除！！')
                     # 没有子分类，# 从数据库中删除
                     else:
-                        if QtWidgets.QMessageBox.question(self, '删除分类信息', '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
+                        if QtWidgets.QMessageBox.question(self, '删除分类信息',
+                                                          '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
                             try:
                                 MachineSort.delete().where(MachineSort.sort_id == item.text(0)).execute()
                                 # print(result)  # 打印执行结果，为1时代表执行成功，0失败
                             except Exception as e:
-                                print('删除分类错误：', e)
+                                logging.error('删除分类错误：', e)
                             else:
                                 self.tree_sort.takeTopLevelItem(self.tree_sort.indexOfTopLevelItem(item))  # 删除当前选择项
                                 QtWidgets.QMessageBox.information(self, '删除成功', '删除分类成功！')
@@ -574,12 +627,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     # print('当前为子分类，ID：',item.text(2))
                     # print('当前子项的索引', item.parent().indexOfChild(item))
                     # 从数据库中删除
-                    if QtWidgets.QMessageBox.question(self, '删除分类信息', '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
+                    if QtWidgets.QMessageBox.question(self, '删除分类信息',
+                                                      '是否确定要删除该分类！') == QtWidgets.QMessageBox.Yes:
                         try:
                             MachineSort.delete().where(MachineSort.sort_id == item.text(2)).execute()
                             # print(result)  # 打印执行结果，为1时代表执行成功，0失败
                         except Exception as e:
-                            print('删除分类错误：', e)
+                            logging.error('删除分类错误：', e)
                         else:
                             item.parent().takeChild(item.parent().indexOfChild(item))  # 删除当前选择项
                             QtWidgets.QMessageBox.information(self, '删除成功', '删除分类成功！')
@@ -627,12 +681,12 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
 
         else:
             # 当前选择项为子类
-            print('当前为子分类，ID：', item.text(2), item.text(3))
-            print('当前子项的索引', item.parent().indexOfChild(item), '上级分类：', item.parent().text(1))
+            # print('当前为子分类，ID：', item.text(2), item.text(3))
+            # print('当前子项的索引', item.parent().indexOfChild(item), '上级分类：', item.parent().text(1))
             self.le_sort_id.setDisabled(False)  # 设置为可输入
             # 将树中获取的信息显示至输入框中
             self.cb_prarent_sort.setCurrentText(item.parent().text(1))  # 设置上级分类为选择项的分类
-            self.cb_prarent_sort.setDisabled(True)                      # 设置为不可选择
+            self.cb_prarent_sort.setDisabled(True)  # 设置为不可选择
             self.le_sort_id.setText(item.text(2)[4:])  # 显示到id输入框
             self.le_sort_name.setText(item.text(3))  # 显示到分类名称输入框
             self.old_sort_data = (item.text(2), item.text(3))  # 定义需要修改的项的原ID
@@ -646,13 +700,14 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             # 判断是否为主分类
             if len(self.old_sort_data[0]) > 4:  # 为子分类
                 modify_sort_data = (self.old_sort_data[0][:4] + self.le_sort_id.text(), self.le_sort_name.text())
-                print('需要修改的数据信息：', modify_sort_data, '原始数据：', self.old_sort_data)
+                # print('需要修改的数据信息：', modify_sort_data, '原始数据：', self.old_sort_data)
                 # 判断是否与原数据一致
                 if modify_sort_data != self.old_sort_data:
                     try:
-                        MachineSort.update(sort_id=modify_sort_data[0],sort_name=modify_sort_data[1]).where(MachineSort.sort_id==self.old_sort_data[0]).execute()
+                        MachineSort.update(sort_id=modify_sort_data[0], sort_name=modify_sort_data[1]).where(
+                            MachineSort.sort_id == self.old_sort_data[0]).execute()
                     except Exception as e:
-                        print('执行修改分类错误：',e)
+                        logging.error('执行修改分类错误：', e)
                     else:
                         self.modify_item.setText(2, modify_sort_data[0])  # 设置第三列值
                         self.modify_item.setText(3, modify_sort_data[1])  # 设置第四列值
@@ -664,17 +719,18 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                         self.le_sort_name.setText('')  # 设置分类名称为空
                         self.modify_item = None  # 置空
                         self.old_sort_data = None  # 置空
-                        self.tree_sort.setCurrentItem(None)         # 设置为非选择状态
+                        self.tree_sort.setCurrentItem(None)  # 设置为非选择状态
                 else:
                     QtWidgets.QMessageBox.warning(self, '修改分类信息', '分类名称或ID没有进行修改！')
             else:  # 为父类（上级分类）
-                print('需要修改的数据信息：', modify_sort_data, '原始数据：', self.old_sort_data)
+                # print('需要修改的数据信息：', modify_sort_data, '原始数据：', self.old_sort_data)
                 # 判断是否与原数据一致
                 if modify_sort_data != self.old_sort_data:
                     try:
-                        MachineSort.update(sort_id=modify_sort_data[0],sort_name=modify_sort_data[1]).where(MachineSort.sort_id==self.old_sort_data[0]).execute()
+                        MachineSort.update(sort_id=modify_sort_data[0], sort_name=modify_sort_data[1]).where(
+                            MachineSort.sort_id == self.old_sort_data[0]).execute()
                     except Exception as e:
-                        print('执行修改分类错误：',e)
+                        logging.error('执行修改分类错误：', e)
                     else:
                         self.modify_item.setText(0, modify_sort_data[0])  # 设置第一列值
                         self.modify_item.setText(1, modify_sort_data[1])  # 设置第二列值
@@ -690,27 +746,26 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 else:
                     QtWidgets.QMessageBox.warning(self, '修改分类信息', '分类名称或ID没有进行修改！')
 
-
     # 重新定义键盘esc键事件，退出修改模式
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             # 当在分类窗口时，退出修改模式
             if self.tabWidget.currentIndex() == 3:
-                print('在设备分类窗口，按了ESC键')
+                # print('在设备分类窗口，按了ESC键')
                 self.cb_prarent_sort.setCurrentIndex(0)
                 self.le_sort_id.setDisabled(False)  # 设置为可编辑
-                self.cb_prarent_sort.setDisabled(False)     # 设置为可选择下拉菜单
-                self.le_sort_id.setText('')  # 设置分类ID为空
-                self.le_sort_name.setText('')  # 设置分类名称为空
+                self.cb_prarent_sort.setDisabled(False)  # 设置为可选择下拉菜单
+                self.le_sort_id.clear()  # 设置分类ID为空
+                self.le_sort_name.clear()  # 设置分类名称为空
                 self.modify_item = None  # 置空
                 self.old_sort_data = None  # 置空
                 self.tree_sort.setCurrentItem(None)  # 设置为非选择状态
             # 当在机柜管理窗口时，退出修改模式
             if self.tabWidget.currentIndex() == 1:
-                print('在机柜管理窗口，按了ESC键')
-                self.le_cab_name.setText('')  # 设置机柜名称为空
-                self.le_cabinet_alias.setText('')  # 设置机柜别名为空
-                self.le_U_count.setText('')  # 设置机柜别名为空
+                # print('在机柜管理窗口，按了ESC键')
+                self.le_cab_name.clear()  # 设置机柜名称为空
+                self.le_cabinet_alias.clear()  # 设置机柜别名为空
+                self.le_U_count.clear()  # 设置机柜别名为空
                 self.ckb_is_used.setChecked(True)  # 设置为True
                 self.modify_cabinet_id = None  # 置空
                 self.tb_cabinet.setCurrentItem(None)  # 设置为非选择状态

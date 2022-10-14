@@ -301,7 +301,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,5">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0">
          <property name="leftMargin">
           <number>5</number>
          </property>
@@ -321,7 +321,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,1,1,1,1,1,1,1,1,1,0" columnstretch="6,1,2,0">
+          <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,1,1,1,1,1,1,1,1,1,1,0,0" columnstretch="6,0,0,0">
            <property name="leftMargin">
             <number>5</number>
            </property>
@@ -334,35 +334,59 @@
            <property name="verticalSpacing">
             <number>15</number>
            </property>
-           <item row="3" column="1">
-            <widget class="QLabel" name="lb_cabinet_alias">
+           <item row="5" column="2">
+            <widget class="QLineEdit" name="le_U_count">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="2">
+            <widget class="QPushButton" name="bt_del_cabinet">
              <property name="font">
               <font>
                <pointsize>12</pointsize>
               </font>
              </property>
              <property name="text">
-              <string>机柜别名</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <string>删除</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="3">
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="1" column="2">
+            <widget class="QCheckBox" name="chkb_multi">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
+             <property name="text">
+              <string>批量添加</string>
              </property>
-            </spacer>
+            </widget>
            </item>
-           <item row="6" column="1">
+           <item row="12" column="0" colspan="4">
+            <widget class="QLabel" name="lb_cab_status">
+             <property name="styleSheet">
+              <string notr="true">color:blue</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="text">
+              <string>删除：选择需要删除的行--&gt; 删除；        修改：双击行--&gt;进入修改模式--&gt;修改</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QComboBox" name="cb_room"/>
+           </item>
+           <item row="9" column="1">
             <spacer name="horizontalSpacer_5">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -375,32 +399,22 @@
              </property>
             </spacer>
            </item>
-           <item row="3" column="2">
-            <widget class="QLineEdit" name="le_cabinet_alias">
+           <item row="2" column="1">
+            <widget class="QLabel" name="lb_room_name">
              <property name="font">
               <font>
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="text">
+              <string>机房名称</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="cb_room"/>
-           </item>
-           <item row="0" column="2">
-            <spacer name="verticalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="0" rowspan="10">
+           <item row="0" column="0" rowspan="12">
             <widget class="QTableWidget" name="tb_cabinet">
              <property name="font">
               <font>
@@ -490,112 +504,23 @@
              </column>
             </widget>
            </item>
-           <item row="8" column="1">
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="8" column="2">
-            <widget class="QPushButton" name="bt_del_cabinet">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>删除</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QLineEdit" name="le_U_count">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="lb_room_name">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>机房名称</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="6" column="2">
-            <widget class="QPushButton" name="bt_add_cabinet">
+            <widget class="QLineEdit" name="le_conut">
              <property name="font">
               <font>
                <pointsize>12</pointsize>
               </font>
              </property>
-             <property name="text">
-              <string>添加</string>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>添加机柜的数量</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="3">
-            <spacer name="horizontalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="lb_count">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>总U数</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2">
-            <widget class="QCheckBox" name="ckb_is_used">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>是否使用</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="2">
-            <spacer name="verticalSpacer_4">
+           <item row="0" column="2">
+            <spacer name="verticalSpacer_3">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -607,7 +532,7 @@
              </property>
             </spacer>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QLabel" name="lb_cabinet_name">
              <property name="font">
               <font>
@@ -622,23 +547,7 @@
              </property>
             </widget>
            </item>
-           <item row="10" column="0" colspan="4">
-            <widget class="QLabel" name="lb_cab_status">
-             <property name="styleSheet">
-              <string notr="true">color:blue</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="text">
-              <string>删除：选择需要删除的行--&gt; 删除；        修改：双击行--&gt;进入修改模式--&gt;修改</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
+           <item row="3" column="2">
             <widget class="QLineEdit" name="le_cab_name">
              <property name="font">
               <font>
@@ -647,7 +556,99 @@
              </property>
             </widget>
            </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="lb_count">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>总U数</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="lb_cabinet_alias">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>机柜别名</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="3">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLineEdit" name="le_cabinet_alias">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
            <item row="7" column="2">
+            <widget class="QCheckBox" name="ckb_is_used">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>是否使用</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="2">
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="8" column="2">
+            <widget class="QPushButton" name="bt_add_cabinet">
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>添加</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="2">
             <widget class="QPushButton" name="bt_cab_modify">
              <property name="font">
               <font>
@@ -656,6 +657,21 @@
              </property>
              <property name="text">
               <string>修改</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLabel" name="lb_count_2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>12</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>数量</string>
              </property>
             </widget>
            </item>
@@ -1508,12 +1524,6 @@
   <tabstop>bt_del_room</tabstop>
   <tabstop>cb_room</tabstop>
   <tabstop>le_cab_name</tabstop>
-  <tabstop>le_cabinet_alias</tabstop>
-  <tabstop>le_U_count</tabstop>
-  <tabstop>ckb_is_used</tabstop>
-  <tabstop>bt_add_cabinet</tabstop>
-  <tabstop>bt_cab_modify</tabstop>
-  <tabstop>bt_del_cabinet</tabstop>
   <tabstop>le_u_name</tabstop>
   <tabstop>le_u_name_alias</tabstop>
   <tabstop>bt_add_u</tabstop>

@@ -3,6 +3,9 @@ import os
 from peewee import *
 import logging
 
+# 定义日志格式
+logging.basicConfig(level=logging.WARN, format='%(asctime)s %(levelname)s %(message)s', filename='machine-sys.log')
+
 
 # database = MySQLDatabase('equipment_mg',
 #                          **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',

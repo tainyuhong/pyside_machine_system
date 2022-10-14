@@ -186,35 +186,47 @@ class Ui_BaseInfo(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setVerticalSpacing(15)
         self.gridLayout_2.setContentsMargins(5, 6, 5, -1)
-        self.lb_cabinet_alias = QLabel(self.tab_cabinet)
-        self.lb_cabinet_alias.setObjectName(u"lb_cabinet_alias")
-        self.lb_cabinet_alias.setFont(font1)
-        self.lb_cabinet_alias.setAlignment(Qt.AlignCenter)
+        self.le_U_count = QLineEdit(self.tab_cabinet)
+        self.le_U_count.setObjectName(u"le_U_count")
+        self.le_U_count.setFont(font1)
 
-        self.gridLayout_2.addWidget(self.lb_cabinet_alias, 3, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.le_U_count, 5, 2, 1, 1)
 
-        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.bt_del_cabinet = QPushButton(self.tab_cabinet)
+        self.bt_del_cabinet.setObjectName(u"bt_del_cabinet")
+        self.bt_del_cabinet.setFont(font1)
 
-        self.gridLayout_2.addItem(self.horizontalSpacer_6, 6, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.bt_del_cabinet, 10, 2, 1, 1)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.chkb_multi = QCheckBox(self.tab_cabinet)
+        self.chkb_multi.setObjectName(u"chkb_multi")
+        self.chkb_multi.setFont(font1)
 
-        self.gridLayout_2.addItem(self.horizontalSpacer_5, 6, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.chkb_multi, 1, 2, 1, 1)
 
-        self.le_cabinet_alias = QLineEdit(self.tab_cabinet)
-        self.le_cabinet_alias.setObjectName(u"le_cabinet_alias")
-        self.le_cabinet_alias.setFont(font1)
+        self.lb_cab_status = QLabel(self.tab_cabinet)
+        self.lb_cab_status.setObjectName(u"lb_cab_status")
+        self.lb_cab_status.setStyleSheet(u"color:blue")
+        self.lb_cab_status.setFrameShape(QFrame.NoFrame)
+        self.lb_cab_status.setFrameShadow(QFrame.Raised)
 
-        self.gridLayout_2.addWidget(self.le_cabinet_alias, 3, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.lb_cab_status, 12, 0, 1, 4)
 
         self.cb_room = QComboBox(self.tab_cabinet)
         self.cb_room.setObjectName(u"cb_room")
 
-        self.gridLayout_2.addWidget(self.cb_room, 1, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.cb_room, 2, 2, 1, 1)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_2.addItem(self.verticalSpacer_3, 0, 2, 1, 1)
+        self.gridLayout_2.addItem(self.horizontalSpacer_5, 9, 1, 1, 1)
+
+        self.lb_room_name = QLabel(self.tab_cabinet)
+        self.lb_room_name.setObjectName(u"lb_room_name")
+        self.lb_room_name.setFont(font1)
+        self.lb_room_name.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.lb_room_name, 2, 1, 1, 1)
 
         self.tb_cabinet = QTableWidget(self.tab_cabinet)
         if (self.tb_cabinet.columnCount() < 6):
@@ -248,85 +260,85 @@ class Ui_BaseInfo(object):
         self.tb_cabinet.verticalHeader().setDefaultSectionSize(28)
         self.tb_cabinet.verticalHeader().setStretchLastSection(False)
 
-        self.gridLayout_2.addWidget(self.tb_cabinet, 0, 0, 10, 1)
+        self.gridLayout_2.addWidget(self.tb_cabinet, 0, 0, 12, 1)
 
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.le_conut = QLineEdit(self.tab_cabinet)
+        self.le_conut.setObjectName(u"le_conut")
+        self.le_conut.setFont(font1)
+        self.le_conut.setDragEnabled(False)
 
-        self.gridLayout_2.addItem(self.horizontalSpacer_7, 8, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.le_conut, 6, 2, 1, 1)
 
-        self.bt_del_cabinet = QPushButton(self.tab_cabinet)
-        self.bt_del_cabinet.setObjectName(u"bt_del_cabinet")
-        self.bt_del_cabinet.setFont(font1)
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout_2.addWidget(self.bt_del_cabinet, 8, 2, 1, 1)
-
-        self.le_U_count = QLineEdit(self.tab_cabinet)
-        self.le_U_count.setObjectName(u"le_U_count")
-        self.le_U_count.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.le_U_count, 4, 2, 1, 1)
-
-        self.lb_room_name = QLabel(self.tab_cabinet)
-        self.lb_room_name.setObjectName(u"lb_room_name")
-        self.lb_room_name.setFont(font1)
-        self.lb_room_name.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_2.addWidget(self.lb_room_name, 1, 1, 1, 1)
-
-        self.bt_add_cabinet = QPushButton(self.tab_cabinet)
-        self.bt_add_cabinet.setObjectName(u"bt_add_cabinet")
-        self.bt_add_cabinet.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.bt_add_cabinet, 6, 2, 1, 1)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_2.addItem(self.horizontalSpacer_8, 8, 3, 1, 1)
-
-        self.lb_count = QLabel(self.tab_cabinet)
-        self.lb_count.setObjectName(u"lb_count")
-        self.lb_count.setFont(font1)
-        self.lb_count.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_2.addWidget(self.lb_count, 4, 1, 1, 1)
-
-        self.ckb_is_used = QCheckBox(self.tab_cabinet)
-        self.ckb_is_used.setObjectName(u"ckb_is_used")
-        self.ckb_is_used.setFont(font1)
-        self.ckb_is_used.setChecked(True)
-
-        self.gridLayout_2.addWidget(self.ckb_is_used, 5, 2, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_4, 9, 2, 1, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_3, 0, 2, 1, 1)
 
         self.lb_cabinet_name = QLabel(self.tab_cabinet)
         self.lb_cabinet_name.setObjectName(u"lb_cabinet_name")
         self.lb_cabinet_name.setFont(font1)
         self.lb_cabinet_name.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout_2.addWidget(self.lb_cabinet_name, 2, 1, 1, 1)
-
-        self.lb_cab_status = QLabel(self.tab_cabinet)
-        self.lb_cab_status.setObjectName(u"lb_cab_status")
-        self.lb_cab_status.setStyleSheet(u"color:blue")
-        self.lb_cab_status.setFrameShape(QFrame.NoFrame)
-        self.lb_cab_status.setFrameShadow(QFrame.Raised)
-
-        self.gridLayout_2.addWidget(self.lb_cab_status, 10, 0, 1, 4)
+        self.gridLayout_2.addWidget(self.lb_cabinet_name, 3, 1, 1, 1)
 
         self.le_cab_name = QLineEdit(self.tab_cabinet)
         self.le_cab_name.setObjectName(u"le_cab_name")
         self.le_cab_name.setFont(font1)
 
-        self.gridLayout_2.addWidget(self.le_cab_name, 2, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.le_cab_name, 3, 2, 1, 1)
+
+        self.lb_count = QLabel(self.tab_cabinet)
+        self.lb_count.setObjectName(u"lb_count")
+        self.lb_count.setFont(font1)
+        self.lb_count.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+
+        self.gridLayout_2.addWidget(self.lb_count, 5, 1, 1, 1)
+
+        self.lb_cabinet_alias = QLabel(self.tab_cabinet)
+        self.lb_cabinet_alias.setObjectName(u"lb_cabinet_alias")
+        self.lb_cabinet_alias.setFont(font1)
+        self.lb_cabinet_alias.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_2.addWidget(self.lb_cabinet_alias, 4, 1, 1, 1)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_2.addItem(self.horizontalSpacer_6, 9, 3, 1, 1)
+
+        self.le_cabinet_alias = QLineEdit(self.tab_cabinet)
+        self.le_cabinet_alias.setObjectName(u"le_cabinet_alias")
+        self.le_cabinet_alias.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.le_cabinet_alias, 4, 2, 1, 1)
+
+        self.ckb_is_used = QCheckBox(self.tab_cabinet)
+        self.ckb_is_used.setObjectName(u"ckb_is_used")
+        self.ckb_is_used.setFont(font1)
+        self.ckb_is_used.setChecked(True)
+
+        self.gridLayout_2.addWidget(self.ckb_is_used, 7, 2, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_4, 11, 2, 1, 1)
+
+        self.bt_add_cabinet = QPushButton(self.tab_cabinet)
+        self.bt_add_cabinet.setObjectName(u"bt_add_cabinet")
+        self.bt_add_cabinet.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.bt_add_cabinet, 8, 2, 1, 1)
 
         self.bt_cab_modify = QPushButton(self.tab_cabinet)
         self.bt_cab_modify.setObjectName(u"bt_cab_modify")
         self.bt_cab_modify.setFont(font1)
 
-        self.gridLayout_2.addWidget(self.bt_cab_modify, 7, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.bt_cab_modify, 9, 2, 1, 1)
+
+        self.lb_count_2 = QLabel(self.tab_cabinet)
+        self.lb_count_2.setObjectName(u"lb_count_2")
+        self.lb_count_2.setEnabled(True)
+        self.lb_count_2.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.lb_count_2, 6, 1, 1, 1)
 
         self.gridLayout_2.setRowStretch(0, 2)
         self.gridLayout_2.setRowStretch(1, 1)
@@ -338,14 +350,12 @@ class Ui_BaseInfo(object):
         self.gridLayout_2.setRowStretch(7, 1)
         self.gridLayout_2.setRowStretch(8, 1)
         self.gridLayout_2.setRowStretch(9, 1)
+        self.gridLayout_2.setRowStretch(10, 1)
         self.gridLayout_2.setColumnStretch(0, 6)
-        self.gridLayout_2.setColumnStretch(1, 1)
-        self.gridLayout_2.setColumnStretch(2, 2)
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
         self.verticalLayout_4.setStretch(0, 1)
-        self.verticalLayout_4.setStretch(1, 5)
 
         self.verticalLayout_5.addLayout(self.verticalLayout_4)
 
@@ -740,13 +750,7 @@ class Ui_BaseInfo(object):
         QWidget.setTabOrder(self.bt_add_room, self.bt_del_room)
         QWidget.setTabOrder(self.bt_del_room, self.cb_room)
         QWidget.setTabOrder(self.cb_room, self.le_cab_name)
-        QWidget.setTabOrder(self.le_cab_name, self.le_cabinet_alias)
-        QWidget.setTabOrder(self.le_cabinet_alias, self.le_U_count)
-        QWidget.setTabOrder(self.le_U_count, self.ckb_is_used)
-        QWidget.setTabOrder(self.ckb_is_used, self.bt_add_cabinet)
-        QWidget.setTabOrder(self.bt_add_cabinet, self.bt_cab_modify)
-        QWidget.setTabOrder(self.bt_cab_modify, self.bt_del_cabinet)
-        QWidget.setTabOrder(self.bt_del_cabinet, self.le_u_name)
+        QWidget.setTabOrder(self.le_cab_name, self.le_u_name)
         QWidget.setTabOrder(self.le_u_name, self.le_u_name_alias)
         QWidget.setTabOrder(self.le_u_name_alias, self.bt_add_u)
         QWidget.setTabOrder(self.bt_add_u, self.bt_del_u)
@@ -789,7 +793,10 @@ class Ui_BaseInfo(object):
         self.label_2.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_room), QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u7ba1\u7406", None))
         self.label_4.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u4fe1\u606f\u7ba1\u7406", None))
-        self.lb_cabinet_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u522b\u540d", None))
+        self.bt_del_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
+        self.chkb_multi.setText(QCoreApplication.translate("BaseInfo", u"\u6279\u91cf\u6dfb\u52a0", None))
+        self.lb_cab_status.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664\uff1b        \u4fee\u6539\uff1a\u53cc\u51fb\u884c-->\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f-->\u4fee\u6539", None))
+        self.lb_room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
         ___qtablewidgetitem3 = self.tb_cabinet.horizontalHeaderItem(0)
         ___qtablewidgetitem3.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));
         ___qtablewidgetitem4 = self.tb_cabinet.horizontalHeaderItem(1)
@@ -802,14 +809,14 @@ class Ui_BaseInfo(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None));
         ___qtablewidgetitem8 = self.tb_cabinet.horizontalHeaderItem(5)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None));
-        self.bt_del_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
-        self.lb_room_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u623f\u540d\u79f0", None))
-        self.bt_add_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
-        self.lb_count.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None))
-        self.ckb_is_used.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None))
+        self.le_conut.setPlaceholderText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0\u673a\u67dc\u7684\u6570\u91cf", None))
         self.lb_cabinet_name.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u540d\u79f0", None))
-        self.lb_cab_status.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664\uff1a\u9009\u62e9\u9700\u8981\u5220\u9664\u7684\u884c--> \u5220\u9664\uff1b        \u4fee\u6539\uff1a\u53cc\u51fb\u884c-->\u8fdb\u5165\u4fee\u6539\u6a21\u5f0f-->\u4fee\u6539", None))
+        self.lb_count.setText(QCoreApplication.translate("BaseInfo", u"\u603bU\u6570", None))
+        self.lb_cabinet_alias.setText(QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u522b\u540d", None))
+        self.ckb_is_used.setText(QCoreApplication.translate("BaseInfo", u"\u662f\u5426\u4f7f\u7528", None))
+        self.bt_add_cabinet.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
         self.bt_cab_modify.setText(QCoreApplication.translate("BaseInfo", u"\u4fee\u6539", None))
+        self.lb_count_2.setText(QCoreApplication.translate("BaseInfo", u"\u6570\u91cf", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_cabinet), QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u7ba1\u7406", None))
         self.label_9.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u4fe1\u606f\u7ba1\u7406", None))
         self.bt_add_u.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))

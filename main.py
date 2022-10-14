@@ -132,7 +132,7 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         input_pass.setCancelButtonText('取消')
         if input_pass.exec():
             # print('Value:',input_pass.textValue(),input_pass.okButtonText())
-            if input_pass.okButtonText()=='确认' and input_pass.textValue().strip() == '123456':
+            if input_pass.okButtonText() == '确认' and input_pass.textValue().strip() == '123456':
                 self.user_passwd_window = UiPassword()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
                 self.user_passwd_window.show()
             else:

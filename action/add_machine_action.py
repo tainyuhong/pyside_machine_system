@@ -112,6 +112,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
                         'factory_date', 'end_ma_date', 'install_date', 'bmc_ip', 'single_power', 'comments']).execute()
                 except Exception as e:
                     QtWidgets.QMessageBox.critical(self,'保存数据错误！', e)
+                    logging.error('保存数据错误！', e)
                 else:
                     if QtWidgets.QMessageBox.question(self,'数据保存','数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
                         self.machine_name.setText('')       # 清空设备名称
