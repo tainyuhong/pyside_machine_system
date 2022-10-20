@@ -349,7 +349,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         # 定义查询U位数据
         u_model = CabPosition.select(CabPosition.id, CabPosition.num, CabPosition.position_name)
         # 输出查询内容
-        data = [(i.id, i.num, i.position_name) for i in u_model]
+        data = [(i.song_id, i.num, i.position_name) for i in u_model]
         self.tb_u.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
         # 显示U位内容至表格
@@ -415,7 +415,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         # 定义查询U位数据
         manfacturer_model = Manufacturer.select(Manufacturer.id, Manufacturer.manufacturer_name)
         # 输出查询内容
-        data = [(i.id, i.manufacturer_name) for i in manfacturer_model]
+        data = [(i.song_id, i.manufacturer_name) for i in manfacturer_model]
         self.tb_manfacturer.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
         # 显示U位内容至表格

@@ -87,15 +87,15 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
 
     # 显示或隐藏密码
     def show_password(self):
-        print(self.pass_flag)
+        # print(self.pass_flag)
 
         if self.pass_flag:
-            print('隐藏密码')
+            # print('隐藏密码')
             self.tb_select.hideColumn(5)
             self.btn_show_pass.setText('显示密码')
             self.pass_flag = False
         elif self.pass_flag == False:
-            print('显示密码')
+            # print('显示密码')
             self.tb_select.showColumn(5)
             self.btn_show_pass.setText('隐藏密码')
             self.pass_flag = True
@@ -187,7 +187,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                                                  MachinePassword.machine_id, MachinePassword.machine_name,
                                                  MachinePassword.room, MachinePassword.sn]).execute()
                 except Exception as e:
-                    print('添加用户密码错误：', e)
+                    logging.error('添加用户密码错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '添加用户密码信息', '添加成功！')
                     # 清空输入框信息
@@ -208,7 +208,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                                                  MachinePassword.remark, MachinePassword.machine_name,
                                                  MachinePassword.room, MachinePassword.machine_type]).execute()
                 except Exception as e:
-                    print('添加用户密码错误：', e)
+                    logging.error('添加用户密码错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '添加用户密码信息', '添加成功！')
                     # 清空输入框信息
@@ -329,7 +329,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     MachinePassword.update(user=username, password=user_passwd).where(
                         MachinePassword.pid == pid).execute()
                 except Exception as e:
-                    print('修改用户密码信息错误：', e)
+                    logging.error('修改用户密码信息错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '修改用户密码信息', '修改成功！')
                     self.selected_data = None  # 清除选择状态
@@ -352,7 +352,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                     MachinePassword.update(user=username, password=user_passwd, machine_name=machine_name, room=room,
                                            ip=ip,remark=remark).where(MachinePassword.pid == pid).execute()
                 except Exception as e:
-                    print('修改用户密码信息错误：', e)
+                    logging.error('修改用户密码信息错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '修改用户密码信息', '修改成功！')
                     self.selected_data = None  # 清除选择状态
@@ -382,7 +382,7 @@ class UiPassword(Ui_password_form, QtWidgets.QWidget):
                 try:
                     MachinePassword.delete().where(MachinePassword.pid == pid).execute()
                 except Exception as e:
-                    print('删除用户密码错误：', e)
+                    logging.error('删除用户密码错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '删除用户信息', '删除用户密码信息成功！')
                     self.display_userdata_modify()  # 刷新查询列表

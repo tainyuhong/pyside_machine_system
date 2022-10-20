@@ -171,7 +171,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         :return:
         """
         changed_item = self.tb_display.currentItem()  # 获取当前修改的单元格信息
-        item_row = changed_item.row()  # 所在行
+        item_row = changed_item.page_data()  # 所在行
         item_col = changed_item.column()  # 所在列
         item_name = changed_item.text()  # 修改后项的值
         machine_id = self.tb_display.item(item_row, 0).text()  # 修改数据所属的设备id

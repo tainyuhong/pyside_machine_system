@@ -147,7 +147,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         self.tb_query_display.setRowCount(len(data_model))  # 设置行数
         # 写入表格内容
         for row, item in enumerate(data_model):
-            for col, cell in enumerate((item.id, item.machine_id, item.hostname, item.ip, item.user,
+            for col, cell in enumerate((item.song_id, item.machine_id, item.hostname, item.ip, item.user,
                                         item.password, item.cmd_name, item.cmd)):
                 cell_data = QtWidgets.QTableWidgetItem(str(cell))
                 self.tb_query_display.setItem(row, col, cell_data)
