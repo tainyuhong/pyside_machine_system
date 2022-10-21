@@ -9,17 +9,13 @@ response = requests.get(m3u8_url,headers=headers)
 # print('请求的URL',response.request.url)
 print(response.text)
 # 解析返回的html文件
-url = re.compile('^https.*ts$')
-print(url.search(response.text))
+url = re.compile('https.*ts')
+ts_url = url.findall(response.text)
 
-# for i in response.text:
-    # title = i.xpath('./div/div[3]/a/text()')
-    # price = i.xpath('./div/div[3]/div/span/text()')[0][1:]
-    # service_comment = i.xpath('./div/div[3]/div[3]/div/span/text()')
-    # print(i)
-
-# with open('D:\\123.mp4','wb') as f:
-#     f.write(video_data.content)
-#     print('视频下载完成')
+for i in ts_url:
+    ts_data = requests.get(i,headers=headers)
+    with open('D:\\vido\\{}'.format(i.split('/')[-1]),'wb') as f:
+        f.write(ts_data.content)
+        print('视频下载完成')
 
 response.close()        # 获取完数据后关闭请求
