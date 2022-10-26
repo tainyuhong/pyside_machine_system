@@ -1,5 +1,4 @@
 import requests
-import re
 from lxml import etree
 import asyncio
 import aiohttp
@@ -58,12 +57,13 @@ async def get_xiaoshou():
     # print('章节总数：',len(menu_list))
     # 获取个章节的内容信息
     tasks = []
-    for item_url in menu_list:
-        async with aiohttp.ClientSession() as session:
+    # 创建会话连接池
+    async with aiohttp.ClientSession() as session:
+        for item_url in menu_list:
             # 创建协程任务获取小说内容
             t = asyncio.create_task(save_file(item_url,session))
             tasks.append(t)
-            await asyncio.wait(tasks)
+        await asyncio.wait(tasks)
 
 
 if __name__ == '__main__':
