@@ -38,8 +38,8 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                     # print(sh.dimensions)
                     rowdata = []
                     data = []
-                    for row in range(3, sh.max_row + 1):
-                        for col in range(1, sh.max_column + 1):
+                    for row in range(3, sh.max_row + 1):        # 从第三行内容开始读取
+                        for col in range(1, sh.max_column + 1):     # 从第一列开始读取
                             rowdata.append(sh.cell(row, col).value)  # 将单元格数据添加到行列表中
                         # print(rowdata)
                         data.append(rowdata)
@@ -55,23 +55,23 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                                                                    'machine_admin', 'app_admin',
                                                                    'mg_ip', 'app_ip1', 'bmc_ip', 'install_date',
                                                                    'uninstall_date', 'single_power',
-                                                                   'comments']).execute()
+                                                                   'comments','asset_id']).execute()
                     except Exception as e:
-                        print('插入数据库中错误：', e)
+                        logging.critical('插入数据库中错误：'.format(e))
                         QtWidgets.QMessageBox.warning(self, '设备信息导入', '导入失败，未导入任何信息！')
                     else:
                         # print('导入成功！！')
                         QtWidgets.QMessageBox.information(self, '设备信息导入','{}条记录插入成功 '.format(len(data)))
 
             else:
-                print('取消导入')
+                QtWidgets.QMessageBox.information(self,'设备信息导入','取消导入')
         else:
             QtWidgets.QMessageBox.warning(self, '设备信息导入', '请选择需要导入的文件！')
 
     def download_template(self):
         # print('点击了模板下载')
         # print(Path(__file__))
-        template_path = Path(__file__).parents[1]/'machine_template'/'machine_infos.xlsx'
+        template_path = Path(__file__).parents[1]/'machine_template'/'machine_infos_tmp.xlsx'
         # print(template_path)
         file,filetype = QtWidgets.QFileDialog.getSaveFileUrl(self,'下载设备导入模板',str(template_path),'.xlsx')
         # print('保存的文件名：',file,file.toLocalFile())

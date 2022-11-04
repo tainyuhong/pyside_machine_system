@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>800</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,11 +24,11 @@
        <property name="font">
         <font>
          <pointsize>30</pointsize>
-         <underline>true</underline>
+         <underline>false</underline>
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color:blue</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>修改设备信息</string>
@@ -272,6 +272,11 @@
        <column>
         <property name="text">
          <string>BMC IP</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>资产编号</string>
         </property>
        </column>
        <column>

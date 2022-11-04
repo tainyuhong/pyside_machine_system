@@ -132,6 +132,7 @@ class MachineInfos(BaseModel):
     uninstall_date = DateField(null=True)
     single_power = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
     comments = CharField(null=True)
+    asset_id = CharField(null=True)         # 资产编号
 
     class Meta:
         table_name = 'machine_infos'
@@ -156,6 +157,7 @@ class MachineList(BaseModel):
     设备信息视图表
     """
     machine_id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    room_id = IntegerField(null=True)
     room_name = CharField()
     cab_name = CharField(null=True)
     start_position = IntegerField(null=True)

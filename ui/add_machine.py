@@ -24,7 +24,7 @@ class Ui_add_machine_form(object):
         if not add_machine_form.objectName():
             add_machine_form.setObjectName(u"add_machine_form")
         add_machine_form.setWindowModality(Qt.ApplicationModal)
-        add_machine_form.resize(800, 650)
+        add_machine_form.resize(1024, 768)
         self.verticalLayout = QVBoxLayout(add_machine_form)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout = QGridLayout()
@@ -307,10 +307,10 @@ class Ui_add_machine_form(object):
         self.label = QLabel(add_machine_form)
         self.label.setObjectName(u"label")
         font4 = QFont()
-        font4.setFamilies([u"\u5b8b\u4f53"])
+        font4.setFamilies([u"\u5fae\u8f6f\u96c5\u9ed1"])
         font4.setPointSize(28)
-        font4.setBold(True)
-        font4.setUnderline(True)
+        font4.setBold(False)
+        font4.setUnderline(False)
         self.label.setFont(font4)
         self.label.setLayoutDirection(Qt.LeftToRight)
         self.label.setStyleSheet(u"")
@@ -343,6 +343,19 @@ class Ui_add_machine_form(object):
         self.bmc_ip.setFont(font)
 
         self.gridLayout.addWidget(self.bmc_ip, 7, 1, 1, 1)
+
+        self.lb_asset_id = QLabel(add_machine_form)
+        self.lb_asset_id.setObjectName(u"lb_asset_id")
+        self.lb_asset_id.setFont(font1)
+        self.lb_asset_id.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.lb_asset_id, 7, 4, 1, 1)
+
+        self.le_asset_id = QLineEdit(add_machine_form)
+        self.le_asset_id.setObjectName(u"le_asset_id")
+        self.le_asset_id.setFont(font1)
+
+        self.gridLayout.addWidget(self.le_asset_id, 7, 5, 1, 1)
 
         self.gridLayout.setRowStretch(0, 2)
         self.gridLayout.setRowStretch(1, 1)
@@ -429,6 +442,8 @@ class Ui_add_machine_form(object):
         self.label.setText(QCoreApplication.translate("add_machine_form", u"\u6dfb\u52a0\u8bbe\u5907", None))
         self.sort_name.setPlaceholderText(QCoreApplication.translate("add_machine_form", u"\u70b9\u51fb\u9009\u62e9\u7c7b\u578b", None))
         self.lb_room.setText(QCoreApplication.translate("add_machine_form", u"\u673a      \u623f", None))
+        self.lb_asset_id.setText(QCoreApplication.translate("add_machine_form", u"\u8d44\u4ea7\u7f16\u53f7", None))
+        self.le_asset_id.setText("")
         self.label_2.setText(QCoreApplication.translate("add_machine_form", u"\u8be5\u6a21\u5757\u4e3b\u8981\u7528\u4e8e\u8865\u5f55\u5df2\u4e0a\u67b6\uff0c\u4f46\u4e0d\u9700\u8981\u4e0a\u67b6\u5355\u7684\u8bbe\u5907\u3002", None))
     # retranslateUi
 

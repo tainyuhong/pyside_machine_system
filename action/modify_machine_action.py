@@ -3,6 +3,7 @@ from ui.modify import *
 from PySide6 import QtWidgets
 # from ui.add_machine import *
 from db.db_orm import *
+
 # import logging
 
 """
@@ -17,6 +18,8 @@ from db.db_orm import *
     + 保存修改：将save_flag标志设置为True,同时将is_selected设置为未查询
 
 """
+
+
 #
 # logger = logging.getLogger('peewee')
 # logger.addHandler(logging.StreamHandler())
@@ -26,7 +29,7 @@ from db.db_orm import *
 class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
     save_flag = True  # 判断是否有修改
     is_selected = False  # 是否再次查询
-    modify_data = None        # 暂存修改数据元素及值
+    modify_data = None  # 暂存修改数据元素及值
 
     def __init__(self, parent=None):
         super(UiModifyMachine, self).__init__(parent)
@@ -59,8 +62,9 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                                                  MachineInfos.model, MachineInfos.machine_sn, MachineInfos.factory_date,
                                                  MachineInfos.end_ma_date, MachineInfos.work_are,
                                                  MachineInfos.machine_admin, MachineInfos.app_admin, MachineInfos.mg_ip,
-                                                 MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.comments) \
-                    .where(MachineInfos.mg_ip.contains(mg_ip)).prefetch(MachineRoom, Cabinet, CabPosition)
+                                                 MachineInfos.app_ip1, MachineInfos.bmc_ip, MachineInfos.asset_id,
+                                                 MachineInfos.comments).where(
+                    MachineInfos.mg_ip.contains(mg_ip)).prefetch(MachineRoom, Cabinet, CabPosition)
                 # print('查询IP SQL', data_model, len(data_model))
                 data = [(i.machine_id, i.machine_roomid.room_id,
                          i.cabinet_name.cab_num, i.start_position.num,
@@ -69,7 +73,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                          i.model, i.machine_sn, i.factory_date,
                          i.end_ma_date, i.work_are,
                          i.machine_admin, i.app_admin, i.mg_ip,
-                         i.app_ip1, i.bmc_ip, i.comments) for i in data_model]
+                         i.app_ip1, i.bmc_ip,i.asset_id, i.comments) for i in data_model]
                 # print(data)
                 data_count = len(data)
                 self.lb_status.setText('----> 共查询到 {} 条记录'.format(data_count))
@@ -151,7 +155,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                 self.tb_display.resizeColumnsToContents()
         else:
-            print('请输入查询条件')
+            QtWidgets.QMessageBox.warning(self, '查询条件', '请输入查询条件!')
         # 在数据未修改或已经保存后才能发送信号
         # print('是否保存的状态,查询显示完后状态：', self.save_flag)
         self.tb_display.cellChanged.connect(self.display_changed)  # 启用单元格修改信号
@@ -162,8 +166,8 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         清除条件框中内容
         :return:
         """
-        self.machine_name.setText('')
-        self.mg_ip.setText('')
+        self.machine_name.clear()
+        self.mg_ip.clear()
 
     def display_changed(self):
         """
@@ -171,7 +175,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         :return:
         """
         changed_item = self.tb_display.currentItem()  # 获取当前修改的单元格信息
-        item_row = changed_item.page_data()  # 所在行
+        item_row = changed_item.row()  # 所在行
         item_col = changed_item.column()  # 所在列
         item_name = changed_item.text()  # 修改后项的值
         machine_id = self.tb_display.item(item_row, 0).text()  # 修改数据所属的设备id
@@ -180,10 +184,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         table_list = ('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
                       'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
                       'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are',
-                      'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip', 'comments')
+                      'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip', 'asset_id', 'comments')
         # 将修改字段添加到修改数据列表中
-        self.modify_data=[]     # 初始化列表
-        self.modify_data.append({'machine_id':machine_id,table_list[item_col]:item_name})
+        self.modify_data = []  # 初始化列表
+        self.modify_data.append({'machine_id': machine_id, table_list[item_col]: item_name})
         # table_list[item_col]:item_name 数据库中要修改的字段名，对应修改后的值
         # print('要修改的数据集',self.modify_data)
 
@@ -203,22 +207,24 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             # 遍历修改内容列表，并提交至数据库中
             for item in self.modify_data:
                 try:
-                    result = MachineInfos.update(item).where(MachineInfos.machine_id == item.get('machine_id')).execute()
+                    result = MachineInfos.update(item).where(
+                        MachineInfos.machine_id == item.get('machine_id')).execute()
                     # print(result)
                 except Exception as e:
-                    print('数据保存失败，错误：',e)
+                    logging.critical('数据保存失败，错误：'.format(e))
+                    QtWidgets.QMessageBox.critical(self, '数据保存失败', '错误：{}'.format(e))
                 else:
                     if result == 0:
-                        print(' xxxxxx 修改失败！')
+                        QtWidgets.QMessageBox.critical(self, '数据修改失败', '修改失败！')
                     else:
-                        print('-------> 成功修改 设备编号为  {} 的信息<-------'.format(item.get('machine_id')))
+                        logging.info('----> 成功修改 设备编号为 {} 的信息<---'.format(item.get('machine_id')))
                         count += 1
             QtWidgets.QMessageBox.information(self, '修改设备', '成功修改【 {} 】处设备信息！'.format(count))
-            self.modify_data = []       # 置空暂存列表数据
+            self.modify_data = []  # 置空暂存列表数据
             self.save_flag = True  # 设置为已保存
             self.is_selected = False  # 设置为未查询过
         else:
-            QtWidgets.QMessageBox.warning(self, '修改设备','没有数据需要保存！')
+            QtWidgets.QMessageBox.warning(self, '修改设备', '没有数据需要保存！')
 
 
 if __name__ == '__main__':
@@ -226,4 +232,3 @@ if __name__ == '__main__':
     add_win = UiModifyMachine()
     add_win.show()
     sys.exit(app.exec())
-

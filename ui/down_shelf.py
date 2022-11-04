@@ -26,7 +26,7 @@ class Ui_down_shelf(object):
         if not down_shelf.objectName():
             down_shelf.setObjectName(u"down_shelf")
         down_shelf.setWindowModality(Qt.WindowModal)
-        down_shelf.resize(1100, 800)
+        down_shelf.resize(1024, 768)
         self.horizontalLayout = QHBoxLayout(down_shelf)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.gridLayout_2 = QGridLayout()

@@ -67,6 +67,8 @@ color: rgba(106, 106, 106, 20);</string>
     <addaction name="actioncxsb"/>
     <addaction name="separator"/>
     <addaction name="action_top"/>
+    <addaction name="separator"/>
+    <addaction name="action_report"/>
    </widget>
    <widget class="QMenu" name="mu_shelf">
     <property name="title">
@@ -171,6 +173,11 @@ color: rgba(106, 106, 106, 20);</string>
   <action name="actionuser_pass">
    <property name="text">
     <string>用户登录密码</string>
+   </property>
+  </action>
+  <action name="action_report">
+   <property name="text">
+    <string>统计分析</string>
    </property>
   </action>
  </widget>

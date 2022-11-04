@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>654</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -228,7 +228,7 @@
          <family>宋体</family>
          <pointsize>28</pointsize>
          <bold>true</bold>
-         <underline>true</underline>
+         <underline>false</underline>
         </font>
        </property>
        <property name="layoutDirection">

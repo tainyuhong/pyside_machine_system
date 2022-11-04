@@ -25,7 +25,7 @@ class Ui_check_config(object):
     def setupUi(self, check_config):
         if not check_config.objectName():
             check_config.setObjectName(u"check_config")
-        check_config.resize(1032, 800)
+        check_config.resize(1024, 768)
         check_config.setStyleSheet(u"QHeaderView::section{ background-color: rgb(255,240,190)};")
         self.horizontalLayout = QHBoxLayout(check_config)
         self.horizontalLayout.setObjectName(u"horizontalLayout")

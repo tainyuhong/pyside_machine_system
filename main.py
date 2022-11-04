@@ -14,6 +14,7 @@ from action.shelf_display_action import UiShelfDisplay
 from action.top_action import DisplayTop
 from action.check_config_action import UiCconfigCheck
 from action.password_config_action import UiPassword
+from action.report_action import MachineReport
 from db.db_orm import database
 
 
@@ -29,6 +30,8 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actioncxsb.triggered.connect(self.show_select_win)
         # 定义设备落位图菜单触发事件
         self.action_top.triggered.connect(self.show_top_win)
+        # 定义设备分析报告页面
+        self.action_report.triggered.connect(self.anlysis_report_win)
 
         # 定义批量导入菜单触发事件
         self.actionpldr.triggered.connect(self.imp_machine_win)
@@ -70,6 +73,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_top_win(self):
         self.top_window = DisplayTop()
         self.top_window.show()
+
+    # 定义分析报告页面
+    def anlysis_report_win(self):
+        self.anlysis_report = MachineReport()
+        self.anlysis_report.show()
 
     # 定义批量导入窗口显示
     def imp_machine_win(self):

@@ -23,7 +23,7 @@ class Ui_up_shelf(object):
     def setupUi(self, up_shelf):
         if not up_shelf.objectName():
             up_shelf.setObjectName(u"up_shelf")
-        up_shelf.resize(779, 654)
+        up_shelf.resize(1024, 768)
         self.verticalLayout = QVBoxLayout(up_shelf)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout = QGridLayout()
@@ -129,7 +129,7 @@ class Ui_up_shelf(object):
         font4.setFamilies([u"\u5b8b\u4f53"])
         font4.setPointSize(28)
         font4.setBold(True)
-        font4.setUnderline(True)
+        font4.setUnderline(False)
         self.label.setFont(font4)
         self.label.setLayoutDirection(Qt.LeftToRight)
         self.label.setStyleSheet(u"")

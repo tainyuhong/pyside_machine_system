@@ -88,11 +88,11 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         bmc_ip = self.bmc_ip.text().strip()  # BMC IP
         single_power = '0' if not self.single_power.isChecked() else '1'  # 是否单电源
         comments = self.comments.toPlainText().strip()  # 备注信息
+        asset_id = self.lb_asset_id.text().strip()      # 资产编号
         add_data = (
             machine_name, sort_name, room, cabinet, down_position, up_position, machine_factory, model, machine_sn,
             lmg_ip, work_are, machine_admin, admin, app_ip, factory_date, end_ma_date, install_date, bmc_ip,
-            single_power,
-            comments)
+            single_power,comments,asset_id)
         # print(add_data)
         # 检查主要填写数据是否为空
         if machine_name == '' or sort_name == '' or room == 0 or cabinet == '' or down_position == '' or \
@@ -109,14 +109,14 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
                         'end_position',
                         'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are', 'machine_admin', 'app_admin',
                         'app_ip1',
-                        'factory_date', 'end_ma_date', 'install_date', 'bmc_ip', 'single_power', 'comments']).execute()
+                        'factory_date', 'end_ma_date', 'install_date', 'bmc_ip', 'single_power', 'comments','asset_id']).execute()
                 except Exception as e:
                     QtWidgets.QMessageBox.critical(self,'保存数据错误！', e)
                     logging.error('保存数据错误！', e)
                 else:
                     if QtWidgets.QMessageBox.question(self,'数据保存','数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
-                        self.machine_name.setText('')       # 清空设备名称
-                        self.comments.setText('')           # 清空备注内容
+                        self.machine_name.clear()       # 清空设备名称
+                        self.comments.clear()           # 清空备注内容
                     else:
                         self.close()     # 退出窗口
             else:
@@ -127,24 +127,25 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         清空所填内容
         :return:
         '''
-        self.machine_name.setText('')
+        self.machine_name.clear()
         self.sort_name.setCurrentIndex(-1)
         self.room.setCurrentIndex(-1)
         self.cabinet.setCurrentIndex(-1)
         self.up_position.setCurrentIndex(-1)
         self.machine_factory.setCurrentIndex(-1)
-        self.model.setText('')
+        self.model.clear()
         self.down_position.setCurrentIndex(-1)
-        self.machine_sn.setText('')
-        self.lmg_ip.setText('')
+        self.machine_sn.clear()
+        self.lmg_ip.clear()
         self.work_are.setCurrentIndex(-1)
-        self.machine_admin.setText('')
-        self.admin.setText('')
-        self.app_ip.setText('')
+        self.machine_admin.clear()
+        self.admin.clear()
+        self.app_ip.clear()
         self.factory_date.setDate(QDate(2000, 1, 1))  # 设置默认为2000/1/1
         self.end_ma_date.setDate(QDate(2000, 1, 1))  # 设置默认为2000/1/1
         self.install_date.setDate(QDate.currentDate())  # 设置默认为系统当天
-        self.comments.setText('')
+        self.comments.clear()
+        self.lb_asset_id.clear()
 
     def get_machine_sort(self):
         """

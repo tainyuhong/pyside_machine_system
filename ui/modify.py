@@ -25,7 +25,7 @@ class Ui_modify(object):
         if not modify.objectName():
             modify.setObjectName(u"modify")
         modify.setWindowModality(Qt.WindowModal)
-        modify.resize(1000, 800)
+        modify.resize(1024, 768)
         self.verticalLayout_2 = QVBoxLayout(modify)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout = QVBoxLayout()
@@ -34,9 +34,9 @@ class Ui_modify(object):
         self.lb_title.setObjectName(u"lb_title")
         font = QFont()
         font.setPointSize(30)
-        font.setUnderline(True)
+        font.setUnderline(False)
         self.lb_title.setFont(font)
-        self.lb_title.setStyleSheet(u"color:blue")
+        self.lb_title.setStyleSheet(u"")
         self.lb_title.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.lb_title)
@@ -112,8 +112,8 @@ class Ui_modify(object):
         self.verticalLayout.addWidget(self.groupBox)
 
         self.tb_display = QTableWidget(modify)
-        if (self.tb_display.columnCount() < 19):
-            self.tb_display.setColumnCount(19)
+        if (self.tb_display.columnCount() < 20):
+            self.tb_display.setColumnCount(20)
         __qtablewidgetitem = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -152,6 +152,8 @@ class Ui_modify(object):
         self.tb_display.setHorizontalHeaderItem(17, __qtablewidgetitem17)
         __qtablewidgetitem18 = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(18, __qtablewidgetitem18)
+        __qtablewidgetitem19 = QTableWidgetItem()
+        self.tb_display.setHorizontalHeaderItem(19, __qtablewidgetitem19)
         if (self.tb_display.rowCount() < 10):
             self.tb_display.setRowCount(10)
         self.tb_display.setObjectName(u"tb_display")
@@ -248,7 +250,9 @@ class Ui_modify(object):
         ___qtablewidgetitem17 = self.tb_display.horizontalHeaderItem(17)
         ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"BMC IP", None));
         ___qtablewidgetitem18 = self.tb_display.horizontalHeaderItem(18)
-        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"\u5907\u6ce8", None));
+        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"\u8d44\u4ea7\u7f16\u53f7", None));
+        ___qtablewidgetitem19 = self.tb_display.horizontalHeaderItem(19)
+        ___qtablewidgetitem19.setText(QCoreApplication.translate("modify", u"\u5907\u6ce8", None));
         self.bt_modify.setText(QCoreApplication.translate("modify", u"\u4fee    \u6539", None))
         self.lb_status.setText(QCoreApplication.translate("modify", u"\u72b6\u6001\u680f", None))
     # retranslateUi

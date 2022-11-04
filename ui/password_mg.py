@@ -25,7 +25,7 @@ class Ui_password_form(object):
     def setupUi(self, password_form):
         if not password_form.objectName():
             password_form.setObjectName(u"password_form")
-        password_form.resize(1017, 768)
+        password_form.resize(1024, 768)
         self.horizontalLayout_2 = QHBoxLayout(password_form)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.verticalLayout_2 = QVBoxLayout()

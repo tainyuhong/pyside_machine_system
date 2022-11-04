@@ -24,7 +24,7 @@ class Ui_MachineSelect(object):
     def setupUi(self, MachineSelect):
         if not MachineSelect.objectName():
             MachineSelect.setObjectName(u"MachineSelect")
-        MachineSelect.resize(1000, 750)
+        MachineSelect.resize(1024, 768)
         icon = QIcon()
         icon.addFile(u"C:/Users/zl/.designer/backup/img/11.ico", QSize(), QIcon.Normal, QIcon.Off)
         MachineSelect.setWindowIcon(icon)

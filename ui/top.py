@@ -22,7 +22,7 @@ class Ui_top(object):
     def setupUi(self, top):
         if not top.objectName():
             top.setObjectName(u"top")
-        top.resize(1000, 800)
+        top.resize(1024, 768)
         self.horizontalLayout = QHBoxLayout(top)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout = QVBoxLayout()

@@ -24,7 +24,7 @@ class Ui_shelf_display(object):
     def setupUi(self, shelf_display):
         if not shelf_display.objectName():
             shelf_display.setObjectName(u"shelf_display")
-        shelf_display.resize(1024, 750)
+        shelf_display.resize(1024, 768)
         self.horizontalLayout_3 = QHBoxLayout(shelf_display)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.tabWidget = QTabWidget(shelf_display)

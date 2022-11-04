@@ -1,4 +1,3 @@
-import logging
 import sys
 import peewee
 
@@ -6,12 +5,6 @@ from ui.base_info import *
 from PySide6 import QtWidgets, QtGui
 # import logging
 from db.db_orm import *
-
-
-#
-# logger = logging.getLogger('peewee')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
 
 
 class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
@@ -324,7 +317,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 if QtWidgets.QMessageBox.question(self, '删除机柜信息',
                                                   '是否确定要删除该机柜信息！') == QtWidgets.QMessageBox.Yes:
                     try:
-                        result_model = Cabinet.update(item).where(Cabinet.cab_id == self.modify_cabinet_id[0]).execute()
+                        Cabinet.update(item).where(Cabinet.cab_id == self.modify_cabinet_id[0]).execute()
                         # print('修改SQL', result_model)
                     except Exception as e:
                         logging.error('删除机柜信息错误：', e)
@@ -349,7 +342,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         # 定义查询U位数据
         u_model = CabPosition.select(CabPosition.id, CabPosition.num, CabPosition.position_name)
         # 输出查询内容
-        data = [(i.song_id, i.num, i.position_name) for i in u_model]
+        data = [(i.id, i.num, i.position_name) for i in u_model]
         self.tb_u.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
         # 显示U位内容至表格
@@ -415,7 +408,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         # 定义查询U位数据
         manfacturer_model = Manufacturer.select(Manufacturer.id, Manufacturer.manufacturer_name)
         # 输出查询内容
-        data = [(i.song_id, i.manufacturer_name) for i in manfacturer_model]
+        data = [(i.id, i.manufacturer_name) for i in manfacturer_model]
         self.tb_manfacturer.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
         # 显示U位内容至表格
@@ -439,7 +432,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     # 保存到数据库
                     result = Manufacturer.insert_many([data], fields=[Manufacturer.manufacturer_name]).execute()
                 except Exception as e:
-                    logging.error('添加设备品牌信息错误：',e)
+                    logging.error('添加设备品牌信息错误：', e)
                 else:
                     # print('返回ID:', result)  # 返回主键id
                     index = self.tb_manfacturer.rowCount()  # 定义索引为总行数
@@ -478,26 +471,26 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
     # 显示设备分类信息树结构
     def display_sort(self):
         sort_infos = MachineSort.select(MachineSort.sort_id, MachineSort.sort_name).where(
-            MachineSort.part_sort == None)  # 分类信息
+            MachineSort.part_sort.is_null())  # 分类信息
         top_sort_data = [(i.sort_id, i.sort_name) for i in sort_infos]
         # print(top_sort_data)
-        top_sort_name = [(i.sort_name) for i in sort_infos]  # 获取上级分类信息
+        top_sort_name = [i.sort_name for i in sort_infos]  # 获取上级分类信息
         self.cb_prarent_sort.clear()  # 清空列表
         self.cb_prarent_sort.addItem('无')
         self.cb_prarent_sort.addItems(top_sort_name)  # 添加列表信息到上级分类菜单中
         # 遍历主分类
         for sort in top_sort_data:
-            RootItem = QTreeWidgetItem()  # 定义根项
-            RootItem.setText(0, str(sort[0]))  # 设置根项第一列内容
-            RootItem.setText(1, str(sort[1]))  # 设置根项第二列内容
-            self.tree_sort.addTopLevelItem(RootItem)  # 设置为顶层项
+            root_item = QTreeWidgetItem()  # 定义根项
+            root_item.setText(0, str(sort[0]))  # 设置根项第一列内容
+            root_item.setText(1, str(sort[1]))  # 设置根项第二列内容
+            self.tree_sort.addTopLevelItem(root_item)  # 设置为顶层项
             # 遍历子分类
             child_sort_infos = MachineSort.select(MachineSort.sort_id, MachineSort.sort_name).where(
                 MachineSort.part_sort == sort[0])  # 分类信息
             child_sort_data = [(i.sort_id, i.sort_name) for i in child_sort_infos]
             # print('子分类信息',child_sort_data)
             for child_item in child_sort_data:
-                Child_Item = QTreeWidgetItem(RootItem)
+                Child_Item = QTreeWidgetItem(root_item)
                 Child_Item.setText(2, str(child_item[0]))  # 设置第三列
                 Child_Item.setText(3, child_item[1])  # 设置第四列
         self.tree_sort.expandItem(self.tree_sort.topLevelItem(0))
@@ -692,7 +685,6 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             self.old_sort_data = (item.text(2), item.text(3))  # 定义需要修改的项的原ID
 
     # 修改分类ID
-    # todo 修改后，上级分类下拉菜单名称不同时更新，待处理
     def modify_sort(self):
         # 获取输入框中值
         modify_sort_data = (self.le_sort_id.text(), self.le_sort_name.text())

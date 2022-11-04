@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>650</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -609,10 +609,10 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <family>宋体</family>
+         <family>微软雅黑</family>
          <pointsize>28</pointsize>
-         <bold>true</bold>
-         <underline>true</underline>
+         <bold>false</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="layoutDirection">
@@ -677,6 +677,33 @@
          <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="4">
+      <widget class="QLabel" name="lb_asset_id">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>资产编号</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="5">
+      <widget class="QLineEdit" name="le_asset_id">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
