@@ -59,6 +59,8 @@ color: rgba(106, 106, 106, 20);</string>
     <addaction name="actiontjsb"/>
     <addaction name="actionxg"/>
     <addaction name="actionpldr"/>
+    <addaction name="separator"/>
+    <addaction name="actionexport_exl"/>
    </widget>
    <widget class="QMenu" name="mu_select">
     <property name="title">
@@ -178,6 +180,11 @@ color: rgba(106, 106, 106, 20);</string>
   <action name="action_report">
    <property name="text">
     <string>统计分析</string>
+   </property>
+  </action>
+  <action name="actionexport_exl">
+   <property name="text">
+    <string>导出设备信息</string>
    </property>
   </action>
  </widget>

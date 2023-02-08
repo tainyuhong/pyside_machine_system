@@ -7,19 +7,20 @@ from peewee import fn
 from ui.export_excel import Ui_export_form
 
 
+# 获取机房名称
 def get_room():
     room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name).order_by(
         MachineRoom.room_id).tuples().execute()
     room_data = [i for i in room_model]  # 转换机字典
-    print('机房信息：', room_data)
+    # print('机房信息：', room_data)
     return room_data
 
 
 class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 定义字段名字典
-    field_dict = {'machine_id': 'ID', 'machine_name': '设备名称', 'machine_sort_name': '分类名称',
+    field_dict = {'machine_id': '设备ID', 'machine_name': '设备名称', 'machine_sort_name': '分类名称',
                   'machine_sn': '序列号', 'machine_factory': '设备厂商', 'model': '型号',
-                  'machine_roomid': '机房ID', 'cabinet_name': '机柜编号', 'start_position': '开始U位',
+                  'machine_roomid': '机房', 'cabinet_name': '机柜编号', 'start_position': '开始U位',
                   'end_position': '结束U位', 'factory_date': '出产日期', 'end_ma_date': '到保日期',
                   'work_are': '业务类型 ', 'run_state': '运行状态 ', 'machine_admin': '管理员',
                   'app_admin': '应用管理员',
@@ -37,19 +38,13 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
 
     # 获取要导出的字段
     def get_field(self):
-        # a = ['ID', '设备名称', '分类名称', '序列号', '设备厂商', '机房ID', '机柜编号', '开始U位', '结束U位', '出产日期',
-        #      '到保日期', '业务类型 ', '运行状态 ', '管理员', '应用管理员', '管理IP地址', '业务IP1', 'bmc IP',
-        #      '上架安装时间', '下架时间', '单电源', '备注', '资产编号',
-        #      ]
-
+        # 将多选框添加到列表控件中
         for i in self.field_dict.values():
             box = QtWidgets.QCheckBox(i)  # 实例化一个QCheckBox，把文字传进去
             box.setChecked(True)  # 默认设置为钩选状态
             item = QtWidgets.QListWidgetItem()  # 实例化一个Item，QListWidget，不能直接加入QCheckBox
             self.listWidget.addItem(item)  # 把QListWidgetItem加入QListWidget
             self.listWidget.setItemWidget(item, box)  # 再把QCheckBox加入QListWidgetItem
-
-    # 获取机房名称
 
     # 导出按钮事件
     def export_exl(self):
@@ -64,7 +59,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
         for i in get_room():
             room_sql = room_sql + "  when machine_roomid='{}' then '{}' ".format(i[0], i[1])
         room_sql = room_sql + ' end as roomid'
-        print('room_sql', room_sql)
+        # print('room_sql', room_sql)
 
         for i in range(count):
             # print('列表项：',self.listWidget.item(i))

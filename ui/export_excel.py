@@ -42,6 +42,7 @@ class Ui_export_form(object):
 
         self.listWidget = QListWidget(export_form)
         self.listWidget.setObjectName(u"listWidget")
+        self.listWidget.setAlternatingRowColors(True)
 
         self.gridLayout.addWidget(self.listWidget, 3, 1, 1, 1)
 

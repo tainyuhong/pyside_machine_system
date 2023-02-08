@@ -41,7 +41,7 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                     for row in range(3, sh.max_row + 1):        # 从第三行内容开始读取
                         for col in range(1, sh.max_column + 1):     # 从第一列开始读取
                             rowdata.append(sh.cell(row, col).value)  # 将单元格数据添加到行列表中
-                        # print(rowdata)
+                        # print('行信息：',rowdata)
                         data.append(rowdata)
                         rowdata = []  # 置空列表添加新的行
                     # print(data)
@@ -57,7 +57,8 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                                                                    'uninstall_date', 'single_power',
                                                                    'comments','asset_id']).execute()
                     except Exception as e:
-                        logging.critical('插入数据库中错误：'.format(e))
+                        # print('导入时出错：',e)
+                        logging.critical('插入数据库中错误：{}'.format(e))
                         QtWidgets.QMessageBox.warning(self, '设备信息导入', '导入失败，未导入任何信息！')
                     else:
                         # print('导入成功！！')

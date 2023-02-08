@@ -141,7 +141,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
         # 设置Y轴 数值
         axis_y = QValueAxis()
         axis_y.setLabelFormat('%d')  # 以整型显示刻度
-        axis_y.setRange(0, 38)
+        axis_y.setRange(0, 56)
         cabinet_chart.addAxis(axis_y, QtCore.Qt.AlignLeft)
         barseries.attachAxis(axis_y)
 

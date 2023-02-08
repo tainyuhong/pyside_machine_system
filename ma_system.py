@@ -15,6 +15,7 @@ from action.top_action import DisplayTop
 from action.check_config_action import UiCconfigCheck
 from action.password_config_action import UiPassword
 from action.report_action import MachineReport
+from action.export_to_excel_action import ExportExcel       # 导出设备信息
 from db.db_orm import database
 
 
@@ -35,6 +36,8 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 定义批量导入菜单触发事件
         self.actionpldr.triggered.connect(self.imp_machine_win)
+        # 定义导出设备信息菜单触发事件
+        self.actionexport_exl.triggered.connect(self.export_ma_win)
 
         # 定义添加设备菜单触发事件
         self.actiontjsb.triggered.connect(self.add_machine_win)
@@ -83,6 +86,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def imp_machine_win(self):
         imp_window = UiImport()
         imp_window.show()
+
+    # 定义导出设备信息窗口显示
+    def export_ma_win(self):
+        self.exp_window = ExportExcel()
+        self.exp_window.show()
 
     # 定义添加设备窗口显示
     def add_machine_win(self):
