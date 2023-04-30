@@ -55,7 +55,7 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                                                                    'machine_admin', 'app_admin',
                                                                    'mg_ip', 'app_ip1', 'bmc_ip', 'install_date',
                                                                    'uninstall_date', 'single_power',
-                                                                   'comments','asset_id']).execute()
+                                                                   'comments','asset_id','system_name']).execute()
                     except Exception as e:
                         # print('导入时出错：',e)
                         logging.critical('插入数据库中错误：{}'.format(e))

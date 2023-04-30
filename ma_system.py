@@ -16,6 +16,7 @@ from action.check_config_action import UiCconfigCheck
 from action.password_config_action import UiPassword
 from action.report_action import MachineReport
 from action.export_to_excel_action import ExportExcel       # 导出设备信息
+from action.warranty_action import UiWarrantySelect        # 维保信息查询
 from db.db_orm import database
 
 
@@ -27,12 +28,16 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 定义基础数据菜单触发事件
         self.action_base.triggered.connect(self.base_info_win)
+
+        # 查询管理
         # 定义设备查询菜单触发事件
         self.actioncxsb.triggered.connect(self.show_select_win)
         # 定义设备落位图菜单触发事件
         self.action_top.triggered.connect(self.show_top_win)
         # 定义设备分析报告页面
         self.action_report.triggered.connect(self.anlysis_report_win)
+        # 定义维保信息查询菜单触发事件
+        self.actionwb.triggered.connect(self.show_wb_select_win)
 
         # 定义批量导入菜单触发事件
         self.actionpldr.triggered.connect(self.imp_machine_win)
@@ -68,9 +73,16 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.base_info_window.show()
 
     # 定义设备查询窗口显示
-    def show_select_win(self):
-        self.select_window = UiMachineSelect()
-        self.select_window.show()
+    @staticmethod
+    def show_select_win():
+        select_window = UiMachineSelect()   # 设备信息查询
+        select_window.show()
+
+    # 定义维保信息查询显示窗口
+    @staticmethod
+    def show_wb_select_win():
+        select_wb_win = UiWarrantySelect()     # 维保信息查询
+        select_wb_win.show()
 
     # 定义设备落位图窗口显示
     def show_top_win(self):

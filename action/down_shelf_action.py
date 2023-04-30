@@ -135,7 +135,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
             print('请输入查询条件')
         # 在数据未修改或已经保存后才能发送信号
 
-    # 钩选的要下架的设备
+    # 下架操作---钩选的要下架的设备
     def select_machine(self):
         rowconut = self.tb_display.rowCount()  # 获取表格中总行数
         select_data = []  # 定义钩选的设备列表

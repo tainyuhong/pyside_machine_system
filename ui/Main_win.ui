@@ -71,6 +71,8 @@ color: rgba(106, 106, 106, 20);</string>
     <addaction name="action_top"/>
     <addaction name="separator"/>
     <addaction name="action_report"/>
+    <addaction name="separator"/>
+    <addaction name="actionwb"/>
    </widget>
    <widget class="QMenu" name="mu_shelf">
     <property name="title">
@@ -185,6 +187,11 @@ color: rgba(106, 106, 106, 20);</string>
   <action name="actionexport_exl">
    <property name="text">
     <string>导出设备信息</string>
+   </property>
+  </action>
+  <action name="actionwb">
+   <property name="text">
+    <string>维保信息查询</string>
    </property>
   </action>
  </widget>

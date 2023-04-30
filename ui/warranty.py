@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'MachineSelect.ui'
+## Form generated from reading UI file 'warranty.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.3.0
 ##
@@ -20,19 +20,16 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QGrid
     QLineEdit, QPushButton, QSizePolicy, QTableWidget,
     QTableWidgetItem, QVBoxLayout, QWidget)
 
-class Ui_MachineSelect(object):
-    def setupUi(self, MachineSelect):
-        if not MachineSelect.objectName():
-            MachineSelect.setObjectName(u"MachineSelect")
-        MachineSelect.resize(1024, 768)
-        icon = QIcon()
-        icon.addFile(u"C:/Users/zl/.designer/backup/img/11.ico", QSize(), QIcon.Normal, QIcon.Off)
-        MachineSelect.setWindowIcon(icon)
-        self.horizontalLayout = QHBoxLayout(MachineSelect)
+class Ui_Warranty(object):
+    def setupUi(self, Warranty):
+        if not Warranty.objectName():
+            Warranty.setObjectName(u"Warranty")
+        Warranty.resize(1024, 768)
+        self.horizontalLayout = QHBoxLayout(Warranty)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.vbox = QGroupBox(MachineSelect)
+        self.vbox = QGroupBox(Warranty)
         self.vbox.setObjectName(u"vbox")
         sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -158,92 +155,97 @@ class Ui_MachineSelect(object):
 
         self.verticalLayout.addWidget(self.groupBox)
 
-        self.select_table = QTableWidget(self.vbox)
-        if (self.select_table.columnCount() < 13):
-            self.select_table.setColumnCount(13)
-        if (self.select_table.rowCount() < 15):
-            self.select_table.setRowCount(15)
-        self.select_table.setObjectName(u"select_table")
-        sizePolicy2.setHeightForWidth(self.select_table.sizePolicy().hasHeightForWidth())
-        self.select_table.setSizePolicy(sizePolicy2)
-        self.select_table.setMinimumSize(QSize(900, 500))
+        self.warranty_select = QTableWidget(self.vbox)
+        if (self.warranty_select.columnCount() < 14):
+            self.warranty_select.setColumnCount(14)
+        if (self.warranty_select.rowCount() < 15):
+            self.warranty_select.setRowCount(15)
+        self.warranty_select.setObjectName(u"warranty_select")
+        sizePolicy2.setHeightForWidth(self.warranty_select.sizePolicy().hasHeightForWidth())
+        self.warranty_select.setSizePolicy(sizePolicy2)
+        self.warranty_select.setMinimumSize(QSize(900, 500))
         font2 = QFont()
         font2.setPointSize(10)
         font2.setBold(False)
-        self.select_table.setFont(font2)
-        self.select_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.select_table.setDragEnabled(False)
-        self.select_table.setAlternatingRowColors(True)
-        self.select_table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.select_table.setGridStyle(Qt.SolidLine)
-        self.select_table.setRowCount(15)
-        self.select_table.setColumnCount(13)
-        self.select_table.horizontalHeader().setVisible(True)
-        self.select_table.horizontalHeader().setCascadingSectionResizes(False)
-        self.select_table.horizontalHeader().setHighlightSections(True)
-        self.select_table.horizontalHeader().setProperty("showSortIndicator", False)
-        self.select_table.verticalHeader().setVisible(False)
-        self.select_table.verticalHeader().setCascadingSectionResizes(False)
+        self.warranty_select.setFont(font2)
+        self.warranty_select.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.warranty_select.setDragEnabled(False)
+        self.warranty_select.setAlternatingRowColors(True)
+        self.warranty_select.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.warranty_select.setGridStyle(Qt.SolidLine)
+        self.warranty_select.setRowCount(15)
+        self.warranty_select.setColumnCount(14)
+        self.warranty_select.horizontalHeader().setVisible(True)
+        self.warranty_select.horizontalHeader().setCascadingSectionResizes(False)
+        self.warranty_select.horizontalHeader().setMinimumSectionSize(50)
+        self.warranty_select.horizontalHeader().setDefaultSectionSize(70)
+        self.warranty_select.horizontalHeader().setHighlightSections(True)
+        self.warranty_select.horizontalHeader().setProperty("showSortIndicator", False)
+        self.warranty_select.verticalHeader().setVisible(False)
+        self.warranty_select.verticalHeader().setCascadingSectionResizes(False)
 
-        self.verticalLayout.addWidget(self.select_table)
+        self.verticalLayout.addWidget(self.warranty_select)
 
+        self.verticalLayout.setStretch(0, 1)
+        self.verticalLayout.setStretch(1, 2)
+        self.verticalLayout.setStretch(2, 10)
 
         self.verticalLayout_2.addWidget(self.vbox)
 
         self.page_layout = QHBoxLayout()
         self.page_layout.setSpacing(20)
         self.page_layout.setObjectName(u"page_layout")
-        self.home_btn = QPushButton(MachineSelect)
+        self.home_btn = QPushButton(Warranty)
         self.home_btn.setObjectName(u"home_btn")
         self.home_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.home_btn)
 
-        self.pre_btn = QPushButton(MachineSelect)
+        self.pre_btn = QPushButton(Warranty)
         self.pre_btn.setObjectName(u"pre_btn")
         self.pre_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.pre_btn)
 
-        self.next_btn = QPushButton(MachineSelect)
+        self.next_btn = QPushButton(Warranty)
         self.next_btn.setObjectName(u"next_btn")
         self.next_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.next_btn)
 
-        self.last_btn = QPushButton(MachineSelect)
+        self.last_btn = QPushButton(Warranty)
         self.last_btn.setObjectName(u"last_btn")
         self.last_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.last_btn)
 
-        self.go_page_lb = QLabel(MachineSelect)
+        self.go_page_lb = QLabel(Warranty)
         self.go_page_lb.setObjectName(u"go_page_lb")
 
         self.page_layout.addWidget(self.go_page_lb)
 
-        self.page_input_le = QLineEdit(MachineSelect)
+        self.page_input_le = QLineEdit(Warranty)
         self.page_input_le.setObjectName(u"page_input_le")
 
         self.page_layout.addWidget(self.page_input_le)
 
-        self.page_lb = QLabel(MachineSelect)
+        self.page_lb = QLabel(Warranty)
         self.page_lb.setObjectName(u"page_lb")
 
         self.page_layout.addWidget(self.page_lb)
 
-        self.go_btn = QPushButton(MachineSelect)
+        self.go_btn = QPushButton(Warranty)
         self.go_btn.setObjectName(u"go_btn")
         self.go_btn.setEnabled(False)
 
         self.page_layout.addWidget(self.go_btn)
 
-        self.total_page_lb = QLabel(MachineSelect)
+        self.total_page_lb = QLabel(Warranty)
         self.total_page_lb.setObjectName(u"total_page_lb")
 
         self.page_layout.addWidget(self.total_page_lb)
 
-        self.current_page_lb = QLabel(MachineSelect)
+        self.current_page_lb = QLabel(Warranty)
         self.current_page_lb.setObjectName(u"current_page_lb")
 
         self.page_layout.addWidget(self.current_page_lb)
@@ -261,44 +263,36 @@ class Ui_MachineSelect(object):
 
         self.verticalLayout_2.addLayout(self.page_layout)
 
+        self.verticalLayout_2.setStretch(0, 12)
+        self.verticalLayout_2.setStretch(1, 1)
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
 
-        QWidget.setTabOrder(self.mg_ip, self.bmc_ip)
-        QWidget.setTabOrder(self.bmc_ip, self.machine_name)
-        QWidget.setTabOrder(self.machine_name, self.select_btn)
-        QWidget.setTabOrder(self.select_btn, self.select_table)
-        QWidget.setTabOrder(self.select_table, self.home_btn)
-        QWidget.setTabOrder(self.home_btn, self.pre_btn)
-        QWidget.setTabOrder(self.pre_btn, self.next_btn)
-        QWidget.setTabOrder(self.next_btn, self.last_btn)
-        QWidget.setTabOrder(self.last_btn, self.page_input_le)
-        QWidget.setTabOrder(self.page_input_le, self.go_btn)
 
-        self.retranslateUi(MachineSelect)
+        self.retranslateUi(Warranty)
 
-        QMetaObject.connectSlotsByName(MachineSelect)
+        QMetaObject.connectSlotsByName(Warranty)
     # setupUi
 
-    def retranslateUi(self, MachineSelect):
-        MachineSelect.setWindowTitle(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u67e5\u8be2\u7a97\u53e3", None))
-        self.title.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u67e5\u8be2", None))
-        self.groupBox.setTitle(QCoreApplication.translate("MachineSelect", u"\u67e5\u8be2\u6761\u4ef6", None))
-        self.label.setText(QCoreApplication.translate("MachineSelect", u"\u673a    \u623f", None))
-        self.select_btn.setText(QCoreApplication.translate("MachineSelect", u"\u67e5    \u8be2", None))
-        self.label_4.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5185   IP", None))
-        self.label_3.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u540d\u79f0", None))
-        self.label_2.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5916IP", None))
-        self.room.setItemText(0, QCoreApplication.translate("MachineSelect", u"\u6240\u6709", None))
+    def retranslateUi(self, Warranty):
+        Warranty.setWindowTitle(QCoreApplication.translate("Warranty", u"\u7ef4\u4fdd\u4fe1\u606f\u67e5\u8be2", None))
+        self.title.setText(QCoreApplication.translate("Warranty", u"\u8bbe\u5907\u7ef4\u4fdd\u4fe1\u606f\u67e5\u8be2", None))
+        self.groupBox.setTitle(QCoreApplication.translate("Warranty", u"\u67e5\u8be2\u6761\u4ef6", None))
+        self.label.setText(QCoreApplication.translate("Warranty", u"\u673a    \u623f", None))
+        self.select_btn.setText(QCoreApplication.translate("Warranty", u"\u67e5    \u8be2", None))
+        self.label_4.setText(QCoreApplication.translate("Warranty", u"\u5e26\u5185   IP", None))
+        self.label_3.setText(QCoreApplication.translate("Warranty", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.label_2.setText(QCoreApplication.translate("Warranty", u"\u5e26\u5916IP", None))
+        self.room.setItemText(0, QCoreApplication.translate("Warranty", u"\u6240\u6709", None))
 
-        self.home_btn.setText(QCoreApplication.translate("MachineSelect", u"\u9996\u9875", None))
-        self.pre_btn.setText(QCoreApplication.translate("MachineSelect", u"\u4e0a\u4e00\u9875", None))
-        self.next_btn.setText(QCoreApplication.translate("MachineSelect", u"\u4e0b\u4e00\u9875", None))
-        self.last_btn.setText(QCoreApplication.translate("MachineSelect", u"\u6700\u540e\u4e00\u9875", None))
-        self.go_page_lb.setText(QCoreApplication.translate("MachineSelect", u"\u8df3\u8f6c\u5230", None))
-        self.page_lb.setText(QCoreApplication.translate("MachineSelect", u"\u9875", None))
-        self.go_btn.setText(QCoreApplication.translate("MachineSelect", u"\u8f6c\u5230", None))
-        self.total_page_lb.setText(QCoreApplication.translate("MachineSelect", u"\u603b\u9875\u6570", None))
-        self.current_page_lb.setText(QCoreApplication.translate("MachineSelect", u"\u5f53\u524d\u9875", None))
+        self.home_btn.setText(QCoreApplication.translate("Warranty", u"\u9996\u9875", None))
+        self.pre_btn.setText(QCoreApplication.translate("Warranty", u"\u4e0a\u4e00\u9875", None))
+        self.next_btn.setText(QCoreApplication.translate("Warranty", u"\u4e0b\u4e00\u9875", None))
+        self.last_btn.setText(QCoreApplication.translate("Warranty", u"\u6700\u540e\u4e00\u9875", None))
+        self.go_page_lb.setText(QCoreApplication.translate("Warranty", u"\u8df3\u8f6c\u5230", None))
+        self.page_lb.setText(QCoreApplication.translate("Warranty", u"\u9875", None))
+        self.go_btn.setText(QCoreApplication.translate("Warranty", u"\u8f6c\u5230", None))
+        self.total_page_lb.setText(QCoreApplication.translate("Warranty", u"\u603b\u9875\u6570", None))
+        self.current_page_lb.setText(QCoreApplication.translate("Warranty", u"\u5f53\u524d\u9875", None))
     # retranslateUi
 

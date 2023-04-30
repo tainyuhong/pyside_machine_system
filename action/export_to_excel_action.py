@@ -1,6 +1,7 @@
 import sys
 import pathlib
 import openpyxl
+from openpyxl.styles import Border, Side
 from PySide6 import QtWidgets, QtCore
 from db.db_orm import *
 from peewee import fn
@@ -26,7 +27,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                   'app_admin': '应用管理员',
                   'mg_ip': '管理IP地址', 'app_ip1': '业务IP', 'bmc_ip': 'BMC IP',
                   'install_date': '上架安装时间',
-                  'uninstall_date': '下架时间', 'single_power': '单电源', 'asset_id': '资产编号',
+                  'uninstall_date': '下架时间', 'single_power': '单电源', 'asset_id': '资产编号','system_name': '系统名称',
                   'comments': '备注'}
 
     def __init__(self, parent=None):
@@ -51,7 +52,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
         # print('导出至excel')
         exp_sql = """SELECT {} FROM machine_infos """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
-        count = self.listWidget.count()
+        count = self.listWidget.count()     # 列数
         chooses_list = []  # 选择的字段内容
         choose_name = []  # 选择
         # 动态生成机房名与ID转换sql
@@ -70,17 +71,23 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                 chooses_list.append(chk_item.text())
                 # print('数据库字段名：',new_data[chk_item.text()])
 
-                # 设置运行状态字段,将状态码转换为字符显示
+                # 设置业务类型字段,将状态码转换为字符显示
                 if new_data[chk_item.text()] == 'work_are':
                     new_data[chk_item.text()] = "case when work_are = '1' then '生产' when work_are ='2' then '电渠' \
-                    when work_are ='3' then '灾备' when work_are ='4' then '开发'  end as workare"
+                    when work_are ='3' then '灾备' when work_are ='4' then '开发' when work_are ='5' then '备份' \
+                     when work_are ='6' then '分行' end as workare"
                 # 设置运行状态字段,将状态码转换为字符显示
                 elif new_data[chk_item.text()] == 'run_state':
-                    new_data[chk_item.text()] = "case when run_state = '1' then '运行' when run_state ='2' then '下线'\
+                    new_data[chk_item.text()] = "case when run_state = '1' then '运行' when run_state ='2' then '断网'\
                                  when run_state ='3' then '关机' when run_state ='4' then '下架' \
                                  when run_state ='5' then '未加电' end as runstat"
+                # 机房ID与机房名称的转换
                 elif new_data[chk_item.text()] == 'machine_roomid':
                     new_data[chk_item.text()] = room_sql
+                # 设备是否单电源字段，将状态码转换为字符显示
+                elif new_data[chk_item.text()] == 'single_power':
+                    new_data[chk_item.text()] = "case when single_power='1'  then '是' \
+                    when single_power='0' then '否' end as is_single_power "
 
                 choose_name.append(new_data[chk_item.text()])
         # print('选择的字段值内容：', chooses_list)
@@ -105,9 +112,21 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                 ws = wb.active
                 ws.title = '设备信息'
                 ws.append(chooses_list)  # 写入表格标题栏
+                # 创建边框线对象
+                border = Border(left=Side(style='thin',color='000000'),
+                                right=Side(style='thin',color='000000'),
+                                top=Side(style='thin',color='000000'),
+                                bottom=Side(style='thin',color='000000'))
+
                 # 向表格中写入数据
                 for row in data:
                     ws.append(row)  # 把查询到的数据写入到表中
+
+                # 批量对单元格进行格式化
+                for r in ws.iter_rows(min_row=1,max_col=ws.max_column,max_row=ws.max_row):
+                    for c in r:
+                        c.border=border     # 设置单元格边框样式
+
                 # 保存
                 filepath, filetype = QtWidgets.QFileDialog.getSaveFileUrl(self, '保存导出文件', filter='.xlsx')
                 # print('保存文件路径：',filepath,filepath.toLocalFile())

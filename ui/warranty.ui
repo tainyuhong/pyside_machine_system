@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MachineSelect</class>
- <widget class="QWidget" name="MachineSelect">
+ <class>Warranty</class>
+ <widget class="QWidget" name="Warranty">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,15 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>设备查询窗口</string>
-  </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>C:/Users/zl/.designer/backup/img/11.ico</normaloff>C:/Users/zl/.designer/backup/img/11.ico</iconset>
+   <string>维保信息查询</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="12,1">
      <item>
       <widget class="QGroupBox" name="vbox">
        <property name="sizePolicy">
@@ -37,7 +33,7 @@
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,10">
         <item>
          <widget class="QLabel" name="title">
           <property name="sizePolicy">
@@ -52,7 +48,7 @@
            </font>
           </property>
           <property name="text">
-           <string>设备查询</string>
+           <string>设备维保信息查询</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -223,7 +219,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="select_table">
+         <widget class="QTableWidget" name="warranty_select">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -261,13 +257,19 @@
            <number>15</number>
           </property>
           <property name="columnCount">
-           <number>13</number>
+           <number>14</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>50</number>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>70</number>
           </attribute>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>true</bool>
@@ -296,6 +298,7 @@
           <row/>
           <row/>
           <row/>
+          <column/>
           <column/>
           <column/>
           <column/>
@@ -406,19 +409,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>mg_ip</tabstop>
-  <tabstop>bmc_ip</tabstop>
-  <tabstop>machine_name</tabstop>
-  <tabstop>select_btn</tabstop>
-  <tabstop>select_table</tabstop>
-  <tabstop>home_btn</tabstop>
-  <tabstop>pre_btn</tabstop>
-  <tabstop>next_btn</tabstop>
-  <tabstop>last_btn</tabstop>
-  <tabstop>page_input_le</tabstop>
-  <tabstop>go_btn</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>

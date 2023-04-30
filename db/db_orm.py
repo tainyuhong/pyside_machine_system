@@ -133,7 +133,7 @@ class MachineInfos(BaseModel):
     single_power = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
     comments = CharField(null=True)
     asset_id = CharField(null=True)         # 资产编号
-
+    system_name = CharField(null=True)         # 业务系统
     class Meta:
         table_name = 'machine_infos'
 
@@ -281,4 +281,45 @@ class ViewUpshelf(BaseModel):
     class Meta:
         table_name = 'view_upshelf'
         primary_key = False
+
+
+class ViewWarranty(BaseModel):
+    """
+    维保信息查询视图
+    """
+    bmc_ip = CharField(null=True)
+    cabinet_name = CharField(null=True)
+    comment = CharField(null=True)
+    end_date = DateField(null=True)
+    how_long = IntegerField(null=True)
+    is_under = CharField(null=True)
+    machine_id = IntegerField()
+    machine_name = CharField(null=True)
+    mg_ip = CharField(null=True)
+    room_name = CharField()
+    start_date = DateField(null=True)
+    start_position = IntegerField(null=True)
+    w_id = IntegerField(constraints=[SQL("DEFAULT 0")])
+    w_type = CharField(null=True)
+
+    class Meta:
+        table_name = 'view_warranty'
+        primary_key = False
+
+
+class WarrantyInfos(BaseModel):
+    """
+    维保信息表
+    """
+    comment = CharField(null=True)
+    end_date = DateField(null=True)
+    how_long = IntegerField(null=True)
+    is_under = IntegerField(null=True)
+    machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
+    start_date = DateField(null=True)
+    type = IntegerField(null=True)
+    w_id = AutoField()
+
+    class Meta:
+        table_name = 'warranty_infos'
 

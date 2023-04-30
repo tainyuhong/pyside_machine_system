@@ -1,29 +1,20 @@
 import sys
-from PySide6 import QtWidgets,QtGui
-from ui.MachineSelect import *
+from PySide6 import QtWidgets, QtGui
+from ui.warranty import *
 # from db.db_handler import *
 from db.db_orm import *
 
 
-# import logging
-#
-#
-# logger = logging.getLogger('peewee')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
-
-
-class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
+class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
     def __init__(self, parent=None):
-        super(UiMachineSelect, self).__init__(parent)
+        super(UiWarrantySelect, self).__init__(parent)
         self.setupUi(self)
         self.get_room_data()  # 显示机房信息
         # 设置表格相关信息
-        self.select_table.setHorizontalHeaderLabels(
-            ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
-             '带内IP',
-             '带外IP', '设备管理员'])
-        self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
+        self.warranty_select.setHorizontalHeaderLabels(
+            ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '维保开始日',
+             '维保结束日', '保修时长', '维保类型', '是否在保内', '备注'])
+        # self.warranty_select.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 初始化定义分页信息
         # self.pre_page = None
@@ -46,9 +37,6 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.home_btn.clicked.connect(lambda: self.firstPage(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件
         self.last_btn.clicked.connect(lambda: self.lastPage(self.data_sql, self.select_values[:-1]))  # 定义最后一页事件
 
-        # 表格控件选中事件
-        self.select_table.clicked.connect(self.display_warranty_info)  # 定义表格点击事件
-
     # 获取机房名称信息
     def get_room_data(self):
         room_data = MachineRoom.select(MachineRoom.room_name)
@@ -67,9 +55,10 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
-        sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, 
-        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin 
-        FROM equipment_mg.machine_list  where 1 = 1 '''
+        sql = '''SELECT w_id, machine_id, room_name, cabinet_name, start_position, machine_name, mg_ip, bmc_ip, 
+                start_date, end_date, how_long, w_type, is_under, comment
+                     FROM equipment_mg.view_warranty  WHERE 1=1 
+              '''
 
         # 判断并组合查询SQL
         if self.room.currentIndex() > 0:
@@ -95,19 +84,6 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # print('总页数', self.totalPage)
         self.current_page = 1
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
-
-    # 定义点击表格元素时，显示设备相应的保修信息
-    def display_warranty_info(self):
-        row_data = self.select_table.currentItem()
-        if row_data:
-            machine_id = self.select_table.item(row_data.row(), 0).text()
-            # print('被选中', row_data.row(), machine_id)
-            # 获取相应设备的维保信息情况
-            data = WarrantyInfos.select(fn.Max(WarrantyInfos.w_id),WarrantyInfos.start_date, WarrantyInfos.end_date).where(
-                WarrantyInfos.machine == machine_id).tuples()   # 当一个设备有多条维保信息时，最ID最大的一条信息显示
-            data_info = [i[1:] for i in data]
-            # print(data_info)
-            row_data.setToolTip('保修开始日：{}\r\n保修结束日：{} '.format(data_info[0][0],data_info[0][1]))
 
     # 获取要查询的总页数
     def page_record(self, sql, values):
@@ -152,14 +128,19 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             page_data = database.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容
             # print('查询页数据：', page_data)
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
-        self.select_table.clearContents()  # 清除所有内容
+        self.warranty_select.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
-            for _ in range(13):  # 13为列数
+            for _ in range(self.warranty_select.columnCount()):  # 表格的列数
                 if page_data[i][_] is None:
-                    self.select_table.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
+                    self.warranty_select.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:
-                    self.select_table.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
-        self.select_table.resizeColumnsToContents()  # 自适应列宽
+                    self.warranty_select.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
+        # self.warranty_select.resizeColumnsToContents()  # 自适应列宽
+        self.warranty_select.setColumnWidth(5,150)       # 设备名称列宽
+        self.warranty_select.setColumnWidth(6,150)       # 带内IP列宽
+        self.warranty_select.setColumnWidth(7,150)       # bmc_ip列宽
+        self.warranty_select.setColumnWidth(8,100)      # 设备开始日期列宽
+        self.warranty_select.setColumnWidth(9,100)      # 设备结束日期列宽
         # print('self.select_values',self.select_values)
         self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
 
@@ -270,6 +251,6 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    mainWindow = UiMachineSelect()
+    mainWindow = UiWarrantySelect()
     mainWindow.show()
     sys.exit(app.exec())

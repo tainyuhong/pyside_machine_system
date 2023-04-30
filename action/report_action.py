@@ -5,6 +5,9 @@ from db.db_orm import *
 from peewee import fn
 from ui.report import Ui_report_form
 
+# todo 机柜信息等变化后，重新查询没有变化，要退出系统重新登录才变化
+# 解决方法：将机柜机房信息变量放置在内中
+
 # 机柜名称
 room_data_model = MachineRoom.select(MachineRoom.room_name).order_by(MachineRoom.room_id).execute()
 # 机房总数量

@@ -7,6 +7,8 @@ from db.db_orm import *
 设备位图
 
 """
+
+
 class DisplayTop(QtWidgets.QWidget, Ui_top):
     room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
     rooms = None
@@ -14,12 +16,13 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
     def __init__(self, parent=None):
         super(DisplayTop, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowState(QtCore.Qt.WindowMaximized)      # 最大化打开窗口
+        self.setWindowState(QtCore.Qt.WindowMaximized)  # 最大化打开窗口
         self.create_room_win()  # 创建机房窗口视图
 
     # 获取机房信息
     def get_room(self):
-        room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name).order_by(MachineRoom.room_id).execute()  # 查询有几个机房数据
+        room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name).order_by(
+            MachineRoom.room_id).execute()  # 查询有几个机房数据
         # 将机房信息取出作为公共变量
         self.room_and_id = {}  # 定义一个机房ID与机房名称的映射字典
         # 生成机房ID与机房名称的映射字典
@@ -32,7 +35,7 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
     # 生成每个机房的页面窗口视图
     def create_room_win(self):
         # cell_bg_color = QtGui.QBrush(QtGui.QColor(85, 170, 255, 255))  # 定义表格单元格画刷颜色
-        cell_bg_color = QtGui.QBrush(QtGui.QColor(250,250,210))  # 定义表格单元格画刷颜色
+        cell_bg_color = QtGui.QBrush(QtGui.QColor(250, 250, 210))  # 定义表格单元格画刷颜色
         self.get_room()  # 获取机房数据
         for tab_name in self.rooms:
             tab = QtWidgets.QWidget()
@@ -56,13 +59,15 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
             # 将设备放入机柜对应位置上
             room_machine_datas = self.sit_to_pos(tab_name)
             for machine in room_machine_datas:
-                # print('machine_data', machine)      # 数据格式：('A01', 2, 4, '第二台上架设备', '8.8.8.8')
+                # print('machine_data', machine)      # 数据格式：('A01', 2, 4, '第二台上架设备', '8.8.8.8', '8.8.8.8')
+                # print(machine)
                 jigui = machine[0]  # 相当于表格的列
                 u_pos = machine[1]  # 相当于表格的行
-                item = QtWidgets.QTableWidgetItem(str(machine[3]) + '\n\r' + str(machine[4]))       # 定义单元格内容
-                item.setBackground(cell_bg_color)       # 设置单元格背景色
-                item.setTextAlignment(QtCore.Qt.AlignCenter)    # 水平居中对齐
-                table.setItem(u_pos - 1, cabinet.index(jigui),item)  # 写入对应机柜数据
+                # item = QtWidgets.QTableWidgetItem(str(machine[3]) + '\n\r' + str(machine[4]) + '\n\r' + str(machine[5]))  # 定义单元格内容
+                item = QtWidgets.QTableWidgetItem('\n\r'.join(machine[3:]))  # 定义单元格内容
+                item.setBackground(cell_bg_color)  # 设置单元格背景色
+                item.setTextAlignment(QtCore.Qt.AlignCenter)  # 水平居中对齐
+                table.setItem(u_pos - 1, cabinet.index(jigui), item)  # 写入对应机柜数据
                 if machine[2] > 1:
                     table.setSpan(u_pos - 1, cabinet.index(jigui), machine[2], 1)  # 对多U的设备进行单元格合并
                 table.resizeRowsToContents()  # 自适应行高
@@ -103,9 +108,17 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
     # 将设备写入对应U位中
     def sit_to_pos(self, room):
         machine_model = MachineList.select(MachineList.cab_name, MachineList.start_position, MachineList.postion_u,
-                                           MachineList.machine_name, MachineList.mg_ip).where(
-            MachineList.room_name == room).execute()
-        machine_data = [(i.cab_name, i.start_position, i.postion_u, i.machine_name, i.mg_ip) for i in machine_model]
+                                           Case(None, ((MachineList.machine_name.is_null(True), ''), (
+                                           MachineList.machine_name.is_null(False), MachineList.machine_name))),
+                                           Case(None, (
+                                               (MachineList.mg_ip.is_null(True), ''),
+                                               (MachineList.mg_ip.is_null(False), MachineList.mg_ip)), ),
+                                           Case(None, ((MachineList.bmc_ip.is_null(True), ''),
+                                                       (MachineList.bmc_ip.is_null(False), MachineList.bmc_ip)))).where(
+            MachineList.room_name == room).tuples()
+        # print(machine_model)
+        # machine_data = [(i.cab_name, i.start_position, i.postion_u, i.machine_name, i.mg_ip, i.bmc_ip) for i in machine_model]
+        machine_data = [i for i in machine_model]
         # print(machine_data)
         return machine_data
 

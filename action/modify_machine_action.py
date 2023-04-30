@@ -80,13 +80,18 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                 self.lb_status.setStyleSheet('color:blue')
                 self.tb_display.setRowCount(data_count)  # 根据内容设置行数
                 self.tb_display.clearContents()
+                # 将查询结果显示在表格控件中
                 for row, d1 in enumerate(data):
+                    # print('每一行数据：',d1)
                     for col, d2 in enumerate(d1):
                         if col == 0:
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                             self.tb_display.item(row, 0).setFlags(Qt.ItemIsEnabled)  # 第一列设置为不可编辑
                         else:
-                            self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+                            if d2 is None:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(''))
+                            else:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                 self.tb_display.resizeColumnsToContents()
             elif mg_ip == '':
                 # print('IP为空')
@@ -118,7 +123,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                             self.tb_display.item(row, 0).setFlags(Qt.ItemIsEnabled)  # 第一列设置为不可编辑
                         else:
-                            self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+                            if d2 is None:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(''))
+                            else:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                 self.tb_display.resizeColumnsToContents()  # 设置自适应列宽
 
             elif machine_name != '' and mg_ip != '':
@@ -152,7 +160,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                             self.tb_display.item(row, 0).setFlags(Qt.ItemIsEnabled)  # 第一列设置为不可编辑
                         else:
-                            self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+                            if d2 is None:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(''))
+                            else:
+                                self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                 self.tb_display.resizeColumnsToContents()
         else:
             QtWidgets.QMessageBox.warning(self, '查询条件', '请输入查询条件!')
