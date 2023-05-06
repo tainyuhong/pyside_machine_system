@@ -1,0 +1,1 @@
+E:\PycharmProjects\base_notebook\venv\Scripts\python.exe E:\PycharmProjects\pyside_machine_system\ma_system.py 

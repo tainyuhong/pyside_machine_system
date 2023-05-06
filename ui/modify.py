@@ -15,10 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLayout,
-    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFrame,
+    QGridLayout, QGroupBox, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QPushButton, QRadioButton,
+    QSizePolicy, QSpacerItem, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 
 class Ui_modify(object):
     def setupUi(self, modify):
@@ -26,10 +27,10 @@ class Ui_modify(object):
             modify.setObjectName(u"modify")
         modify.setWindowModality(Qt.WindowModal)
         modify.resize(1024, 768)
-        self.verticalLayout_2 = QVBoxLayout(modify)
+        self.horizontalLayout_2 = QHBoxLayout(modify)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
         self.lb_title = QLabel(modify)
         self.lb_title.setObjectName(u"lb_title")
         font = QFont()
@@ -39,7 +40,7 @@ class Ui_modify(object):
         self.lb_title.setStyleSheet(u"")
         self.lb_title.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.lb_title)
+        self.verticalLayout_2.addWidget(self.lb_title)
 
         self.groupBox = QGroupBox(modify)
         self.groupBox.setObjectName(u"groupBox")
@@ -51,65 +52,107 @@ class Ui_modify(object):
         self.groupBox.setStyleSheet(u"")
         self.groupBox.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.groupBox.setFlat(False)
-        self.horizontalLayout_2 = QHBoxLayout(self.groupBox)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.verticalLayout = QVBoxLayout(self.groupBox)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout = QGridLayout()
-        self.gridLayout.setSpacing(15)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 7, 1, 1)
+
+        self.cb_room = QComboBox(self.groupBox)
+        self.cb_room.addItem("")
+        self.cb_room.setObjectName(u"cb_room")
         font1 = QFont()
         font1.setPointSize(12)
+        self.cb_room.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_room, 0, 1, 1, 1)
+
+        self.bt_select = QPushButton(self.groupBox)
+        self.bt_select.setObjectName(u"bt_select")
+        self.bt_select.setFont(font1)
+
+        self.gridLayout.addWidget(self.bt_select, 0, 8, 1, 1)
+
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
         self.machine_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.machine_name, 0, 1, 1, 2)
+        self.gridLayout.addWidget(self.machine_name, 0, 5, 1, 2)
 
         self.mg_ip = QLineEdit(self.groupBox)
         self.mg_ip.setObjectName(u"mg_ip")
         self.mg_ip.setFont(font1)
 
-        self.gridLayout.addWidget(self.mg_ip, 0, 4, 1, 1)
+        self.gridLayout.addWidget(self.mg_ip, 1, 6, 1, 1)
 
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 1, 1, 1)
+        self.gridLayout.addItem(self.horizontalSpacer_4, 0, 7, 1, 1)
 
-        self.bt_clear = QPushButton(self.groupBox)
-        self.bt_clear.setObjectName(u"bt_clear")
-        self.bt_clear.setFont(font1)
+        self.label_2 = QLabel(self.groupBox)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font1)
+        self.label_2.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.bt_clear, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
 
-        self.lb_mgip = QLabel(self.groupBox)
-        self.lb_mgip.setObjectName(u"lb_mgip")
-        self.lb_mgip.setFont(font1)
-        self.lb_mgip.setAlignment(Qt.AlignCenter)
+        self.rd_mg_ip = QRadioButton(self.groupBox)
+        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
+        self.rd_mg_ip.setFont(font1)
 
-        self.gridLayout.addWidget(self.lb_mgip, 0, 3, 1, 1)
+        self.gridLayout.addWidget(self.rd_mg_ip, 1, 3, 1, 1)
+
+        self.rd_bmc_ip = QRadioButton(self.groupBox)
+        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
+        self.rd_bmc_ip.setFont(font1)
+
+        self.gridLayout.addWidget(self.rd_bmc_ip, 1, 4, 1, 2)
+
+        self.cb_cabinet = QComboBox(self.groupBox)
+        self.cb_cabinet.addItem("")
+        self.cb_cabinet.setObjectName(u"cb_cabinet")
+        self.cb_cabinet.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_cabinet, 1, 1, 1, 1)
 
         self.lb_machine_name = QLabel(self.groupBox)
         self.lb_machine_name.setObjectName(u"lb_machine_name")
         self.lb_machine_name.setFont(font1)
         self.lb_machine_name.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lb_machine_name, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.lb_machine_name, 0, 3, 1, 2)
 
-        self.bt_select = QPushButton(self.groupBox)
-        self.bt_select.setObjectName(u"bt_select")
-        self.bt_select.setFont(font1)
+        self.label = QLabel(self.groupBox)
+        self.label.setObjectName(u"label")
+        self.label.setFont(font1)
+        self.label.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.bt_select, 1, 4, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.bt_clear = QPushButton(self.groupBox)
+        self.bt_clear.setObjectName(u"bt_clear")
+        self.bt_clear.setFont(font1)
+
+        self.gridLayout.addWidget(self.bt_clear, 1, 8, 1, 1)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_5, 1, 2, 1, 1)
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 2)
-        self.gridLayout.setColumnStretch(2, 1)
         self.gridLayout.setColumnStretch(3, 1)
-        self.gridLayout.setColumnStretch(4, 2)
+        self.gridLayout.setColumnStretch(4, 1)
+        self.gridLayout.setColumnStretch(5, 1)
+        self.gridLayout.setColumnStretch(6, 2)
+        self.gridLayout.setColumnStretch(8, 2)
 
-        self.horizontalLayout_2.addLayout(self.gridLayout)
+        self.verticalLayout.addLayout(self.gridLayout)
 
 
-        self.verticalLayout.addWidget(self.groupBox)
+        self.verticalLayout_2.addWidget(self.groupBox)
 
         self.tb_display = QTableWidget(modify)
         if (self.tb_display.columnCount() < 20):
@@ -163,7 +206,7 @@ class Ui_modify(object):
         self.tb_display.setSortingEnabled(False)
         self.tb_display.setRowCount(10)
 
-        self.verticalLayout.addWidget(self.tb_display)
+        self.verticalLayout_2.addWidget(self.tb_display)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -186,17 +229,21 @@ class Ui_modify(object):
         self.horizontalLayout.setStretch(1, 1)
         self.horizontalLayout.setStretch(2, 3)
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.lb_status = QLabel(modify)
         self.lb_status.setObjectName(u"lb_status")
         self.lb_status.setFrameShape(QFrame.Box)
         self.lb_status.setFrameShadow(QFrame.Raised)
 
-        self.verticalLayout.addWidget(self.lb_status)
+        self.verticalLayout_2.addWidget(self.lb_status)
 
+        self.verticalLayout_2.setStretch(0, 1)
+        self.verticalLayout_2.setStretch(1, 1)
+        self.verticalLayout_2.setStretch(2, 9)
+        self.verticalLayout_2.setStretch(3, 1)
 
-        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
 
 
         self.retranslateUi(modify)
@@ -208,11 +255,18 @@ class Ui_modify(object):
         modify.setWindowTitle(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.lb_title.setText(QCoreApplication.translate("modify", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
         self.groupBox.setTitle(QCoreApplication.translate("modify", u"\u67e5\u8be2\u6761\u4ef6", None))
-        self.mg_ip.setText("")
-        self.bt_clear.setText(QCoreApplication.translate("modify", u"\u6e05\u7a7a", None))
-        self.lb_mgip.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406 IP", None))
-        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.cb_room.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
+
         self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
+        self.mg_ip.setText("")
+        self.label_2.setText(QCoreApplication.translate("modify", u"\u673a\u67dc", None))
+        self.rd_mg_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5185IP", None))
+        self.rd_bmc_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5916IP", None))
+        self.cb_cabinet.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
+
+        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.label.setText(QCoreApplication.translate("modify", u"\u673a\u623f", None))
+        self.bt_clear.setText(QCoreApplication.translate("modify", u"\u6e05\u7a7a", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)

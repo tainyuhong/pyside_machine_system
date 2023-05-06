@@ -25,6 +25,9 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
              '带外IP', '设备管理员'])
         self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
+        # 机房下拉菜单触发事件
+        self.room.currentIndexChanged.connect(self.get_cabinet_data)        # 获取机柜信息
+
         # 初始化定义分页信息
         # self.pre_page = None
         # self.next_page = None
@@ -35,7 +38,6 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.select_values = []  # 查询条件值
 
         # self.firstPage()      # 默认打开页面先查询并显示第一页数据
-        # self.data_sql = '''  '''
         self.select_btn.clicked.connect(self.get_input_data)  # 按条件进行查询
         # 分页查询按钮事件
         self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1]))  # 定义转到按钮点击事件
@@ -56,6 +58,16 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # print('机房信息：',room_name)
         self.room.addItems(room_name)
 
+    # 获取机柜名称信息
+    def get_cabinet_data(self):
+        # 从设备信息视图中查询机柜信息，当没有设备的机柜当不在下拉菜单中显示
+        cabinet_data = MachineList.select(MachineList.cab_name.distinct()).where(MachineList.room_name==self.room.currentText())
+        cabinet_name = [i.cab_name for i in cabinet_data]
+        # print('机房信息：',cabinet_name)
+        self.cb_cabniet.clear()
+        self.cb_cabniet.addItem('所有')
+        self.cb_cabniet.addItems(cabinet_name)
+
     # 根据查询进行查询获取数据
     def get_input_data(self):
         # 在未进行查询时，翻页按钮不可用
@@ -72,9 +84,15 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         FROM equipment_mg.machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
+        # 判断机房是否选择
         if self.room.currentIndex() > 0:
             sql = sql + ' and room_name= %s'
             sel_values.append(self.room.currentText())
+        # 判断机柜是否选择
+        if self.cb_cabniet.currentIndex() > 0:
+            sql = sql + ' and room_name= %s and cab_name= %s '
+            sel_values.append(self.room.currentText())
+            sel_values.append(self.cb_cabniet.currentText())
         if self.mg_ip.text() != '':
             sql = sql + ' and mg_ip like "%%"%s"%%"'
             sel_values.append(self.mg_ip.text())

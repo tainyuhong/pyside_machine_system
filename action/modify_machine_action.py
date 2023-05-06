@@ -1,7 +1,7 @@
 import sys
 from ui.modify import *
 from PySide6 import QtWidgets
-# from ui.add_machine import *
+from pub_infos import PubSwitch     # 机房信息
 from db.db_orm import *
 
 # import logging
@@ -33,13 +33,37 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(UiModifyMachine, self).__init__(parent)
+        self.room = PubSwitch()     # 创建机房对象
         self.setupUi(self)
+        self.get_room()         # 获取机房信息并显示至下拉菜单中
+        self.cb_room.currentTextChanged.connect(self.get_cabinet)       # 通过机房信息下拉菜单触发机柜信息变化
+
 
         # 定义按钮功能
         self.bt_select.clicked.connect(self.select)  # 查询内容
         self.bt_clear.clicked.connect(self.clear)  # 清空条件框内容
-        self.bt_modify.clicked.connect(self.submit_modify)
+        self.bt_modify.clicked.connect(self.submit_modify)  # 保存修改
 
+    # 获取机房信息并显示到下拉菜单中
+    def get_room(self):
+        # room_data = MachineRoom.select(MachineRoom.room_name).execute()
+        # room = [i.room_name for i in room_data]
+        room_name = self.room.get_room()        # 获取机房名称信息
+        # print(room_name.values())       # 机房名称信息
+        self.cb_room.addItems(room_name.values())
+
+    # 获取机柜信息并显示到下拉菜单中
+    def get_cabinet(self):
+        # 从设备信息视图中查询机柜信息，当没有设备的机柜当不在下拉菜单中显示
+        cabinet_data = MachineList.select(MachineList.cab_name.distinct()).where(
+            MachineList.room_name == self.cb_room.currentText())
+        cabinet_name = [i.cab_name for i in cabinet_data]
+        # print('机房信息：',cabinet_name)
+        self.cb_cabinet.clear()
+        self.cb_cabinet.addItem('所有')
+        self.cb_cabinet.addItems(cabinet_name)
+
+    # 查询需要修改的内容
     def select(self):
         machine_name = self.machine_name.text().strip()
         mg_ip = self.mg_ip.text().strip()
@@ -171,6 +195,9 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         # print('是否保存的状态,查询显示完后状态：', self.save_flag)
         self.tb_display.cellChanged.connect(self.display_changed)  # 启用单元格修改信号
         self.is_selected = True  # 标记为已查询状态
+
+
+
 
     def clear(self):
         """
