@@ -1,7 +1,7 @@
 import sys
 from ui.modify import *
 from PySide6 import QtWidgets
-from pub_infos import PubSwitch     # 机房信息
+from action.pub_infos import PubSwitch     # 机房信息
 from db.db_orm import *
 
 # import logging
@@ -54,10 +54,8 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
 
     # 获取机柜信息并显示到下拉菜单中
     def get_cabinet(self):
-        # 从设备信息视图中查询机柜信息，当没有设备的机柜当不在下拉菜单中显示
-        cabinet_data = MachineList.select(MachineList.cab_name.distinct()).where(
-            MachineList.room_name == self.cb_room.currentText())
-        cabinet_name = [i.cab_name for i in cabinet_data]
+        # 通过选择机房获取机柜相应信息
+        cabinet_name = self.room.get_cabinet_infos(self.cb_room.currentText())
         # print('机房信息：',cabinet_name)
         self.cb_cabinet.clear()
         self.cb_cabinet.addItem('所有')
