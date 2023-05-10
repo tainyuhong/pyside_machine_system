@@ -101,6 +101,7 @@ class Ui_modify(object):
         self.rd_mg_ip = QRadioButton(self.groupBox)
         self.rd_mg_ip.setObjectName(u"rd_mg_ip")
         self.rd_mg_ip.setFont(font1)
+        self.rd_mg_ip.setChecked(True)
 
         self.gridLayout.addWidget(self.rd_mg_ip, 1, 3, 1, 1)
 
@@ -143,11 +144,8 @@ class Ui_modify(object):
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 2)
-        self.gridLayout.setColumnStretch(3, 1)
-        self.gridLayout.setColumnStretch(4, 1)
-        self.gridLayout.setColumnStretch(5, 1)
         self.gridLayout.setColumnStretch(6, 2)
-        self.gridLayout.setColumnStretch(8, 2)
+        self.gridLayout.setColumnStretch(8, 1)
 
         self.verticalLayout.addLayout(self.gridLayout)
 
@@ -155,8 +153,8 @@ class Ui_modify(object):
         self.verticalLayout_2.addWidget(self.groupBox)
 
         self.tb_display = QTableWidget(modify)
-        if (self.tb_display.columnCount() < 20):
-            self.tb_display.setColumnCount(20)
+        if (self.tb_display.columnCount() < 21):
+            self.tb_display.setColumnCount(21)
         __qtablewidgetitem = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -197,14 +195,17 @@ class Ui_modify(object):
         self.tb_display.setHorizontalHeaderItem(18, __qtablewidgetitem18)
         __qtablewidgetitem19 = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(19, __qtablewidgetitem19)
-        if (self.tb_display.rowCount() < 10):
-            self.tb_display.setRowCount(10)
+        __qtablewidgetitem20 = QTableWidgetItem()
+        self.tb_display.setHorizontalHeaderItem(20, __qtablewidgetitem20)
+        if (self.tb_display.rowCount() < 15):
+            self.tb_display.setRowCount(15)
         self.tb_display.setObjectName(u"tb_display")
         self.tb_display.setEditTriggers(QAbstractItemView.DoubleClicked)
         self.tb_display.setAlternatingRowColors(True)
         self.tb_display.setGridStyle(Qt.SolidLine)
         self.tb_display.setSortingEnabled(False)
-        self.tb_display.setRowCount(10)
+        self.tb_display.setRowCount(15)
+        self.tb_display.setColumnCount(21)
 
         self.verticalLayout_2.addWidget(self.tb_display)
 
@@ -221,13 +222,24 @@ class Ui_modify(object):
 
         self.horizontalLayout.addWidget(self.bt_modify)
 
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer_6)
+
+        self.bt_save = QPushButton(modify)
+        self.bt_save.setObjectName(u"bt_save")
+        self.bt_save.setFont(font1)
+
+        self.horizontalLayout.addWidget(self.bt_save)
+
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
         self.horizontalLayout.setStretch(0, 3)
         self.horizontalLayout.setStretch(1, 1)
-        self.horizontalLayout.setStretch(2, 3)
+        self.horizontalLayout.setStretch(3, 1)
+        self.horizontalLayout.setStretch(4, 3)
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
@@ -294,20 +306,23 @@ class Ui_modify(object):
         ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("modify", u"\u4e1a\u52a1\u7c7b\u578b", None));
         ___qtablewidgetitem13 = self.tb_display.horizontalHeaderItem(13)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("modify", u"\u8d1f\u8d23\u4eba", None));
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("modify", u"\u8fd0\u884c\u72b6\u6001", None));
         ___qtablewidgetitem14 = self.tb_display.horizontalHeaderItem(14)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("modify", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("modify", u"\u8d1f\u8d23\u4eba", None));
         ___qtablewidgetitem15 = self.tb_display.horizontalHeaderItem(15)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406IP", None));
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("modify", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
         ___qtablewidgetitem16 = self.tb_display.horizontalHeaderItem(16)
-        ___qtablewidgetitem16.setText(QCoreApplication.translate("modify", u"\u5e94\u7528IP", None));
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406IP", None));
         ___qtablewidgetitem17 = self.tb_display.horizontalHeaderItem(17)
-        ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"BMC IP", None));
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"\u5e94\u7528IP", None));
         ___qtablewidgetitem18 = self.tb_display.horizontalHeaderItem(18)
-        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"\u8d44\u4ea7\u7f16\u53f7", None));
+        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"BMC IP", None));
         ___qtablewidgetitem19 = self.tb_display.horizontalHeaderItem(19)
-        ___qtablewidgetitem19.setText(QCoreApplication.translate("modify", u"\u5907\u6ce8", None));
+        ___qtablewidgetitem19.setText(QCoreApplication.translate("modify", u"\u8d44\u4ea7\u7f16\u53f7", None));
+        ___qtablewidgetitem20 = self.tb_display.horizontalHeaderItem(20)
+        ___qtablewidgetitem20.setText(QCoreApplication.translate("modify", u"\u5907\u6ce8", None));
         self.bt_modify.setText(QCoreApplication.translate("modify", u"\u4fee    \u6539", None))
+        self.bt_save.setText(QCoreApplication.translate("modify", u"\u4fdd\u5b58", None))
         self.lb_status.setText(QCoreApplication.translate("modify", u"\u72b6\u6001\u680f", None))
     # retranslateUi
 

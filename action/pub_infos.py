@@ -55,9 +55,10 @@ class PubSwitch:
         :param room: 传一个机房名称 :string
         :return: 返回每个机房内在用的机柜信息列表 -->list
         """
-        if type(room)==str:
-            cabinet_data = Cabinet.select(Cabinet.cab_num).join(MachineRoom).where(Cabinet.is_use == 1 and
-                                                                                   MachineRoom.room_id == Cabinet.room and MachineRoom.room_name == room)  # 查询父类不为空的分类
+        if type(room) == str:
+            cabinet_data = Cabinet.select(Cabinet.cab_num).join(MachineRoom)\
+                .where(Cabinet.is_use == 1 and MachineRoom.room_id == Cabinet.room and
+                       MachineRoom.room_name == room)  # 查询父类不为空的分类
             # 定义一个机柜列表
             cabinet_list = []
             # 添加到机柜列表中
