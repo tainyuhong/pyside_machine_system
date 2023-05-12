@@ -84,8 +84,12 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
 
         cond_cabinet = MachineInfos.cabinet_name == cabinet
         cond_machine_name = MachineInfos.machine_name.contains(machine_name)
-        cond_ip = MachineInfos.mg_ip.contains(mg_ip)
-        # cond_room =  MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name))
+
+        # 根据选择的带外IP还是带内IP选择相应的查询条件
+        if self.rd_mg_ip.isChecked():
+            cond_ip = MachineInfos.mg_ip.contains(mg_ip)    # 带内IP
+        else:
+            cond_ip = MachineInfos.bmc_ip.contains(mg_ip)   #带外IP
 
         # 根据选择条件进行查询
         # 选择机房为所有
@@ -93,8 +97,6 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             if machine_name != '' and mg_ip == '':
                 query_condition = cond_machine_name
             elif machine_name != '' and mg_ip != '':
-                # print('IP不为空SQL:', query.where(cond_room & cond_machine_name & cond_ip).sql())
-                # result = [i.machine_name for i in query.where(cond_room & cond_machine_name & cond_ip)]
                 query_condition = cond_machine_name & cond_ip
             elif machine_name == '':
                 query_condition = cond_ip
@@ -127,7 +129,6 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         self.lb_status.setStyleSheet('color:blue')
         self.tb_display.setRowCount(data_count)  # 根据内容设置行数
         self.tb_display.clearContents()
-        # display_room.addItem('ZB-1')
         # 将查询结果显示在表格控件中
         for row, d1 in enumerate(result):
             # print('每一行数据：',d1)

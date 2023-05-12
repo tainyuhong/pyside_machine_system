@@ -317,7 +317,7 @@ class WarrantyInfos(BaseModel):
     is_under = IntegerField(null=True)
     machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
     start_date = DateField(null=True)
-    type = IntegerField(null=True)
+    w_type = IntegerField(null=True)
     w_id = AutoField()
 
     class Meta:

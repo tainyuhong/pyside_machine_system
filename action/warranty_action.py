@@ -10,6 +10,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         super(UiWarrantySelect, self).__init__(parent)
         self.setupUi(self)
         self.get_room_data()  # 显示机房信息
+        self.get_warranty_type()    # 显示维保类型下拉菜单
+        self.get_under()    # 显示是否在保内下拉菜单
         # 设置表格相关信息
         self.warranty_select.setHorizontalHeaderLabels(
             ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '维保开始日',
@@ -17,21 +19,11 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # self.warranty_select.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 初始化定义分页信息
-        # self.pre_page = None
-        # self.next_page = None
-        # self.first_page = None
-        # self.last_page = None
-        # self.total_page_lb = '总页数   '
         self.current_page = 1
         self.select_values = []  # 查询条件值
-
-        # self.firstPage()      # 默认打开页面先查询并显示第一页数据
-        # self.data_sql = '''  '''
         self.select_btn.clicked.connect(self.get_input_data)  # 按条件进行查询
         # 分页查询按钮事件
         self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1]))  # 定义转到按钮点击事件
-        # self.db = DBMysql()     # 点击按钮时创建数据库连接对象
-        # print(self.db.is_connected())
         self.next_btn.clicked.connect(lambda: self.nextPage(self.data_sql, self.select_values[:-1]))  # 定义下一页按钮事件
         self.pre_btn.clicked.connect(lambda: self.prePage(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
         self.home_btn.clicked.connect(lambda: self.firstPage(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件
@@ -43,6 +35,18 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         room_name = [i.room_name for i in room_data]
         # print('机房信息：',room_name)
         self.room.addItems(room_name)
+
+    # 获取维保类型
+    def get_warranty_type(self):
+        print('维保类型')
+        w_type = ['未知','原厂保','续保']
+        self.cb_type.addItems(w_type)
+
+    # 获取是否在保内分类
+    def get_under(self):
+        print('维保类型')
+        under  = ['未知','在保内','已过保']
+        self.cb_is_under.addItems(under)
 
     # 根据查询进行查询获取数据
     def get_input_data(self):
@@ -73,6 +77,32 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         if self.machine_name.text() != '':
             sql = sql + ' and machine_name like "%%"%s"%%"'
             sel_values.append(self.machine_name.text())
+        # 维保类型
+        if self.cb_type.currentText() == '未知':
+            sql = sql + ' and w_type= %s'
+            sel_values.append('未知')
+        if self.cb_type.currentText() == '原厂保':
+            sql = sql + ' and w_type= %s'
+            sel_values.append('原厂保')
+        if self.cb_type.currentText() == '续保':
+            sql = sql + ' and w_type= %s'
+            sel_values.append('续保')
+        # if self.cb_type.currentText() == '所有':
+        #     sql = sql
+            # sel_values.append(self.cb_type.currentText())
+        # 是否在保内
+        if self.cb_is_under.currentText() == '未知':
+            sql = sql + ' and is_under= %s'
+            sel_values.append('未知')
+        if self.cb_is_under.currentText() == '在保内':
+            sql = sql + ' and is_under= %s'
+            sel_values.append('在保内')
+        if self.cb_is_under.currentText() == '已过保':
+            sql = sql + ' and is_under= %s'
+            sel_values.append('已过保')
+        # if self.cb_is_under.currentText() == '所有':
+        #     sql = sql
+            # sel_values.append(self.cb_type.currentText())
         self.data_sql = sql  # 获取按条件查询的sql语句
         self.select_values = sel_values  # 获取查询条件值
         # print('查询条件',self.select_values)
@@ -117,12 +147,10 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # print('limiIndex',limiIndex)
 
         if sql_args is None:
-            # print('------======-------')
             page_data = database.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容
             # print('查询页数据：',page_data)
             # page_data = self.db.query_single(sql_page, limiIndex)  # 每页数据内容
         else:
-            # print('<<<<<<<<<')
             sql_args.append(limiIndex)  # 将索引记录放入SQL传入的参数列表中
             # print('有参数sql_args:',sql_args)
             page_data = database.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容

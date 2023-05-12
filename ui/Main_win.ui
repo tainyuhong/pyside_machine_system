@@ -61,6 +61,8 @@ color: rgba(106, 106, 106, 20);</string>
     <addaction name="actionpldr"/>
     <addaction name="separator"/>
     <addaction name="actionexport_exl"/>
+    <addaction name="separator"/>
+    <addaction name="actionprintbx"/>
    </widget>
    <widget class="QMenu" name="mu_select">
     <property name="title">
@@ -121,7 +123,10 @@ color: rgba(106, 106, 106, 20);</string>
   </action>
   <action name="actiontjsb">
    <property name="text">
-    <string>添加设备</string>
+    <string>补录设备</string>
+   </property>
+   <property name="toolTip">
+    <string>补录设备</string>
    </property>
   </action>
   <action name="actionxg">
@@ -131,12 +136,18 @@ color: rgba(106, 106, 106, 20);</string>
   </action>
   <action name="actionsjgl">
    <property name="text">
-    <string>上架管理</string>
+    <string>设备上架</string>
+   </property>
+   <property name="toolTip">
+    <string>设备上架</string>
    </property>
   </action>
   <action name="actionxjgl">
    <property name="text">
-    <string>下架管理</string>
+    <string>设备下架</string>
+   </property>
+   <property name="toolTip">
+    <string>设备下架</string>
    </property>
   </action>
   <action name="actionsjpz">
@@ -192,6 +203,11 @@ color: rgba(106, 106, 106, 20);</string>
   <action name="actionwb">
    <property name="text">
     <string>维保信息查询</string>
+   </property>
+  </action>
+  <action name="actionprintbx">
+   <property name="text">
+    <string>标签管理</string>
    </property>
   </action>
  </widget>

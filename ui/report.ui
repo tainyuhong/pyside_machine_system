@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
+    <width>982</width>
     <height>768</height>
    </rect>
   </property>
@@ -16,23 +16,11 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,6,1,7" columnstretch="2,3">
+     <item row="4" column="1">
+      <widget class="QTextBrowser" name="textB_general"/>
+     </item>
      <item row="2" column="0">
       <widget class="QChartView" name="graph_room"/>
-     </item>
-     <item row="2" column="1">
-      <widget class="QChartView" name="graph_cabinet"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="font">
-        <font>
-         <pointsize>15</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>一、机房信息</string>
-       </property>
-      </widget>
      </item>
      <item row="0" column="0" colspan="2">
       <widget class="QLabel" name="label">
@@ -49,15 +37,18 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
+     <item row="2" column="1">
+      <widget class="QChartView" name="graph_cabinet"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
        <property name="font">
         <font>
          <pointsize>15</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>三、设备信息</string>
+        <string>一、机房信息</string>
        </property>
       </widget>
      </item>
@@ -73,13 +64,37 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0" colspan="2">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>三、设备信息</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
       <widget class="QTreeWidget" name="treeWidget">
        <column>
         <property name="text">
          <string notr="true">1</string>
         </property>
        </column>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>四、概览</string>
+       </property>
       </widget>
      </item>
     </layout>

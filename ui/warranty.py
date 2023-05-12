@@ -67,11 +67,10 @@ class Ui_Warranty(object):
         self.groupBox.setStyleSheet(u"")
         self.groupBox.setFlat(False)
         self.groupBox.setCheckable(False)
-        self.gridLayout = QGridLayout(self.groupBox)
+        self.verticalLayout_3 = QVBoxLayout(self.groupBox)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setHorizontalSpacing(5)
-        self.gridLayout.setVerticalSpacing(10)
-        self.gridLayout.setContentsMargins(0, 0, 10, 10)
         self.label = QLabel(self.groupBox)
         self.label.setObjectName(u"label")
         sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -81,17 +80,13 @@ class Ui_Warranty(object):
         self.label.setSizePolicy(sizePolicy3)
         self.label.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label, 0, 0, 2, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
-        self.select_btn = QPushButton(self.groupBox)
-        self.select_btn.setObjectName(u"select_btn")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.select_btn.sizePolicy().hasHeightForWidth())
-        self.select_btn.setSizePolicy(sizePolicy4)
+        self.room = QComboBox(self.groupBox)
+        self.room.addItem("")
+        self.room.setObjectName(u"room")
 
-        self.gridLayout.addWidget(self.select_btn, 1, 6, 1, 1)
+        self.gridLayout.addWidget(self.room, 0, 1, 1, 1)
 
         self.label_4 = QLabel(self.groupBox)
         self.label_4.setObjectName(u"label_4")
@@ -99,24 +94,39 @@ class Ui_Warranty(object):
         self.label_4.setSizePolicy(sizePolicy3)
         self.label_4.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label_4, 1, 3, 1, 1)
+        self.gridLayout.addWidget(self.label_4, 0, 2, 1, 1)
 
         self.mg_ip = QLineEdit(self.groupBox)
         self.mg_ip.setObjectName(u"mg_ip")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(3)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.mg_ip.sizePolicy().hasHeightForWidth())
+        self.mg_ip.setSizePolicy(sizePolicy4)
+
+        self.gridLayout.addWidget(self.mg_ip, 0, 3, 1, 1)
+
+        self.label_5 = QLabel(self.groupBox)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_5, 0, 4, 1, 1)
+
+        self.cb_type = QComboBox(self.groupBox)
+        self.cb_type.addItem("")
+        self.cb_type.setObjectName(u"cb_type")
+
+        self.gridLayout.addWidget(self.cb_type, 0, 5, 1, 1)
+
+        self.select_btn = QPushButton(self.groupBox)
+        self.select_btn.setObjectName(u"select_btn")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.mg_ip.sizePolicy().hasHeightForWidth())
-        self.mg_ip.setSizePolicy(sizePolicy5)
+        sizePolicy5.setHeightForWidth(self.select_btn.sizePolicy().hasHeightForWidth())
+        self.select_btn.setSizePolicy(sizePolicy5)
 
-        self.gridLayout.addWidget(self.mg_ip, 1, 4, 1, 1)
-
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
-        sizePolicy5.setHeightForWidth(self.machine_name.sizePolicy().hasHeightForWidth())
-        self.machine_name.setSizePolicy(sizePolicy5)
-
-        self.gridLayout.addWidget(self.machine_name, 4, 4, 1, 1)
+        self.gridLayout.addWidget(self.select_btn, 0, 6, 1, 1)
 
         self.label_3 = QLabel(self.groupBox)
         self.label_3.setObjectName(u"label_3")
@@ -124,14 +134,14 @@ class Ui_Warranty(object):
         self.label_3.setSizePolicy(sizePolicy3)
         self.label_3.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label_3, 4, 3, 1, 1)
+        self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1)
 
-        self.bmc_ip = QLineEdit(self.groupBox)
-        self.bmc_ip.setObjectName(u"bmc_ip")
-        sizePolicy5.setHeightForWidth(self.bmc_ip.sizePolicy().hasHeightForWidth())
-        self.bmc_ip.setSizePolicy(sizePolicy5)
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
+        sizePolicy4.setHeightForWidth(self.machine_name.sizePolicy().hasHeightForWidth())
+        self.machine_name.setSizePolicy(sizePolicy4)
 
-        self.gridLayout.addWidget(self.bmc_ip, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.machine_name, 1, 1, 1, 1)
 
         self.label_2 = QLabel(self.groupBox)
         self.label_2.setObjectName(u"label_2")
@@ -139,19 +149,37 @@ class Ui_Warranty(object):
         self.label_2.setSizePolicy(sizePolicy3)
         self.label_2.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.label_2, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 1, 2, 1, 1)
 
-        self.room = QComboBox(self.groupBox)
-        self.room.addItem("")
-        self.room.setObjectName(u"room")
+        self.bmc_ip = QLineEdit(self.groupBox)
+        self.bmc_ip.setObjectName(u"bmc_ip")
+        sizePolicy4.setHeightForWidth(self.bmc_ip.sizePolicy().hasHeightForWidth())
+        self.bmc_ip.setSizePolicy(sizePolicy4)
 
-        self.gridLayout.addWidget(self.room, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.bmc_ip, 1, 3, 1, 1)
+
+        self.label_6 = QLabel(self.groupBox)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_6, 1, 4, 1, 1)
+
+        self.cb_is_under = QComboBox(self.groupBox)
+        self.cb_is_under.addItem("")
+        self.cb_is_under.setObjectName(u"cb_is_under")
+
+        self.gridLayout.addWidget(self.cb_is_under, 1, 5, 1, 1)
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 2)
-        self.gridLayout.setColumnStretch(3, 1)
-        self.gridLayout.setColumnStretch(4, 2)
+        self.gridLayout.setColumnStretch(2, 1)
+        self.gridLayout.setColumnStretch(3, 2)
+        self.gridLayout.setColumnStretch(4, 1)
+        self.gridLayout.setColumnStretch(5, 1)
         self.gridLayout.setColumnStretch(6, 1)
+
+        self.verticalLayout_3.addLayout(self.gridLayout)
+
 
         self.verticalLayout.addWidget(self.groupBox)
 
@@ -278,12 +306,18 @@ class Ui_Warranty(object):
         Warranty.setWindowTitle(QCoreApplication.translate("Warranty", u"\u7ef4\u4fdd\u4fe1\u606f\u67e5\u8be2", None))
         self.title.setText(QCoreApplication.translate("Warranty", u"\u8bbe\u5907\u7ef4\u4fdd\u4fe1\u606f\u67e5\u8be2", None))
         self.groupBox.setTitle(QCoreApplication.translate("Warranty", u"\u67e5\u8be2\u6761\u4ef6", None))
-        self.label.setText(QCoreApplication.translate("Warranty", u"\u673a    \u623f", None))
+        self.label.setText(QCoreApplication.translate("Warranty", u"\u673a      \u623f", None))
+        self.room.setItemText(0, QCoreApplication.translate("Warranty", u"\u6240\u6709", None))
+
+        self.label_4.setText(QCoreApplication.translate("Warranty", u"\u5e26\u5185IP", None))
+        self.label_5.setText(QCoreApplication.translate("Warranty", u"\u7ef4\u4fdd\u7c7b\u578b", None))
+        self.cb_type.setItemText(0, QCoreApplication.translate("Warranty", u"\u6240\u6709", None))
+
         self.select_btn.setText(QCoreApplication.translate("Warranty", u"\u67e5    \u8be2", None))
-        self.label_4.setText(QCoreApplication.translate("Warranty", u"\u5e26\u5185   IP", None))
         self.label_3.setText(QCoreApplication.translate("Warranty", u"\u8bbe\u5907\u540d\u79f0", None))
         self.label_2.setText(QCoreApplication.translate("Warranty", u"\u5e26\u5916IP", None))
-        self.room.setItemText(0, QCoreApplication.translate("Warranty", u"\u6240\u6709", None))
+        self.label_6.setText(QCoreApplication.translate("Warranty", u"\u662f\u5426\u4fdd\u5185", None))
+        self.cb_is_under.setItemText(0, QCoreApplication.translate("Warranty", u"\u6240\u6709", None))
 
         self.home_btn.setText(QCoreApplication.translate("Warranty", u"\u9996\u9875", None))
         self.pre_btn.setText(QCoreApplication.translate("Warranty", u"\u4e0a\u4e00\u9875", None))

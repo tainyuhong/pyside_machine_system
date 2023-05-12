@@ -23,7 +23,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_room">
       <attribute name="title">
@@ -789,6 +789,9 @@
               <font>
                <pointsize>12</pointsize>
               </font>
+             </property>
+             <property name="placeholderText">
+              <string>例如：1</string>
              </property>
             </widget>
            </item>

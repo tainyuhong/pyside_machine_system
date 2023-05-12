@@ -771,7 +771,7 @@ class Ui_BaseInfo(object):
 
         self.retranslateUi(BaseInfo)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(BaseInfo)
@@ -821,6 +821,7 @@ class Ui_BaseInfo(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_cabinet), QCoreApplication.translate("BaseInfo", u"\u673a\u67dc\u7ba1\u7406", None))
         self.label_9.setText(QCoreApplication.translate("BaseInfo", u"U\u4f4d\u4fe1\u606f\u7ba1\u7406", None))
         self.bt_add_u.setText(QCoreApplication.translate("BaseInfo", u"\u6dfb\u52a0", None))
+        self.le_u_name.setPlaceholderText(QCoreApplication.translate("BaseInfo", u"\u4f8b\u5982\uff1a1", None))
         self.bt_del_u.setText(QCoreApplication.translate("BaseInfo", u"\u5220\u9664", None))
         ___qtablewidgetitem9 = self.tb_u.horizontalHeaderItem(0)
         ___qtablewidgetitem9.setText(QCoreApplication.translate("BaseInfo", u"\u7f16\u53f7", None));

@@ -17,7 +17,7 @@ cabinet_count = Cabinet.select(Cabinet.room, fn.count(Cabinet.cab_name)).where(C
     Cabinet.room).execute()
 # 机柜总数量
 cabinet_count_list = [(i.room.room_name, i.cab_name) for i in cabinet_count]
-# print('机柜总数量', cabinet_count_list)
+# print('机柜总数量', cabinet_count_list[:])
 
 # 有设备的机房总数量
 use_room = MachineList.select(fn.Count(MachineList.room_name.distinct())).scalar()
@@ -29,6 +29,8 @@ use_cabinet_count = MachineList.select(MachineList.room_name, fn.count(MachineLi
 # 有设备的机柜列表
 use_cabinet_count_list = [i for i in use_cabinet_count]
 
+# 设备总数
+machine_count = MachineList.select().count()
 
 # print('有设备的机房机柜数量：', use_cabinet_count_list)
 
@@ -48,6 +50,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
         self.create_room_chart()  # 展示机房图表
         self.create_cabinet_chart()  # 展示机柜图表
         self.display_ma_count()  # 显示机柜内设备数量
+        self.general()          # 显示概览信息
 
     # 创建机房信息图表
     def create_room_chart(self):
@@ -174,7 +177,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
             # print(room.room_name)
             root = QtWidgets.QTreeWidgetItem()
             root.setText(0, room[0])  # 设置第一列文本
-            root.setText(2, str(room[1]) + '个机柜')  # 设置第三列文本
+            root.setText(1, str(room[1]) + '个机柜')  # 设置第三列文本
             self.treeWidget.addTopLevelItem(root)  # 设置为根节点
             # 根据每个机房名--》查询机柜内设备数量
             machine_count = MachineList.select(MachineList.cab_name,
@@ -189,8 +192,21 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
             for cabinet in machine_count_list:
                 child_item = QtWidgets.QTreeWidgetItem(root)
                 # print(cabinet)
-                child_item.setText(1, cabinet[0])       # 设置第二列文本
-                child_item.setText(2, str(cabinet[1]))      # 设置第三列文本
+                child_item.setText(1, cabinet[0])       # 设置第二列文本：机柜名称
+                child_item.setText(2, str(cabinet[1]))      # 设置第三列文本：设备数量
+
+
+    # 概览窗口显示内容
+    def general(self):
+        cab_count = Cabinet.select().where(Cabinet.is_use == 1).count()
+        sort_num_model = MachineList.select(MachineList.machine_sort_name,fn.count(MachineList.machine_id)).group_by(MachineList.machine_sort_name).tuples()
+        sort_num = []
+        for i in sort_num_model:
+            sort_num.append('\t{}：{}\r'.format(i[0],i[1]))
+        print(sort_num)
+        text = '      总机房{} 个，在用机房{}个，在用机柜{}个，设备共{}台，各分类情况如下：\r{}'.format(room,use_room,cab_count,machine_count,''.join(sort_num))
+        self.textB_general.setFontPointSize(12)
+        self.textB_general.setText(text)
 
 
 if __name__ == '__main__':
