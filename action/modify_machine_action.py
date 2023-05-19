@@ -11,19 +11,12 @@ from db.db_orm import *
 1、查询逻辑
     根据设备名称、MG_IP自由组合查询，包含任务一个字段就进行查询
 2、修改判断逻辑
-    使用了两个标志参数，save_flag、is_selected
-    save_flag = True  # 判断是否有修改
+    使用了一个标志参数，is_selected
     is_selected = False  # 在点击了查询按钮后设置为True，表示已经进行了查询
-    + 在点击了查询按钮后，先判断查询状态，为是时，先断开信号，为否时，进入后续操作、发送单元格修改信号给槽display_changed，并将is_selected设置为True
-    + 保存修改：将save_flag标志设置为True,同时将is_selected设置为未查询
-
+    + 在点击了【查询】按钮后，先判断查询状态，为是时，先断开信号，为否时，跳过，进入后续操作
+    + 点击修【改按】钮发送单元格修改信号给槽display_changed
+    + 保存修改：self.modify_data = []  # 置空暂存列表数据 ，同时将is_selected设置为未查询
 """
-
-
-#
-# logger = logging.getLogger('peewee')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
 
 
 class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
@@ -98,8 +91,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                 query_condition = cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_machine_name & cond_ip
-            elif machine_name == '':
+            elif machine_name == '' and mg_ip != '':
                 query_condition = cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = None
         # 选择机房对应机房，机柜为所有
         elif room_name != '所有' and cabinet == '所有':
             cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
@@ -107,8 +102,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                 query_condition = cond_room & cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_room & cond_machine_name & cond_ip
-            elif machine_name == '':
+            elif machine_name == '' and mg_ip != '':
                 query_condition = cond_room & cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = cond_room
         # 选择机房对应机房，机柜为对应机柜
         else:
             cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
@@ -116,13 +113,16 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                 query_condition = cond_room & cond_cabinet & cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_room & cond_cabinet & cond_machine_name & cond_ip
-            elif machine_name == '':
+            elif machine_name == '' and mg_ip != '':
                 query_condition = cond_room & cond_cabinet & cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = cond_room & cond_cabinet
 
         # 进行查询
         # print('查询SQL:', query.where(condition).sql())
         # 查询并获取结果
-        result = [i for i in query.where(query_condition).tuples()]
+        result = [i for i in query.where(query_condition).order_by(MachineInfos.machine_roomid, MachineInfos.cabinet_name,
+                                    MachineInfos.start_position).tuples()]
         # print('查询结果：', result)
         data_count = len(result)
         self.lb_status.setText('----> 共查询到 {} 条记录'.format(data_count))

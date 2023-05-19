@@ -1,10 +1,10 @@
 import sys
 import pathlib
-import openpyxl
-from openpyxl.styles import Border, Side
-from PySide6 import QtWidgets, QtCore
+# import openpyxl
+# from openpyxl.styles import Border, Side
+import xlwings as xw
+from PySide6 import QtWidgets
 from db.db_orm import *
-from peewee import fn
 from ui.export_excel import Ui_export_form
 
 
@@ -27,7 +27,8 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                   'app_admin': '应用管理员',
                   'mg_ip': '管理IP地址', 'app_ip1': '业务IP', 'bmc_ip': 'BMC IP',
                   'install_date': '上架安装时间',
-                  'uninstall_date': '下架时间', 'single_power': '单电源', 'asset_id': '资产编号','system_name': '系统名称',
+                  'uninstall_date': '下架时间', 'single_power': '单电源', 'asset_id': '资产编号',
+                  'system_name': '系统名称',
                   'comments': '备注'}
 
     def __init__(self, parent=None):
@@ -52,7 +53,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
         # print('导出至excel')
         exp_sql = """SELECT {} FROM machine_infos """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
-        count = self.listWidget.count()     # 列数
+        count = self.listWidget.count()  # 列数
         chooses_list = []  # 选择的字段内容
         choose_name = []  # 选择
         # 动态生成机房名与ID转换sql
@@ -108,6 +109,8 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                 logging.critical('获取数据库错误：', e)
             else:
                 # print('查询到的数据：',data)
+                """
+                ################   openpyxl   #########
                 wb = openpyxl.Workbook()
                 ws = wb.active
                 ws.title = '设备信息'
@@ -117,42 +120,56 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                                 right=Side(style='thin',color='000000'),
                                 top=Side(style='thin',color='000000'),
                                 bottom=Side(style='thin',color='000000'))
-
                 # 向表格中写入数据
                 for row in data:
                     ws.append(row)  # 把查询到的数据写入到表中
-
                 # 批量对单元格进行格式化
                 for r in ws.iter_rows(min_row=1,max_col=ws.max_column,max_row=ws.max_row):
                     for c in r:
-                        c.border=border     # 设置单元格边框样式
-
-                # 保存
-                filepath, filetype = QtWidgets.QFileDialog.getSaveFileUrl(self, '保存导出文件', filter='.xlsx')
-                # print('保存文件路径：',filepath,filepath.toLocalFile())
-                if filepath!='':
-                    if pathlib.Path(filepath.toLocalFile()).suffix == '.xlsx':
-                        # 将文件保存到指定目录
-                        try:
-                            wb.save(filepath.toLocalFile())
-                        except Exception as e:
-                            QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
+                        c.border=border     # 设置单元格边框样式   
+                ################   openpyxl   #########   
+                """
+                # 使用 xlwings 导出
+                with xw.App(visible=False, add_book=False) as exl_app:
+                    wb = exl_app.books.add()
+                    ws = wb.sheets.active
+                    ws.name = '设备信息表'
+                    ws.range('A1').value = chooses_list  # 写入表格标题栏
+                    ws.range('B2', (len(data) + 1, len(chooses_list))).api.NumberFormat = '@'  # 设置需要写入数据的单元格为文本格式
+                    ws.range('A2').value = data  # 把查询到的数据写入到表中
+                    ws.autofit('c')  # 自适应列宽
+                    ws.range('A1').expand('right').font.size = '12'
+                    ws.range('A1').expand('right').font.bold = True
+                    # 设置边框线
+                    for i in range(7, 13):
+                        ws.range('A1').expand('table').api.Borders(i).Weight = 2
+                    # 保存
+                    filepath, filetype = QtWidgets.QFileDialog.getSaveFileUrl(self, '保存导出文件', filter='.xlsx')
+                    # print('保存文件路径：',filepath,filepath.toLocalFile())
+                    if filepath != '':
+                        if pathlib.Path(filepath.toLocalFile()).suffix == '.xlsx':
+                            # 将文件保存到指定目录
+                            try:
+                                wb.save(filepath.toLocalFile())
+                            except Exception as e:
+                                QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
+                            else:
+                                wb.close()
+                                exl_app.quit()
+                                QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
                         else:
-                            wb.close()
-                            QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
+                            # 如果用户没有在文件名后加后缀名，则系统自动加上
+                            save_file = filepath.toLocalFile() + '.xlsx'
+                            # 将文件从系统下载到指定目录
+                            try:
+                                wb.save(save_file)
+                            except Exception as e:
+                                QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
+                            else:
+                                wb.close()
+                                QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
                     else:
-                        # 如果用户没有在文件名后加后缀名，则系统自动加上
-                        save_file = filepath.toLocalFile() + '.xlsx'
-                        # 将文件从系统下载到指定目录
-                        try:
-                            wb.save(save_file)
-                        except Exception as e:
-                            QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
-                        else:
-                            wb.close()
-                            QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
-                else:
-                    print('取消导出！')
+                        print('取消导出！')
         else:
             QtWidgets.QMessageBox.warning(self, '选择需要导出的字段', '未选择需要导出的字段，请选择！！')
 

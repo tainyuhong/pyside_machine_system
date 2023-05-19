@@ -85,7 +85,7 @@
       </widget>
      </item>
      <item row="2" column="3">
-      <widget class="QComboBox" name="cabinet">
+      <widget class="QComboBox" name="cb_cabinet">
        <property name="font">
         <font>
          <family>宋体</family>
@@ -168,42 +168,6 @@
          <kerning>true</kerning>
         </font>
        </property>
-      </widget>
-     </item>
-     <item row="4" column="5">
-      <widget class="QComboBox" name="work_are">
-       <property name="font">
-        <font>
-         <family>宋体</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="currentIndex">
-        <number>-1</number>
-       </property>
-       <property name="placeholderText">
-        <string>点击选择业务类型</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>1生产</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>2电渠</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>3灾备</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>4开发</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="5" column="2">
@@ -324,7 +288,7 @@
       </widget>
      </item>
      <item row="2" column="5">
-      <widget class="QComboBox" name="down_position">
+      <widget class="QComboBox" name="cb_down_position">
        <property name="font">
         <font>
          <family>宋体</family>
@@ -333,31 +297,6 @@
        </property>
        <property name="placeholderText">
         <string>点击选择U位</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="lb_mg_ip_2">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>BMC IP</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLineEdit" name="bmc_ip">
-       <property name="font">
-        <font>
-         <family>宋体</family>
-         <pointsize>12</pointsize>
-        </font>
        </property>
       </widget>
      </item>
@@ -398,7 +337,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="room">
+      <widget class="QComboBox" name="cb_room">
        <property name="font">
         <font>
          <family>宋体</family>
@@ -616,21 +555,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="4">
-      <widget class="QLabel" name="lb_work">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>业务类型</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="1">
       <widget class="QLineEdit" name="machine_admin">
        <property name="font">
@@ -655,7 +579,7 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QComboBox" name="up_position">
+      <widget class="QComboBox" name="cb_up_position">
        <property name="font">
         <font>
          <family>宋体</family>
@@ -711,6 +635,134 @@
        </property>
       </widget>
      </item>
+     <item row="8" column="2">
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>资产编号</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="4">
+      <widget class="QLabel" name="label_5">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>业务系统</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="3">
+      <widget class="QLineEdit" name="le_asset_id">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="5">
+      <widget class="QLineEdit" name="le_system_name">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="5">
+      <widget class="QLineEdit" name="bmc_ip">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="4">
+      <widget class="QLabel" name="lb_mg_ip_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>BMC IP</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="lb_work">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>业务类型</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QComboBox" name="cb_work_are">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="placeholderText">
+        <string>点击选择业务类型</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>1生产</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>2电渠</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>3灾备</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>4开发</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>5备份</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>6分行</string>
+        </property>
+       </item>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
@@ -718,22 +770,20 @@
  <tabstops>
   <tabstop>machine_name</tabstop>
   <tabstop>sort_name</tabstop>
-  <tabstop>room</tabstop>
-  <tabstop>cabinet</tabstop>
-  <tabstop>down_position</tabstop>
+  <tabstop>cb_room</tabstop>
+  <tabstop>cb_cabinet</tabstop>
+  <tabstop>cb_down_position</tabstop>
   <tabstop>machine_factory</tabstop>
   <tabstop>model</tabstop>
-  <tabstop>up_position</tabstop>
+  <tabstop>cb_up_position</tabstop>
   <tabstop>machine_sn</tabstop>
   <tabstop>lmg_ip</tabstop>
-  <tabstop>work_are</tabstop>
   <tabstop>machine_admin</tabstop>
   <tabstop>admin</tabstop>
   <tabstop>app_ip</tabstop>
   <tabstop>factory_date</tabstop>
   <tabstop>end_ma_date</tabstop>
   <tabstop>install_date</tabstop>
-  <tabstop>bmc_ip</tabstop>
   <tabstop>single_power</tabstop>
   <tabstop>le_operator</tabstop>
   <tabstop>comments</tabstop>

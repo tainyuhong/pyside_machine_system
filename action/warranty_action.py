@@ -1,22 +1,23 @@
 import sys
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets
 from ui.warranty import *
 # from db.db_handler import *
 from db.db_orm import *
+from action.pub_infos import PubSwitch
 
 
 class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
     def __init__(self, parent=None):
         super(UiWarrantySelect, self).__init__(parent)
         self.setupUi(self)
+        self.pub_infos = PubSwitch()
         self.get_room_data()  # 显示机房信息
-        self.get_warranty_type()    # 显示维保类型下拉菜单
-        self.get_under()    # 显示是否在保内下拉菜单
+        self.get_warranty_type()  # 显示维保类型下拉菜单
+        self.get_under()  # 显示是否在保内下拉菜单
         # 设置表格相关信息
         self.warranty_select.setHorizontalHeaderLabels(
             ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '维保开始日',
              '维保结束日', '保修时长', '维保类型', '是否在保内', '备注'])
-        # self.warranty_select.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 初始化定义分页信息
         self.current_page = 1
@@ -31,21 +32,21 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
 
     # 获取机房名称信息
     def get_room_data(self):
-        room_data = MachineRoom.select(MachineRoom.room_name)
-        room_name = [i.room_name for i in room_data]
+        room_name = self.pub_infos.get_room().values()
+
         # print('机房信息：',room_name)
         self.room.addItems(room_name)
 
     # 获取维保类型
     def get_warranty_type(self):
         print('维保类型')
-        w_type = ['未知','原厂保','续保']
+        w_type = ['未知', '原厂保', '续保']
         self.cb_type.addItems(w_type)
 
     # 获取是否在保内分类
     def get_under(self):
         print('维保类型')
-        under  = ['未知','在保内','已过保']
+        under = ['未知', '在保内', '已过保']
         self.cb_is_under.addItems(under)
 
     # 根据查询进行查询获取数据
@@ -89,7 +90,7 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
             sel_values.append('续保')
         # if self.cb_type.currentText() == '所有':
         #     sql = sql
-            # sel_values.append(self.cb_type.currentText())
+        # sel_values.append(self.cb_type.currentText())
         # 是否在保内
         if self.cb_is_under.currentText() == '未知':
             sql = sql + ' and is_under= %s'
@@ -102,7 +103,7 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
             sel_values.append('已过保')
         # if self.cb_is_under.currentText() == '所有':
         #     sql = sql
-            # sel_values.append(self.cb_type.currentText())
+        # sel_values.append(self.cb_type.currentText())
         self.data_sql = sql  # 获取按条件查询的sql语句
         self.select_values = sel_values  # 获取查询条件值
         # print('查询条件',self.select_values)
@@ -135,13 +136,13 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
 
     # 定义查询记录并显示数据
     def recordQuery(self, sql, limiIndex, sql_args=None):
-        '''
+        """
         定义查询记录并显示数据
         :param sql:     不带分页功能的查询语句
         :param limiIndex:   sql索引记录开始点
         :param sql_args:    传入sql的参数
         :return:
-        '''
+        """
         sql_page = sql + ' limit %s,15 '  # 定义分页查询SQL
         # print('sql_page：：',sql_page)
         # print('limiIndex',limiIndex)
@@ -164,11 +165,11 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
                 else:
                     self.warranty_select.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
         # self.warranty_select.resizeColumnsToContents()  # 自适应列宽
-        self.warranty_select.setColumnWidth(5,150)       # 设备名称列宽
-        self.warranty_select.setColumnWidth(6,150)       # 带内IP列宽
-        self.warranty_select.setColumnWidth(7,150)       # bmc_ip列宽
-        self.warranty_select.setColumnWidth(8,100)      # 设备开始日期列宽
-        self.warranty_select.setColumnWidth(9,100)      # 设备结束日期列宽
+        self.warranty_select.setColumnWidth(5, 150)  # 设备名称列宽
+        self.warranty_select.setColumnWidth(6, 150)  # 带内IP列宽
+        self.warranty_select.setColumnWidth(7, 150)  # bmc_ip列宽
+        self.warranty_select.setColumnWidth(8, 100)  # 设备开始日期列宽
+        self.warranty_select.setColumnWidth(9, 100)  # 设备结束日期列宽
         # print('self.select_values',self.select_values)
         self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
 
@@ -266,8 +267,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
     # 最后一页查询事件
     def lastPage(self, sql, sql_args):
         # print('最后一页',self.totalPage)
-        limiIndex = (self.totalPage - 1) * 15  # 获取当前索引号
-        sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
+        limiindex = (self.totalPage - 1) * 15  # 获取当前索引号
+        sql_args.append(limiindex)  # 将sql分页索引开始记录值添加到sql参数列表中
         self.recordQuery(sql, sql_args)
         self.current_page = self.totalPage
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数

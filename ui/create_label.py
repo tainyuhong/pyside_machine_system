@@ -186,6 +186,26 @@ class Ui_form_create(object):
         self.tb_display.setHorizontalHeaderItem(12, __qtablewidgetitem12)
         if (self.tb_display.rowCount() < 10):
             self.tb_display.setRowCount(10)
+        __qtablewidgetitem13 = QTableWidgetItem()
+        self.tb_display.setItem(0, 0, __qtablewidgetitem13)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        self.tb_display.setItem(1, 0, __qtablewidgetitem14)
+        __qtablewidgetitem15 = QTableWidgetItem()
+        self.tb_display.setItem(2, 0, __qtablewidgetitem15)
+        __qtablewidgetitem16 = QTableWidgetItem()
+        self.tb_display.setItem(3, 0, __qtablewidgetitem16)
+        __qtablewidgetitem17 = QTableWidgetItem()
+        self.tb_display.setItem(4, 0, __qtablewidgetitem17)
+        __qtablewidgetitem18 = QTableWidgetItem()
+        self.tb_display.setItem(5, 0, __qtablewidgetitem18)
+        __qtablewidgetitem19 = QTableWidgetItem()
+        self.tb_display.setItem(6, 0, __qtablewidgetitem19)
+        __qtablewidgetitem20 = QTableWidgetItem()
+        self.tb_display.setItem(7, 0, __qtablewidgetitem20)
+        __qtablewidgetitem21 = QTableWidgetItem()
+        self.tb_display.setItem(8, 0, __qtablewidgetitem21)
+        __qtablewidgetitem22 = QTableWidgetItem()
+        self.tb_display.setItem(9, 0, __qtablewidgetitem22)
         self.tb_display.setObjectName(u"tb_display")
         font1 = QFont()
         font1.setPointSize(9)
@@ -309,6 +329,11 @@ class Ui_form_create(object):
         ___qtablewidgetitem11.setText(QCoreApplication.translate("form_create", u"\u8bbe\u5907\u5e26\u5185IP", None));
         ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("form_create", u"\u8bbe\u5907\u5e26\u5916IP", None));
+
+        __sortingEnabled = self.tb_display.isSortingEnabled()
+        self.tb_display.setSortingEnabled(False)
+        self.tb_display.setSortingEnabled(__sortingEnabled)
+
         self.bt_add_all.setText(QCoreApplication.translate("form_create", u"\u5168\u9009", None))
         self.bt_create.setText(QCoreApplication.translate("form_create", u"\u751f\u6210\u6807\u7b7e\u6a21\u677f", None))
         self.label.setText(QCoreApplication.translate("form_create", u"\u8bbe\u5907\u6807\u7b7e\u6a21\u677f\u751f\u6210", None))

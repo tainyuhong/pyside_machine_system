@@ -1,8 +1,9 @@
 import sys
 from pathlib import Path
 import sys
-# import openpyxl
-from PySide6 import QtWidgets, QtGui
+import xlwings as xw
+# from openpyxl.styles import Border, Side,Alignment
+from PySide6 import QtWidgets
 from db.db_orm import *
 from ui.create_label import *
 from action.pub_infos import PubSwitch
@@ -22,6 +23,8 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
         self.bt_select.clicked.connect(self.select_machine)
         # 设置全选按钮事件
         self.bt_add_all.clicked.connect(self.select_all)
+        # 设置生成标签模板事件
+        self.bt_create.clicked.connect(self.create_label_to_excel)
 
     # 获取机房名称并显示到下拉菜单
     def get_room(self):
@@ -46,8 +49,9 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
         # print('选择的机房：{}设备名称：{}  IP: {}'.format(room_name, machine_name, mg_ip))
 
         # 不带条件的查询
-        query = MachineList.select(MachineList.machine_id, MachineList.machine_name, MachineList.room_name,MachineList.cab_name,
-                                   MachineList.start_position, MachineList.postion_u,MachineList.machine_sort_name,
+        query = MachineList.select(MachineList.machine_id, MachineList.machine_name, MachineList.room_name,
+                                   MachineList.cab_name,
+                                   MachineList.start_position, MachineList.postion_u, MachineList.machine_sort_name,
                                    MachineList.machine_factory, MachineList.model, MachineList.machine_sn,
                                    MachineList.machine_admin, MachineList.mg_ip, MachineList.bmc_ip)
 
@@ -63,33 +67,42 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
         # 根据选择条件进行查询
         # 选择机房为所有
         if room_name == '所有':
+            # print('未选机房')
             if machine_name != '' and mg_ip == '':
                 query_condition = cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_machine_name & cond_ip
             elif machine_name == '' and mg_ip != '':
                 query_condition = cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = None
         # 选择机房对应机房，机柜为所有
         elif room_name != '所有' and cabinet == '所有':
-            cond_room = MachineList.machine_name == room_name
+            # print('选择了机房--')
+            cond_room = MachineList.room_name == room_name
             if machine_name != '' and mg_ip == '':
                 query_condition = cond_room & cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_room & cond_machine_name & cond_ip
             elif machine_name == '' and mg_ip != '':
                 query_condition = cond_room & cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = cond_room
         # 选择机房对应机房，机柜为对应机柜
         else:
-            cond_room = MachineList.machine_name == room_name
+            # print('选择了机房--，，，，，机柜')
+            cond_room = MachineList.room_name == room_name
             if machine_name != '' and mg_ip == '':
                 query_condition = cond_room & cond_cabinet & cond_machine_name
             elif machine_name != '' and mg_ip != '':
                 query_condition = cond_room & cond_cabinet & cond_machine_name & cond_ip
             elif machine_name == '' and mg_ip != '':
                 query_condition = cond_room & cond_cabinet & cond_ip
+            elif machine_name == '' and mg_ip == '':
+                query_condition = cond_room & cond_cabinet
 
         # 进行查询
-        print('查询SQL:', query.where(query_condition).sql())
+        # print('查询SQL:', query.where(query_condition).sql())
         # 查询并获取结果
         result = [i for i in query.where(query_condition).tuples()]
         # print('查询结果：', result)
@@ -103,14 +116,14 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
             # print('每一行数据：',d1)
             for col, d2 in enumerate(d1):
                 if col == 0:
-                    self.tb_display.setItem(row, col,QTableWidgetItem(str(result[row][col])))
+                    self.tb_display.setItem(row, col, QTableWidgetItem(str(result[row][col])))
                     self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 第一列添加复选框按钮
                 else:
                     if d2 is None:
                         self.tb_display.setItem(row, col, QTableWidgetItem(''))
                     else:
                         self.tb_display.setItem(row, col, QTableWidgetItem(str(result[row][col])))
-        self.tb_display.resizeColumnsToContents()   # 自适应列宽
+        self.tb_display.resizeColumnsToContents()  # 自适应列宽
 
     # 设置全选按钮槽函数
     def select_all(self):
@@ -126,6 +139,73 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
                     self.tb_display.item(i, 0).setCheckState(Qt.Checked)  # 钩选所有框
         else:
             pass
+
+    # 生成标签模板并导出EXCEL
+    def create_label_to_excel(self):
+        # 先获取选择的设备
+        row_count = self.tb_display.rowCount()
+        checked_machineid = []
+        # 当已经全选时，再次点击将取消全选
+        if row_count > 0:
+            for i in range(row_count):
+                if self.tb_display.item(i, 0).checkState() == Qt.Checked:  # 判断是否钩选框
+                    machine_id = self.tb_display.item(i, 0).text()
+                    machine_name = self.tb_display.item(i, 1).text()
+                    machine_room = self.tb_display.item(i, 2).text()
+                    machine_cabinet = self.tb_display.item(i, 3).text()
+                    machine_u = self.tb_display.item(i, 4).text()
+                    machine_mg_ip = self.tb_display.item(i, 11).text()
+                    machine_bmc_ip = self.tb_display.item(i, 12).text()
+                    machine_sn = self.tb_display.item(i, 9).text()
+                    checked_machineid.append(
+                        [machine_id, '{}_{}_{}'.format(machine_room, machine_cabinet, machine_u), machine_name,
+                         '带内:{}\r\n带外:{}'.format(machine_mg_ip, machine_bmc_ip), machine_sn])
+            # print('选择的设备ID', checked_machineid)
+            if len(checked_machineid) > 0:
+                # 创建表格实例
+                with xw.App(visible=False,add_book=False) as exl_app:
+                    wb = exl_app.books.add()
+                    ws = wb.sheets.active
+                    ws.name='设备标签打印模板'
+                    ws.range('a1').value=['设备id','位置','设备名称','IP地址','序列号']      # 向表中写入标题栏
+                    ws.range('e1',(len(checked_machineid),5)).api.NumberFormat='@'  # 设置需要写入数据的单元格为文本格式
+                    ws.range('a2').value=checked_machineid      # 向表格中写入数据
+                    ws.range('a1').expand('table').columns.autofit()    # 设置自适应列宽
+                    ws.range('d1').column_width='25'    # 设置IP地址列宽
+                    # 设置边框线
+                    for i in range(7,13):
+                        ws.range('a1').expand('table').api.Borders(i).Weight=2
+                    # 弹出文件保存目录
+                    filepath, filetype = QtWidgets.QFileDialog.getSaveFileUrl(self,'导出设备标签模板',filter='.xlsx')
+                    if filepath != '':
+                        if Path(filepath.toLocalFile()).suffix == '.xlsx':
+                            # 将文件保存到指定目录
+                            try:
+                                wb.save(filepath.toLocalFile())
+                            except Exception as e:
+                                QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
+                            else:
+                                wb.close()
+                                QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
+                        else:
+                            # 如果用户没有在文件名后加后缀名，则系统自动加上
+                            save_file = filepath.toLocalFile() + '.xlsx'
+                            # 将文件从系统下载到指定目录
+                            try:
+                                wb.save(save_file)
+                            except Exception as e:
+                                QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
+                            else:
+                                wb.close()
+                                exl_app.quit()
+                                QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
+                    else:
+                        print('取消导出！')
+
+            else:
+                QtWidgets.QMessageBox.warning(self, '未选择设备', '请选择要生成标签的设备!')
+        else:
+            QtWidgets.QMessageBox.warning(self, '未选择设备', '请选择要生成标签的设备!')
 
 
 if __name__ == '__main__':

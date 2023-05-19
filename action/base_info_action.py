@@ -5,17 +5,20 @@ from ui.base_info import *
 from PySide6 import QtWidgets, QtGui
 # import logging
 from db.db_orm import *
+from action.pub_infos import PubSwitch
 
 
 class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
     modify_cabinet_id = None  # 定义要修改的机柜id
-    room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
+    # room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
     old_sort_data = None  # 选定的要修改的item的ID ,为上级分类时，2个元素，子分类4个元素
     modify_item = None  # 选定的要修改的ITEM
 
     def __init__(self, parent=None):
         super(UiBaseInfo, self).__init__(parent)
-        self.setupUi(self)
+        self.setupUi(self)  # 显示页面信息
+        self.pub_infos = PubSwitch()  # 实例化公用信息
+        self.room = self.pub_infos.get_room()   # 获取机房与机房ID信息
         # 机房界面
         self.display_room()  # 机房信息窗口
         self.bt_add_room.clicked.connect(self.add_room)  # 添加机房信息
@@ -59,12 +62,6 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         room_model = MachineRoom.select(MachineRoom.room_id, MachineRoom.room_name, MachineRoom.room_alias)
         # 输出查询内容
         data = [(i.room_id, i.room_name, i.room_alias) for i in room_model]
-        # 将机房信息取出作为公共变量
-        self.room_and_id = {}  # 定义一个机房ID与机房名称的映射字典
-        # 生成机房ID与机房名称的映射字典
-        for i in room_model:
-            self.room_and_id[i.room_id] = i.room_name
-        # print('机房信息字典',self.room_and_id)
 
         self.tb_room.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
@@ -72,23 +69,6 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         for row, d1 in enumerate(data):
             for col, d2 in enumerate(d1):
                 self.tb_room.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-
-    # 机房名与id互转
-    def room_to_id(self, name=None, room_id=None):
-        """
-        将传入的机房名或机房id转换为对应的id或机房名
-        :param name: 机房名称
-        :param room_id: 机房ID
-        :return: 机房名或机房id
-        """
-        # 生成字典与机房Id的映射
-        room_id_dict = dict(map(reversed, self.room_and_id.items()))
-        # print('名称-->机房ID',room_id_dict)    # {'ZB-1': 1, 'ZB-2': 2, 'ZB-3': 3, 'ZB-4': 4}
-        # 如果传入机房名称为空，则返回id，如果传入的为id,则返回机房名称
-        if name is None:
-            return self.room_and_id[room_id]
-        else:
-            return room_id_dict[name]
 
     # 添加机房
     def add_room(self):
@@ -106,7 +86,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                 except Exception as e:
                     logging.error('添加机房错误：{}'.format(e))
                 else:
-                    self.room_and_id[result] = room_name  # 更新全局机房与id字典的信息
+                    self.room[result] = room_name  # 更新全局机房与id字典的信息
                     # print('添加机房后的字典变量：',self.room_and_id)
                     # print('返回ID:', result)  # 返回主键id
                     index = self.tb_room.rowCount()  # 定义索引为总行数
@@ -140,7 +120,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     logging.error('删除机房错误：', e)
                 else:
                     self.tb_room.removeRow(item)  # 页面中删除一行
-                    self.room_and_id.pop(int(room_id))  # 从机房变量中删除
+                    self.room.pop(int(room_id))  # 从机房变量中删除
                     QtWidgets.QMessageBox.information(self, '删除成功', '删除机房信息成功！')
                     self.get_room()  # 更新机柜信息界面中机房名称下拉菜单值
                     self.tb_room.setCurrentItem(None)  # 设置为非选择状态
@@ -171,8 +151,9 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                                        Cabinet.count_position, Cabinet.is_use).order_by(Cabinet.room,
                                                                                         Cabinet.cab_num).prefetch(
             MachineRoom, Cabinet)
-        # 输出查询内容
-        data = [(i.cab_id, self.room_to_id(room_id=i.room.room_id), i.cab_num, i.cab_name, i.count_position, i.is_use)
+        # 输出查询内容 self.pub_infos.room_swap_id(room_id=i.room.room_id)
+        data = [(i.cab_id, self.pub_infos.room_swap_id(room_id=i.room.room_id), i.cab_num, i.cab_name, i.count_position,
+                 i.is_use)
                 for i in cabinet_model]
         self.tb_cabinet.setRowCount(len(data))  # 设置表格的行数
         # print('查询数据：',data)
@@ -205,7 +186,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             # 批量添加
             if self.chkb_multi.checkState() == 2 and int(add_count) > 0:
                 try:
-                    data = [(str(self.room_to_id(name=room)), cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i),
+                    data = [(str(self.pub_infos.room_swap_id(name=room)),
+                             cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i),
                              cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i), u_count, is_used) for i in
                             range(int(add_count))]  # 定义机柜信息数据
                     # print(data)
@@ -226,7 +208,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             # 单个机柜添加
             elif self.chkb_multi.checkState() == 0:
                 try:
-                    data = [str(self.room_to_id(name=room)), cab_name, cab_alias, u_count, is_used]  # 定义机柜信息数据
+                    data = [str(self.pub_infos.room_swap_id(name=room)), cab_name, cab_alias, u_count,
+                            is_used]  # 定义机柜信息数据
                     # print(data)
                     # 保存到数据库,并返回表格中id给result
                     result = Cabinet.insert_many([data], fields=[Cabinet.room, Cabinet.cab_num, Cabinet.cab_name,
@@ -241,7 +224,8 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     for num, _ in enumerate(data):
                         if num == 1:
                             self.tb_cabinet.setItem(index, num,
-                                                    QTableWidgetItem(self.room_to_id(room_id=int(_))))  # 添加到表格中
+                                                    QTableWidgetItem(
+                                                        self.pub_infos.room_swap_id(room_id=int(_))))  # 添加到表格中
                         else:
                             self.tb_cabinet.setItem(index, num, QTableWidgetItem(_))  # 添加到表格中
                     QtWidgets.QMessageBox.information(self, '添加机柜', '添加机柜信息成功！')
@@ -305,13 +289,13 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             cab_alias = self.le_cabinet_alias.text()
             u_count = self.le_U_count.text()
             is_used = '1' if self.ckb_is_used.isChecked() is True else '0'
-            data = (str(self.room_to_id(name=room)), cab_name, cab_alias, u_count, is_used)
+            data = (str(self.pub_infos.room_swap_id(name=room)), cab_name, cab_alias, u_count, is_used)
             # print('修改后的数据', data)
             old_data = self.modify_cabinet_id[1:]
             # print('查询到的结果', old_data)
             if old_data != data and cab_name != '':
                 # 定义要修改传入数据库的数据格式为字典
-                item = {'room': self.room_to_id(name=room), 'cab_num': cab_name, 'cab_name': cab_alias,
+                item = {'room': self.pub_infos.room_swap_id(name=room), 'cab_num': cab_name, 'cab_name': cab_alias,
                         'count_position': u_count, 'is_use': is_used}
                 # print('要传入数据库中数据格式：', item)
                 if QtWidgets.QMessageBox.question(self, '删除机柜信息',
@@ -490,9 +474,9 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
             child_sort_data = [(i.sort_id, i.sort_name) for i in child_sort_infos]
             # print('子分类信息',child_sort_data)
             for child_item in child_sort_data:
-                Child_Item = QTreeWidgetItem(root_item)
-                Child_Item.setText(2, str(child_item[0]))  # 设置第三列
-                Child_Item.setText(3, child_item[1])  # 设置第四列
+                item = QTreeWidgetItem(root_item)
+                item.setText(2, str(child_item[0]))  # 设置第三列
+                item.setText(3, child_item[1])  # 设置第四列
         self.tree_sort.expandItem(self.tree_sort.topLevelItem(0))
         self.tree_sort.setColumnWidth(0, 70)  # 设置第一列的宽度
         self.tree_sort.setColumnWidth(2, 80)  # 设置第三列的宽度

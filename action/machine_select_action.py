@@ -1,22 +1,15 @@
 import sys
 from PySide6 import QtWidgets,QtGui
 from ui.MachineSelect import *
-# from db.db_handler import *
 from db.db_orm import *
-
-
-# import logging
-#
-#
-# logger = logging.getLogger('peewee')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
+from action.pub_infos import PubSwitch
 
 
 class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
     def __init__(self, parent=None):
         super(UiMachineSelect, self).__init__(parent)
         self.setupUi(self)
+        self.pub_infos = PubSwitch()
         self.get_room_data()  # 显示机房信息
         # 设置表格相关信息
         self.select_table.setHorizontalHeaderLabels(
@@ -53,16 +46,17 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
     # 获取机房名称信息
     def get_room_data(self):
-        room_data = MachineRoom.select(MachineRoom.room_name)
-        room_name = [i.room_name for i in room_data]
+        # room_data = MachineRoom.select(MachineRoom.room_name)
+        # room_name = [i.room_name for i in room_data]
+
+        room_name = self.pub_infos.get_room().values()
         # print('机房信息：',room_name)
         self.room.addItems(room_name)
 
     # 获取机柜名称信息
     def get_cabinet_data(self):
         # 从设备信息视图中查询机柜信息，当没有设备的机柜当不在下拉菜单中显示
-        cabinet_data = MachineList.select(MachineList.cab_name.distinct()).where(MachineList.room_name==self.room.currentText())
-        cabinet_name = [i.cab_name for i in cabinet_data]
+        cabinet_name = self.pub_infos.get_cabinet_infos(self.room.currentText())
         # print('机房信息：',cabinet_name)
         self.cb_cabniet.clear()
         self.cb_cabniet.addItem('所有')
