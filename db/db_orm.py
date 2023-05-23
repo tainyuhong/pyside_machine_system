@@ -1,26 +1,35 @@
 import configparser
-import os
+from pathlib import Path
 from peewee import *
+from playhouse.shortcuts import ReconnectMixin
 import logging
 
 # 定义日志格式
 logging.basicConfig(level=logging.WARN, format='%(asctime)s %(levelname)s %(message)s', filename='machine-sys.log')
 
-
-# database = MySQLDatabase('equipment_mg',
-#                          **{'charset': 'utf8', 'sql_mode': 'PIPES_AS_CONCAT', 'use_unicode': True, 'host': '127.0.0.1',
-#                             'port': 3306, 'user': 'root', 'password': '123456'})
 cf = configparser.ConfigParser(allow_no_value=True)
-base_file = os.path.dirname(os.path.abspath(__file__))      # 获取文件的绝对路径
-
-cf.read(os.path.join(base_file,'db.ini'))       # 动态读取ini文件
+base_file = Path(__file__).parent  # 获取文件的绝对路径
+cf.read(base_file / 'db.ini')  # 动态读取ini文件
 host = cf.get('db', 'host')
 password = cf.get('db', 'password')
 user = cf.get('db', 'user')
-database = cf.get('db', 'database')
+db_name = cf.get('db', 'database')
 port = cf.getint('db', 'port')
 charset = cf.get('db', 'charset')
-database = MySQLDatabase(database, **{'host':host, 'user':user, 'password':password,  'port':port, 'charset':charset})
+
+db_config = {'host': host, 'user': user, 'password': password, 'port': port, 'database': db_name, 'charset': charset}
+
+
+# db = MySQLDatabase(db, **db_config)
+
+
+# 同步数据库断线重连类
+class ReconnectMySQLDatabase(ReconnectMixin, MySQLDatabase):
+    pass
+
+
+# 数据库实例
+db = ReconnectMySQLDatabase(**db_config)
 
 
 class UnknownField(object):
@@ -29,7 +38,7 @@ class UnknownField(object):
 
 class BaseModel(Model):
     class Meta:
-        database = database
+        database = db
 
 
 class CabPosition(BaseModel):
@@ -132,8 +141,9 @@ class MachineInfos(BaseModel):
     uninstall_date = DateField(null=True)
     single_power = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
     comments = CharField(null=True)
-    asset_id = CharField(null=True)         # 资产编号
-    system_name = CharField(null=True)         # 业务系统
+    asset_id = CharField(null=True)  # 资产编号
+    system_name = CharField(null=True)  # 业务系统
+
     class Meta:
         table_name = 'machine_infos'
 
@@ -296,6 +306,7 @@ class ViewWarranty(BaseModel):
     machine_id = IntegerField()
     machine_name = CharField(null=True)
     mg_ip = CharField(null=True)
+    machine_sn = CharField(null=True)
     room_name = CharField()
     start_date = DateField(null=True)
     start_position = IntegerField(null=True)
@@ -322,4 +333,3 @@ class WarrantyInfos(BaseModel):
 
     class Meta:
         table_name = 'warranty_infos'
-

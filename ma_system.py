@@ -1,3 +1,4 @@
+import logging
 import sys
 import time
 from PySide6 import QtWidgets, QtCore
@@ -18,7 +19,7 @@ from action.report_action import MachineReport
 from action.export_to_excel_action import ExportExcel       # 导出设备信息
 from action.warranty_action import UiWarrantySelect        # 维保信息查询
 from action.create_label_action import CreateLabel       # 生成设备标签
-from db.db_orm import database
+from db.db_orm import db
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -155,7 +156,7 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lb_status.setText('数据库连接正常')
             self.lb_status.setStyleSheet(u"background-color: rgb(85, 255, 0)")
         else:
-            self.lb_status.setText('数据库连接断开')
+            self.lb_status.setText('数据库断开')
             self.lb_status.setStyleSheet(u"background-color: rgb(255, 0, 0)")
 
     # 定义用户密码查看窗口显示
@@ -192,10 +193,12 @@ class DbStat(QObject):
     # 检测数据库连接状态
     def db_status(self):
         try:
-            database._connect()  # 尝试连接数据库
+            db._connect()  # 尝试连接数据库
+            # db.connection()  # 尝试连接数据库
             # database.connect(True)
         except Exception as e:
             self.db_signal.emit('False')  # 连接异常发送False信号
+            logging.critical('错误：{}'.format(e))
             # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
         else:
             self.db_signal.emit('True')  # 连接正常发送True信号

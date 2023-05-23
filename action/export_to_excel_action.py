@@ -104,7 +104,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
             # print('查询语句：',select_sql)
             # 执行查询，获取所有数据
             try:
-                data = database.execute_sql(select_sql).fetchall()
+                data = db.execute_sql(select_sql).fetchall()
             except Exception as e:
                 logging.critical('获取数据库错误：', e)
             else:

@@ -131,7 +131,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                             self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
                 self.tb_display.resizeColumnsToContents()
         else:
-            QtWidgets.QMessageBox.warning(self,'设备查询','请输入查询条件!')
+            QtWidgets.QMessageBox.warning(self, '设备查询', '请输入查询条件!')
             print('请输入查询条件')
         # 在数据未修改或已经保存后才能发送信号
 
@@ -170,7 +170,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                     for _ in select_data:
                         data.append((_, 2, operator, down_time, comments))
                     try:
-                        with database.atomic():
+                        with db.atomic():
                             ShelfManage.insert_many(data, fields=(
                                 'machine_id', 'up_or_down', 'operator', 'date', 'comments')).execute()  # 插入下架设备信息到下架表中
                             MachineInfos.update(run_state=4, uninstall_date=down_time).where(
@@ -179,7 +179,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                         logging.critical('执行下架出错：', e)
                     else:
                         QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
-                        self.tb_display.clearContents()     # 清空表格插件内容
+                        self.tb_display.clearContents()  # 清空表格插件内容
                 else:
                     pass
 

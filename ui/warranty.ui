@@ -82,7 +82,45 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1,2,1,1,1">
+            <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1,1,2,1,1,1">
+             <item row="1" column="6">
+              <widget class="QComboBox" name="cb_is_under">
+               <item>
+                <property name="text">
+                 <string>所有</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QLineEdit" name="mg_ip">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>3</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="6">
+              <widget class="QComboBox" name="cb_type">
+               <item>
+                <property name="text">
+                 <string>所有</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="4">
+              <widget class="QLineEdit" name="le_sn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>3</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
              <item row="0" column="0">
               <widget class="QLabel" name="label">
                <property name="sizePolicy">
@@ -99,42 +137,7 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="room">
-               <item>
-                <property name="text">
-                 <string>所有</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QLabel" name="label_4">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>2</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>带内IP</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="3">
-              <widget class="QLineEdit" name="mg_ip">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>3</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="4">
+             <item row="0" column="5">
               <widget class="QLabel" name="label_5">
                <property name="text">
                 <string>维保类型</string>
@@ -144,16 +147,17 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="5">
-              <widget class="QComboBox" name="cb_type">
-               <item>
-                <property name="text">
-                 <string>所有</string>
-                </property>
-               </item>
+             <item row="1" column="5">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>是否保内</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
               </widget>
              </item>
-             <item row="0" column="6">
+             <item row="0" column="7">
               <widget class="QPushButton" name="select_btn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -182,6 +186,15 @@
                </property>
               </widget>
              </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="room">
+               <item>
+                <property name="text">
+                 <string>所有</string>
+                </property>
+               </item>
+              </widget>
+             </item>
              <item row="1" column="1">
               <widget class="QLineEdit" name="machine_name">
                <property name="sizePolicy">
@@ -192,7 +205,24 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
+             <item row="0" column="3">
+              <widget class="QRadioButton" name="rd_bmc_ip">
+               <property name="text">
+                <string>带外IP</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QRadioButton" name="rd_mg_ip">
+               <property name="text">
+                <string>带内IP</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" colspan="2">
               <widget class="QLabel" name="label_2">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -201,40 +231,11 @@
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>带外IP</string>
+                <string>序 列 号</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QLineEdit" name="bmc_ip">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                 <horstretch>3</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="4">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>是否保内</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="5">
-              <widget class="QComboBox" name="cb_is_under">
-               <item>
-                <property name="text">
-                 <string>所有</string>
-                </property>
-               </item>
               </widget>
              </item>
             </layout>
@@ -281,7 +282,7 @@
            <number>15</number>
           </property>
           <property name="columnCount">
-           <number>14</number>
+           <number>15</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
@@ -322,6 +323,7 @@
           <row/>
           <row/>
           <row/>
+          <column/>
           <column/>
           <column/>
           <column/>

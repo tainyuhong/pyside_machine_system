@@ -1,5 +1,4 @@
 import sys
-from pathlib import Path
 from ui.top import Ui_top
 from PySide6 import QtWidgets, QtGui, QtCore
 import xlwings as xw
@@ -13,6 +12,7 @@ from action.pub_infos import PubSwitch
 
 
 class DisplayTop(QtWidgets.QWidget, Ui_top):
+    load_win = set()
     def __init__(self, parent=None):
         super(DisplayTop, self).__init__(parent)
         self.setupUi(self)
@@ -21,14 +21,14 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
         self.setWindowState(QtCore.Qt.WindowMaximized)  # 最大化打开窗口
         self.create_room_win()  # 创建机房窗口视图
 
-        self.tabWidget.currentChanged.connect(self.display_machine)     # 页面切换时触发设备查询事件
+        self.tabWidget.currentChanged.connect(self.display_machine)  # 页面切换时触发设备查询事件
 
-        self.bt_exp.clicked.connect(self.exp_to_excel)      # 导出按钮事件
+        self.bt_exp.clicked.connect(self.exp_to_excel)  # 导出按钮事件
 
     # 生成每个机房的页面窗口视图
     def create_room_win(self):
         # 获取机房数据
-        for num,tab_name in enumerate(self.rooms):
+        for tab_name in self.rooms:
             tab = QtWidgets.QWidget()
             tab.setObjectName(tab_name)
             # if self.tabWidget.currentIndex() == num:
@@ -37,44 +37,53 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
             table = QtWidgets.QTableWidget()  # 定义表格控件
             vertlayout.addWidget(table)  # 将表格添加到垂直布局中
 
-        ind = self.tabWidget.currentIndex()
+        ind = self.tabWidget.currentIndex()     # 当前页面索引号
         # print('当前索引：',ind)
         if ind == 0:
             self.display_machine()
 
     # # 将设备放入机柜对应位置上
     def display_machine(self):
-        cell_bg_color = QtGui.QBrush(QtGui.QColor(250, 250, 210))  # 定义表格单元格画刷颜色
-        # 获取机房设备信息
-        room_machine_datas = self.get_machine_info(self.tabWidget.tabText(self.tabWidget.currentIndex()))
-        # 查找页面中表格控件，并赋值给table
-        table = self.tabWidget.currentWidget().findChild(QtWidgets.QTableWidget)
-        # 对每个机房机房数据进行处理,生成空机柜模型
-        cabinet = self.get_cabinet(self.pub_infos.room_swap_id(name=self.tabWidget.tabText(self.tabWidget.currentIndex())))  # 机柜数据
-        u_pos_data = self.get_u_pos()  # U位信息
-        table.setRowCount(len(u_pos_data))  # U数
-        table.setVerticalHeaderLabels(u_pos_data)
-        table.setColumnCount(len(cabinet))  # 每页列数
-        table.setAlternatingRowColors(True)  # 每行颜色交叉显示
-        table.setHorizontalHeaderLabels(cabinet)  # 将机柜名设置为每列的列名
-        # 将设备数据写入到表格的对应位置中
-        for machine in room_machine_datas:
-            # print('machine_data', machine)      # 数据格式：('A01', 2, 4, '第二台上架设备', '8.8.8.8', '8.8.8.8')
-            # print(machine)
-            jigui = machine[0]  # 相当于表格的列
-            u_postion = machine[1]  # 相当于表格的行
-            item = QtWidgets.QTableWidgetItem('\n\r'.join(machine[3:]))  # 定义单元格内容
-            item.setBackground(cell_bg_color)  # 设置单元格背景色
-            item.setTextAlignment(QtCore.Qt.AlignCenter)  # 水平居中对齐
+        tab_name = self.tabWidget.tabText(self.tabWidget.currentIndex())
+        if tab_name in self.load_win:
+            return
+        else:
+            cell_bg_color = QtGui.QBrush(QtGui.QColor(250, 250, 210))  # 定义表格单元格画刷颜色
+            # 获取机房设备信息
 
-            # 机柜数据 格式：setItem(row,col,item)
-            table.setItem(u_postion - 1, cabinet.index(jigui), item)  # 写入对应机柜数据
-            # 如果设备U数大于2U,对多U的设备进行单元格合并
-            if machine[2] > 1:
-                table.setSpan(u_postion - 1, cabinet.index(jigui), machine[2], 1)
-            table.resizeRowsToContents()  # 自适应行高
-            table.horizontalHeader().setDefaultSectionSize(120)  # 设置每列宽度
-            table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 设置为表格不可编辑
+            room_machine_datas = self.get_machine_info(tab_name)
+            # 查找页面中表格控件，并赋值给table
+            table = self.tabWidget.currentWidget().findChild(QtWidgets.QTableWidget)
+            # 对每个机房机房数据进行处理,生成空机柜模型
+            cabinet = self.get_cabinet(self.pub_infos.room_swap_id(name=tab_name))  # 机柜数据
+            u_pos_data = self.get_u_pos()  # U位信息
+            table.setRowCount(len(u_pos_data))  # U数
+            table.setVerticalHeaderLabels(u_pos_data)
+            table.setColumnCount(len(cabinet))  # 每页列数
+            table.setAlternatingRowColors(True)  # 每行颜色交叉显示
+            table.setHorizontalHeaderLabels(cabinet)  # 将机柜名设置为每列的列名
+            # 将设备数据写入到表格的对应位置中
+            for machine in room_machine_datas:
+                # print('machine_data', machine)      # 数据格式：('A01', 2, 4, '第二台上架设备', '8.8.8.8', '8.8.8.8')
+                # print(machine)
+                jigui = machine[0]  # 相当于表格的列
+                u_postion = machine[1]  # 相当于表格的行
+                item = QtWidgets.QTableWidgetItem('\n\r'.join(machine[3:]))  # 定义单元格内容
+                item.setBackground(cell_bg_color)  # 设置单元格背景色
+                item.setTextAlignment(QtCore.Qt.AlignCenter)  # 水平居中对齐
+
+                # 机柜数据 格式：setItem(row,col,item)
+                table.setItem(u_postion - 1, cabinet.index(jigui), item)  # 写入对应机柜数据
+                # 如果设备U数大于2U,对多U的设备进行单元格合并
+                if machine[2] > 1:
+                    table.setSpan(u_postion - 1, cabinet.index(jigui), machine[2], 1)
+                table.resizeRowsToContents()  # 自适应行高
+                table.horizontalHeader().setDefaultSectionSize(120)  # 设置每列宽度
+                table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 设置为表格不可编辑
+
+                # 为避免重复打开页面需要重新加载，将页面索引加入
+                self.load_win.add(tab_name)# 为避免重复打开页面需要重新加载，将页面索引加入
+            self.load_win.add(tab_name)
 
     # 获取U位信息
     @staticmethod
@@ -113,7 +122,7 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
 
     # 导入机柜top示意图
     def exp_to_excel(self):
-        filepath,filetype = QtWidgets.QFileDialog.getSaveFileUrl(self,'导出机柜落位图',filter='.xlsx')
+        filepath, filetype = QtWidgets.QFileDialog.getSaveFileUrl(self, '导出机柜落位图', filter='.xlsx')
         # print('保存文件路径：',filepath,filepath.toLocalFile())
         if filepath != '':
             # 如果用户没有在文件名后加后缀名，则系统自动加上

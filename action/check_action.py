@@ -4,16 +4,15 @@ import time
 from PySide6 import QtWidgets, QtCore
 from ui.check import *
 from ui.addhost_win import *
-# from db.db_handler import *
 from action.connect import SshToHost
-from db.db_orm import database, ViewCheckCmd, MachineSort, MachineList
+from db.db_orm import db, ViewCheckCmd, MachineSort, MachineList
 
 
 # 添加主机窗口类
 class AddHosts(QDialog, Ui_addhost_win):
-    '''
+    """
     添加主机窗口 子窗口
-    '''
+    """
     host_message = QtCore.Signal(list)  # 定义信号
 
     def __init__(self, parent=None):
@@ -78,9 +77,9 @@ class AddHosts(QDialog, Ui_addhost_win):
 
 # 主机巡检窗口类
 class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
-    '''
+    """
     设备巡检窗口类
-    '''
+    """
     host_signal = QtCore.Signal(list)  # 定义主机信息信号
 
     def __init__(self, parent=None):
@@ -163,7 +162,7 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
                 # print('没有配置巡检主机用户信息，请配置后再进行巡检！', no_exec_hosts)
                 # print('需要巡检的主机IP表', exec_hosts)
                 self.dispaly_te.append('{}没有配置巡检主机用户信息，请配置后再进行巡检！'.format(no_exec_hosts))
-                QtWidgets.QMessageBox.warning(self,'执行巡检操作','没有配置巡检主机用户信息，请配置后再进行巡检！')
+                QtWidgets.QMessageBox.warning(self, '执行巡检操作', '没有配置巡检主机用户信息，请配置后再进行巡检！')
                 self.dispaly_te.append('\n\n需要巡检的主机IP表:{} '.format(exec_hosts))
                 # 判断需要巡检的主机数量
                 if not exec_hosts:
@@ -183,7 +182,7 @@ class UiCheck(Ui_check_form, QtWidgets.QDialog, QObject):
                         check_cmd_sql = ''' select * from view_check_cmd c where c.cmd_id='1' and c.ip in {}  '''.format(
                             tuple(ip_list))  # 查询指定设备SQL
                     # print('SQL', check_cmd_sql)
-                    self.check_hosts = database.execute_sql(check_cmd_sql)
+                    self.check_hosts = db.execute_sql(check_cmd_sql)
                     # print('self.check_hosts:', self.check_hosts)
                     # self.check_hosts = self.db.query_single(check_cmd_sql)
                     # print(self.check_hosts= ((1, 'k8s-master', '192.168.1.70', 'root', '123456', 1, 'date\r\nhostname\r\nuname', '日期', 5741),

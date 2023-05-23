@@ -1,5 +1,5 @@
 import sys
-from PySide6 import QtWidgets,QtGui
+from PySide6 import QtWidgets
 from ui.MachineSelect import *
 from db.db_orm import *
 from action.pub_infos import PubSwitch
@@ -46,9 +46,6 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
     # 获取机房名称信息
     def get_room_data(self):
-        # room_data = MachineRoom.select(MachineRoom.room_name)
-        # room_name = [i.room_name for i in room_data]
-
         room_name = self.pub_infos.get_room().values()
         # print('机房信息：',room_name)
         self.room.addItems(room_name)
@@ -87,15 +84,18 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             sql = sql + ' and room_name= %s and cab_name= %s '
             sel_values.append(self.room.currentText())
             sel_values.append(self.cb_cabniet.currentText())
-        if self.mg_ip.text() != '':
+        if self.rd_mg_ip.isChecked() and self.mg_ip.text() != '':
             sql = sql + ' and mg_ip like "%%"%s"%%"'
             sel_values.append(self.mg_ip.text())
-        if self.bmc_ip.text() != '':
+        if self.rd_bmc_ip.isChecked() and self.mg_ip.text() != '':
             sql = sql + ' and bmc_ip like "%%"%s"%%"'
-            sel_values.append(self.bmc_ip.text())
+            sel_values.append(self.mg_ip.text())
         if self.machine_name.text() != '':
             sql = sql + ' and machine_name like "%%"%s"%%"'
             sel_values.append(self.machine_name.text())
+        if self.le_sn.text() != '':
+            sql = sql + ' and machine_sn like "%%"%s"%%" '
+            sel_values.append(self.le_sn.text())
         self.data_sql = sql  # 获取按条件查询的sql语句
         self.select_values = sel_values  # 获取查询条件值
         # print('查询条件',self.select_values)
@@ -126,16 +126,16 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # 连接数据库并显示数据至页面
         # print('总页数条件：', values)
         # print('总页数SQL：', sql)
-        data = database.execute_sql(sql, values).fetchall()  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
+        data = db.execute_sql(sql, values).fetchall()  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
         # data = self.db.query_single(sql, values)  # 获取查询的数据，返回格式为一个内嵌的2元组，格式：（总记录数，数据内容）
         # print('数据条数：',len(data))
         total_record = len(data)  # 查询到的数据总记录条数
         if total_record % 15 == 0:
             self.totalPage = (total_record // 15)
-            self.total_page_lb.setText('总页数：{}页'.format(self.totalPage, total_record))  # 分页显示数据
+            self.total_page_lb.setText('总页数：{}页 共 {} 条记录'.format(self.totalPage, total_record))  # 分页显示数据
         else:
             self.totalPage = (total_record // 15) + 1
-            self.total_page_lb.setText('总页数：{}页'.format(self.totalPage, total_record))  # 分页显示数据
+            self.total_page_lb.setText('总页数：{}页 共 {} 条记录'.format(self.totalPage, total_record))  # 分页显示数据
         # print('总页数',self.totalPage)
         return self.totalPage
 
@@ -154,14 +154,14 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
         if sql_args is None:
             # print('------======-------')
-            page_data = database.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容
+            page_data = db.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容
             # print('查询页数据：',page_data)
             # page_data = self.db.query_single(sql_page, limiIndex)  # 每页数据内容
         else:
             # print('<<<<<<<<<')
             sql_args.append(limiIndex)  # 将索引记录放入SQL传入的参数列表中
             # print('有参数sql_args:',sql_args)
-            page_data = database.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容
+            page_data = db.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容
             # print('查询页数据：', page_data)
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容

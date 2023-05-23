@@ -5,8 +5,10 @@ import logging
 import time
 import pathlib
 import subprocess
-# from db.db_handler import *
-from db.db_orm import database
+
+from db.db_orm import db
+
+
 # import logging
 
 
@@ -14,7 +16,7 @@ from db.db_orm import database
 # logger.addHandler(logging.StreamHandler())
 # logger.setLevel(logging.DEBUG)
 # 定义日志格式
-# logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')  # , filename='checkrun.log'
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s', filename='checkrun.log')
 
 # 创建数据库对象实例
 # db = DBMysql()
@@ -34,7 +36,7 @@ class SshToHost(object):
         try:
             t.open(host[1], 22, timeout=5)  # 打开一个远程连接，超时时间为2S
         except Exception as e:
-            # logging.error('连接错误：'.format(e))
+            logging.error('连接错误：'.format(e))
             logging.warning('{}:{} IP或端口异常,将不执行巡检任务！！！'.format(host[0], host[1]))
             return '  {}:{}  IP或端口异常,将不执行巡检任务！！！'.format(host[0], host[1])
         else:
@@ -49,7 +51,9 @@ class SshToHost(object):
     def is_alive(ip, up, down):
         """
         用ping命令检查主机存活状态
-        :param ip_: ip为元组格式('hostname','ip','user','passwd')
+        :param down: 网络不可达主机列表
+        :param up: 网络在线主机列表
+        :param ip: ip为元组格式('hostname','ip','user','passwd')
         :return: 正常主机列表host_up和不可达主机列表host_down
         """
         ip_ping = subprocess.run(['ping', '-n', '2', '-w', '5', ip[1]], shell=True, stdin=subprocess.PIPE,
@@ -101,22 +105,22 @@ class SshToHost(object):
             self.channel.invoke_shell()
             # 根据配置文件定义command项执行脚本
             # 获取脚本命令内容
-            print('cmd_sql',cmd_sql)
-            print('args',args)
-            cmd_file = database.execute_sql(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
+            print('cmd_sql', cmd_sql)
+            print('args', args)
+            cmd_file = db.execute_sql(cmd_sql, args)  # 查看有几个可执行的脚本配置文件
             # cmd_file = db.query_single(cmd_sql,args)     # 查看有几个可执行的脚本配置文件
-            print('cmd_file',cmd_file)
+            print('cmd_file', cmd_file)
             if len(cmd_file) > 0:
                 # print('cmd_file',cmd_file)
-                for i in cmd_file:      # 遍历脚本配置文件
-                    single_cmd = i[0].split('\n')     # 提取配置文件中脚本命令
+                for i in cmd_file:  # 遍历脚本配置文件
+                    single_cmd = i[0].split('\n')  # 提取配置文件中脚本命令
                     # print('single_cmd',single_cmd)
-                    for c in single_cmd:        # 遍历每个命令
+                    for c in single_cmd:  # 遍历每个命令
                         # print('命令c：', c,type(c))
                         # 发送要执行的命令
                         time.sleep(0.1)
-                        logging.info('执行命令：【{}】'.format(c))     # 记录需要执行的命令到日志
-                        self.channel.send(c + '\n')             # 在每一个命令后加上换行
+                        logging.info('执行命令：【{}】'.format(c))  # 记录需要执行的命令到日志
+                        self.channel.send(c + '\n')  # 在每一个命令后加上换行
                         # time.sleep(1)
                         self.out_print(ip)  # 调用输出命令结果函数
                     print()
@@ -129,7 +133,7 @@ class SshToHost(object):
             self.channel.close()
             self.trans.close()
         print('\n')
-        return count    # 返回执行成功数
+        return count  # 返回执行成功数
 
     # 输出命令执行结果
     def out_print(self, host_ip):
@@ -151,9 +155,9 @@ class SshToHost(object):
             try:
                 result = result.decode('utf-8')
                 logging.warning('使用UTF-8编码！')
-            except:
+            except Exception as e:
                 result = result.decode('gb18030')
-                logging.warning('使用gb18030编码！')
+                logging.warning('使用gb18030编码！{}'.format(e))
             if result.endswith(end_symbol):
                 command_result.write(result)  # 将小于1024的部分输出保存到执行结果文件中，并跳出循环
                 print(result, end='')  # 输出到日志显示窗口

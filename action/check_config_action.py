@@ -1,7 +1,9 @@
 import sys
 from PySide6 import QtWidgets
 from ui.check_config_ui import *
-from db.db_orm import database, CmdFile, MachineCheckUser, MachineList, ViewCheckCmd
+from db.db_orm import db, CmdFile, MachineCheckUser, MachineList, ViewCheckCmd
+
+
 # import logging
 #
 # logger = logging.getLogger('peewee')
@@ -30,7 +32,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         self.bt_add_check.clicked.connect(self.add_config)  # 添加巡检设备按钮
         self.bt_select.clicked.connect(self.query_by_condition)  # 查询按钮
         self.bt_query_select.clicked.connect(self.query_check_machine)  # 巡检配置查询
-        self.bt_query_del.clicked.connect(self.del_check_machine)       # 删除巡检配置信息
+        self.bt_query_del.clicked.connect(self.del_check_machine)  # 删除巡检配置信息
         self.bt_add_shell.clicked.connect(self.add_shell)  # 添加命令脚本
         self.bt_del_shell.clicked.connect(self.del_shell)  # 删除命令脚本
         self.bt_modify_shell.clicked.connect(self.modify_shell)  # 修改脚本
@@ -103,7 +105,8 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         if user == '' or passwd == '' or check_sort == '无':
             QtWidgets.QMessageBox.warning(self, '添加巡检用户信息', '请输入巡检用户及密码，并选择巡检类型！')
         else:
-            if QtWidgets.QMessageBox.question(self, '添加巡检配置信息', '你确定要添加巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
+            if QtWidgets.QMessageBox.question(self, '添加巡检配置信息',
+                                              '你确定要添加巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
                 # 获取钩择的设备信息
                 row = self.tb_display.rowCount()  # 表格的总行数
                 checked_cell = []  # 钩选的单元格
@@ -116,16 +119,16 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
                 # 判断是否有选择设备
                 if checked_cell:
                     # print('用户名和密码：{}-->{},{},{}'.format(user, passwd, check_sor_data[check_sort], checked_cell))
-                    with database.atomic():
+                    with db.atomic():
                         for ma in checked_cell:
                             MachineCheckUser.insert_many([(user, passwd, check_sor_data[check_sort], ma)], (
                                 MachineCheckUser.user, MachineCheckUser.password, MachineCheckUser.cmd_id,
                                 MachineCheckUser.machine)).execute()
                         QtWidgets.QMessageBox.information(self, '添加巡检配置信息', '保存成功!')
-                        self.le_user.clear()        # 清空文本框
-                        self.le_passwd.clear()      # 清空文本框
+                        self.le_user.clear()  # 清空文本框
+                        self.le_passwd.clear()  # 清空文本框
                         self.cb_check_sort.setCurrentIndex(0)
-                        self.display_machine()     # 取消选择
+                        self.display_machine()  # 取消选择
                 else:
                     QtWidgets.QMessageBox.warning(self, '添加巡检配置信息', '请选择需要配置的主机!')
             else:
@@ -164,11 +167,12 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         else:
             check_id = item[0].text()  # 获取id
             # print('选择的行的内容', check_id)
-            if QtWidgets.QMessageBox.question(self, '删除巡检配置信息', '你确定要删除巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
+            if QtWidgets.QMessageBox.question(self, '删除巡检配置信息',
+                                              '你确定要删除巡检配置信息吗？') == QtWidgets.QMessageBox.Yes:
                 try:
-                    MachineCheckUser.delete_by_id(check_id) # 根据id进行删除
+                    MachineCheckUser.delete_by_id(check_id)  # 根据id进行删除
                 except Exception as e:
-                    print('删除巡检配置信息错误：',e)
+                    print('删除巡检配置信息错误：', e)
                 else:
                     QtWidgets.QMessageBox.information(self, '删除巡检配置信息', '删除成功！')
                     self.query_check_machine()
@@ -185,9 +189,10 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
         else:
             input_data = (shell_name, shell_content)
             # print(input_data)
-            if QtWidgets.QMessageBox.question(self, '添加shell命令', '你确定要添加shell吗？') == QtWidgets.QMessageBox.Yes:
+            if QtWidgets.QMessageBox.question(self, '添加shell命令',
+                                              '你确定要添加shell吗？') == QtWidgets.QMessageBox.Yes:
                 try:
-                    with database.atomic():
+                    with db.atomic():
                         CmdFile.insert_many([input_data], fields=(CmdFile.cmd_name, CmdFile.cmd)).execute()
                 except Exception as e:
                     print('添加shell出错：', e)
@@ -196,7 +201,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
                     self.display_cmd()  # 刷新表内容
                     self.le_shell_name.clear()
                     self.text_shell.clear()
-                    self.get_check_sort()       # 刷新巡检分类信息
+                    self.get_check_sort()  # 刷新巡检分类信息
             else:
                 pass
 
@@ -237,9 +242,10 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
                 QtWidgets.QMessageBox.warning(self, '修改shell命令', '请填写完整的shell名及shell内容！')
             else:
                 # input_data = [shell_name, shell_content]
-                if QtWidgets.QMessageBox.question(self, '修改shell命令', '你确定要修改shell吗？') == QtWidgets.QMessageBox.Yes:
+                if QtWidgets.QMessageBox.question(self, '修改shell命令',
+                                                  '你确定要修改shell吗？') == QtWidgets.QMessageBox.Yes:
                     try:
-                        with database.atomic():
+                        with db.atomic():
                             CmdFile.update(cmd_name=shell_name, cmd=shell_content).where(
                                 CmdFile.cmd_id == self.selected_shell_id).execute()
                     except Exception as e:
@@ -250,7 +256,7 @@ class UiCconfigCheck(Ui_check_config, QtWidgets.QWidget):
                         self.le_shell_name.clear()
                         self.text_shell.clear()
                         self.selected_shell_id = None
-                        self.tb_display_shell.setCurrentItem(None)      # 设置为非选择状态
+                        self.tb_display_shell.setCurrentItem(None)  # 设置为非选择状态
                 else:
                     pass
         else:
