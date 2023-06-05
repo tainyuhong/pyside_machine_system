@@ -60,20 +60,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,0,0,0,0,2,0,1">
-          <item row="1" column="7">
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
+         <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,0,0,2,1">
           <item row="0" column="1">
            <widget class="QComboBox" name="cb_room">
             <property name="font">
@@ -88,7 +75,49 @@
             </item>
            </widget>
           </item>
-          <item row="0" column="8">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>机房</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="7">
+           <widget class="QPushButton" name="bt_clear">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>清空</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>机柜</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="7">
            <widget class="QPushButton" name="bt_select">
             <property name="font">
              <font>
@@ -100,8 +129,67 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="5" colspan="2">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="cb_cabinet">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <item>
+             <property name="text">
+              <string>所有</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_3">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>设备分类</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QComboBox" name="cb_sort">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="6">
            <widget class="QLineEdit" name="machine_name">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="5">
+           <widget class="QRadioButton" name="rd_bmc_ip">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>带外IP</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLineEdit" name="le_sn">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -121,35 +209,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="7">
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>机柜</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3">
+          <item row="1" column="4">
            <widget class="QRadioButton" name="rd_mg_ip">
             <property name="font">
              <font>
@@ -164,33 +224,22 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="4" colspan="2">
-           <widget class="QRadioButton" name="rd_bmc_ip">
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_4">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>带外IP</string>
+             <string>序列号</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="cb_cabinet">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <item>
-             <property name="text">
-              <string>所有</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="0" column="3" colspan="2">
+          <item row="0" column="4" colspan="2">
            <widget class="QLabel" name="lb_machine_name">
             <property name="font">
              <font>
@@ -204,46 +253,6 @@
              <set>Qt::AlignCenter</set>
             </property>
            </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>机房</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="8">
-           <widget class="QPushButton" name="bt_clear">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>清空</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <spacer name="horizontalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </item>
@@ -337,12 +346,17 @@
        </column>
        <column>
         <property name="text">
-         <string>出厂日期</string>
+         <string>管理IP</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>到保日期</string>
+         <string>BMC IP</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>应用IP</string>
         </property>
        </column>
        <column>
@@ -367,17 +381,12 @@
        </column>
        <column>
         <property name="text">
-         <string>管理IP</string>
+         <string>出厂日期</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>应用IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>BMC IP</string>
+         <string>到保日期</string>
         </property>
        </column>
        <column>

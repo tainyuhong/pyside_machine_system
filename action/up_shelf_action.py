@@ -162,7 +162,8 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
         """
         # 当机房为ZB-1时，Cabinet.room=1，根据条件进行判断...
         cabinet_data = Cabinet.select(Cabinet.cab_num).where(
-            (Cabinet.room == self.pub_info.room_swap_id(name=self.cb_room.currentText())) & (Cabinet.is_use == 1)).order_by(
+            (Cabinet.room == self.pub_info.room_swap_id(name=self.cb_room.currentText())) & (
+                        Cabinet.is_use == 1)).order_by(
             Cabinet.cab_num)
         # print(cabinet_data)
         cabinet = [i.cab_num for i in cabinet_data]  # 利用列表生成器生成设备分类

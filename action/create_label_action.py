@@ -1,8 +1,5 @@
 import sys
-from pathlib import Path
-import sys
 import xlwings as xw
-# from openpyxl.styles import Border, Side,Alignment
 from PySide6 import QtWidgets
 from db.db_orm import *
 from ui.create_label import *
@@ -197,11 +194,9 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
                                 QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
                             else:
                                 wb.close()
-                                exl_app.quit()
                                 QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
                     else:
-                        print('取消导出！')
-
+                        print('取消')
             else:
                 QtWidgets.QMessageBox.warning(self, '未选择设备', '请选择要生成标签的设备!')
         else:

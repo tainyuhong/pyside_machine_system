@@ -2,13 +2,8 @@ import sys
 from ui.shelf_display import *
 from PySide6 import QtWidgets
 from db.db_orm import *
-from openpyxl import Workbook
+import xlwings as xw
 
-# import logging
-#
-# logger = logging.getLogger('peewee')
-# logger.addHandler(logging.StreamHandler())
-# logger.setLevel(logging.DEBUG)
 """
 设备上下架信息查看
 """
@@ -35,9 +30,6 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                                                                 self.display_down_data))  # 定义查询按钮事件
         self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
         self.btn_export_down.clicked.connect(lambda: self.export_up_to_xls(self.tb_down))  # 导出下架信息
-    #
-    # def print_win_index(self):
-    #     print(self.tabWidget.currentIndex())
 
     # 上架信息查询
     def display_up_data(self, up_date=None):
@@ -61,7 +53,7 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                     self.tb_up.setItem(row, col, QTableWidgetItem(str(updata[row][col])))
             self.tb_up.resizeColumnsToContents()  # 根据内容自定义列宽
             self.lb_state_up.setText('------> 查询到 {} 条记录 <------'.format(len(updata)))
-            self.btn_export_up.setDisabled(True)  # 启用导出按钮
+            self.btn_export_up.setDisabled(False)  # 启用导出按钮
         else:
             self.tb_up.clearContents()  # 清空表格中内容
             self.tb_up.horizontalHeader().setDefaultSectionSize(80)  # 设置默认宽度为80
@@ -75,33 +67,40 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         :param table: 页面窗口表格显示控件
         :return:
         """
-        # # 写入测试数据
-        # for row,i in enumerate(range(8)):
-        #     for col,num in enumerate(range(12)):
-        #         self.tb_up.setItem(row,col,QTableWidgetItem('{}-{}'.format(i,num)))
+        # 判断第一行第一列是否有数据，如果没有则没有需要导出的数据
+        if self.tb_up.item(0, 0):
+            with xw.App(visible=False, add_book=False) as xl_app:
+                wb = xl_app.books.add()  # 定义工作表
+                sh = wb.sheets.active
 
-        wb = Workbook()  # 定义工作表
-        sh = wb.active  # 激活页
-        # print('表格名称',sh.title)
-
-        # 导出至表格
-        table_title = []  # 获取表头信息
-        for i in range(12):
-            table_title.append(table.horizontalHeaderItem(i).text())  # 插入表格标题一行
-        # print(table_title)
-        # 判断是否保存文件
-        filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
-        if ok:
-            # print('filesave:',filesave)
-            sh.append(table_title)
-            row_count = table.rowCount()
-            col_count = table.columnCount()
-            for cell_row in range(row_count):
-                for cell_col in range(col_count):
-                    sh.cell(row=cell_row + 2, column=cell_col + 1, value=table.item(cell_row, cell_col).text())
-            # print('导出完成')
-            wb.save(filesave)  # 保存excel
-            QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
+                # 导出至excel表格中
+                table_title = []  # 获取表头信息
+                for i in range(12):
+                    table_title.append(table.horizontalHeaderItem(i).text())  # 插入表格标题一行
+                # print(table_title)
+                # 判断是否保存文件
+                filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
+                if ok:
+                    # print('filesave:',filesave)
+                    sh.range('A1').value = table_title  # 写入标题栏
+                    row_count = table.rowCount()
+                    col_count = table.columnCount()
+                    # excel中进行文本格式化后再写入内容
+                    sh.range((2, 2), (row_count + 1, col_count + 1)).options(expand='table').api.NumberFormat = '@'
+                    # 从页面表格中获取数据写入到EXCEL中
+                    for cell_row in range(row_count):
+                        for cell_col in range(col_count):
+                            sh.cells(cell_row + 2, cell_col + 1).value = table.item(cell_row, cell_col).text()
+                    # 自适应列宽
+                    sh.autofit('c')
+                    # 添加边框线
+                    for i in range(7, 13):
+                        sh.range('A1').expand('table').api.Borders(i).Weight = 2
+                    wb.save(filesave)  # 保存excel
+                    wb.close()
+                    QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
+        else:
+            QtWidgets.QMessageBox.critical(self, '导出错误', '未找到要导出的数据！')
 
     # 下架信息查询
     def display_down_data(self, down_date=None):

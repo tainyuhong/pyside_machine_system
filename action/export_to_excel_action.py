@@ -1,7 +1,5 @@
 import sys
 import pathlib
-# import openpyxl
-# from openpyxl.styles import Border, Side
 import xlwings as xw
 from PySide6 import QtWidgets
 from db.db_orm import *
@@ -155,7 +153,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
                                 QtWidgets.QMessageBox.critical(self, '保存文件', '保存文件错误！{}'.format(e))
                             else:
                                 wb.close()
-                                exl_app.quit()
+                                # exl_app.quit()
                                 QtWidgets.QMessageBox.information(self, '保存文件', '保存文件成功！！')
                         else:
                             # 如果用户没有在文件名后加后缀名，则系统自动加上

@@ -17,10 +17,10 @@ data = [['1', '5-1_A01_37', '10G带外管理接入3', '带内:\r\n带外:', '210
         ['3', '5-1_A01_26', '文件存储网关服务器-1', '带内:6.40.130.35\r\n带外:', 'PR212K221024HN0004'],
         ['4', '5-1_A01_15', '负载均衡', '带内:\r\n带外:', ''],
         ['5', '5-1_A01_3', '信创-核心交换机1', '带内:\r\n带外:', '1022A5784470']]
-ws.range('e1',(7,5)).options(expand='table').api.NumberFormat='@'
+ws.range((2,2),(7,5)).options(expand='table').api.NumberFormat='@'
 ws.range('A1').value = data
 rng = ws.range((6,5),(5,5))
-rng.merge()
+rng.merge()  # 合并
 print(rng.size)
 ws.autofit('c')
 # print('最后一列',ws.used_range.last_cell.column)

@@ -180,6 +180,7 @@ class MachineList(BaseModel):
     mg_ip = CharField(null=True)
     bmc_ip = CharField(null=True)
     machine_admin = CharField(null=True)
+    comments = CharField(null=True)
 
     class Meta:
         table_name = 'machine_list'

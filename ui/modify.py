@@ -56,10 +56,6 @@ class Ui_modify(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 7, 1, 1)
-
         self.cb_room = QComboBox(self.groupBox)
         self.cb_room.addItem("")
         self.cb_room.setObjectName(u"cb_room")
@@ -68,62 +64,6 @@ class Ui_modify(object):
         self.cb_room.setFont(font1)
 
         self.gridLayout.addWidget(self.cb_room, 0, 1, 1, 1)
-
-        self.bt_select = QPushButton(self.groupBox)
-        self.bt_select.setObjectName(u"bt_select")
-        self.bt_select.setFont(font1)
-
-        self.gridLayout.addWidget(self.bt_select, 0, 8, 1, 1)
-
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
-        self.machine_name.setFont(font1)
-
-        self.gridLayout.addWidget(self.machine_name, 0, 5, 1, 2)
-
-        self.mg_ip = QLineEdit(self.groupBox)
-        self.mg_ip.setObjectName(u"mg_ip")
-        self.mg_ip.setFont(font1)
-
-        self.gridLayout.addWidget(self.mg_ip, 1, 6, 1, 1)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_4, 0, 7, 1, 1)
-
-        self.label_2 = QLabel(self.groupBox)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setFont(font1)
-        self.label_2.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
-
-        self.rd_mg_ip = QRadioButton(self.groupBox)
-        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
-        self.rd_mg_ip.setFont(font1)
-        self.rd_mg_ip.setChecked(True)
-
-        self.gridLayout.addWidget(self.rd_mg_ip, 1, 3, 1, 1)
-
-        self.rd_bmc_ip = QRadioButton(self.groupBox)
-        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
-        self.rd_bmc_ip.setFont(font1)
-
-        self.gridLayout.addWidget(self.rd_bmc_ip, 1, 4, 1, 2)
-
-        self.cb_cabinet = QComboBox(self.groupBox)
-        self.cb_cabinet.addItem("")
-        self.cb_cabinet.setObjectName(u"cb_cabinet")
-        self.cb_cabinet.setFont(font1)
-
-        self.gridLayout.addWidget(self.cb_cabinet, 1, 1, 1, 1)
-
-        self.lb_machine_name = QLabel(self.groupBox)
-        self.lb_machine_name.setObjectName(u"lb_machine_name")
-        self.lb_machine_name.setFont(font1)
-        self.lb_machine_name.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lb_machine_name, 0, 3, 1, 2)
 
         self.label = QLabel(self.groupBox)
         self.label.setObjectName(u"label")
@@ -136,16 +76,92 @@ class Ui_modify(object):
         self.bt_clear.setObjectName(u"bt_clear")
         self.bt_clear.setFont(font1)
 
-        self.gridLayout.addWidget(self.bt_clear, 1, 8, 1, 1)
+        self.gridLayout.addWidget(self.bt_clear, 1, 7, 1, 1)
 
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label_2 = QLabel(self.groupBox)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font1)
+        self.label_2.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addItem(self.horizontalSpacer_5, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+
+        self.bt_select = QPushButton(self.groupBox)
+        self.bt_select.setObjectName(u"bt_select")
+        self.bt_select.setFont(font1)
+
+        self.gridLayout.addWidget(self.bt_select, 0, 7, 1, 1)
+
+        self.cb_cabinet = QComboBox(self.groupBox)
+        self.cb_cabinet.addItem("")
+        self.cb_cabinet.setObjectName(u"cb_cabinet")
+        self.cb_cabinet.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_cabinet, 1, 1, 1, 1)
+
+        self.label_3 = QLabel(self.groupBox)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font1)
+        self.label_3.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_3, 0, 2, 1, 1)
+
+        self.cb_sort = QComboBox(self.groupBox)
+        self.cb_sort.setObjectName(u"cb_sort")
+        self.cb_sort.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_sort, 0, 3, 1, 1)
+
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
+        self.machine_name.setFont(font1)
+
+        self.gridLayout.addWidget(self.machine_name, 0, 6, 1, 1)
+
+        self.rd_bmc_ip = QRadioButton(self.groupBox)
+        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
+        self.rd_bmc_ip.setFont(font1)
+
+        self.gridLayout.addWidget(self.rd_bmc_ip, 1, 5, 1, 1)
+
+        self.le_sn = QLineEdit(self.groupBox)
+        self.le_sn.setObjectName(u"le_sn")
+        self.le_sn.setFont(font1)
+
+        self.gridLayout.addWidget(self.le_sn, 1, 3, 1, 1)
+
+        self.mg_ip = QLineEdit(self.groupBox)
+        self.mg_ip.setObjectName(u"mg_ip")
+        self.mg_ip.setFont(font1)
+
+        self.gridLayout.addWidget(self.mg_ip, 1, 6, 1, 1)
+
+        self.rd_mg_ip = QRadioButton(self.groupBox)
+        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
+        self.rd_mg_ip.setFont(font1)
+        self.rd_mg_ip.setChecked(True)
+
+        self.gridLayout.addWidget(self.rd_mg_ip, 1, 4, 1, 1)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font1)
+        self.label_4.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_4, 1, 2, 1, 1)
+
+        self.lb_machine_name = QLabel(self.groupBox)
+        self.lb_machine_name.setObjectName(u"lb_machine_name")
+        self.lb_machine_name.setFont(font1)
+        self.lb_machine_name.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.lb_machine_name, 0, 4, 1, 2)
 
         self.gridLayout.setColumnStretch(0, 1)
-        self.gridLayout.setColumnStretch(1, 2)
+        self.gridLayout.setColumnStretch(1, 1)
+        self.gridLayout.setColumnStretch(2, 1)
+        self.gridLayout.setColumnStretch(3, 1)
         self.gridLayout.setColumnStretch(6, 2)
-        self.gridLayout.setColumnStretch(8, 1)
+        self.gridLayout.setColumnStretch(7, 1)
 
         self.verticalLayout.addLayout(self.gridLayout)
 
@@ -269,16 +285,18 @@ class Ui_modify(object):
         self.groupBox.setTitle(QCoreApplication.translate("modify", u"\u67e5\u8be2\u6761\u4ef6", None))
         self.cb_room.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
 
-        self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
-        self.mg_ip.setText("")
-        self.label_2.setText(QCoreApplication.translate("modify", u"\u673a\u67dc", None))
-        self.rd_mg_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5185IP", None))
-        self.rd_bmc_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5916IP", None))
-        self.cb_cabinet.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
-
-        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
         self.label.setText(QCoreApplication.translate("modify", u"\u673a\u623f", None))
         self.bt_clear.setText(QCoreApplication.translate("modify", u"\u6e05\u7a7a", None))
+        self.label_2.setText(QCoreApplication.translate("modify", u"\u673a\u67dc", None))
+        self.bt_select.setText(QCoreApplication.translate("modify", u"\u67e5\u8be2", None))
+        self.cb_cabinet.setItemText(0, QCoreApplication.translate("modify", u"\u6240\u6709", None))
+
+        self.label_3.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u5206\u7c7b", None))
+        self.rd_bmc_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5916IP", None))
+        self.mg_ip.setText("")
+        self.rd_mg_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5185IP", None))
+        self.label_4.setText(QCoreApplication.translate("modify", u"\u5e8f\u5217\u53f7", None))
+        self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)
@@ -300,23 +318,23 @@ class Ui_modify(object):
         ___qtablewidgetitem9 = self.tb_display.horizontalHeaderItem(9)
         ___qtablewidgetitem9.setText(QCoreApplication.translate("modify", u"\u5e8f\u5217\u53f7", None));
         ___qtablewidgetitem10 = self.tb_display.horizontalHeaderItem(10)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("modify", u"\u51fa\u5382\u65e5\u671f", None));
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406IP", None));
         ___qtablewidgetitem11 = self.tb_display.horizontalHeaderItem(11)
-        ___qtablewidgetitem11.setText(QCoreApplication.translate("modify", u"\u5230\u4fdd\u65e5\u671f", None));
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("modify", u"BMC IP", None));
         ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("modify", u"\u4e1a\u52a1\u7c7b\u578b", None));
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("modify", u"\u5e94\u7528IP", None));
         ___qtablewidgetitem13 = self.tb_display.horizontalHeaderItem(13)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("modify", u"\u8fd0\u884c\u72b6\u6001", None));
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("modify", u"\u4e1a\u52a1\u7c7b\u578b", None));
         ___qtablewidgetitem14 = self.tb_display.horizontalHeaderItem(14)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("modify", u"\u8d1f\u8d23\u4eba", None));
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("modify", u"\u8fd0\u884c\u72b6\u6001", None));
         ___qtablewidgetitem15 = self.tb_display.horizontalHeaderItem(15)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("modify", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("modify", u"\u8d1f\u8d23\u4eba", None));
         ___qtablewidgetitem16 = self.tb_display.horizontalHeaderItem(16)
-        ___qtablewidgetitem16.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406IP", None));
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("modify", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
         ___qtablewidgetitem17 = self.tb_display.horizontalHeaderItem(17)
-        ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"\u5e94\u7528IP", None));
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"\u51fa\u5382\u65e5\u671f", None));
         ___qtablewidgetitem18 = self.tb_display.horizontalHeaderItem(18)
-        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"BMC IP", None));
+        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"\u5230\u4fdd\u65e5\u671f", None));
         ___qtablewidgetitem19 = self.tb_display.horizontalHeaderItem(19)
         ___qtablewidgetitem19.setText(QCoreApplication.translate("modify", u"\u8d44\u4ea7\u7f16\u53f7", None));
         ___qtablewidgetitem20 = self.tb_display.horizontalHeaderItem(20)

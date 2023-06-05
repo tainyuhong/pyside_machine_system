@@ -15,11 +15,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QDateEdit,
-    QDateTimeEdit, QFrame, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QTextEdit, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QComboBox,
+    QDateEdit, QDateTimeEdit, QFrame, QGridLayout,
+    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
+    QLineEdit, QPushButton, QRadioButton, QSizePolicy,
+    QSpacerItem, QTableWidget, QTableWidgetItem, QTextEdit,
+    QWidget)
 
 class Ui_down_shelf(object):
     def setupUi(self, down_shelf):
@@ -57,55 +58,98 @@ class Ui_down_shelf(object):
         self.gridLayout = QGridLayout()
         self.gridLayout.setSpacing(15)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
+        self.lb_machine_name = QLabel(self.groupBox)
+        self.lb_machine_name.setObjectName(u"lb_machine_name")
         font1 = QFont()
         font1.setPointSize(12)
+        self.lb_machine_name.setFont(font1)
+        self.lb_machine_name.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.lb_machine_name, 0, 2, 1, 1)
+
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
         self.machine_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.machine_name, 0, 1, 1, 2)
+        self.gridLayout.addWidget(self.machine_name, 0, 3, 1, 2)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font1)
+        self.label_4.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_4, 1, 0, 1, 1)
+
+        self.cb_cabinet = QComboBox(self.groupBox)
+        self.cb_cabinet.addItem("")
+        self.cb_cabinet.setObjectName(u"cb_cabinet")
+        self.cb_cabinet.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_cabinet, 1, 1, 1, 1)
+
+        self.cb_room = QComboBox(self.groupBox)
+        self.cb_room.addItem("")
+        self.cb_room.setObjectName(u"cb_room")
+        self.cb_room.setFont(font1)
+
+        self.gridLayout.addWidget(self.cb_room, 0, 1, 1, 1)
+
+        self.label_5 = QLabel(self.groupBox)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setFont(font1)
+        self.label_5.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_5, 0, 0, 1, 1)
+
+        self.le_sn = QLineEdit(self.groupBox)
+        self.le_sn.setObjectName(u"le_sn")
+        self.le_sn.setFont(font1)
+
+        self.gridLayout.addWidget(self.le_sn, 0, 6, 1, 1)
+
+        self.label_6 = QLabel(self.groupBox)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font1)
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_6, 0, 5, 1, 1)
+
+        self.rd_mg_ip = QRadioButton(self.groupBox)
+        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
+        self.rd_mg_ip.setFont(font1)
+        self.rd_mg_ip.setChecked(True)
+
+        self.gridLayout.addWidget(self.rd_mg_ip, 1, 2, 1, 1)
+
+        self.rd_bmc_ip = QRadioButton(self.groupBox)
+        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
+        self.rd_bmc_ip.setFont(font1)
+
+        self.gridLayout.addWidget(self.rd_bmc_ip, 1, 3, 1, 1)
 
         self.mg_ip = QLineEdit(self.groupBox)
         self.mg_ip.setObjectName(u"mg_ip")
         self.mg_ip.setFont(font1)
 
-        self.gridLayout.addWidget(self.mg_ip, 0, 4, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.mg_ip, 1, 4, 1, 1)
 
         self.bt_clear = QPushButton(self.groupBox)
         self.bt_clear.setObjectName(u"bt_clear")
         self.bt_clear.setFont(font1)
 
-        self.gridLayout.addWidget(self.bt_clear, 1, 2, 1, 1)
-
-        self.lb_mgip = QLabel(self.groupBox)
-        self.lb_mgip.setObjectName(u"lb_mgip")
-        self.lb_mgip.setFont(font1)
-        self.lb_mgip.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lb_mgip, 0, 3, 1, 1)
-
-        self.lb_machine_name = QLabel(self.groupBox)
-        self.lb_machine_name.setObjectName(u"lb_machine_name")
-        self.lb_machine_name.setFont(font1)
-        self.lb_machine_name.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.lb_machine_name, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.bt_clear, 1, 5, 1, 1)
 
         self.bt_select = QPushButton(self.groupBox)
         self.bt_select.setObjectName(u"bt_select")
         self.bt_select.setFont(font1)
 
-        self.gridLayout.addWidget(self.bt_select, 1, 4, 1, 1)
+        self.gridLayout.addWidget(self.bt_select, 1, 6, 1, 1)
 
         self.gridLayout.setColumnStretch(0, 1)
-        self.gridLayout.setColumnStretch(1, 2)
-        self.gridLayout.setColumnStretch(2, 1)
-        self.gridLayout.setColumnStretch(3, 1)
-        self.gridLayout.setColumnStretch(4, 2)
+        self.gridLayout.setColumnStretch(1, 1)
+        self.gridLayout.setColumnStretch(4, 1)
+        self.gridLayout.setColumnStretch(5, 1)
+        self.gridLayout.setColumnStretch(6, 1)
 
         self.horizontalLayout_2.addLayout(self.gridLayout)
 
@@ -113,8 +157,8 @@ class Ui_down_shelf(object):
         self.gridLayout_2.addWidget(self.groupBox, 1, 0, 1, 8)
 
         self.tb_display = QTableWidget(down_shelf)
-        if (self.tb_display.columnCount() < 16):
-            self.tb_display.setColumnCount(16)
+        if (self.tb_display.columnCount() < 14):
+            self.tb_display.setColumnCount(14)
         __qtablewidgetitem = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -143,14 +187,10 @@ class Ui_down_shelf(object):
         self.tb_display.setHorizontalHeaderItem(12, __qtablewidgetitem12)
         __qtablewidgetitem13 = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(13, __qtablewidgetitem13)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(14, __qtablewidgetitem14)
-        __qtablewidgetitem15 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(15, __qtablewidgetitem15)
         if (self.tb_display.rowCount() < 8):
             self.tb_display.setRowCount(8)
-        __qtablewidgetitem16 = QTableWidgetItem()
-        self.tb_display.setItem(0, 0, __qtablewidgetitem16)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        self.tb_display.setItem(0, 0, __qtablewidgetitem14)
         self.tb_display.setObjectName(u"tb_display")
         self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_display.setAlternatingRowColors(True)
@@ -258,10 +298,7 @@ class Ui_down_shelf(object):
 
         self.horizontalLayout.addLayout(self.gridLayout_2)
 
-        QWidget.setTabOrder(self.machine_name, self.mg_ip)
-        QWidget.setTabOrder(self.mg_ip, self.bt_clear)
-        QWidget.setTabOrder(self.bt_clear, self.bt_select)
-        QWidget.setTabOrder(self.bt_select, self.tb_display)
+        QWidget.setTabOrder(self.machine_name, self.tb_display)
         QWidget.setTabOrder(self.tb_display, self.comments)
         QWidget.setTabOrder(self.comments, self.le_down_operator)
         QWidget.setTabOrder(self.le_down_operator, self.down_time)
@@ -276,10 +313,18 @@ class Ui_down_shelf(object):
         down_shelf.setWindowTitle(QCoreApplication.translate("down_shelf", u"\u8bbe\u5907\u4e0b\u67b6", None))
         self.lb_title.setText(QCoreApplication.translate("down_shelf", u"\u4e0b \u67b6 \u8bbe \u5907", None))
         self.groupBox.setTitle(QCoreApplication.translate("down_shelf", u"\u67e5\u8be2\u6761\u4ef6", None))
+        self.lb_machine_name.setText(QCoreApplication.translate("down_shelf", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.label_4.setText(QCoreApplication.translate("down_shelf", u"\u673a\u67dc", None))
+        self.cb_cabinet.setItemText(0, QCoreApplication.translate("down_shelf", u"\u6240\u6709", None))
+
+        self.cb_room.setItemText(0, QCoreApplication.translate("down_shelf", u"\u6240\u6709", None))
+
+        self.label_5.setText(QCoreApplication.translate("down_shelf", u"\u673a\u623f", None))
+        self.label_6.setText(QCoreApplication.translate("down_shelf", u"\u5e8f\u5217\u53f7", None))
+        self.rd_mg_ip.setText(QCoreApplication.translate("down_shelf", u"\u7ba1\u7406IP", None))
+        self.rd_bmc_ip.setText(QCoreApplication.translate("down_shelf", u"\u5e26\u5916IP", None))
         self.mg_ip.setText("")
         self.bt_clear.setText(QCoreApplication.translate("down_shelf", u"\u6e05\u7a7a", None))
-        self.lb_mgip.setText(QCoreApplication.translate("down_shelf", u"\u7ba1\u7406 IP", None))
-        self.lb_machine_name.setText(QCoreApplication.translate("down_shelf", u"\u8bbe\u5907\u540d\u79f0", None))
         self.bt_select.setText(QCoreApplication.translate("down_shelf", u"\u67e5\u8be2", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("down_shelf", u"\u8bbe\u5907ID", None));
@@ -302,17 +347,13 @@ class Ui_down_shelf(object):
         ___qtablewidgetitem9 = self.tb_display.horizontalHeaderItem(9)
         ___qtablewidgetitem9.setText(QCoreApplication.translate("down_shelf", u"\u5e8f\u5217\u53f7", None));
         ___qtablewidgetitem10 = self.tb_display.horizontalHeaderItem(10)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("down_shelf", u"\u4e1a\u52a1\u7c7b\u578b", None));
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("down_shelf", u"\u8d1f\u8d23\u4eba", None));
         ___qtablewidgetitem11 = self.tb_display.horizontalHeaderItem(11)
-        ___qtablewidgetitem11.setText(QCoreApplication.translate("down_shelf", u"\u8d1f\u8d23\u4eba", None));
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("down_shelf", u"\u7ba1\u7406IP", None));
         ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("down_shelf", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("down_shelf", u"\u5e26\u5916IP", None));
         ___qtablewidgetitem13 = self.tb_display.horizontalHeaderItem(13)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("down_shelf", u"\u7ba1\u7406IP", None));
-        ___qtablewidgetitem14 = self.tb_display.horizontalHeaderItem(14)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("down_shelf", u"\u5e94\u7528IP", None));
-        ___qtablewidgetitem15 = self.tb_display.horizontalHeaderItem(15)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("down_shelf", u"\u5907\u6ce8", None));
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("down_shelf", u"\u5907\u6ce8", None));
 
         __sortingEnabled = self.tb_display.isSortingEnabled()
         self.tb_display.setSortingEnabled(False)

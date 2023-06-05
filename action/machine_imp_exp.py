@@ -1,6 +1,6 @@
-from pathlib import Path
 import sys
-import openpyxl
+from pathlib import Path
+import xlwings as xw
 from PySide6 import QtWidgets
 from ui.machine_import import *
 from db.db_orm import *
@@ -29,22 +29,14 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
             if _ == QtWidgets.QMessageBox.Yes:
                 # print('路径', path)
                 try:
-                    wb = openpyxl.load_workbook(r'{}'.format(path))
-                    # print('path', path)
-                    sh = wb.active
+                    xl_app = xw.App(visible=False, add_book=False)
+                    wb = xl_app.books.open(path)
+                    sh = wb.sheets(1)
+
                 except Exception as e:
                     QtWidgets.QMessageBox.critical(self, '导入失败', '错误：{}'.format(e))
                 else:
-                    # print(sh.max_row,sh.max_column)
-                    # print(sh.dimensions)
-                    rowdata = []
-                    data = []
-                    for row in range(3, sh.max_row + 1):  # 从第三行内容开始读取
-                        for col in range(1, sh.max_column + 1):  # 从第一列开始读取
-                            rowdata.append(sh.cell(row, col).value)  # 将单元格数据添加到行列表中
-                        # print('行信息：',rowdata)
-                        data.append(rowdata)
-                        rowdata = []  # 置空列表添加新的行
+                    data = sh.range(3, 1).expand().value  # 从第三行第一列内容开始读取
                     # print(data)
                     try:
                         with db.atomic():
@@ -60,11 +52,13 @@ class UiImport(QtWidgets.QWidget, Ui_import_machine):
                     except Exception as e:
                         # print('导入时出错：',e)
                         logging.critical('插入数据库中错误：{}'.format(e))
-                        QtWidgets.QMessageBox.warning(self, '设备信息导入', '导入失败，未导入任何信息！')
+                        QtWidgets.QMessageBox.critical(self, '设备信息导入', '导入失败，未导入任何信息！')
                     else:
-                        # print('导入成功！！')
                         QtWidgets.QMessageBox.information(self, '设备信息导入', '{}条记录插入成功 '.format(len(data)))
-
+                finally:
+                    wb.close()
+                    logging.info('关闭excel')
+                    xl_app.quit()
             else:
                 QtWidgets.QMessageBox.information(self, '设备信息导入', '取消导入')
         else:

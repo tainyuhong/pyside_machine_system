@@ -1,7 +1,6 @@
 import sys
 from PySide6 import QtWidgets
 from ui.warranty import *
-# from db.db_handler import *
 from db.db_orm import *
 from action.pub_infos import PubSwitch
 
@@ -16,8 +15,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         self.get_under()  # 显示是否在保内下拉菜单
         # 设置表格相关信息
         self.warranty_select.setHorizontalHeaderLabels(
-            ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '序列号','维保开始日',
-             '维保结束日', '保修时长', '维保类型', '是否在保内', '备注'])
+            ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '序列号',
+             '维保开始日', '维保结束日', '保修时长', '维保类型', '是否在保内', '备注'])
 
         # 初始化定义分页信息
         self.current_page = 1

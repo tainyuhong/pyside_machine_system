@@ -101,11 +101,11 @@ class Ui_import_machine(object):
 
         self.gridLayout.addItem(self.horizontalSpacer, 5, 0, 1, 3)
 
-        self.label_2 = QLabel(import_machine)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setStyleSheet(u"color:red")
+        self.lb_stat = QLabel(import_machine)
+        self.lb_stat.setObjectName(u"lb_stat")
+        self.lb_stat.setStyleSheet(u"color:red")
 
-        self.gridLayout.addWidget(self.label_2, 6, 0, 1, 4)
+        self.gridLayout.addWidget(self.lb_stat, 6, 0, 1, 4)
 
         self.bt_download = QPushButton(import_machine)
         self.bt_download.setObjectName(u"bt_download")
@@ -144,7 +144,7 @@ class Ui_import_machine(object):
         self.path_le.setPlaceholderText(QCoreApplication.translate("import_machine", u"\u8bf7\u9009\u62e9\u9700\u8981\u5bfc\u5165\u7684\u6587\u4ef6", None))
         self.select_btn.setText(QCoreApplication.translate("import_machine", u"\u9009\u62e9", None))
         self.import_btn.setText(QCoreApplication.translate("import_machine", u"\u5bfc\u5165", None))
-        self.label_2.setText(QCoreApplication.translate("import_machine", u"\u6ce8\uff1a\u7528\u4e8e\u5927\u91cf\u6570\u636e\u5bfc\u5165\u65f6\u7528", None))
+        self.lb_stat.setText(QCoreApplication.translate("import_machine", u"\u6ce8\uff1a\u7528\u4e8e\u5927\u91cf\u6570\u636e\u5bfc\u5165\uff0c\u4e14\u6570\u636e\u4ece\u7b2c\u4e09\u884c\u7b2c\u4e00\u5217\u5185\u5bb9\u5f00\u59cb\u8bfb\u53d6", None))
         self.bt_download.setText(QCoreApplication.translate("import_machine", u"\u6a21\u677f\u4e0b\u8f7d", None))
     # retranslateUi
 

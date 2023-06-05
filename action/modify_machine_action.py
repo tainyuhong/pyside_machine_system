@@ -13,8 +13,8 @@ from db.db_orm import *
 2、修改判断逻辑
     使用了一个标志参数，is_selected
     is_selected = False  # 在点击了查询按钮后设置为True，表示已经进行了查询
-    + 在点击了【查询】按钮后，先判断查询状态，为是时，先断开信号，为否时，跳过，进入后续操作
-    + 点击修【改按】钮发送单元格修改信号给槽display_changed
+    + 在点击了【查询】按钮后，先判断查询状态，为是时，先断开信号，为否时，跳过，进入后续操作(序列号有输入时，只按序列号里德查询)
+    + 点击修【改按】钮发送单元格修改信号给槽display_changed，在点击了修改按钮后设置为不可用，避免重复点击修改按钮，在保存完或重新查询时激活修改按钮
     + 保存修改：self.modify_data = []  # 置空暂存列表数据 ，同时将is_selected设置为未查询
 """
 
@@ -29,6 +29,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         self.setupUi(self)
         self.modify_data = []  # 暂存修改数据元素及值
         self.get_room()  # 获取机房信息并显示至下拉菜单中
+        self.get_machine_sort()  # 显示设备分类信息
         self.cb_room.currentTextChanged.connect(self.get_cabinet)  # 通过机房信息下拉菜单触发机柜信息变化
 
         # 定义按钮功能
@@ -40,6 +41,15 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
     # 获取机房信息并显示到下拉菜单中
     def get_room(self):
         self.cb_room.addItems(self.room_name.values())
+
+    # 获取设备分类信息并添加至下拉菜单中
+    def get_machine_sort(self):
+        data_model = MachineSort.select(MachineSort.sort_name).where(MachineSort.part_sort.is_null(False)).order_by(
+            MachineSort.sort_id)
+        sort = [i.sort_name for i in data_model]
+        self.cb_sort.addItem('所有')
+        self.cb_sort.addItems(sort)  # 添加设备分类下拉菜单信息
+        # print(sort)
 
     # 获取机柜信息并显示到下拉菜单中
     def get_cabinet(self):
@@ -56,7 +66,9 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         cabinet = self.cb_cabinet.currentText()  # 选择的机柜
         machine_name = self.machine_name.text().strip()  # 输入的设备名称
         mg_ip = self.mg_ip.text().strip()  # 输入的IP
-        # print('选择的机房：{}设备名称：{}  IP: {}'.format(room_name, machine_name, mg_ip))
+        sn = self.le_sn.text().strip()  # 输入的序列号
+        sort_name = self.cb_sort.currentText()  # 选择的分类
+        # print('选择的机房：{}设备名称：{}  IP: {} SN: {}|'.format(room_name, machine_name, mg_ip,sn))
         # print('是否保存的状态：', self.save_flag)
         # 判断是否进行过一次查询
         if self.is_selected:
@@ -70,59 +82,91 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         query = MachineInfos.select(MachineInfos.machine_id, MachineInfos.machine_roomid, MachineInfos.cabinet_name,
                                     MachineInfos.start_position, MachineInfos.end_position, MachineInfos.machine_name,
                                     MachineInfos.machine_sort_name, MachineInfos.machine_factory, MachineInfos.model,
-                                    MachineInfos.machine_sn, MachineInfos.factory_date, MachineInfos.end_ma_date,
-                                    MachineInfos.work_are, MachineInfos.run_state,MachineInfos.machine_admin, MachineInfos.app_admin,
-                                    MachineInfos.mg_ip, MachineInfos.app_ip1, MachineInfos.bmc_ip,
+                                    MachineInfos.machine_sn, MachineInfos.mg_ip, MachineInfos.bmc_ip,
+                                    MachineInfos.app_ip1,
+                                    MachineInfos.work_are, MachineInfos.run_state, MachineInfos.machine_admin,
+                                    MachineInfos.app_admin,
+                                    MachineInfos.factory_date, MachineInfos.end_ma_date,
                                     MachineInfos.asset_id, MachineInfos.comments)
 
-        cond_cabinet = MachineInfos.cabinet_name == cabinet
-        cond_machine_name = MachineInfos.machine_name.contains(machine_name)
+        cond_cabinet = MachineInfos.cabinet_name == cabinet  # 机柜查询条件
+        cond_machine_name = MachineInfos.machine_name.contains(machine_name)  # 设备名称查询条件
+        cond_sort_name = MachineInfos.machine_sort_name == sort_name  # 设备分类查询条件
+        cond_sn = MachineInfos.machine_sn.contains(sn)  # 设备SN查询条件
 
         # 根据选择的带外IP还是带内IP选择相应的查询条件
         if self.rd_mg_ip.isChecked():
-            cond_ip = MachineInfos.mg_ip.contains(mg_ip)    # 带内IP
+            cond_ip = MachineInfos.mg_ip.contains(mg_ip)  # 带内IP
         else:
-            cond_ip = MachineInfos.bmc_ip.contains(mg_ip)   #带外IP
+            cond_ip = MachineInfos.bmc_ip.contains(mg_ip)  # 带外IP
 
         # 根据选择条件进行查询
-        # 选择机房为所有
-        if room_name == '所有':
-            if machine_name != '' and mg_ip == '':
-                query_condition = cond_machine_name
-            elif machine_name != '' and mg_ip != '':
-                query_condition = cond_machine_name & cond_ip
-            elif machine_name == '' and mg_ip != '':
-                query_condition = cond_ip
-            elif machine_name == '' and mg_ip == '':
-                query_condition = None
-        # 选择机房对应机房，机柜为所有
-        elif room_name != '所有' and cabinet == '所有':
-            cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
-            if machine_name != '' and mg_ip == '':
-                query_condition = cond_room & cond_machine_name
-            elif machine_name != '' and mg_ip != '':
-                query_condition = cond_room & cond_machine_name & cond_ip
-            elif machine_name == '' and mg_ip != '':
-                query_condition = cond_room & cond_ip
-            elif machine_name == '' and mg_ip == '':
-                query_condition = cond_room
-        # 选择机房对应机房，机柜为对应机柜
+        query_condition = None
+
+        if sn != '':
+            query_condition = cond_sn
         else:
-            cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
-            if machine_name != '' and mg_ip == '':
-                query_condition = cond_room & cond_cabinet & cond_machine_name
-            elif machine_name != '' and mg_ip != '':
-                query_condition = cond_room & cond_cabinet & cond_machine_name & cond_ip
-            elif machine_name == '' and mg_ip != '':
-                query_condition = cond_room & cond_cabinet & cond_ip
-            elif machine_name == '' and mg_ip == '':
-                query_condition = cond_room & cond_cabinet
+            # 选择机房为所有
+            if room_name == '所有':
+                if machine_name != '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = cond_machine_name
+                elif machine_name != '' and sort_name != '所有' and mg_ip == '':
+                    query_condition = cond_machine_name & cond_sort_name
+                elif machine_name != '' and sort_name != '所有' and mg_ip != '':
+                    query_condition = cond_machine_name & cond_sort_name & cond_sn
+
+                elif machine_name == '' and mg_ip != '' and sort_name == '所有':
+                    query_condition = cond_ip
+                elif machine_name == '' and mg_ip != '' and sort_name != '所有':
+                    query_condition = cond_ip & cond_sort_name
+                elif machine_name == '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = None
+            # 选择机房对应机房，机柜为所有
+            elif room_name != '所有' and cabinet == '所有':
+                cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
+                if machine_name != '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = cond_room & cond_machine_name
+                elif machine_name != '' and mg_ip != '' and sort_name == '所有':
+                    query_condition = cond_room & cond_machine_name & cond_ip
+                elif machine_name == '' and mg_ip != '' and sort_name == '所有':
+                    query_condition = cond_room & cond_ip
+                elif machine_name == '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = cond_room
+                elif machine_name == '' and mg_ip == '' and sort_name != '所有':
+                    query_condition = cond_room & cond_sort_name
+                elif machine_name != '' and mg_ip == '' and sort_name != '所有':
+                    query_condition = cond_room & cond_machine_name & cond_sort_name
+                elif machine_name != '' and mg_ip != '' and sort_name != '所有':
+                    query_condition = cond_room & cond_machine_name & cond_ip & cond_sort_name
+                elif machine_name == '' and mg_ip != '' and sort_name != '所有':
+                    query_condition = cond_room & cond_ip & cond_sort_name
+
+            # 选择机房对应机房，机柜为对应机柜
+            else:
+                cond_room = MachineInfos.machine_roomid == self.room.room_swap_id(name=room_name)
+                if machine_name != '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = cond_room & cond_cabinet & cond_machine_name
+                elif machine_name != '' and mg_ip == '' and sort_name != '所有':
+                    query_condition = cond_room & cond_cabinet & cond_machine_name & cond_sort_name
+                elif machine_name != '' and mg_ip != '' and sort_name == '所有':
+                    query_condition = cond_room & cond_cabinet & cond_machine_name & cond_ip
+                elif machine_name != '' and mg_ip != '' and sort_name != '所有':
+                    query_condition = cond_room & cond_cabinet & cond_machine_name & cond_ip & cond_sort_name
+                elif machine_name == '' and mg_ip != '' and sort_name == '所有':
+                    query_condition = cond_room & cond_cabinet & cond_ip
+                elif machine_name == '' and mg_ip != '' and sort_name != '所有':
+                    query_condition = cond_room & cond_cabinet & cond_ip & cond_sort_name
+                elif machine_name == '' and mg_ip == '' and sort_name == '所有':
+                    query_condition = cond_room & cond_cabinet
+                elif machine_name == '' and mg_ip == '' and sort_name != '所有':
+                    query_condition = cond_room & cond_cabinet & cond_sort_name
 
         # 进行查询
-        # print('查询SQL:', query.where(condition).sql())
+        # print('查询SQL:', query.where(query_condition).sql())
         # 查询并获取结果
-        result = [i for i in query.where(query_condition).order_by(MachineInfos.machine_roomid, MachineInfos.cabinet_name,
-                                    MachineInfos.start_position).tuples()]
+        result = [i for i in
+                  query.where(query_condition).order_by(MachineInfos.machine_roomid, MachineInfos.cabinet_name,
+                                                        MachineInfos.start_position).tuples()]
         # print('查询结果：', result)
         data_count = len(result)
         self.lb_status.setText('----> 共查询到 {} 条记录'.format(data_count))
@@ -149,9 +193,14 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                         self.tb_display.setItem(row, col, QTableWidgetItem(''))
                     else:
                         self.tb_display.setItem(row, col, QTableWidgetItem(str(result[row][col])))
-        self.tb_display.resizeColumnsToContents()   # 自适应列宽
-        self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.tb_display.setToolTip('业务类型：1生产,2电渠,3灾备,4开发,5备份,6分行\n\r运行状态:1运行,2断网,3关机,4下架,5未加电')
+        self.tb_display.resizeColumnsToContents()  # 自适应列宽
+        self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 设置表格为不可修改状态
+        self.tb_display.setToolTip(
+            '业务类型：1生产,2电渠,3灾备,4开发,5备份,6分行\n\r运行状态:1运行,2断网,3关机,4下架,5未加电')
+        # 激活修改按钮
+        self.bt_modify.setDisabled(False)
+        # 置空暂存列表数据
+        self.modify_data = []
 
     def clear(self):
         """
@@ -168,10 +217,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
     def open_modify(self):
         self.is_selected = True
         self.modify_data = []  # 置空暂存列表数据
-        self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)     # 允许编辑
+        self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)  # 允许编辑
         self.tb_display.itemChanged.connect(self.display_changed)  # 启用单元格式信号
-        # 机房列下拉菜单设置为可修改
-        # self.tb_display.widget.connect(self.modify_room)
+        # 在点击了修改按钮后设置为不可用，避免重复点击修改按钮
+        self.bt_modify.setDisabled(True)
 
     def display_changed(self):
         """
@@ -188,8 +237,8 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             # 表中字段列表
             table_list = ('machine_id', 'machine_roomid', 'cabinet_name', 'start_position',
                           'end_position', 'machine_name', 'machine_sort_name', 'machine_factory',
-                          'model', 'machine_sn', 'factory_date', 'end_ma_date', 'work_are','run_state',
-                          'machine_admin', 'app_admin', 'mg_ip', 'app_ip1', 'bmc_ip', 'asset_id', 'comments')
+                          'model', 'machine_sn', 'mg_ip', 'bmc_ip', 'app_ip1', 'work_are', 'run_state',
+                          'machine_admin', 'app_admin', 'factory_date', 'end_ma_date', 'asset_id', 'comments')
             # 将修改字段添加到修改数据列表中
             self.modify_data.append({'machine_id': machine_id, table_list[item_col]: item_name})
             # table_list[item_col]:item_name 数据库中要修改的字段名，对应修改后的值
@@ -202,6 +251,11 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         提交修改内容至数据库中
         :return:
         """
+        # 激活修改按钮
+        self.bt_modify.setDisabled(False)
+        # 设置表格为不可修改状态
+        self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        # print('是否有要修改的数据：', self.modify_data)
         # 判断要修改的数据是否存在
         if len(self.modify_data) > 0:
             # 获取到的修改数据的格式
@@ -210,7 +264,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             # 遍历修改内容列表，并提交至数据库中
             for item in self.modify_data:
                 if 'machine_roomid' in item.keys():
-                    item['machine_roomid']=self.room.room_swap_id(name=item['machine_roomid'])
+                    item['machine_roomid'] = self.room.room_swap_id(name=item['machine_roomid'])
                 else:
                     pass
                 try:
