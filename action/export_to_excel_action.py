@@ -3,6 +3,7 @@ import pathlib
 import xlwings as xw
 from PySide6 import QtWidgets
 from db.db_orm import *
+# from action.pub_infos import PubSwitch
 from ui.export_excel import Ui_export_form
 
 
@@ -17,22 +18,19 @@ def get_room():
 
 class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 定义字段名字典
-    field_dict = {'machine_id': '设备ID', 'machine_name': '设备名称', 'machine_sort_name': '分类名称',
-                  'machine_sn': '序列号', 'machine_factory': '设备厂商', 'model': '型号',
-                  'machine_roomid': '机房', 'cabinet_name': '机柜编号', 'start_position': '开始U位',
-                  'end_position': '结束U位', 'factory_date': '出产日期', 'end_ma_date': '到保日期',
-                  'work_are': '业务类型 ', 'run_state': '运行状态 ', 'machine_admin': '管理员',
-                  'app_admin': '应用管理员',
-                  'mg_ip': '管理IP地址', 'app_ip1': '业务IP', 'bmc_ip': 'BMC IP',
-                  'install_date': '上架安装时间',
-                  'uninstall_date': '下架时间', 'single_power': '单电源', 'asset_id': '资产编号',
-                  'system_name': '系统名称',
-                  'comments': '备注'}
+    field_dict = {'machine_id': '设备ID', 'machine_roomid': '机房', 'cabinet_name': '机柜编号', 'start_position': '开始U位',
+                  'end_position': '结束U位', 'machine_name': '设备名称', 'machine_sort_name': '分类名称',
+                  'machine_sn': '序列号', 'machine_factory': '设备厂商', 'model': '型号', 'factory_date': '出产日期',
+                  'end_ma_date': '到保日期', 'work_are': '业务类型 ', 'run_state': '运行状态 ', 'machine_admin': '管理员',
+                  'app_admin': '应用管理员', 'mg_ip': '管理IP地址', 'bmc_ip': 'BMC IP', 'app_ip1': '业务IP',
+                  'install_date': '上架安装时间', 'uninstall_date': '下架时间', 'single_power': '单电源',
+                  'asset_id': '资产编号', 'system_name': '系统名称', 'comments': '备注'}
 
     def __init__(self, parent=None):
         super(ExportExcel, self).__init__(parent)
         self.setupUi(self)  # 展示报告窗口页
         self.get_field()  # 显示数据库中字段
+        # self.pub_infos = PubSwitch()    # 创建公共信息对象机房
         # self.room = get_room()     # 获取机房id与名字数据
         self.btn_export.clicked.connect(self.export_exl)  # 导出按钮事件
 
@@ -56,6 +54,8 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
         choose_name = []  # 选择
         # 动态生成机房名与ID转换sql
         room_sql = 'case'
+        # room = self.pub_infos.get_room()
+        # print('公用信息',room)
         for i in get_room():
             room_sql = room_sql + "  when machine_roomid='{}' then '{}' ".format(i[0], i[1])
         room_sql = room_sql + ' end as roomid'

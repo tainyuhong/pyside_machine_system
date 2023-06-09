@@ -16,15 +16,19 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
-    QMenu, QMenuBar, QSizePolicy, QStatusBar,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenu,
+    QMenuBar, QSizePolicy, QStatusBar, QToolBar,
+    QVBoxLayout, QWidget)
+import img.picture_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1100, 700)
+        icon = QIcon()
+        icon.addFile(u":/\u67e5\u8be2/system.ico", QSize(), QIcon.Normal, QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.actionjfgl = QAction(MainWindow)
         self.actionjfgl.setObjectName(u"actionjfgl")
         self.actionjg = QAction(MainWindow)
@@ -37,14 +41,23 @@ class Ui_MainWindow(object):
         self.actionxg.setObjectName(u"actionxg")
         self.actionsjgl = QAction(MainWindow)
         self.actionsjgl.setObjectName(u"actionsjgl")
+        icon1 = QIcon()
+        icon1.addFile(u":/\u67e5\u8be2/up.ico", QSize(), QIcon.Normal, QIcon.Off)
+        self.actionsjgl.setIcon(icon1)
         self.actionxjgl = QAction(MainWindow)
         self.actionxjgl.setObjectName(u"actionxjgl")
+        icon2 = QIcon()
+        icon2.addFile(u":/\u67e5\u8be2/down.gif", QSize(), QIcon.Normal, QIcon.Off)
+        self.actionxjgl.setIcon(icon2)
         self.actionsjpz = QAction(MainWindow)
         self.actionsjpz.setObjectName(u"actionsjpz")
         self.actionsj = QAction(MainWindow)
         self.actionsj.setObjectName(u"actionsj")
         self.actioncxsb = QAction(MainWindow)
         self.actioncxsb.setObjectName(u"actioncxsb")
+        icon3 = QIcon()
+        icon3.addFile(u":/\u67e5\u8be2/select.gif", QSize(), QIcon.Normal, QIcon.Off)
+        self.actioncxsb.setIcon(icon3)
         self.actionpldr = QAction(MainWindow)
         self.actionpldr.setObjectName(u"actionpldr")
         self.action_base = QAction(MainWindow)
@@ -53,10 +66,16 @@ class Ui_MainWindow(object):
         self.action_shelf_display.setObjectName(u"action_shelf_display")
         self.action_top = QAction(MainWindow)
         self.action_top.setObjectName(u"action_top")
+        icon4 = QIcon()
+        icon4.addFile(u":/\u67e5\u8be2/top.gif", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_top.setIcon(icon4)
         self.actionuser_pass = QAction(MainWindow)
         self.actionuser_pass.setObjectName(u"actionuser_pass")
         self.action_report = QAction(MainWindow)
         self.action_report.setObjectName(u"action_report")
+        icon5 = QIcon()
+        icon5.addFile(u":/\u67e5\u8be2/rep.ico", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_report.setIcon(icon5)
         self.actionexport_exl = QAction(MainWindow)
         self.actionexport_exl.setObjectName(u"actionexport_exl")
         self.actionwb = QAction(MainWindow)
@@ -65,8 +84,8 @@ class Ui_MainWindow(object):
         self.actionprintbx.setObjectName(u"actionprintbx")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         font = QFont()
@@ -76,7 +95,7 @@ class Ui_MainWindow(object):
 "color: rgba(106, 106, 106, 20);")
         self.label.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout.addWidget(self.label)
+        self.verticalLayout.addWidget(self.label)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -98,6 +117,9 @@ class Ui_MainWindow(object):
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.toolBar = QToolBar(MainWindow)
+        self.toolBar.setObjectName(u"toolBar")
+        MainWindow.addToolBar(Qt.TopToolBarArea, self.toolBar)
 
         self.menubar.addAction(self.mu_baseinfo.menuAction())
         self.menubar.addAction(self.mu_machine.menuAction())
@@ -127,6 +149,14 @@ class Ui_MainWindow(object):
         self.mu_poll.addAction(self.actionsjpz)
         self.mu_poll.addAction(self.actionsj)
         self.menu.addAction(self.actionuser_pass)
+        self.toolBar.addAction(self.actioncxsb)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.actionsjgl)
+        self.toolBar.addAction(self.actionxjgl)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.action_top)
+        self.toolBar.addAction(self.action_report)
+        self.toolBar.addSeparator()
 
         self.retranslateUi(MainWindow)
 
@@ -171,5 +201,6 @@ class Ui_MainWindow(object):
         self.mu_shelf.setTitle(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e0b\u67b6\u7ba1\u7406", None))
         self.mu_poll.setTitle(QCoreApplication.translate("MainWindow", u"\u5de1\u68c0\u7ba1\u7406", None))
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\u5e38\u7528\u767b\u5f55\u4fe1\u606f", None))
+        self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
     # retranslateUi
 

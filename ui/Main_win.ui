@@ -13,8 +13,12 @@
   <property name="windowTitle">
    <string>机房设备管理系统pyside6-V1.0</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../img/picture.qrc">
+    <normaloff>:/查询/system.ico</normaloff>:/查询/system.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label">
       <property name="font">
@@ -106,6 +110,25 @@ color: rgba(106, 106, 106, 20);</string>
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actioncxsb"/>
+   <addaction name="separator"/>
+   <addaction name="actionsjgl"/>
+   <addaction name="actionxjgl"/>
+   <addaction name="separator"/>
+   <addaction name="action_top"/>
+   <addaction name="action_report"/>
+   <addaction name="separator"/>
+  </widget>
   <action name="actionjfgl">
    <property name="text">
     <string>机房管理</string>
@@ -135,6 +158,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="actionsjgl">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/up.ico</normaloff>:/查询/up.ico</iconset>
+   </property>
    <property name="text">
     <string>设备上架</string>
    </property>
@@ -143,6 +170,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="actionxjgl">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/down.gif</normaloff>:/查询/down.gif</iconset>
+   </property>
    <property name="text">
     <string>设备下架</string>
    </property>
@@ -161,6 +192,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="actioncxsb">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/select.gif</normaloff>:/查询/select.gif</iconset>
+   </property>
    <property name="text">
     <string>查询设备</string>
    </property>
@@ -181,6 +216,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="action_top">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/top.gif</normaloff>:/查询/top.gif</iconset>
+   </property>
    <property name="text">
     <string>设备落位图</string>
    </property>
@@ -191,6 +230,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="action_report">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/rep.ico</normaloff>:/查询/rep.ico</iconset>
+   </property>
    <property name="text">
     <string>统计分析</string>
    </property>
@@ -211,6 +254,8 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../img/picture.qrc"/>
+ </resources>
  <connections/>
 </ui>
