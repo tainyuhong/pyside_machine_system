@@ -47,7 +47,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 导出按钮事件
     def export_exl(self):
         # print('导出至excel')
-        exp_sql = """SELECT {} FROM machine_infos """
+        exp_sql = """SELECT {} FROM machine_infos order by machine_roomid,cabinet_name """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
         count = self.listWidget.count()  # 列数
         chooses_list = []  # 选择的字段内容
