@@ -181,6 +181,7 @@ class MachineList(BaseModel):
     bmc_ip = CharField(null=True)
     machine_admin = CharField(null=True)
     comments = CharField(null=True)
+    run_state = CharField(null=True)
 
     class Meta:
         table_name = 'machine_list'
@@ -313,6 +314,7 @@ class ViewWarranty(BaseModel):
     start_position = IntegerField(null=True)
     w_id = IntegerField(constraints=[SQL("DEFAULT 0")])
     w_type = CharField(null=True)
+    run_state = CharField(null=True)
 
     class Meta:
         table_name = 'view_warranty'

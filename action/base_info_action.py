@@ -182,9 +182,10 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
         is_used = '1' if self.ckb_is_used.isChecked() is True else '0'
 
         if cab_name != '' and QtWidgets.QMessageBox.question(self, '添加机柜',
-                                                             '确认是否添加！') == QtWidgets.QMessageBox.Yes:
+                                                             '确认是否添加！') == QtWidgets.QMessageBox.StandardButton.Yes:
+            # print('进入添加模块')
             # 批量添加
-            if self.chkb_multi.checkState() == 2 and int(add_count) > 0:
+            if self.chkb_multi.checkState() == Qt.Checked and int(add_count) > 0:
                 try:
                     data = [(str(self.pub_infos.room_swap_id(name=room)),
                              cab_name[0] + '{:0>2d}'.format(int(cab_name[-2:]) + i),
@@ -206,11 +207,12 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     self.le_U_count.clear()
                     self.le_conut.clear()
             # 单个机柜添加
-            elif self.chkb_multi.checkState() == 0:
+            elif self.chkb_multi.checkState() == Qt.Unchecked:
+                # print('data单个添加')
                 try:
                     data = [str(self.pub_infos.room_swap_id(name=room)), cab_name, cab_alias, u_count,
                             is_used]  # 定义机柜信息数据
-                    # print(data)
+                    # print('data单个添加11')
                     # 保存到数据库,并返回表格中id给result
                     result = Cabinet.insert_many([data], fields=[Cabinet.room, Cabinet.cab_num, Cabinet.cab_name,
                                                                  Cabinet.count_position, Cabinet.is_use]).execute()
@@ -220,7 +222,7 @@ class UiBaseInfo(Ui_BaseInfo, QtWidgets.QWidget):
                     index = self.tb_cabinet.rowCount()  # 定义索引为总行数
                     self.tb_cabinet.insertRow(index)  # 表格中插入一行
                     data.insert(0, str(result))  # 将数据库中机柜ID插入到data中
-                    # # print('插入数据库后的数据：', data)
+                    # print('插入数据库后的数据：', data)
                     for num, _ in enumerate(data):
                         if num == 1:
                             self.tb_cabinet.setItem(index, num,

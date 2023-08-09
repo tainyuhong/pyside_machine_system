@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'shelf_display.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -237,6 +237,11 @@ class Ui_shelf_display(object):
 
         self.gridLayout_2.addWidget(self.btn_export_down, 3, 4, 1, 1)
 
+        self.bt_hand_over = QPushButton(self.tab_down)
+        self.bt_hand_over.setObjectName(u"bt_hand_over")
+
+        self.gridLayout_2.addWidget(self.bt_hand_over, 3, 3, 1, 1)
+
         self.gridLayout_2.setRowStretch(0, 2)
         self.gridLayout_2.setRowStretch(1, 1)
         self.gridLayout_2.setRowStretch(2, 9)
@@ -328,6 +333,7 @@ class Ui_shelf_display(object):
         self.btn_export_down.setToolTip(QCoreApplication.translate("shelf_display", u"\u5bfc\u51faexcel", None))
 #endif // QT_CONFIG(tooltip)
         self.btn_export_down.setText(QCoreApplication.translate("shelf_display", u"\u5bfc\u51fa\u4e0b\u67b6\u4fe1\u606f", None))
+        self.bt_hand_over.setText(QCoreApplication.translate("shelf_display", u"\u751f\u6210\u79fb\u4ea4\u6e05\u5355", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_down), QCoreApplication.translate("shelf_display", u"\u4e0b\u67b6\u8bbe\u5907\u4fe1\u606f\u67e5\u8be2", None))
     # retranslateUi
 

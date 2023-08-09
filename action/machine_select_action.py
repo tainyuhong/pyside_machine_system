@@ -72,7 +72,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         sel_values = []  # 用于保存获取的查询条件列表
         sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, 
         machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin 
-        FROM equipment_mg.machine_list  where 1 = 1 '''
+        FROM machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
         # 判断机房是否选择
@@ -108,18 +108,18 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.current_page = 1
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
 
-    # 定义点击表格元素时，显示设备相应的保修信息
+    # 定义点击表格元素时，显示设备相应的保修信息,及设备状态
     def display_warranty_info(self):
         row_data = self.select_table.currentItem()
         if row_data:
             machine_id = self.select_table.item(row_data.row(), 0).text()
             # print('被选中', row_data.row(), machine_id)
             # 获取相应设备的维保信息情况
-            data = WarrantyInfos.select(fn.Max(WarrantyInfos.w_id),WarrantyInfos.start_date, WarrantyInfos.end_date).where(
-                WarrantyInfos.machine == machine_id).tuples()   # 当一个设备有多条维保信息时，最ID最大的一条信息显示
+            data = ViewWarranty.select(fn.Max(ViewWarranty.w_id),ViewWarranty.start_date, ViewWarranty.end_date,ViewWarranty.run_state).where(
+                ViewWarranty.machine_id == machine_id).tuples()   # 当一个设备有多条维保信息时，最ID最大的一条信息显示
             data_info = [i[1:] for i in data]
             # print(data_info)
-            row_data.setToolTip('保修开始日：{}\r\n保修结束日：{} '.format(data_info[0][0],data_info[0][1]))
+            row_data.setToolTip('保修开始日：{}\r\n保修结束日：{}\r\n状态：{}'.format(data_info[0][0],data_info[0][1],data_info[0][2]))
 
     # 获取要查询的总页数
     def page_record(self, sql, values):

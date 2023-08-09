@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from ui.shelf_display import *
 from PySide6 import QtWidgets
 from db.db_orm import *
@@ -29,7 +30,9 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down, self.down_date,
                                                                 self.display_down_data))  # 定义查询按钮事件
         self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
-        self.btn_export_down.clicked.connect(lambda: self.export_up_to_xls(self.tb_down))  # 导出下架信息
+        # self.btn_export_down.clicked.connect(lambda: self.export_up_to_xls(self.tb_down))  # 导出下架信息
+        self.btn_export_down.clicked.connect(self.exp_down_list)  # 导出下架信息
+        self.bt_hand_over.clicked.connect(self.create_hand_over_list)  # 生成移交清单
 
     # 上架信息查询
     def display_up_data(self, up_date=None):
@@ -68,7 +71,7 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         :return:
         """
         # 判断第一行第一列是否有数据，如果没有则没有需要导出的数据
-        if self.tb_up.item(0, 0):
+        if table.item(0, 0):
             with xw.App(visible=False, add_book=False) as xl_app:
                 wb = xl_app.books.add()  # 定义工作表
                 sh = wb.sheets.active
@@ -99,6 +102,85 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                     wb.save(filesave)  # 保存excel
                     wb.close()
                     QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
+        else:
+            QtWidgets.QMessageBox.critical(self, '导出错误', '未找到要导出的数据！')
+
+    # 导出下架设备信息
+    def exp_down_list(self):
+        # 判断第一行第一列是否有数据，如果没有则没有需要导出的数据
+        if self.tb_down.item(0, 0):
+            with xw.App(visible=False, add_book=False) as xl_app:
+                # 打开模板表
+                wb = xl_app.books.open(Path(__file__).parents[1] / 'machine_template' / 'down_audit_tmp.xlsx')
+                sh = wb.sheets[0]
+                # 下架设备数据写入到EXCEL中
+                row_count = self.tb_down.rowCount()  # 行数
+                # 如果行数大于13则复制格式到多余的行上
+                if row_count > 13:
+                    for _ in range(row_count-13):
+                        sh.range('A15','J15').copy(sh.range((16+_,1),(16+_,10)))
+
+                num = 1  # 初始化序号
+                for cell_row in range(row_count):
+                    # 序号
+                    sh.cells(cell_row + 3, 1).value = num
+                    # 设备名称
+                    sh.cells(cell_row + 3, 2).value = self.tb_down.item(cell_row, 1).text()
+                    # 位置
+                    sh.cells(cell_row + 3, 3).value = self.tb_down.item(cell_row, 2).text()
+                    # 品牌
+                    sh.cells(cell_row + 3, 4).value = self.tb_down.item(cell_row, 3).text()
+                    # 类型
+                    sh.cells(cell_row + 3, 5).value = self.tb_down.item(cell_row, 4).text()
+                    # 型号
+                    sh.cells(cell_row + 3, 6).value = self.tb_down.item(cell_row, 5).text()
+                    # 序列号
+                    sh.cells(cell_row + 3, 7).value = self.tb_down.item(cell_row, 6).text()
+                    # 管理IP
+                    sh.cells(cell_row + 3, 8).value = self.tb_down.item(cell_row, 7).text()
+                    # 下架日期
+                    sh.cells(cell_row + 3, 9).value = self.tb_down.item(cell_row, 8).text()
+                    # 备注
+                    sh.cells(cell_row + 3, 10).value = self.tb_down.item(cell_row, 11).text()
+                    num += 1    # 每添加一行增加1
+
+                filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
+                if ok:
+                    wb.save(filesave)  # 保存excel
+                    wb.close()
+                    QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
+
+        else:
+            QtWidgets.QMessageBox.critical(self, '导出错误', '未找到要导出的数据！')
+
+    # 生成移交清单
+    def create_hand_over_list(self):
+        # 判断第一行第一列是否有数据，如果没有则没有需要导出的数据
+        if self.tb_down.item(0, 0):
+            with xw.App(visible=False, add_book=False) as xl_app:
+                # 打开模板表
+                wb = xl_app.books.open(Path(__file__).parents[1] / 'machine_template' / 'hand_over_list_tmp.xlsx')
+                sh = wb.sheets[0]
+                sh.cells(2, 2).value = self.tb_down.item(0, 8).text()  # 时间
+                sh.cells(3, 2).value = self.tb_down.item(0, 11).text()  # 事项
+                # 设备清单数据写入到EXCEL中
+                row_count = self.tb_down.rowCount()  # 行数
+                # col_count = self.tb_down.columnCount()  # 列数
+                for cell_row in range(row_count):
+                    # 设备型号
+                    sh.cells(cell_row + 6, 2).value = self.tb_down.item(cell_row, 3).text() + self.tb_down.item(
+                        cell_row, 5).text()
+                    # 数量
+                    sh.cells(cell_row + 6, 3).value = 1
+                    # 序列号
+                    sh.cells(cell_row + 6, 4).value = self.tb_down.item(cell_row, 6).text()
+
+                filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
+                if ok:
+                    wb.save(filesave)  # 保存excel
+                    wb.close()
+                    QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
+
         else:
             QtWidgets.QMessageBox.critical(self, '导出错误', '未找到要导出的数据！')
 

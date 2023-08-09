@@ -79,6 +79,8 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
             cabinet_data.append(len(self.pub_infos.get_cabinet_infos(i)))
             # 格式化生成机房使用机柜量数据
             for u in self.get_room_info()[2]:
+                # print(self.get_room_info()[2])
+                # print(u)
                 if i in dict(self.get_room_info()[2]).keys() and i == u[0]:
                     use_cabinet_data.append(u[1])
                 elif i not in dict(self.get_room_info()[2]).keys():
@@ -133,11 +135,12 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
         self.treeWidget.setHeaderLabels(['机房名称', '机柜名称', '设备数量'])
         self.treeWidget.setAlternatingRowColors(True)  # 每行颜色交叉显示
         # 根节点，机房名称做为根节点
-        for room in self.get_room_info()[2]:
+        for room in self.get_room_info()[3]:
             # print(room.room_name)
             root = QtWidgets.QTreeWidgetItem()
             root.setText(0, room[0])  # 设置第一列文本
             root.setText(1, str(room[1]) + '个机柜')  # 设置第三列文本
+            root.setText(2, str(room[2]))  # 设置第三列文本
             self.treeWidget.addTopLevelItem(root)  # 设置为根节点
             # 根据每个机房名--》查询机柜内设备数量
             machine_count = MachineList.select(MachineList.cab_name,
@@ -169,7 +172,14 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
             MachineList.room_id).tuples().execute()
         # 有设备的机柜列表
         use_cabinet_count_list = [i for i in use_cabinet_count]
-        return room, use_room, use_cabinet_count_list
+
+        # 统计每个机房内设备的数量
+        use_room_count = MachineList.select(MachineList.room_name,
+                                               fn.count(MachineList.cab_name.distinct()), fn.count(MachineList.machine_id)).group_by(
+            MachineList.room_name).order_by(MachineList.room_name.desc()).order_by(
+            MachineList.room_id).tuples().execute()
+
+        return room, use_room, use_cabinet_count_list,use_room_count
 
     # 概览窗口显示内容
     def general(self):

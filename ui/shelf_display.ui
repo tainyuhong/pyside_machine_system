@@ -465,6 +465,13 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="3">
+          <widget class="QPushButton" name="bt_hand_over">
+           <property name="text">
+            <string>生成移交清单</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
