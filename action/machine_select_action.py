@@ -15,7 +15,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.select_table.setHorizontalHeaderLabels(
             ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
              '带内IP',
-             '带外IP', '设备管理员'])
+             '带外IP', '设备管理员','运行状态'])
         self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 机房下拉菜单触发事件
@@ -71,7 +71,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
         sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, 
-        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin 
+        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin, run_state
         FROM machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
@@ -115,11 +115,11 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             machine_id = self.select_table.item(row_data.row(), 0).text()
             # print('被选中', row_data.row(), machine_id)
             # 获取相应设备的维保信息情况
-            data = ViewWarranty.select(fn.Max(ViewWarranty.w_id),ViewWarranty.start_date, ViewWarranty.end_date,ViewWarranty.run_state).where(
+            data = ViewWarranty.select(fn.Max(ViewWarranty.w_id),ViewWarranty.start_date, ViewWarranty.end_date).where(
                 ViewWarranty.machine_id == machine_id).tuples()   # 当一个设备有多条维保信息时，最ID最大的一条信息显示
             data_info = [i[1:] for i in data]
             # print(data_info)
-            row_data.setToolTip('保修开始日：{}\r\n保修结束日：{}\r\n状态：{}'.format(data_info[0][0],data_info[0][1],data_info[0][2]))
+            row_data.setToolTip('保修开始日：{}\r\n保修结束日：{}'.format(data_info[0][0],data_info[0][1]))
 
     # 获取要查询的总页数
     def page_record(self, sql, values):
@@ -166,13 +166,28 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
-            for _ in range(13):  # 13为列数
+            for _ in range(14):  # 14为列数
                 if page_data[i][_] is None:
                     self.select_table.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:
                     self.select_table.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
         self.select_table.resizeColumnsToContents()  # 自适应列宽
-        # print('self.select_values',self.select_values)
+        # 查找单元格为关机的单元格并设置相应颜色
+        items = self.select_table.findItems('关机', Qt.MatchExactly)
+        if len(items) > 0:
+            for item in items:
+                item.setBackground(QBrush(QColor(255,165,0)))
+                # item.setForeground(QBrush(QColor(255, 0, 0)))
+        items1 = self.select_table.findItems('断网', Qt.MatchExactly)
+        if len(items) > 0:
+            for item in items1:
+                item.setBackground(QBrush(QColor(255,255,0)))
+        items2 = self.select_table.findItems('未加电', Qt.MatchExactly)
+        if len(items) > 0:
+            for item in items2:
+                item.setBackground(QBrush(QColor(255,127,80)))
+
+
         self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
 
     # 转到指定页事件

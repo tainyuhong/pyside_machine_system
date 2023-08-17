@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'MachineSelect.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -192,8 +192,8 @@ class Ui_MachineSelect(object):
         self.verticalLayout.addWidget(self.groupBox)
 
         self.select_table = QTableWidget(self.vbox)
-        if (self.select_table.columnCount() < 13):
-            self.select_table.setColumnCount(13)
+        if (self.select_table.columnCount() < 14):
+            self.select_table.setColumnCount(14)
         if (self.select_table.rowCount() < 15):
             self.select_table.setRowCount(15)
         self.select_table.setObjectName(u"select_table")
@@ -210,7 +210,7 @@ class Ui_MachineSelect(object):
         self.select_table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.select_table.setGridStyle(Qt.SolidLine)
         self.select_table.setRowCount(15)
-        self.select_table.setColumnCount(13)
+        self.select_table.setColumnCount(14)
         self.select_table.horizontalHeader().setVisible(True)
         self.select_table.horizontalHeader().setCascadingSectionResizes(False)
         self.select_table.horizontalHeader().setHighlightSections(True)

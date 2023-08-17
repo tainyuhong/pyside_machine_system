@@ -69,7 +69,7 @@ if len(search_result)>0:
             down_url = 'https://hanyu-poem-mp3.cdn.bcebos.com/'+content[int(num)][0][-32:]+'.mp3'
             print('音频下载地址：',down_url)
             with requests.get(down_url,headers=headers) as down:
-                with open('D:\\txt\\{}.mp3'.format(name+content[int(num)][0][-6:]),'wb') as f:
+                with open('F:\\个人资料\\小学资料\\{}.mp3'.format(name+content[int(num)][0][-6:]),'wb') as f:
                     f.write(down.content)
                     print('音频文件下载完成')
                 down.close()
@@ -100,7 +100,7 @@ else:
     print('音频：', audio)  # /div[1]/div[3]/span/audio
     # 下载音频文件
     with requests.get(audio[0], headers=headers) as down:
-        with open('D:\\txt\\{}.mp3'.format(name + audio[0][-6:]), 'wb') as f:
+        with open('F:\\个人资料\\小学资料\\{}.mp3'.format(name + audio[0][-6:]), 'wb') as f:
             f.write(down.content)
             print('音频文件下载完成')
         down.close()
