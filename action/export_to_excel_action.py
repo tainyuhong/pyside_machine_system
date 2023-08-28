@@ -28,7 +28,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super(ExportExcel, self).__init__(parent)
-        self.setupUi(self)  # 展示报告窗口页
+        self.setupUi(self)  # 展示页面窗口页
         self.get_field()  # 显示数据库中字段
         # self.pub_infos = PubSwitch()    # 创建公共信息对象机房
         # self.room = get_room()     # 获取机房id与名字数据
@@ -37,17 +37,20 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 获取要导出的字段
     def get_field(self):
         # 将多选框添加到列表控件中
-        for i in self.field_dict.values():
+        for num,i in enumerate(self.field_dict.values()):
             box = QtWidgets.QCheckBox(i)  # 实例化一个QCheckBox，把文字传进去
             box.setChecked(True)  # 默认设置为钩选状态
             item = QtWidgets.QListWidgetItem()  # 实例化一个Item，QListWidget，不能直接加入QCheckBox
             self.listWidget.addItem(item)  # 把QListWidgetItem加入QListWidget
             self.listWidget.setItemWidget(item, box)  # 再把QCheckBox加入QListWidgetItem
+            # 设置 设备ID、机房、机柜编号、开始U位、结束U位、设备名称6个字段为不可修改状态
+            if 0 <= num < 6:
+                box.setDisabled(True)
 
     # 导出按钮事件
     def export_exl(self):
         # print('导出至excel')
-        exp_sql = """SELECT {} FROM machine_infos order by machine_roomid,cabinet_name """
+        exp_sql = """SELECT {} FROM machine_infos where run_state !=4 order by machine_roomid,cabinet_name """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
         count = self.listWidget.count()  # 列数
         chooses_list = []  # 选择的字段内容

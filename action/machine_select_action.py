@@ -187,8 +187,8 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             for item in items2:
                 item.setBackground(QBrush(QColor(255,127,80)))
 
-
-        self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
+        # 显示总页数 self.select_values最除索引记录的所有参数
+        self.page_record(self.data_sql, self.select_values[:-1])
 
     # 转到指定页事件
     def goToPage(self, sql, sql_args):

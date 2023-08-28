@@ -319,7 +319,7 @@ class Ui_shelf_display(object):
         ___qtablewidgetitem18 = self.tb_down.horizontalHeaderItem(6)
         ___qtablewidgetitem18.setText(QCoreApplication.translate("shelf_display", u"\u5e8f\u5217\u53f7", None));
         ___qtablewidgetitem19 = self.tb_down.horizontalHeaderItem(7)
-        ___qtablewidgetitem19.setText(QCoreApplication.translate("shelf_display", u"\u7ba1\u7406IP", None));
+        ___qtablewidgetitem19.setText(QCoreApplication.translate("shelf_display", u"IP", None));
         ___qtablewidgetitem20 = self.tb_down.horizontalHeaderItem(8)
         ___qtablewidgetitem20.setText(QCoreApplication.translate("shelf_display", u"\u4e0b\u67b6\u65e5\u671f", None));
         ___qtablewidgetitem21 = self.tb_down.horizontalHeaderItem(9)

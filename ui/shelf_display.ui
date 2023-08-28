@@ -415,7 +415,7 @@
            </column>
            <column>
             <property name="text">
-             <string>管理IP</string>
+             <string>IP</string>
             </property>
            </column>
            <column>

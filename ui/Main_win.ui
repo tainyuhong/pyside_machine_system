@@ -163,7 +163,7 @@ color: rgba(106, 106, 106, 20);</string>
      <normaloff>:/查询/up.ico</normaloff>:/查询/up.ico</iconset>
    </property>
    <property name="text">
-    <string>设备上架</string>
+    <string>设备上架管理</string>
    </property>
    <property name="toolTip">
     <string>设备上架</string>
@@ -175,10 +175,13 @@ color: rgba(106, 106, 106, 20);</string>
      <normaloff>:/查询/down.gif</normaloff>:/查询/down.gif</iconset>
    </property>
    <property name="text">
-    <string>设备下架</string>
+    <string>下线下架管理</string>
+   </property>
+   <property name="iconText">
+    <string notr="true">下线下架管理</string>
    </property>
    <property name="toolTip">
-    <string>设备下架</string>
+    <string>下线下架管理</string>
    </property>
   </action>
   <action name="actionsjpz">

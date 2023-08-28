@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Main_win.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenu,
     QMenuBar, QSizePolicy, QStatusBar, QToolBar,
     QVBoxLayout, QWidget)
-import img.picture_rc
+from img import picture_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -49,6 +49,7 @@ class Ui_MainWindow(object):
         icon2 = QIcon()
         icon2.addFile(u":/\u67e5\u8be2/down.gif", QSize(), QIcon.Normal, QIcon.Off)
         self.actionxjgl.setIcon(icon2)
+        self.actionxjgl.setIconText(u"\u4e0b\u7ebf\u4e0b\u67b6\u7ba1\u7406")
         self.actionsjpz = QAction(MainWindow)
         self.actionsjpz.setObjectName(u"actionsjpz")
         self.actionsj = QAction(MainWindow)
@@ -173,13 +174,13 @@ class Ui_MainWindow(object):
         self.actiontjsb.setToolTip(QCoreApplication.translate("MainWindow", u"\u8865\u5f55\u8bbe\u5907", None))
 #endif // QT_CONFIG(tooltip)
         self.actionxg.setText(QCoreApplication.translate("MainWindow", u"\u4fee\u6539\u8bbe\u5907\u4fe1\u606f", None))
-        self.actionsjgl.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4e0a\u67b6", None))
+        self.actionsjgl.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4e0a\u67b6\u7ba1\u7406", None))
 #if QT_CONFIG(tooltip)
         self.actionsjgl.setToolTip(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4e0a\u67b6", None))
 #endif // QT_CONFIG(tooltip)
-        self.actionxjgl.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4e0b\u67b6", None))
+        self.actionxjgl.setText(QCoreApplication.translate("MainWindow", u"\u4e0b\u7ebf\u4e0b\u67b6\u7ba1\u7406", None))
 #if QT_CONFIG(tooltip)
-        self.actionxjgl.setToolTip(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4e0b\u67b6", None))
+        self.actionxjgl.setToolTip(QCoreApplication.translate("MainWindow", u"\u4e0b\u7ebf\u4e0b\u67b6\u7ba1\u7406", None))
 #endif // QT_CONFIG(tooltip)
         self.actionsjpz.setText(QCoreApplication.translate("MainWindow", u"\u5de1\u68c0\u914d\u7f6e", None))
         self.actionsj.setText(QCoreApplication.translate("MainWindow", u"\u5de1\u68c0\u64cd\u4f5c", None))
