@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'modify.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFrame,
-    QGridLayout, QGroupBox, QHBoxLayout, QHeaderView,
-    QLabel, QLineEdit, QPushButton, QRadioButton,
-    QSizePolicy, QSpacerItem, QTableWidget, QTableWidgetItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
+    QFrame, QGridLayout, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QPushButton,
+    QRadioButton, QSizePolicy, QSpacerItem, QTableWidget,
+    QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_modify(object):
     def setupUi(self, modify):
@@ -154,7 +154,13 @@ class Ui_modify(object):
         self.lb_machine_name.setFont(font1)
         self.lb_machine_name.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.lb_machine_name, 0, 4, 1, 2)
+        self.gridLayout.addWidget(self.lb_machine_name, 0, 5, 1, 1)
+
+        self.ck_is_down = QCheckBox(self.groupBox)
+        self.ck_is_down.setObjectName(u"ck_is_down")
+        self.ck_is_down.setFont(font1)
+
+        self.gridLayout.addWidget(self.ck_is_down, 0, 4, 1, 1)
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 1)
@@ -297,6 +303,7 @@ class Ui_modify(object):
         self.rd_mg_ip.setText(QCoreApplication.translate("modify", u"\u5e26\u5185IP", None))
         self.label_4.setText(QCoreApplication.translate("modify", u"\u5e8f\u5217\u53f7", None))
         self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.ck_is_down.setText(QCoreApplication.translate("modify", u"\u5df2\u4e0b\u67b6", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)
