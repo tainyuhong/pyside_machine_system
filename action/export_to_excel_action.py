@@ -20,11 +20,11 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 定义字段名字典
     field_dict = {'machine_id': '设备ID', 'machine_roomid': '机房', 'cabinet_name': '机柜编号', 'start_position': '开始U位',
                   'end_position': '结束U位', 'machine_name': '设备名称', 'machine_sort_name': '分类名称',
-                  'machine_sn': '序列号', 'machine_factory': '设备厂商', 'model': '型号', 'factory_date': '出产日期',
+                   'machine_factory': '设备厂商', 'model': '型号', 'machine_sn': '序列号','asset_id': '财务资产编码','factory_date': '出厂日期',
                   'end_ma_date': '到保日期', 'work_are': '业务类型 ', 'run_state': '运行状态 ', 'machine_admin': '管理员',
                   'app_admin': '应用管理员', 'mg_ip': '管理IP地址', 'bmc_ip': 'BMC IP', 'app_ip1': '业务IP',
                   'install_date': '上架安装时间', 'uninstall_date': '下架时间', 'single_power': '单电源',
-                  'asset_id': '资产编号', 'system_name': '系统名称', 'comments': '备注'}
+                   'system_name': '系统名称', 'comments': '备注'}
 
     def __init__(self, parent=None):
         super(ExportExcel, self).__init__(parent)
@@ -50,7 +50,8 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 导出按钮事件
     def export_exl(self):
         # print('导出至excel')
-        exp_sql = """SELECT {} FROM machine_infos where run_state !=4 order by machine_roomid,cabinet_name """
+        exp_sql = """SELECT {} FROM machine_infos  order by machine_roomid,cabinet_name """
+        # exp_sql = """SELECT {} FROM machine_infos where run_state !=4 order by machine_roomid,cabinet_name """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
         count = self.listWidget.count()  # 列数
         chooses_list = []  # 选择的字段内容

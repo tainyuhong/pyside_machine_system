@@ -27,9 +27,9 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
         # 设置上架安装日期为当天
         self.install_date.setDate(QDate.currentDate())  # 设置默认为系统当天
         # 设置出厂日期为当天
-        self.factory_date.setDate(QDate.currentDate())  # 设置默认为系统当天
+        self.factory_date.setDate(QDate(2000,1,1))  # 设置默认为系统当天
         # 设置原厂维保结束日期为当天
-        self.end_ma_date.setDate(QDate.currentDate())  # 设置默认为系统当天
+        self.end_ma_date.setDate(QDate(2000,1,1))  # 设置默认为系统当天
 
         # 定义按钮功能
         self.bt_save.clicked.connect(self.save_infos)  # 保存提交内容
@@ -93,20 +93,25 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
                                               '---> 是否保存数据 ？ <---') == QtWidgets.QMessageBox.Yes:
                 # 保存至数据库中
                 try:
-                    # 添加到设备信息数据表
-                    result = MachineInfos.insert_many([add_data, ], [
-                        'machine_name', 'machine_sort_name', 'machine_roomid', 'cabinet_name', 'start_position',
-                        'end_position', 'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are', 'machine_admin',
-                        'app_admin', 'app_ip1', 'factory_date', 'end_ma_date', 'install_date', 'bmc_ip',
-                        'single_power', 'comments', 'asset_id', 'system_name']).execute()
-                    # 添加到设备上架数据表
-                    up_shelf_data.insert(0, result)
-                    # print('上架设备信息：', up_shelf_data)
-                    ShelfManage.insert_many([up_shelf_data], fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
-                                                                     ShelfManage.operator, ShelfManage.date,
-                                                                     ShelfManage.comments]).execute()
+                    with db.atomic():
+                        # 添加到设备信息数据表
+                        result = MachineInfos.insert_many([add_data, ], [
+                            'machine_name', 'machine_sort_name', 'machine_roomid', 'cabinet_name', 'start_position',
+                            'end_position', 'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are', 'machine_admin',
+                            'app_admin', 'app_ip1', 'factory_date', 'end_ma_date', 'install_date', 'bmc_ip',
+                            'single_power', 'comments', 'asset_id', 'system_name']).execute()
+                        # 添加到设备上架数据表
+                        up_shelf_data.insert(0, result)     # result 插入数据后返回的id值
+                        # print('result:',result)
+                        # print('上架设备信息：', up_shelf_data)
+                        ShelfManage.insert_many([up_shelf_data], fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
+                                                                         ShelfManage.operator, ShelfManage.date,
+                                                                         ShelfManage.comments]).execute()
+                        # 将设备生产日期同步写入到维保信息表中
+                        WarrantyInfos.insert(machine_id=result,start_date=factory_date, end_date=end_ma_date).execute()
+
                 except Exception as e:
-                    QtWidgets.QMessageBox.critical(self, '保存数据错误！', '错误：'.format(e))
+                    QtWidgets.QMessageBox.critical(self, '保存数据错误！', '错误：{}'.format(e))
                 else:
                     if QtWidgets.QMessageBox.question(self, '设备上架',
                                                       '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
