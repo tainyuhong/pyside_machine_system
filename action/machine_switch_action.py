@@ -1,36 +1,25 @@
 import sys
-from ui.down_shelf import *
+from ui.machine_switch import *
 from PySide6 import QtWidgets
 from db.db_orm import *
 from action.pub_infos import PubSwitch
 
 
-class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
+class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
     def __init__(self, parent=None):
-        super(UiDownShelf, self).__init__(parent)
+        super(UiSwitch, self).__init__(parent)
         self.pub_infos = PubSwitch()
         self.setupUi(self)
-        # 隐藏执行人及时间控件
-        self.lb_operator.hide()
-        self.le_down_operator.hide()
-        self.lb_datetime.hide()
-        self.down_time.hide()
-
+        self.gbox_switch.hide()  # 默认进入页面隐藏位置调整窗口
 
         self.display_room()  # 显示机房下拉菜单内容
-        self.cb_room.currentIndexChanged.connect(self.display_cabinet)  # 定义机房下拉菜单触发事件
+        self.cb_room.currentIndexChanged.connect(lambda: self.display_cabinet(self.cb_room,self.cb_cabinet))  # 定义机房下拉菜单触发事件
         self.display_state()  # 显示设备状态下拉菜单
 
         # 定义按钮功能
         self.bt_select.clicked.connect(self.display)  # 查询内容
         self.bt_clear.clicked.connect(self.clear)  # 清空条件框内容
-
-        # 设置下架时间默认为系统当天
-        self.down_time.setDate(QDate.currentDate())  # 设置默认为系统当天
-        self.bt_donw_shelf.clicked.connect(self.select_machine)  # 设置为下架状态
-
-        # 处理方式下拉菜单选择事件触发
-        self.cb_operate_state.currentTextChanged.connect(self.choose_operation)
+        self.bt_switch.clicked.connect(self.switch)  # 设置位置调整按钮功能
 
     # 获取机房机柜信息并显示在下拉菜单中
     def display_room(self):
@@ -38,17 +27,16 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
         self.cb_room.addItems(room)
 
     # 获取并显示机柜信息至下拉菜单中
-    def display_cabinet(self):
-        cabinet = self.pub_infos.get_cabinet_infos(self.cb_room.currentText())
-        self.cb_cabinet.clear()
-        self.cb_cabinet.addItem('所有')
-        self.cb_cabinet.addItems(cabinet)
+    def display_cabinet(self, room,bt):
+        cabinet = self.pub_infos.get_cabinet_infos(room.currentText())
+        bt.clear()
+        bt.addItem('所有')
+        bt.addItems(cabinet)
 
     # 设置运行状态下拉菜单
     def display_state(self):
-        state_items = ['所有', '运行', '断网', '关机','下架', '未加电']
-        self.cb_state.addItems(state_items)             # 查询条件的状态下拉菜单
-        self.cb_operate_state.addItems(state_items[1:])     # 执行方式选择下拉菜单
+        state_items = ['所有', '运行', '断网', '关机', '下架', '未加电']
+        self.cb_state.addItems(state_items)  # 查询条件的状态下拉菜单
 
     # 显示查询结果至页面
     def display(self):
@@ -122,25 +110,24 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                 # 当为第一列时添加复选框按钮
                 if col == 0:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)        # 添加复选框
+                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框
                 else:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         self.tb_display.resizeColumnsToContents()  # 自适应列宽
 
-    # 处理方式选择事件判断
-    def choose_operation(self):
-        if self.cb_operate_state.currentText() == '下架':
-            # 显示执行人及时间控件
-            self.lb_operator.show()
-            self.le_down_operator.show()
-            self.lb_datetime.show()
-            self.down_time.show()
+    # 位置调整按钮功能设置
+    def switch(self):
+        # 位置调整窗口显示的情况下功能设置
+        if self.gbox_switch.isHidden():
+            self.gbox_switch.show()  # 显示位置调整窗口
+            room = self.pub_infos.get_room().values()
+            self.cb_sw_room.addItems(room)  # 显示机房信息
+            # 定义机房下拉菜单触发事件
+            self.cb_sw_room.currentIndexChanged.connect(lambda: self.display_cabinet(self.cb_sw_room,self.cb_sw_cabinet))
+
+        # 位置调整窗口显示的情况下功能设置
         else:
-            # 隐藏执行人及时间控件
-            self.lb_operator.hide()
-            self.le_down_operator.hide()
-            self.lb_datetime.hide()
-            self.down_time.hide()
+            self.gbox_switch.hide()  # 隐藏位置调整窗口
 
     # 下架操作---钩选的要下架的设备
     def select_machine(self):
@@ -184,7 +171,8 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                         try:
                             with db.atomic():
                                 ShelfManage.insert_many(data, fields=(
-                                    'machine_id', 'up_or_down', 'operator', 'date', 'comments')).execute()  # 插入下架设备信息到下架表中
+                                    'machine_id', 'up_or_down', 'operator', 'date',
+                                    'comments')).execute()  # 插入下架设备信息到下架表中
                                 MachineInfos.update(run_state=4, uninstall_date=down_time).where(
                                     MachineInfos.machine_id.in_(select_data)).execute()  # 修改设备表运行状态为下架
                         except Exception as e:
@@ -194,32 +182,6 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                             self.tb_display.clearContents()  # 清空表格插件内容
                     else:
                         pass
-            # 断网、关机、运行状态处理
-            else:
-                comments = self.comments.toPlainText().strip()  # 下架情况说明
-                if choose == '运行':
-                    state = '1'
-                elif choose == '断网':
-                    state = '2'
-                elif choose == '关机':
-                    state = '3'
-                else:
-                    state = '5'
-                # print('当前选择状态为：',state,'选择设备',select_data)
-                if QtWidgets.QMessageBox.question(self, '执行操作',
-                                                  '是否确认要对已选设备状态设置为【{}】？'.format(choose)) == QtWidgets.QMessageBox.Yes:
-                    try:
-                        with db.atomic():
-                            MachineInfos.update(run_state=state, comments=comments).where(
-                                MachineInfos.machine_id.in_(select_data)).execute()  # 修改设备表运行状态为对应状态
-                    except Exception as e:
-                        logging.critical('执行操作失败：'.format(e))
-                        # print(e)
-                    else:
-                        QtWidgets.QMessageBox.information(self, '操作成功', '操作执行成功！')
-                        self.tb_display.clearContents()  # 清空表格插件内容
-                else:
-                    pass
 
     def clear(self):
         """
@@ -233,6 +195,6 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    down_win = UiDownShelf()
+    down_win = UiSwitch()
     down_win.show()
     sys.exit(app.exec())

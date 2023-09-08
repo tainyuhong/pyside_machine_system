@@ -292,6 +292,7 @@ class Ui_down_shelf(object):
         self.tb_display.setSortingEnabled(False)
         self.tb_display.setRowCount(8)
         self.tb_display.horizontalHeader().setDefaultSectionSize(80)
+        self.tb_display.verticalHeader().setVisible(False)
 
         self.gridLayout_2.addWidget(self.tb_display, 2, 0, 1, 8)
 
