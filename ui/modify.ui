@@ -273,6 +273,9 @@
      </item>
      <item>
       <widget class="QTableWidget" name="tb_display">
+       <property name="styleSheet">
+        <string notr="true">selection-background-color: rgb(255, 170, 0);</string>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::DoubleClicked</set>
        </property>

@@ -15,10 +15,11 @@ from action.shelf_display_action import UiShelfDisplay
 from action.top_action import DisplayTop
 from action.check_config_action import UiCconfigCheck
 from action.password_config_action import UiPassword
-from action.report_action import MachineReport
+from action.report_action import MachineReport              # 生成设备统计报表
 from action.export_to_excel_action import ExportExcel       # 导出设备信息
 from action.warranty_action import UiWarrantySelect        # 维保信息查询
 from action.create_label_action import CreateLabel       # 生成设备标签
+from action.machine_switch_action import UiSwitch           # 设备位置调整
 from db.db_orm import db
 
 
@@ -56,6 +57,8 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionsjgl.triggered.connect(self.up_shelf_win)
         # 定义设备下架菜单触发事件
         self.actionxjgl.triggered.connect(self.down_shelf_win)
+        # 定义设备位置调整菜单触发事件
+        self.action_machine_sw.triggered.connect(self.machine_switch_win)
         # 定义上下架信息查询菜单触发事件
         self.action_shelf_display.triggered.connect(self.shelf_display_win)
         self.lb_status = QtWidgets.QLabel('')
@@ -176,6 +179,10 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             else:
                 QtWidgets.QMessageBox.warning(self, '密码输入错误', '密码错误！')
 
+    # 定义设备位置调整窗口显示
+    def machine_switch_win(self):
+        self.machine_switch_window = UiSwitch()  # 需要通过self实例化为全局变量，不加self的话，一运行就被回收，也就无法显示。
+        self.machine_switch_window.show()
 
 # 数据库状态检测对象
 class DbStat(QObject):
@@ -208,10 +215,13 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     win = UiMainWindow()
     win.show()
-    mysql_stat = DbStat()  # 创建数据库检查实例
-    mysql_stat.db_signal.connect(win.display)  # 将数据库状态信号连接至页面状态栏
-    new_thread = QtCore.QThread()  # 创建一个线程用于获取数据库状态
-    mysql_stat.moveToThread(new_thread)  # 将数据库状态实例移到新线程上
-    new_thread.started.connect(mysql_stat.check_db_stat)  # 新线程开始时执行数据库状态检测
-    new_thread.start()  # 开始线程
+
+    # 实时显示数据库连接状态信息
+    # mysql_stat = DbStat()  # 创建数据库检查实例
+    # mysql_stat.db_signal.connect(win.display)  # 将数据库状态信号连接至页面状态栏
+    # new_thread = QtCore.QThread()  # 创建一个线程用于获取数据库状态
+    # mysql_stat.moveToThread(new_thread)  # 将数据库状态实例移到新线程上
+    # new_thread.started.connect(mysql_stat.check_db_stat)  # 新线程开始时执行数据库状态检测
+    # new_thread.start()  # 开始线程
+
     sys.exit(app.exec())

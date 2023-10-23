@@ -443,6 +443,9 @@
      </item>
      <item row="2" column="0" colspan="8">
       <widget class="QTableWidget" name="tb_display">
+       <property name="styleSheet">
+        <string notr="true">selection-background-color: rgb(255, 170, 0);</string>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>

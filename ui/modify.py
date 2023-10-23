@@ -222,6 +222,7 @@ class Ui_modify(object):
         if (self.tb_display.rowCount() < 15):
             self.tb_display.setRowCount(15)
         self.tb_display.setObjectName(u"tb_display")
+        self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
         self.tb_display.setEditTriggers(QAbstractItemView.DoubleClicked)
         self.tb_display.setAlternatingRowColors(True)
         self.tb_display.setGridStyle(Qt.SolidLine)

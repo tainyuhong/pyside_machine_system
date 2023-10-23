@@ -122,19 +122,6 @@ class Ui_MachineSwitch(object):
 
         self.gridLayout_2.addWidget(self.label_8, 0, 2, 1, 1)
 
-        self.le_sw_app_ip = QLineEdit(self.gbox_switch)
-        self.le_sw_app_ip.setObjectName(u"le_sw_app_ip")
-        self.le_sw_app_ip.setFont(font)
-
-        self.gridLayout_2.addWidget(self.le_sw_app_ip, 1, 7, 1, 1)
-
-        self.label_12 = QLabel(self.gbox_switch)
-        self.label_12.setObjectName(u"label_12")
-        self.label_12.setFont(font)
-        self.label_12.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_2.addWidget(self.label_12, 1, 6, 1, 1)
-
         self.label_11 = QLabel(self.gbox_switch)
         self.label_11.setObjectName(u"label_11")
         self.label_11.setFont(font)
@@ -164,6 +151,7 @@ class Ui_MachineSwitch(object):
         self.label_13 = QLabel(self.gbox_switch)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setFont(font)
+        self.label_13.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.label_13, 0, 4, 1, 1)
 
@@ -238,6 +226,7 @@ class Ui_MachineSwitch(object):
         __qtablewidgetitem14 = QTableWidgetItem()
         self.tb_display.setItem(0, 0, __qtablewidgetitem14)
         self.tb_display.setObjectName(u"tb_display")
+        self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
         self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_display.setAlternatingRowColors(True)
         self.tb_display.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -422,11 +411,10 @@ class Ui_MachineSwitch(object):
         self.label.setText(QCoreApplication.translate("MachineSwitch", u"\u4e0bU\u4f4d", None))
         self.label_2.setText(QCoreApplication.translate("MachineSwitch", u"\u4e0aU\u4f4d", None))
         self.label_8.setText(QCoreApplication.translate("MachineSwitch", u"\u673a  \u67dc", None))
-        self.label_12.setText(QCoreApplication.translate("MachineSwitch", u"\u4e1a\u52a1IP", None))
         self.label_11.setText(QCoreApplication.translate("MachineSwitch", u"BMC IP", None))
         self.label_10.setText(QCoreApplication.translate("MachineSwitch", u"\u5e26\u5185IP", None))
         self.label_13.setText(QCoreApplication.translate("MachineSwitch", u"\u8bbe\u5907\u540d\u79f0", None))
-        self.bt_switch.setText(QCoreApplication.translate("MachineSwitch", u"\u4f4d\u7f6e\u8c03\u6574", None))
+        self.bt_switch.setText(QCoreApplication.translate("MachineSwitch", u"\u8c03\u6574\u4f4d\u7f6e", None))
         ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MachineSwitch", u"\u8bbe\u5907ID", None));
         ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)

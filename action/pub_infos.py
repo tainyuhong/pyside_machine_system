@@ -59,7 +59,7 @@ class PubSwitch:
         if type(room_name) == str:
             cabinet_data = Cabinet.select(Cabinet.cab_num).join(MachineRoom)\
                 .where(Cabinet.is_use == 1 and MachineRoom.room_id == Cabinet.room and
-                       MachineRoom.room_name == room_name)  # 查询父类不为空的分类
+                       MachineRoom.room_name == room_name).order_by(Cabinet.cab_num)  # 查询父类不为空的分类
             # 定义一个机柜列表
             cabinet_list = []
             # 添加到机柜列表中

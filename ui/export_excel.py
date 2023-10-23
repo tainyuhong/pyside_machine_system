@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'export_excel.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QListWidget,
-    QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QLabel,
+    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_export_form(object):
     def setupUi(self, export_form):
@@ -50,10 +50,6 @@ class Ui_export_form(object):
 
         self.gridLayout.addItem(self.verticalSpacer_2, 4, 1, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer, 1, 1, 1, 1)
-
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout.addItem(self.horizontalSpacer, 3, 0, 1, 1)
@@ -82,7 +78,13 @@ class Ui_export_form(object):
 
         self.gridLayout.addWidget(self.label_3, 7, 0, 1, 3)
 
+        self.gb_room = QGroupBox(export_form)
+        self.gb_room.setObjectName(u"gb_room")
+
+        self.gridLayout.addWidget(self.gb_room, 1, 1, 1, 1)
+
         self.gridLayout.setRowStretch(0, 2)
+        self.gridLayout.setRowStretch(1, 1)
         self.gridLayout.setRowStretch(2, 1)
         self.gridLayout.setRowStretch(3, 7)
         self.gridLayout.setRowStretch(4, 1)
@@ -106,5 +108,6 @@ class Ui_export_form(object):
         self.btn_export.setText(QCoreApplication.translate("export_form", u"\u5bfc  \u51fa", None))
         self.label.setText(QCoreApplication.translate("export_form", u"\u5bfc\u51fa\u8bbe\u5907\u4fe1\u606f\u81f3EXCEL", None))
         self.label_3.setText(QCoreApplication.translate("export_form", u"\u72b6\u6001", None))
+        self.gb_room.setTitle(QCoreApplication.translate("export_form", u"\u9009\u62e9\u673a\u623f", None))
     # retranslateUi
 

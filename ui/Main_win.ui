@@ -86,6 +86,7 @@ color: rgba(106, 106, 106, 20);</string>
     </property>
     <addaction name="actionsjgl"/>
     <addaction name="actionxjgl"/>
+    <addaction name="action_machine_sw"/>
     <addaction name="separator"/>
     <addaction name="action_shelf_display"/>
    </widget>
@@ -126,6 +127,7 @@ color: rgba(106, 106, 106, 20);</string>
    <addaction name="actionxjgl"/>
    <addaction name="separator"/>
    <addaction name="action_top"/>
+   <addaction name="action_machine_sw"/>
    <addaction name="action_report"/>
    <addaction name="separator"/>
   </widget>
@@ -254,6 +256,15 @@ color: rgba(106, 106, 106, 20);</string>
   <action name="actionprintbx">
    <property name="text">
     <string>标签管理</string>
+   </property>
+  </action>
+  <action name="action_machine_sw">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/sw.png</normaloff>:/查询/sw.png</iconset>
+   </property>
+   <property name="text">
+    <string>设备位置调整</string>
    </property>
   </action>
  </widget>

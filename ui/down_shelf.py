@@ -285,6 +285,7 @@ class Ui_down_shelf(object):
         __qtablewidgetitem14 = QTableWidgetItem()
         self.tb_display.setItem(0, 0, __qtablewidgetitem14)
         self.tb_display.setObjectName(u"tb_display")
+        self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
         self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_display.setAlternatingRowColors(True)
         self.tb_display.setSelectionBehavior(QAbstractItemView.SelectItems)

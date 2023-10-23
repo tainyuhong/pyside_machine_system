@@ -55,7 +55,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         model = self.model.text().strip()  # 型号
         machine_sn = self.machine_sn.text().strip()  # SN
         lmg_ip = self.lmg_ip.text().strip()  # 管理IP
-        work_are = self.work_are.currentIndex() + 1  # 业务区域
+        work_are = '' if self.work_are.currentIndex() + 1 == 0 else self.work_are.currentIndex() + 1  # 业务区域,值为0时置空
         machine_admin = self.machine_admin.text().strip()  # 设备管理员
         admin = self.admin.text().strip()  # 业务人员
         app_ip = self.app_ip.text().strip()  # 应用IP
@@ -65,7 +65,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
         bmc_ip = self.bmc_ip.text().strip()  # BMC IP
         single_power = '0' if not self.single_power.isChecked() else '1'  # 是否单电源
         comments = self.comments.toPlainText().strip()  # 备注信息
-        asset_id = self.lb_asset_id.text().strip()      # 资产编号
+        asset_id = self.le_asset_id.text().strip()      # 资产编号
         add_data = (
             machine_name, sort_name, room, cabinet, down_position, up_position, machine_factory, model, machine_sn,
             lmg_ip, work_are, machine_admin, admin, app_ip, factory_date, end_ma_date, install_date, bmc_ip,
@@ -93,7 +93,7 @@ class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
                 else:
                     if QtWidgets.QMessageBox.question(self,'数据保存','数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
                         self.machine_name.clear()       # 清空设备名称
-                        self.comments.clear()           # 清空备注内容
+                        self.machine_sn.clear()           # 清空SN内容
                     else:
                         self.close()     # 退出窗口
             else:

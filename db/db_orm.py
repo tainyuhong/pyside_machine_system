@@ -143,6 +143,7 @@ class MachineInfos(BaseModel):
     comments = CharField(null=True)
     asset_id = CharField(null=True)  # 资产编号
     system_name = CharField(null=True)  # 业务系统
+    pdu = CharField(null=True)  # PDU电源A/B
 
     class Meta:
         table_name = 'machine_infos'

@@ -29,10 +29,21 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(ExportExcel, self).__init__(parent)
         self.setupUi(self)  # 展示页面窗口页
+        self.room()         # 显示所有机房窗口
         self.get_field()  # 显示数据库中字段
         # self.pub_infos = PubSwitch()    # 创建公共信息对象机房
         # self.room = get_room()     # 获取机房id与名字数据
         self.btn_export.clicked.connect(self.export_exl)  # 导出按钮事件
+
+    def room(self):
+        rooms = get_room()
+        print('机房：',rooms)  # 机房： [(1, '5-1'), (2, '5-2'), (3, '5-3'), (4, '5-4'), (5, '5-5'), (6, '6-2'), (7, 'CZ')]
+        layout = QtWidgets.QHBoxLayout()      # 组合框中布局
+        for r in rooms:
+            chb_room = QtWidgets.QCheckBox(r[1])
+            chb_room.setChecked(True)
+            layout.addWidget(chb_room)
+        self.gb_room.setLayout(layout)
 
     # 获取要导出的字段
     def get_field(self):
@@ -50,7 +61,7 @@ class ExportExcel(Ui_export_form, QtWidgets.QWidget):
     # 导出按钮事件
     def export_exl(self):
         # print('导出至excel')
-        exp_sql = """SELECT {} FROM machine_infos  order by machine_roomid,cabinet_name """
+        exp_sql = """SELECT {} FROM machine_infos  order by machine_roomid,cabinet_name, start_position desc"""
         # exp_sql = """SELECT {} FROM machine_infos where run_state !=4 order by machine_roomid,cabinet_name """
         new_data = dict(zip(self.field_dict.values(), self.field_dict.keys()))  # 将字典key/value进行反转
         count = self.listWidget.count()  # 列数

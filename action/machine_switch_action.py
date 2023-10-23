@@ -6,6 +6,9 @@ from action.pub_infos import PubSwitch
 
 
 class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
+    # 表格事件是否触发标记位
+    # flag = False
+
     def __init__(self, parent=None):
         super(UiSwitch, self).__init__(parent)
         self.pub_infos = PubSwitch()
@@ -13,13 +16,18 @@ class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
         self.gbox_switch.hide()  # 默认进入页面隐藏位置调整窗口
 
         self.display_room()  # 显示机房下拉菜单内容
-        self.cb_room.currentIndexChanged.connect(lambda: self.display_cabinet(self.cb_room,self.cb_cabinet))  # 定义机房下拉菜单触发事件
+        self.cb_room.currentIndexChanged.connect(
+            lambda: self.display_cabinet(self.cb_room, self.cb_cabinet))  # 定义机房下拉菜单触发事件
         self.display_state()  # 显示设备状态下拉菜单
 
+        # 表格选择事件
+        self.tb_display.currentCellChanged.connect(self.select_table_event)
+
         # 定义按钮功能
-        self.bt_select.clicked.connect(self.display)  # 查询内容
+        self.bt_select.clicked.connect(self.display)  # 查询按钮功能
         self.bt_clear.clicked.connect(self.clear)  # 清空条件框内容
         self.bt_switch.clicked.connect(self.switch)  # 设置位置调整按钮功能
+        self.bt_sw_commit.clicked.connect(self.select_machine)  # 设置位置调整提交功能
 
     # 获取机房机柜信息并显示在下拉菜单中
     def display_room(self):
@@ -27,7 +35,7 @@ class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
         self.cb_room.addItems(room)
 
     # 获取并显示机柜信息至下拉菜单中
-    def display_cabinet(self, room,bt):
+    def display_cabinet(self, room, bt):
         cabinet = self.pub_infos.get_cabinet_infos(room.currentText())
         bt.clear()
         bt.addItem('所有')
@@ -38,7 +46,7 @@ class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
         state_items = ['所有', '运行', '断网', '关机', '下架', '未加电']
         self.cb_state.addItems(state_items)  # 查询条件的状态下拉菜单
 
-    # 显示查询结果至页面
+    # 查询按钮功能，显示查询结果至页面
     def display(self):
         self.tb_display.clearContents()  # 清空表格中内容
         room = self.cb_room.currentText()  # 机房
@@ -47,6 +55,10 @@ class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
         sn = self.le_sn.text().strip()  # SN
         mg_ip = self.mg_ip.text().strip()  # mg_ip
         state = self.cb_state.currentText()  # 设备状态
+
+        # # 断开表格选择事件
+        # if self.flag:
+        #     self.tb_display.currentCellChanged.disconnect(self.select_table_event)
 
         # 查询结果数据处理
         sel_values = []  # 用于保存获取的查询条件列表
@@ -110,78 +122,99 @@ class UiSwitch(Ui_MachineSwitch, QtWidgets.QWidget):
                 # 当为第一列时添加复选框按钮
                 if col == 0:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框
+                    # self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框
                 else:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         self.tb_display.resizeColumnsToContents()  # 自适应列宽
 
+        # 隐藏变更信息区域内容
+        self.select_table_event()
+
     # 位置调整按钮功能设置
     def switch(self):
+        # 获取选择的行信息
+        select_row = self.tb_display.currentRow()
         # 位置调整窗口显示的情况下功能设置
-        if self.gbox_switch.isHidden():
+        if self.gbox_switch.isHidden() and select_row >= 0:  # 当前已选定行，并且变更信息区域隐藏
             self.gbox_switch.show()  # 显示位置调整窗口
-            room = self.pub_infos.get_room().values()
-            self.cb_sw_room.addItems(room)  # 显示机房信息
-            # 定义机房下拉菜单触发事件
-            self.cb_sw_room.currentIndexChanged.connect(lambda: self.display_cabinet(self.cb_sw_room,self.cb_sw_cabinet))
-
-        # 位置调整窗口显示的情况下功能设置
         else:
-            self.gbox_switch.hide()  # 隐藏位置调整窗口
+            QtWidgets.QMessageBox.warning(self, '选择的变更设备的信息', '请选择需要调整位置的设备！')
+        room = self.pub_infos.get_room().values()
+        self.cb_sw_room.addItems(room)  # 显示机房信息
+        # 定义机房下拉菜单触发事件
+        self.cb_sw_room.currentIndexChanged.connect(
+            lambda: self.display_cabinet(self.cb_sw_room, self.cb_sw_cabinet))
 
-    # 下架操作---钩选的要下架的设备
+        # 设置上下U位下拉菜单信息
+        u_info = [str(u) for u in range(1, 42)]  # 生成1-42u U位信息
+        self.cb_sw_down_pos.addItems(u_info)  # 将U位信息添加到U位下拉菜单中
+        self.cb_sw_up_pos.addItems(u_info)  # 将U位信息添加到U位下拉菜单中
+
+        # 选择的行的信息
+        if select_row >= 0:
+            self.cb_sw_room.setCurrentText(self.tb_display.item(select_row, 1).text())  # 机房信息
+            self.cb_sw_cabinet.setCurrentText(self.tb_display.item(select_row, 2).text())  # 机柜信息
+            self.cb_sw_down_pos.setCurrentText(self.tb_display.item(select_row, 3).text())  # 下U位
+            self.cb_sw_up_pos.setCurrentText(self.tb_display.item(select_row, 4).text())  # 上U位
+            self.le_sw_machine_name.setText(self.tb_display.item(select_row, 5).text())  # 设备名称
+            self.le_sw_mg_ip.setText(self.tb_display.item(select_row, 11).text())  # 管理IP
+            self.le_sw_bmc_ip.setText(self.tb_display.item(select_row, 12).text())  # 带外IP
+            self.te_sw_remark.setText(self.tb_display.item(select_row, 13).text())  # 备注
+        else:
+            pass
+
+    # 页面表格选定时事件功能
+    def select_table_event(self):
+        self.gbox_switch.hide()  # 隐藏位置调整窗口
+
+    # 调整位置提交按钮功能
     def select_machine(self):
         # 获取选择的行信息
-        rowcount = self.tb_display.rowCount()  # 获取表格中总行数
-        select_data = []  # 定义钩选的设备列表
-        # 遍历所有行的第一列，将钩选的设备ID添加到select_data设备列表中
-        for i in range(rowcount):
-            select_row = self.tb_display.item(i, 0)  # 每行的第一列
-            if select_row is not None:
-                if select_row.checkState() == Qt.Checked:  # 判断是否钩选
-                    # print('设备id:', select_row.text())
-                    select_data.append(select_row.text())
-                else:
-                    pass
-            else:
-                pass
+        select_row = self.tb_display.currentRow()  # 获取表格中总行数
+        # 选择的行的信息
+        before_machine_id = self.tb_display.item(select_row, 0).text()  # 设备id
+        before_room = self.tb_display.item(select_row, 1).text()  # 机房信息
+        before_cabinet = self.tb_display.item(select_row, 2).text()  # 机柜信息
+        before_pos_down = self.tb_display.item(select_row, 3).text()  # 下U位
+        before_pos_up = self.tb_display.item(select_row, 4).text()  # 上U位
+        before_machine_name = self.tb_display.item(select_row, 5).text()  # 设备名称
+        before_mg_ip = self.tb_display.item(select_row, 11).text()  # 管理IP
+        before_bmc_ip = self.tb_display.item(select_row, 12).text()  # 带外IP
+        before_remark = self.tb_display.item(select_row, 13).text()  # 备注
 
-        # 获取并提交数据
-        if len(select_data) == 0:
-            QtWidgets.QMessageBox.warning(self, '设备下线下架操作', '请选择要执行操作的设备！')
+        # 修改前原位置信息
+        before_info = [self.pub_infos.room_swap_id(name=before_room), before_cabinet, before_pos_down, before_pos_up,
+                       before_machine_name, before_mg_ip,
+                       before_bmc_ip, before_remark]
+
+        # 修改后位置信息
+        after_info = [self.pub_infos.room_swap_id(name=self.cb_sw_room.currentText()), self.cb_sw_cabinet.currentText(),
+                      self.cb_sw_down_pos.currentText(),
+                      self.cb_sw_up_pos.currentText(), self.le_sw_machine_name.text().strip(),
+                      self.le_sw_mg_ip.text().strip(),
+                      self.le_sw_bmc_ip.text().strip(), self.te_sw_remark.toPlainText().strip()]
+        # print('修改前：',before_info,'\n修改后：',after_info)
+
+        # 数字库中字段名称
+        field = ('machine_roomid', 'cabinet_name', 'start_position', 'end_position', 'machine_name', 'mg_ip',
+                 'bmc_ip', 'comments')
+
+        # 获取并判断提交数据是否修改
+        if before_info == after_info:
+            QtWidgets.QMessageBox.warning(self, '位置调整的设备信息', '设备信息没有改变！')
         else:
-            # 判断选择的执行方式
-            choose = self.cb_operate_state.currentText()
-            # 选择下架操作
-            if choose == '下架':
-                # 获取输入的下架信息
-                comments = self.comments.toPlainText().strip()  # 下架情况说明
-                operator = self.le_down_operator.text().strip()  # 下架执行人
-                down_time = self.down_time.date().toString('yyyy/M/d')  # 下架时间
-                if comments == '' or operator == '':
-                    QtWidgets.QMessageBox.warning(self, '设备下架操作', '请填写下架情况说明和执行人员！')
+            if QtWidgets.QMessageBox.question(self, '位置调整的设备信息',
+                                              '是否确定要调整该设备的位置？') == QtWidgets.QMessageBox.Yes:
+                # print('开始修改！')
+                try:
+                    MachineInfos.update(dict(zip(field, after_info))).where(
+                        MachineInfos.machine_id == before_machine_id).execute()  # 更新设备位置信息
+                except Exception as e:
+                    logging.critical('位置调整信息出错：'.format(e))
                 else:
-                    # print('选择的设备：', select_data)
-                    if QtWidgets.QMessageBox.question(self, '设备下架',
-                                                      '是否确认要下架选择的设备？') == QtWidgets.QMessageBox.Yes:
-                        # 按格式生成下架数据（machine_id,up_or_down,operator, down_time, comments）
-                        data = []  # 定义下架数据
-                        for _ in select_data:
-                            data.append((_, 2, operator, down_time, comments))
-                        try:
-                            with db.atomic():
-                                ShelfManage.insert_many(data, fields=(
-                                    'machine_id', 'up_or_down', 'operator', 'date',
-                                    'comments')).execute()  # 插入下架设备信息到下架表中
-                                MachineInfos.update(run_state=4, uninstall_date=down_time).where(
-                                    MachineInfos.machine_id.in_(select_data)).execute()  # 修改设备表运行状态为下架
-                        except Exception as e:
-                            logging.critical('执行下架出错：'.format(e))
-                        else:
-                            QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
-                            self.tb_display.clearContents()  # 清空表格插件内容
-                    else:
-                        pass
+                    QtWidgets.QMessageBox.information(self, '位置调整的设备信息', '设备位置调整成功！')
+                    self.tb_display.clearContents()  # 清空表格插件内容
+                    self.gbox_switch.hide()  # 隐藏位置调整窗口
 
     def clear(self):
         """

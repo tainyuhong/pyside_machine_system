@@ -180,30 +180,6 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="7">
-           <widget class="QLineEdit" name="le_sw_app_ip">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="6">
-           <widget class="QLabel" name="label_12">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>业务IP</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="4">
            <widget class="QLabel" name="label_11">
             <property name="font">
@@ -262,6 +238,9 @@
             <property name="text">
              <string>设备名称</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item row="0" column="5">
@@ -286,7 +265,7 @@
         </font>
        </property>
        <property name="text">
-        <string>位置调整</string>
+        <string>调整位置</string>
        </property>
       </widget>
      </item>
@@ -318,6 +297,9 @@
      </item>
      <item row="2" column="0" colspan="3">
       <widget class="QTableWidget" name="tb_display">
+       <property name="styleSheet">
+        <string notr="true">selection-background-color: rgb(255, 170, 0);</string>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>

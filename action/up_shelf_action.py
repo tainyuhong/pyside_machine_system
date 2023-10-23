@@ -60,7 +60,7 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
         model = self.model.text().strip()  # 型号
         machine_sn = self.machine_sn.text().strip()  # SN
         lmg_ip = self.lmg_ip.text().strip()  # 管理IP
-        work_are = self.cb_work_are.currentIndex() + 1  # 业务区域
+        work_are = '' if self.cb_work_are.currentIndex() + 1 == 0 else self.cb_work_are.currentIndex() + 1  # 业务区域,值为0时置空
         machine_admin = self.machine_admin.text().strip()  # 设备管理员
         admin = self.admin.text().strip()  # 业务人员
         app_ip = self.app_ip.text().strip()  # 应用IP
@@ -115,8 +115,8 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
                 else:
                     if QtWidgets.QMessageBox.question(self, '设备上架',
                                                       '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
-                        self.machine_name.setText('')  # 清空设备名称
-                        self.comments.setText('')  # 清空备注内容
+                        self.machine_name.clear()  # 清空设备名称
+                        self.machine_sn.clear()  # 清空SN内容
                     else:
                         self.close()  # 退出窗口
             else:

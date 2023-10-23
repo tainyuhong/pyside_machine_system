@@ -74,10 +74,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         if self.is_selected:
             # print('断开信号---')
             self.tb_display.itemChanged.disconnect(self.display_changed)  # 启用单元格式信号
+            self.is_selected = False                # 修改标记为false,未查询
         else:
             # print('不断开信号')
             pass
-
         # 按条件进行查询
         sel_values = []  # 用于保存获取的查询条件列表
         sql = """select `t1`.`machine_id`, `t1`.`machine_roomid`, `t1`.`cabinet_name`, `t1`.`start_position`,
@@ -88,7 +88,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
                         from `machine_infos` as `t1`  where 1=1 """
         # 判断机房是否选择
         if room_name != '所有':
-            sql = sql + ' and machine_roomid= %s'
+            sql = sql + ' and machine_roomid= %s '
             sel_values.append(self.room.room_swap_id(name=room_name))
         # 判断机柜是否选择
         if cabinet != '所有':
@@ -123,7 +123,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             sql = sql + ' and run_state != 4 '
 
         # 获取按条件查询的sql语句
-        select_sql = sql
+        select_sql = sql + 'order by `t1`.`machine_roomid`, `t1`.`cabinet_name`, `t1`.`start_position` desc'
         # print('sql',select_sql,'sel_values',sel_values)
         # # 执行sql，获取查询结果 判断是否有输入查询条件
         if not sel_values:
