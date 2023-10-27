@@ -31,7 +31,7 @@
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1">
+        <layout class="QGridLayout" name="gridLayout" rowstretch="2,1,9,0" columnstretch="3,1,1,1,1,0">
          <property name="leftMargin">
           <number>6</number>
          </property>
@@ -47,7 +47,17 @@
          <property name="spacing">
           <number>10</number>
          </property>
-         <item row="0" column="0" colspan="5">
+         <item row="3" column="0" colspan="4">
+          <widget class="QLabel" name="lb_state_up">
+           <property name="styleSheet">
+            <string notr="true">color:blue</string>
+           </property>
+           <property name="text">
+            <string>就绪</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="6">
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
@@ -65,45 +75,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="4">
-          <widget class="QPushButton" name="bt_up_select">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>查  询</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="1" column="0">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="2" column="0" colspan="5">
+         <item row="2" column="0" colspan="6">
           <widget class="QTableWidget" name="tb_up">
            <property name="autoFillBackground">
             <bool>false</bool>
@@ -190,17 +162,70 @@
            </column>
           </widget>
          </item>
-         <item row="3" column="0" colspan="3">
-          <widget class="QLabel" name="lb_state_up">
+         <item row="1" column="2">
+          <widget class="QCheckBox" name="ckb_up">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>上架日期</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="5">
+          <widget class="QPushButton" name="btn_export_up">
+           <property name="toolTip">
+            <string>导出excel</string>
+           </property>
            <property name="styleSheet">
             <string notr="true">color:blue</string>
            </property>
            <property name="text">
-            <string>就绪</string>
+            <string>导出上架信息</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="4">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="5">
+          <widget class="QPushButton" name="bt_up_select">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>查  询</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
           <widget class="QDateEdit" name="up_date">
            <property name="enabled">
             <bool>false</bool>
@@ -222,27 +247,14 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QCheckBox" name="ckb_up">
+          <widget class="QCheckBox" name="ckb_reupshelf">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
             </font>
            </property>
            <property name="text">
-            <string>上架日期</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="4">
-          <widget class="QPushButton" name="btn_export_up">
-           <property name="toolTip">
-            <string>导出excel</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:blue</string>
-           </property>
-           <property name="text">
-            <string>导出上架信息</string>
+            <string>重新上架</string>
            </property>
           </widget>
          </item>

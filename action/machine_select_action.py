@@ -15,7 +15,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.select_table.setHorizontalHeaderLabels(
             ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
              '带内IP',
-             '带外IP', '设备管理员','运行状态'])
+             '带外IP', '设备管理员','运行状态','备注'])
         self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 机房下拉菜单触发事件
@@ -71,7 +71,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
         sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, 
-        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin, run_state
+        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin, run_state,comments
         FROM machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
@@ -166,7 +166,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
-            for _ in range(14):  # 14为列数
+            for _ in range(15):  # 14为列数
                 if page_data[i][_] is None:
                     self.select_table.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:

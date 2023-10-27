@@ -306,7 +306,7 @@
            <number>15</number>
           </property>
           <property name="columnCount">
-           <number>14</number>
+           <number>15</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
@@ -341,6 +341,7 @@
           <row/>
           <row/>
           <row/>
+          <column/>
           <column/>
           <column/>
           <column/>

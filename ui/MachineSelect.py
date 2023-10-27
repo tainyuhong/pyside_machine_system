@@ -192,8 +192,8 @@ class Ui_MachineSelect(object):
         self.verticalLayout.addWidget(self.groupBox)
 
         self.select_table = QTableWidget(self.vbox)
-        if (self.select_table.columnCount() < 14):
-            self.select_table.setColumnCount(14)
+        if (self.select_table.columnCount() < 15):
+            self.select_table.setColumnCount(15)
         if (self.select_table.rowCount() < 15):
             self.select_table.setRowCount(15)
         self.select_table.setObjectName(u"select_table")
@@ -210,7 +210,7 @@ class Ui_MachineSelect(object):
         self.select_table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.select_table.setGridStyle(Qt.SolidLine)
         self.select_table.setRowCount(15)
-        self.select_table.setColumnCount(14)
+        self.select_table.setColumnCount(15)
         self.select_table.horizontalHeader().setVisible(True)
         self.select_table.horizontalHeader().setCascadingSectionResizes(False)
         self.select_table.horizontalHeader().setHighlightSections(True)

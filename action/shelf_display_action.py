@@ -37,17 +37,41 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     # 上架信息查询
     def display_up_data(self, up_date=None):
         self.tb_up.clearContents()  # 清空表格中内容
-        if up_date is not None:
-            updata_model = ViewUpshelf.select().where(ViewUpshelf.date == up_date)  # 定义数据查询模型
-            updata = [
-                (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-                 i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
+
+        # 判断是否钩选重新上架
+        if self.ckb_reupshelf.isChecked():
+            print('重新上架的')
+            if up_date is not None:
+                updata_model = ViewUpshelf.select().where(
+                    ViewUpshelf.date == up_date & ViewUpshelf.up_or_down == 3)  # 定义数据查询模型
+                updata = [
+                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
+                     i.machine_sn,
+                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
+            else:
+                updata_model = ViewUpshelf.select().where(ViewUpshelf.up_or_down == 3)  # 定义数据查询模型
+                updata = [
+                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
+                     i.machine_sn,
+                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
+            # print('上架数据：',updata,len(updata))
         else:
-            updata_model = ViewUpshelf.select()  # 定义数据查询模型
-            updata = [
-                (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-                 i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
-        # print('上架数据：',updata,len(updata))
+            if up_date is not None:
+                updata_model = ViewUpshelf.select().where(
+                    ViewUpshelf.date == up_date & ViewUpshelf.up_or_down == 1)  # 定义数据查询模型
+                updata = [
+                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
+                     i.machine_sn,
+                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
+            else:
+                updata_model = ViewUpshelf.select().where(ViewUpshelf.up_or_down == 1)  # 定义数据查询模型
+                updata = [
+                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
+                     i.machine_sn,
+                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
+            # print('上架数据：',updata,len(updata))
+
+        # 判断查询到的数据是否为0
         if len(updata) != 0:
             # 显示到页面中
             self.tb_up.setRowCount(len(updata))  # 定义表格显示内容行数
@@ -117,8 +141,8 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                 row_count = self.tb_down.rowCount()  # 行数
                 # 如果行数大于13则复制格式到多余的行上
                 if row_count > 13:
-                    for _ in range(row_count-13):
-                        sh.range('A15','J15').copy(sh.range((16+_,1),(16+_,10)))
+                    for _ in range(row_count - 13):
+                        sh.range('A15', 'J15').copy(sh.range((16 + _, 1), (16 + _, 10)))
 
                 num = 1  # 初始化序号
                 for cell_row in range(row_count):
@@ -142,7 +166,7 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                     sh.cells(cell_row + 3, 9).value = self.tb_down.item(cell_row, 8).text()
                     # 备注
                     sh.cells(cell_row + 3, 10).value = self.tb_down.item(cell_row, 11).text()
-                    num += 1    # 每添加一行增加1
+                    num += 1  # 每添加一行增加1
 
                 filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
                 if ok:
@@ -192,20 +216,42 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             data = [
                 (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
                  i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
+
+            # 获取重复下架的设备信息
+            redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
+                ViewDownshelf.up_or_down == 4).tuples()
+            redown_data = [red[0] for red in redown_data_model]
+            # print('重复上架设备：', redown_data)
         else:
             data_model = ViewDownshelf.select()  # 定义数据查询模型
             data = [
                 (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
                  i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
+
+            # 获取重复下架的设备信息
+            redown_data_model = ViewDownshelf.select(ViewDownshelf.machine_id).where(
+                ViewDownshelf.up_or_down == 4).tuples()
+            redown_data = [red[0] for red in redown_data_model]
+            # print('重复上架设备：', redown_data)
+
         # print('上架数据：', data)
         if len(data) != 0:
             # 显示到页面中
             self.tb_down.setRowCount(len(data))  # 定义表格显示内容行数
             for row, d1 in enumerate(data):
                 for col, d2 in enumerate(d1):
-                    self.tb_down.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+                    item = QTableWidgetItem(str(d2))  # 定义单元格内容
+
+                    # 判断第一列的设备id是否为重复上架信息中设备
+                    if col == 0 and d2 in redown_data:
+                        # print('值', d2, '行号：', row)
+                        item.setBackground(QBrush(QColor(255, 165, 0)))  # 设置单元格背景颜色
+                    else:
+                        pass
+                    self.tb_down.setItem(row, col, item)  # 在表格对应位置填充相应内容
             self.tb_down.resizeColumnsToContents()  # 根据内容自定义列宽
-            self.lb_state_down.setText('------> 查询到 {} 条记录 <------'.format(len(data)))
+
+            self.lb_state_down.setText('设备ID黄色标记的为重复下架设备         ------> 查询到 {} 条记录 <------'.format(len(data)))
         else:
             self.tb_down.clearContents()  # 清空表格中内容
             self.tb_down.horizontalHeader().setDefaultSectionSize(80)  # 设置默认宽度为80

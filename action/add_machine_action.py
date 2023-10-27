@@ -7,7 +7,7 @@ from action.pub_infos import PubSwitch
 
 class UiAdd(Ui_add_machine_form, QtWidgets.QWidget):
     """
-    添加设备窗口类
+    添加设备窗口类，该模块用于补录设备信息    注意：不用于适用新设备上架
     """
     room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
 

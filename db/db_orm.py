@@ -267,6 +267,7 @@ class ViewDownshelf(BaseModel):
     operator = CharField(null=True)
     machine_admin = CharField(null=True)
     comments = CharField(null=True)
+    up_or_down = CharField(null=True)
 
     class Meta:
         table_name = 'view_downshelf'
@@ -290,6 +291,7 @@ class ViewUpshelf(BaseModel):
     operator = CharField(null=True)
     machine_admin = CharField(null=True)
     comments = CharField(null=True)
+    up_or_down = CharField(null=True)
 
     class Meta:
         table_name = 'view_upshelf'

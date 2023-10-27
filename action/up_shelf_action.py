@@ -7,7 +7,7 @@ from action.pub_infos import PubSwitch
 
 class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
     """
-    添加设备窗口类
+    添加设备窗口类，用于新设备上架
     """
     room_and_id = None  # 定义一个机房ID与机房名称的映射，后用于字典
 
@@ -27,9 +27,9 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
         # 设置上架安装日期为当天
         self.install_date.setDate(QDate.currentDate())  # 设置默认为系统当天
         # 设置出厂日期为当天
-        self.factory_date.setDate(QDate(2000,1,1))  # 设置默认为系统当天
+        self.factory_date.setDate(QDate(2000, 1, 1))  # 设置默认为系统当天
         # 设置原厂维保结束日期为当天
-        self.end_ma_date.setDate(QDate(2000,1,1))  # 设置默认为系统当天
+        self.end_ma_date.setDate(QDate(2000, 1, 1))  # 设置默认为系统当天
 
         # 定义按钮功能
         self.bt_save.clicked.connect(self.save_infos)  # 保存提交内容
@@ -91,34 +91,85 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
             # print('添加设备数据：',add_data)
             if QtWidgets.QMessageBox.question(self, '是否保存数据',
                                               '---> 是否保存数据 ？ <---') == QtWidgets.QMessageBox.Yes:
-                # 保存至数据库中
-                try:
-                    with db.atomic():
-                        # 添加到设备信息数据表
-                        result = MachineInfos.insert_many([add_data, ], [
-                            'machine_name', 'machine_sort_name', 'machine_roomid', 'cabinet_name', 'start_position',
-                            'end_position', 'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are', 'machine_admin',
-                            'app_admin', 'app_ip1', 'factory_date', 'end_ma_date', 'install_date', 'bmc_ip',
-                            'single_power', 'comments', 'asset_id', 'system_name']).execute()
-                        # 添加到设备上架数据表
-                        up_shelf_data.insert(0, result)     # result 插入数据后返回的id值
-                        # print('result:',result)
-                        # print('上架设备信息：', up_shelf_data)
-                        ShelfManage.insert_many([up_shelf_data], fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
-                                                                         ShelfManage.operator, ShelfManage.date,
-                                                                         ShelfManage.comments]).execute()
-                        # 将设备生产日期同步写入到维保信息表中
-                        WarrantyInfos.insert(machine_id=result,start_date=factory_date, end_date=end_ma_date).execute()
+                #  判断设备的SN不为空，且是否在设备下架表中
+                #  > 在SN在下架表中时，则获取对应设备的id,并更新设备的位置、名称相关信息，同时设置上架表中状态为重新上架 状态码为：3
+                #  > 设备的SN不在下架表中时，直接添加设备至设备信息表和上架设备信息表中
 
-                except Exception as e:
-                    QtWidgets.QMessageBox.critical(self, '保存数据错误！', '错误：{}'.format(e))
-                else:
-                    if QtWidgets.QMessageBox.question(self, '设备上架',
-                                                      '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
-                        self.machine_name.clear()  # 清空设备名称
-                        self.machine_sn.clear()  # 清空SN内容
+                machine_id = MachineInfos.select(MachineInfos.machine_id).where(
+                    MachineInfos.machine_sn == machine_sn).tuples()
+                id_isnot = ShelfManage.get_or_none(ShelfManage.machine in machine_id)
+                # print('设备SN:', id_isnot)
+                if id_isnot and machine_sn != '':  # 判断是否在下架表中,并且不为空值
+                    mid = [m_id[0] for m_id in machine_id]
+                    # print('在仓库中！', mid)
+                    # 保存至数据库中
+                    try:
+                        with (db.atomic()):
+                            # 更新设备信息数据表
+                            MachineInfos.update(machine_name=machine_name, machine_sort_name=sort_name,
+                                                machine_roomid=room, cabinet_name=cabinet, start_position=down_position,
+                                                end_position=up_position, machine_factory=machine_factory, model=model,
+                                                machine_sn=machine_sn, mg_ip=lmg_ip, work_are=work_are,
+                                                machine_admin=machine_admin, app_admin=admin, app_ip1=app_ip,
+                                                factory_date=factory_date, end_ma_date=end_ma_date,
+                                                install_date=install_date, bmc_ip=bmc_ip, single_power=single_power,
+                                                comments=comments, asset_id=asset_id, system_name=system_name).where(
+                                MachineInfos.machine_id == mid[0]).execute()
+                            # 更新设备上架数据表状态为3,如果在设备上架表中没有，则添加一条记录，并设置状态为3
+                            if ShelfManage.get_or_none(ShelfManage.machine == mid[0]):
+                                ShelfManage.update(up_or_down=3).where(ShelfManage.machine == mid[0]).execute()
+                            else:
+                                up_shelf_data.insert(0, mid[0])  # 将设备ID添加到上架数据列表中
+                                up_shelf_data[1] = 3  # 设置上架数据列表中上架字段为 重新上架：3
+
+                                # 在数据库中插入重新上架数据
+                                ShelfManage.insert_many([up_shelf_data],
+                                                        fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
+                                                                ShelfManage.operator, ShelfManage.date,
+                                                                ShelfManage.comments]).execute()
+                    except Exception as e:
+                        QtWidgets.QMessageBox.critical(self, '保存数据错误！', '错误：{}'.format(e))
                     else:
-                        self.close()  # 退出窗口
+                        if QtWidgets.QMessageBox.question(self, '设备上架',
+                                                          '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
+                            self.machine_name.clear()  # 清空设备名称
+                            self.machine_sn.clear()  # 清空SN内容
+                        else:
+                            self.close()  # 退出窗口
+
+                else:
+                    # print('新设备上架！')
+                    # 保存至数据库中
+                    try:
+                        with db.atomic():
+                            # 添加到设备信息数据表
+                            result = MachineInfos.insert_many([add_data, ], [
+                                'machine_name', 'machine_sort_name', 'machine_roomid', 'cabinet_name', 'start_position',
+                                'end_position', 'machine_factory', 'model', 'machine_sn', 'mg_ip', 'work_are',
+                                'machine_admin',
+                                'app_admin', 'app_ip1', 'factory_date', 'end_ma_date', 'install_date', 'bmc_ip',
+                                'single_power', 'comments', 'asset_id', 'system_name']).execute()
+                            # 添加到设备上架数据表
+                            up_shelf_data.insert(0, result)  # result 插入数据后返回的id值
+                            # print('result:',result)
+                            # print('上架设备信息：', up_shelf_data)
+                            ShelfManage.insert_many([up_shelf_data],
+                                                    fields=[ShelfManage.machine_id, ShelfManage.up_or_down,
+                                                            ShelfManage.operator, ShelfManage.date,
+                                                            ShelfManage.comments]).execute()
+                            # 将设备生产日期同步写入到维保信息表中
+                            WarrantyInfos.insert(machine_id=result, start_date=factory_date,
+                                                 end_date=end_ma_date).execute()
+
+                    except Exception as e:
+                        QtWidgets.QMessageBox.critical(self, '保存数据错误！', '错误：{}'.format(e))
+                    else:
+                        if QtWidgets.QMessageBox.question(self, '设备上架',
+                                                          '数据保存成功！是否继续添加') == QtWidgets.QMessageBox.Yes:
+                            self.machine_name.clear()  # 清空设备名称
+                            self.machine_sn.clear()  # 清空SN内容
+                        else:
+                            self.close()  # 退出窗口
             else:
                 pass
 
@@ -168,7 +219,7 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
         # 当机房为ZB-1时，Cabinet.room=1，根据条件进行判断...
         cabinet_data = Cabinet.select(Cabinet.cab_num).where(
             (Cabinet.room == self.pub_info.room_swap_id(name=self.cb_room.currentText())) & (
-                        Cabinet.is_use == 1)).order_by(
+                    Cabinet.is_use == 1)).order_by(
             Cabinet.cab_num)
         # print(cabinet_data)
         cabinet = [i.cab_num for i in cabinet_data]  # 利用列表生成器生成设备分类

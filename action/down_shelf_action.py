@@ -16,7 +16,6 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
         self.lb_datetime.hide()
         self.down_time.hide()
 
-
         self.display_room()  # 显示机房下拉菜单内容
         self.cb_room.currentIndexChanged.connect(self.display_cabinet)  # 定义机房下拉菜单触发事件
         self.display_state()  # 显示设备状态下拉菜单
@@ -46,9 +45,9 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
 
     # 设置运行状态下拉菜单
     def display_state(self):
-        state_items = ['所有', '运行', '断网', '关机','下架', '未加电']
-        self.cb_state.addItems(state_items)             # 查询条件的状态下拉菜单
-        self.cb_operate_state.addItems(state_items[1:])     # 执行方式选择下拉菜单
+        state_items = ['所有', '运行', '断网', '关机', '下架', '未加电']
+        self.cb_state.addItems(state_items)  # 查询条件的状态下拉菜单
+        self.cb_operate_state.addItems(state_items[1:])  # 执行方式选择下拉菜单
 
     # 显示查询结果至页面
     def display(self):
@@ -122,7 +121,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                 # 当为第一列时添加复选框按钮
                 if col == 0:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)        # 添加复选框
+                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框
                 else:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         self.tb_display.resizeColumnsToContents()  # 自适应列宽
@@ -147,6 +146,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
         # 获取选择的行信息
         rowcount = self.tb_display.rowCount()  # 获取表格中总行数
         select_data = []  # 定义钩选的设备列表
+
         # 遍历所有行的第一列，将钩选的设备ID添加到select_data设备列表中
         for i in range(rowcount):
             select_row = self.tb_display.item(i, 0)  # 每行的第一列
@@ -165,6 +165,11 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
         else:
             # 判断选择的执行方式
             choose = self.cb_operate_state.currentText()
+
+            # 获取钩选的设备是否存在于下架设备信息表中
+            down_data = [down[0] for down in ViewDownshelf.select(ViewDownshelf.machine_id).where(
+                ViewDownshelf.machine_id in select_data).tuples()]
+            # print('下架信息表：', down_data)
             # 选择下架操作
             if choose == '下架':
                 # 获取输入的下架信息
@@ -178,20 +183,37 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                     if QtWidgets.QMessageBox.question(self, '设备下架',
                                                       '是否确认要下架选择的设备？') == QtWidgets.QMessageBox.Yes:
                         # 按格式生成下架数据（machine_id,up_or_down,operator, down_time, comments）
-                        data = []  # 定义下架数据
                         for _ in select_data:
-                            data.append((_, 2, operator, down_time, comments))
-                        try:
-                            with db.atomic():
-                                ShelfManage.insert_many(data, fields=(
-                                    'machine_id', 'up_or_down', 'operator', 'date', 'comments')).execute()  # 插入下架设备信息到下架表中
-                                MachineInfos.update(run_state=4, uninstall_date=down_time).where(
-                                    MachineInfos.machine_id.in_(select_data)).execute()  # 修改设备表运行状态为下架
-                        except Exception as e:
-                            logging.critical('执行下架出错：'.format(e))
-                        else:
-                            QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
-                            self.tb_display.clearContents()  # 清空表格插件内容
+                            # 判断是否存在于已下架设备表中，如果是则更新相关信息
+                            if int(_) in down_data:
+                                # print('在下架设备表中。')
+                                try:
+                                    with db.atomic():
+                                        ShelfManage.update(up_or_down=4, operator=operator, date=down_time,
+                                                           comments=comments).where(
+                                            ShelfManage.machine_id == _).execute()  # 插入下架设备信息到下架表中
+                                        MachineInfos.update(run_state=4, uninstall_date=down_time).where(
+                                            MachineInfos.machine_id == _).execute()  # 修改设备表运行状态为下架
+                                except Exception as e:
+                                    logging.critical('执行下架出错：'.format(e))
+                                # else:
+                                #     QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
+                                #     self.tb_display.clearContents()  # 清空表格插件内容
+                            else:
+                                # print('不在下架设备表中。')
+                                data = []  # 定义下架数据
+                                data.append((_, 2, operator, down_time, comments))
+                                try:
+                                    with db.atomic():
+                                        ShelfManage.insert_many(data, fields=(
+                                            'machine_id', 'up_or_down', 'operator', 'date',
+                                            'comments')).execute()  # 插入下架设备信息到下架表中
+                                        MachineInfos.update(run_state=4, uninstall_date=down_time).where(
+                                            MachineInfos.machine_id==_).execute()  # 修改设备表运行状态为下架
+                                except Exception as e:
+                                    logging.critical('执行下架出错：'.format(e))
+                        QtWidgets.QMessageBox.information(self, '设备下架成功', '成功下架设备！')
+                        self.tb_display.clearContents()  # 清空表格插件内容
                     else:
                         pass
             # 断网、关机、运行状态处理
@@ -207,7 +229,8 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                     state = '5'
                 # print('当前选择状态为：',state,'选择设备',select_data)
                 if QtWidgets.QMessageBox.question(self, '执行操作',
-                                                  '是否确认要对已选设备状态设置为【{}】？'.format(choose)) == QtWidgets.QMessageBox.Yes:
+                                                  '是否确认要对已选设备状态设置为【{}】？'.format(
+                                                      choose)) == QtWidgets.QMessageBox.Yes:
                     try:
                         with db.atomic():
                             MachineInfos.update(run_state=state, comments=comments).where(
