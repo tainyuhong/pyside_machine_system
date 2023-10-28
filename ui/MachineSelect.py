@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'MachineSelect.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -75,20 +75,11 @@ class Ui_MachineSelect(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label_3 = QLabel(self.groupBox)
-        self.label_3.setObjectName(u"label_3")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy3.setHorizontalStretch(2)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy3)
-        self.label_3.setAlignment(Qt.AlignCenter)
+        self.rd_mg_ip = QRadioButton(self.groupBox)
+        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
+        self.rd_mg_ip.setChecked(True)
 
-        self.gridLayout.addWidget(self.label_3, 0, 5, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_3, 0, 8, 1, 1)
+        self.gridLayout.addWidget(self.rd_mg_ip, 0, 2, 1, 1)
 
         self.cb_cabniet = QComboBox(self.groupBox)
         self.cb_cabniet.addItem("")
@@ -96,19 +87,45 @@ class Ui_MachineSelect(object):
 
         self.gridLayout.addWidget(self.cb_cabniet, 1, 1, 1, 1)
 
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
+        self.label = QLabel(self.groupBox)
+        self.label.setObjectName(u"label")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(2)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy3)
+        self.label.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+
+        self.mg_ip = QLineEdit(self.groupBox)
+        self.mg_ip.setObjectName(u"mg_ip")
         sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy4.setHorizontalStretch(3)
         sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.machine_name.sizePolicy().hasHeightForWidth())
-        self.machine_name.setSizePolicy(sizePolicy4)
+        sizePolicy4.setHeightForWidth(self.mg_ip.sizePolicy().hasHeightForWidth())
+        self.mg_ip.setSizePolicy(sizePolicy4)
 
-        self.gridLayout.addWidget(self.machine_name, 0, 6, 1, 2)
+        self.gridLayout.addWidget(self.mg_ip, 0, 4, 1, 1)
 
-        self.horizontalSpacer = QSpacerItem(188, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label_3 = QLabel(self.groupBox)
+        self.label_3.setObjectName(u"label_3")
+        sizePolicy3.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
+        self.label_3.setSizePolicy(sizePolicy3)
+        self.label_3.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addItem(self.horizontalSpacer, 1, 5, 1, 2)
+        self.gridLayout.addWidget(self.label_3, 0, 5, 1, 1)
+
+        self.room = QComboBox(self.groupBox)
+        self.room.addItem("")
+        self.room.setObjectName(u"room")
+
+        self.gridLayout.addWidget(self.room, 0, 1, 1, 1)
+
+        self.cb_sort = QComboBox(self.groupBox)
+        self.cb_sort.setObjectName(u"cb_sort")
+
+        self.gridLayout.addWidget(self.cb_sort, 1, 6, 1, 1)
 
         self.select_btn = QPushButton(self.groupBox)
         self.select_btn.setObjectName(u"select_btn")
@@ -118,30 +135,7 @@ class Ui_MachineSelect(object):
         sizePolicy5.setHeightForWidth(self.select_btn.sizePolicy().hasHeightForWidth())
         self.select_btn.setSizePolicy(sizePolicy5)
 
-        self.gridLayout.addWidget(self.select_btn, 1, 7, 1, 1)
-
-        self.label_5 = QLabel(self.groupBox)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
-
-        self.room = QComboBox(self.groupBox)
-        self.room.addItem("")
-        self.room.setObjectName(u"room")
-
-        self.gridLayout.addWidget(self.room, 0, 1, 1, 1)
-
-        self.mg_ip = QLineEdit(self.groupBox)
-        self.mg_ip.setObjectName(u"mg_ip")
-        sizePolicy4.setHeightForWidth(self.mg_ip.sizePolicy().hasHeightForWidth())
-        self.mg_ip.setSizePolicy(sizePolicy4)
-
-        self.gridLayout.addWidget(self.mg_ip, 0, 4, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 8, 1, 1)
+        self.gridLayout.addWidget(self.select_btn, 1, 8, 1, 1)
 
         self.le_sn = QLineEdit(self.groupBox)
         self.le_sn.setObjectName(u"le_sn")
@@ -149,25 +143,6 @@ class Ui_MachineSelect(object):
         self.le_sn.setSizePolicy(sizePolicy4)
 
         self.gridLayout.addWidget(self.le_sn, 1, 4, 1, 1)
-
-        self.label = QLabel(self.groupBox)
-        self.label.setObjectName(u"label")
-        sizePolicy3.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy3)
-        self.label.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-
-        self.rd_bmc_ip = QRadioButton(self.groupBox)
-        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
-
-        self.gridLayout.addWidget(self.rd_bmc_ip, 0, 3, 1, 1)
-
-        self.rd_mg_ip = QRadioButton(self.groupBox)
-        self.rd_mg_ip.setObjectName(u"rd_mg_ip")
-        self.rd_mg_ip.setChecked(True)
-
-        self.gridLayout.addWidget(self.rd_mg_ip, 0, 2, 1, 1)
 
         self.label_2 = QLabel(self.groupBox)
         self.label_2.setObjectName(u"label_2")
@@ -177,6 +152,33 @@ class Ui_MachineSelect(object):
 
         self.gridLayout.addWidget(self.label_2, 1, 2, 1, 2)
 
+        self.label_5 = QLabel(self.groupBox)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_5, 1, 0, 1, 1)
+
+        self.rd_bmc_ip = QRadioButton(self.groupBox)
+        self.rd_bmc_ip.setObjectName(u"rd_bmc_ip")
+
+        self.gridLayout.addWidget(self.rd_bmc_ip, 0, 3, 1, 1)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+
+        self.gridLayout.addWidget(self.label_4, 1, 5, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 7, 1, 1)
+
+        self.machine_name = QLineEdit(self.groupBox)
+        self.machine_name.setObjectName(u"machine_name")
+        sizePolicy4.setHeightForWidth(self.machine_name.sizePolicy().hasHeightForWidth())
+        self.machine_name.setSizePolicy(sizePolicy4)
+
+        self.gridLayout.addWidget(self.machine_name, 0, 6, 1, 2)
+
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.setColumnStretch(1, 2)
         self.gridLayout.setColumnStretch(2, 1)
@@ -185,6 +187,7 @@ class Ui_MachineSelect(object):
         self.gridLayout.setColumnStretch(5, 1)
         self.gridLayout.setColumnStretch(6, 2)
         self.gridLayout.setColumnStretch(7, 1)
+        self.gridLayout.setColumnStretch(8, 1)
 
         self.horizontalLayout_2.addLayout(self.gridLayout)
 
@@ -322,17 +325,18 @@ class Ui_MachineSelect(object):
         MachineSelect.setWindowTitle(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u67e5\u8be2\u7a97\u53e3", None))
         self.title.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u4fe1\u606f\u67e5\u8be2", None))
         self.groupBox.setTitle(QCoreApplication.translate("MachineSelect", u"\u67e5\u8be2\u6761\u4ef6", None))
-        self.label_3.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u540d\u79f0", None))
+        self.rd_mg_ip.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5185IP", None))
         self.cb_cabniet.setItemText(0, QCoreApplication.translate("MachineSelect", u"\u6240\u6709", None))
 
-        self.select_btn.setText(QCoreApplication.translate("MachineSelect", u"\u67e5    \u8be2", None))
-        self.label_5.setText(QCoreApplication.translate("MachineSelect", u"\u673a    \u67dc", None))
+        self.label.setText(QCoreApplication.translate("MachineSelect", u"\u673a    \u623f", None))
+        self.label_3.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u540d\u79f0", None))
         self.room.setItemText(0, QCoreApplication.translate("MachineSelect", u"\u6240\u6709", None))
 
-        self.label.setText(QCoreApplication.translate("MachineSelect", u"\u673a    \u623f", None))
-        self.rd_bmc_ip.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5916IP", None))
-        self.rd_mg_ip.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5185IP", None))
+        self.select_btn.setText(QCoreApplication.translate("MachineSelect", u"\u67e5    \u8be2", None))
         self.label_2.setText(QCoreApplication.translate("MachineSelect", u"\u5e8f\u5217\u53f7", None))
+        self.label_5.setText(QCoreApplication.translate("MachineSelect", u"\u673a    \u67dc", None))
+        self.rd_bmc_ip.setText(QCoreApplication.translate("MachineSelect", u"\u5e26\u5916IP", None))
+        self.label_4.setText(QCoreApplication.translate("MachineSelect", u"\u8bbe\u5907\u5206\u7c7b", None))
         self.home_btn.setText(QCoreApplication.translate("MachineSelect", u"\u9996\u9875", None))
         self.pre_btn.setText(QCoreApplication.translate("MachineSelect", u"\u4e0a\u4e00\u9875", None))
         self.next_btn.setText(QCoreApplication.translate("MachineSelect", u"\u4e0b\u4e00\u9875", None))

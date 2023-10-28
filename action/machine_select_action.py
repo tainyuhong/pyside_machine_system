@@ -10,7 +10,9 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         super(UiMachineSelect, self).__init__(parent)
         self.setupUi(self)
         self.pub_infos = PubSwitch()
-        self.get_room_data()  # 显示机房信息
+        self.get_room_data()                    # 显示机房信息
+        self.get_machine_sort()                 # 显示设备分类信息下拉菜单
+
         # 设置表格相关信息
         self.select_table.setHorizontalHeaderLabels(
             ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
@@ -59,6 +61,14 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         self.cb_cabniet.addItem('所有')
         self.cb_cabniet.addItems(cabinet_name)
 
+    # 获取设备分类信息
+    def get_machine_sort(self):
+        s = MachineSort.select(MachineSort.sort_name).where(MachineSort.part_sort.is_null(False)).tuples()
+        sort_data = [s_item[0] for s_item in s]
+        sort_data.insert(0,'所有')
+        # print('设备分类：',sort_data)
+        self.cb_sort.addItems(sort_data)
+
     # 根据查询进行查询获取数据
     def get_input_data(self):
         # 在未进行查询时，翻页按钮不可用
@@ -96,6 +106,10 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         if self.le_sn.text() != '':
             sql = sql + ' and machine_sn like "%%"%s"%%" '
             sel_values.append(self.le_sn.text())
+        if self.cb_sort.currentIndex() > 0:
+            sql = sql + ' and machine_sort_name = %s'
+            sel_values.append(self.cb_sort.currentText())
+
         self.data_sql = sql  # 获取按条件查询的sql语句
         self.select_values = sel_values  # 获取查询条件值
         # print('查询条件',self.select_values)
