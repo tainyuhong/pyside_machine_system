@@ -12,10 +12,11 @@ from action.pub_infos import PubSwitch
 
 
 class DisplayTop(QtWidgets.QWidget, Ui_top):
-    load_win = set()
+
     def __init__(self, parent=None):
         super(DisplayTop, self).__init__(parent)
         self.setupUi(self)
+        self.load_win = set()
         self.pub_infos = PubSwitch()
         self.rooms = self.pub_infos.get_room().values()
         self.setWindowState(QtCore.Qt.WindowMaximized)  # 最大化打开窗口
