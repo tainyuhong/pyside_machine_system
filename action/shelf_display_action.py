@@ -40,7 +40,7 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
 
         # 判断是否钩选重新上架
         if self.ckb_reupshelf.isChecked():
-            print('重新上架的')
+            # print('重新上架的')
             if up_date is not None:
                 updata_model = ViewUpshelf.select().where(
                     ViewUpshelf.date == up_date & ViewUpshelf.up_or_down == 3)  # 定义数据查询模型
