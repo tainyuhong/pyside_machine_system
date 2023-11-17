@@ -180,7 +180,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
-            for _ in range(15):  # 14为列数
+            for _ in range(15):  # 15为列数
                 if page_data[i][_] is None:
                     self.select_table.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:
