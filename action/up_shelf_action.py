@@ -106,14 +106,15 @@ class UiUpShelf(Ui_up_shelf, QtWidgets.QWidget):
                     try:
                         with (db.atomic()):
                             # 更新设备信息数据表
-                            MachineInfos.update(machine_name=machine_name, machine_sort_name=sort_name,
+                            MachineInfos.update(machine_name=machine_name,  # machine_sort_name=sort_name,
                                                 machine_roomid=room, cabinet_name=cabinet, start_position=down_position,
-                                                end_position=up_position, machine_factory=machine_factory, model=model,
-                                                machine_sn=machine_sn, mg_ip=lmg_ip, work_are=work_are,
+                                                # machine_factory=machine_factory, model=model,machine_sn=machine_sn,
+                                                end_position=up_position, mg_ip=lmg_ip, work_are=work_are,
                                                 machine_admin=machine_admin, app_admin=admin, app_ip1=app_ip,
-                                                factory_date=factory_date, end_ma_date=end_ma_date,
-                                                install_date=install_date, bmc_ip=bmc_ip, single_power=single_power,
-                                                comments=comments, asset_id=asset_id, system_name=system_name,run_state=1).where(
+                                                # factory_date=factory_date, end_ma_date=end_ma_date,   # 由于原来保存有不需要变更
+                                                install_date=install_date, bmc_ip=bmc_ip,  # single_power=single_power,
+                                                comments=comments, asset_id=asset_id, system_name=system_name,
+                                                run_state=1).where(
                                 MachineInfos.machine_id == mid[0]).execute()
                             # 更新设备上架数据表状态为3,如果在设备上架表中没有，则添加一条记录，并设置状态为3
                             if ShelfManage.get_or_none(ShelfManage.machine == mid[0]):
