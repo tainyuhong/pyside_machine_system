@@ -339,3 +339,14 @@ class WarrantyInfos(BaseModel):
 
     class Meta:
         table_name = 'warranty_infos'
+
+
+class Organization(BaseModel):
+    """
+    单位信息表
+    """
+    org_id = IntegerField(null=False)
+    org_name=CharField(null=False)
+    remarks = CharField(null=True)
+    class Meta:
+        table_name = 'organization'

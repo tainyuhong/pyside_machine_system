@@ -154,9 +154,10 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
                     machine_mg_ip = self.tb_display.item(i, 11).text()
                     machine_bmc_ip = self.tb_display.item(i, 12).text()
                     machine_sn = self.tb_display.item(i, 9).text()
+                    machine_admin = self.tb_display.item(i, 10).text()
                     checked_machineid.append(
                         [machine_id, '{}_{}_{}'.format(machine_room, machine_cabinet, machine_u), machine_name,
-                         '带内:{}\r\n带外:{}'.format(machine_mg_ip, machine_bmc_ip), machine_sn])
+                         '带内:{}\r\n带外:{}'.format(machine_mg_ip, machine_bmc_ip), machine_sn,machine_admin])
             # print('选择的设备ID', checked_machineid)
             if len(checked_machineid) > 0:
                 # 创建表格实例
@@ -164,7 +165,7 @@ class CreateLabel(QtWidgets.QWidget, Ui_form_create):
                     wb = exl_app.books.add()
                     ws = wb.sheets.active
                     ws.name='设备标签打印模板'
-                    ws.range('a1').value=['设备id','位置','设备名称','IP地址','序列号']      # 向表中写入标题栏
+                    ws.range('a1').value=['设备id','位置','设备名称','IP地址','序列号','负责人']      # 向表中写入标题栏
                     ws.range('e1',(len(checked_machineid),5)).api.NumberFormat='@'  # 设置需要写入数据的单元格为文本格式
                     ws.range('a2').value=checked_machineid      # 向表格中写入数据
                     ws.range('a1').expand('table').columns.autofit()    # 设置自适应列宽
