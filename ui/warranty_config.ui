@@ -103,7 +103,7 @@
            </widget>
           </item>
           <item row="0" column="3" colspan="2">
-           <widget class="QLineEdit" name="machine_name">
+           <widget class="QLineEdit" name="le_machine_name">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
@@ -153,7 +153,7 @@
            </widget>
           </item>
           <item row="1" column="4">
-           <widget class="QLineEdit" name="mg_ip">
+           <widget class="QLineEdit" name="le_ip">
             <property name="font">
              <font>
               <pointsize>12</pointsize>

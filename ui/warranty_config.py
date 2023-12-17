@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'warranty_config.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -79,11 +79,11 @@ class Ui_WarrantyConfig(object):
 
         self.gridLayout.addWidget(self.cb_room, 0, 1, 1, 1)
 
-        self.machine_name = QLineEdit(self.groupBox)
-        self.machine_name.setObjectName(u"machine_name")
-        self.machine_name.setFont(font1)
+        self.le_machine_name = QLineEdit(self.groupBox)
+        self.le_machine_name.setObjectName(u"le_machine_name")
+        self.le_machine_name.setFont(font1)
 
-        self.gridLayout.addWidget(self.machine_name, 0, 3, 1, 2)
+        self.gridLayout.addWidget(self.le_machine_name, 0, 3, 1, 2)
 
         self.bt_select = QPushButton(self.groupBox)
         self.bt_select.setObjectName(u"bt_select")
@@ -105,11 +105,11 @@ class Ui_WarrantyConfig(object):
 
         self.gridLayout.addWidget(self.rd_mg_ip, 1, 2, 1, 1)
 
-        self.mg_ip = QLineEdit(self.groupBox)
-        self.mg_ip.setObjectName(u"mg_ip")
-        self.mg_ip.setFont(font1)
+        self.le_ip = QLineEdit(self.groupBox)
+        self.le_ip.setObjectName(u"le_ip")
+        self.le_ip.setFont(font1)
 
-        self.gridLayout.addWidget(self.mg_ip, 1, 4, 1, 1)
+        self.gridLayout.addWidget(self.le_ip, 1, 4, 1, 1)
 
         self.label_4 = QLabel(self.groupBox)
         self.label_4.setObjectName(u"label_4")
@@ -329,7 +329,7 @@ class Ui_WarrantyConfig(object):
         self.cb_cabinet.setItemText(0, QCoreApplication.translate("WarrantyConfig", u"\u6240\u6709", None))
 
         self.rd_mg_ip.setText(QCoreApplication.translate("WarrantyConfig", u"\u7ba1\u7406IP", None))
-        self.mg_ip.setText("")
+        self.le_ip.setText("")
         self.label_4.setText(QCoreApplication.translate("WarrantyConfig", u"\u673a\u67dc", None))
         self.lb_machine_name.setText(QCoreApplication.translate("WarrantyConfig", u"\u8bbe\u5907\u540d\u79f0", None))
         self.label_7.setText(QCoreApplication.translate("WarrantyConfig", u"\u8bbe\u5907\u7c7b\u578b", None))

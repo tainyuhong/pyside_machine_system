@@ -115,7 +115,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
 
         cabinet_chart.legend().setVisible(True)  # 显示图例，默认为显示
         cabinet_chart.legend().setAlignment(QtCore.Qt.AlignRight)  # 在底部显示图例信息
-        cabinet_chart.setAnimationOptions(QChart.SeriesAnimations)  # 设置成动画显示，默认无动画功能
+        # cabinet_chart.setAnimationOptions(QChart.SeriesAnimations)  # 设置成动画显示，默认无动画功能
         # cabinet_chart.legend().setLabelColor('#1E90FF')     # 设置图例字体颜色
 
         # 设置在柱状图中显示数值
