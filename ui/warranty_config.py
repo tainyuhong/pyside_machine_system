@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'warranty_config.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.2
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -167,8 +167,8 @@ class Ui_WarrantyConfig(object):
         self.verticalLayout.addWidget(self.groupBox)
 
         self.tb_display = QTableWidget(WarrantyConfig)
-        if (self.tb_display.columnCount() < 14):
-            self.tb_display.setColumnCount(14)
+        if (self.tb_display.columnCount() < 16):
+            self.tb_display.setColumnCount(16)
         __qtablewidgetitem = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -197,10 +197,14 @@ class Ui_WarrantyConfig(object):
         self.tb_display.setHorizontalHeaderItem(12, __qtablewidgetitem12)
         __qtablewidgetitem13 = QTableWidgetItem()
         self.tb_display.setHorizontalHeaderItem(13, __qtablewidgetitem13)
+        __qtablewidgetitem14 = QTableWidgetItem()
+        self.tb_display.setHorizontalHeaderItem(14, __qtablewidgetitem14)
+        __qtablewidgetitem15 = QTableWidgetItem()
+        self.tb_display.setHorizontalHeaderItem(15, __qtablewidgetitem15)
         if (self.tb_display.rowCount() < 8):
             self.tb_display.setRowCount(8)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.tb_display.setItem(0, 0, __qtablewidgetitem14)
+        __qtablewidgetitem16 = QTableWidgetItem()
+        self.tb_display.setItem(0, 0, __qtablewidgetitem16)
         self.tb_display.setObjectName(u"tb_display")
         self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
         self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -234,19 +238,6 @@ class Ui_WarrantyConfig(object):
 
         self.gridLayout_2.addWidget(self.label_3, 1, 0, 1, 1)
 
-        self.dt_end = QDateEdit(WarrantyConfig)
-        self.dt_end.setObjectName(u"dt_end")
-        self.dt_end.setFont(font1)
-        self.dt_end.setContextMenuPolicy(Qt.DefaultContextMenu)
-        self.dt_end.setAcceptDrops(False)
-        self.dt_end.setWrapping(False)
-        self.dt_end.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
-        self.dt_end.setCorrectionMode(QAbstractSpinBox.CorrectToPreviousValue)
-        self.dt_end.setCurrentSection(QDateTimeEdit.YearSection)
-        self.dt_end.setCalendarPopup(True)
-
-        self.gridLayout_2.addWidget(self.dt_end, 1, 1, 1, 1)
-
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_2.addItem(self.horizontalSpacer, 1, 2, 1, 1)
@@ -257,19 +248,6 @@ class Ui_WarrantyConfig(object):
         self.lb_operator.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.lb_operator, 1, 3, 1, 1)
-
-        self.dt_start = QDateEdit(WarrantyConfig)
-        self.dt_start.setObjectName(u"dt_start")
-        self.dt_start.setFont(font1)
-        self.dt_start.setContextMenuPolicy(Qt.DefaultContextMenu)
-        self.dt_start.setAcceptDrops(False)
-        self.dt_start.setWrapping(False)
-        self.dt_start.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
-        self.dt_start.setCorrectionMode(QAbstractSpinBox.CorrectToPreviousValue)
-        self.dt_start.setCurrentSection(QDateTimeEdit.YearSection)
-        self.dt_start.setCalendarPopup(True)
-
-        self.gridLayout_2.addWidget(self.dt_start, 1, 4, 1, 1)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -283,8 +261,41 @@ class Ui_WarrantyConfig(object):
 
         self.cb_org = QComboBox(WarrantyConfig)
         self.cb_org.setObjectName(u"cb_org")
+        self.cb_org.setFont(font1)
 
         self.gridLayout_2.addWidget(self.cb_org, 0, 1, 1, 1)
+
+        self.dt_end = QDateEdit(WarrantyConfig)
+        self.dt_end.setObjectName(u"dt_end")
+        self.dt_end.setFont(font1)
+        self.dt_end.setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.dt_end.setAcceptDrops(False)
+        self.dt_end.setWrapping(False)
+        self.dt_end.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
+        self.dt_end.setCorrectionMode(QAbstractSpinBox.CorrectToPreviousValue)
+        self.dt_end.setCurrentSection(QDateTimeEdit.YearSection)
+        self.dt_end.setCalendarPopup(True)
+
+        self.gridLayout_2.addWidget(self.dt_end, 1, 4, 1, 1)
+
+        self.dt_start = QDateEdit(WarrantyConfig)
+        self.dt_start.setObjectName(u"dt_start")
+        self.dt_start.setFont(font1)
+        self.dt_start.setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.dt_start.setAcceptDrops(False)
+        self.dt_start.setWrapping(False)
+        self.dt_start.setButtonSymbols(QAbstractSpinBox.UpDownArrows)
+        self.dt_start.setCorrectionMode(QAbstractSpinBox.CorrectToPreviousValue)
+        self.dt_start.setCurrentSection(QDateTimeEdit.YearSection)
+        self.dt_start.setCalendarPopup(True)
+
+        self.gridLayout_2.addWidget(self.dt_start, 1, 1, 1, 1)
+
+        self.bt_select_all = QPushButton(WarrantyConfig)
+        self.bt_select_all.setObjectName(u"bt_select_all")
+        self.bt_select_all.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.bt_select_all, 0, 3, 1, 1)
 
         self.gridLayout_2.setColumnStretch(0, 1)
         self.gridLayout_2.setColumnStretch(1, 1)
@@ -361,7 +372,11 @@ class Ui_WarrantyConfig(object):
         ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
         ___qtablewidgetitem12.setText(QCoreApplication.translate("WarrantyConfig", u"\u5e26\u5916IP", None));
         ___qtablewidgetitem13 = self.tb_display.horizontalHeaderItem(13)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("WarrantyConfig", u"\u5907\u6ce8", None));
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("WarrantyConfig", u"\u7ef4\u4fdd\u5355\u4f4d", None));
+        ___qtablewidgetitem14 = self.tb_display.horizontalHeaderItem(14)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("WarrantyConfig", u"\u7ef4\u4fdd\u72b6\u6001", None));
+        ___qtablewidgetitem15 = self.tb_display.horizontalHeaderItem(15)
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("WarrantyConfig", u"\u5907\u6ce8", None));
 
         __sortingEnabled = self.tb_display.isSortingEnabled()
         self.tb_display.setSortingEnabled(False)
@@ -371,6 +386,7 @@ class Ui_WarrantyConfig(object):
         self.label_3.setText(QCoreApplication.translate("WarrantyConfig", u"\u5f00\u59cb\u65f6\u95f4", None))
         self.lb_operator.setText(QCoreApplication.translate("WarrantyConfig", u"\u7ed3\u675f\u65f6\u95f4", None))
         self.bt_commit.setText(QCoreApplication.translate("WarrantyConfig", u"\u63d0  \u4ea4", None))
+        self.bt_select_all.setText(QCoreApplication.translate("WarrantyConfig", u"\u5168\u9009", None))
         self.lb_status.setText(QCoreApplication.translate("WarrantyConfig", u"\u72b6\u6001\u680f", None))
     # retranslateUi
 

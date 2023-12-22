@@ -121,7 +121,7 @@ class UiDownShelf(Ui_down_shelf, QtWidgets.QWidget):
                 # 当为第一列时添加复选框按钮
                 if col == 0:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框
+                    self.tb_display.item(row, 0).setCheckState(Qt.Unchecked)  # 添加复选框，且不选择状态
                 else:
                     self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         self.tb_display.resizeColumnsToContents()  # 自适应列宽

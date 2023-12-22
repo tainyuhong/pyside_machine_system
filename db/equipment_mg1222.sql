@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80025
 File Encoding         : 65001
 
-Date: 2023-10-27 17:01:33
+Date: 2023-12-22 17:26:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -381,7 +381,7 @@ CREATE TABLE `machine_infos` (
   CONSTRAINT `machine_infos_ibfk_1` FOREIGN KEY (`machine_sort_name`) REFERENCES `machine_sort` (`sort_name`) ON UPDATE CASCADE,
   CONSTRAINT `room_id` FOREIGN KEY (`machine_roomid`) REFERENCES `machine_room` (`room_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `s_position` FOREIGN KEY (`start_position`) REFERENCES `cab_position` (`num`)
-) ENGINE=InnoDB AUTO_INCREMENT=2072 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2104 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of machine_infos
@@ -445,7 +445,7 @@ INSERT INTO `machine_infos` VALUES ('56', '新核心开发测试虚拟化服务�
 INSERT INTO `machine_infos` VALUES ('57', '新核心开发测试虚拟化服务器', '服务器', '221543818', '浪潮', 'NF8480M5', '1', 'A08', '13', '16', '2021-06-26', '2026-07-31', '4', '1', '晏良', null, '6.40.14.12', null, '6.40.13.', null, null, null, null, '202110280056', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('58', '新核心开发测试虚拟化服务器', '服务器', '221543810', '浪潮', 'NF8480M5', '1', 'A08', '8', '11', '2021-06-26', '2026-07-31', '4', '1', '晏良', null, '6.40.14.11', null, '6.40.13.', null, null, null, null, '202110280057', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('59', '新核心开发测试虚拟化服务器', '服务器', '221543808', '浪潮', 'NF8480M5', '1', 'A08', '3', '6', '2021-06-26', '2026-07-31', '4', '1', '晏良', null, '6.40.14.10', null, '6.40.13.10', null, null, null, null, '202110280058', '新核心', null);
-INSERT INTO `machine_infos` VALUES ('60', '新核心开发测试虚拟化服务器', '服务器', '210235A2CR6217F005DX', 'H3C', 'R4900 G3', '1', 'A09', '33', '34', '2021-07-31', '2026-10-29', '4', '1', '晏良', '', null, null, '', null, null, null, null, '202109260008', '新核心', null);
+INSERT INTO `machine_infos` VALUES ('60', '', '服务器', '210235A2CR6217F005DX', 'H3C', 'R4900 G3', '1', 'A09', '33', '34', '2021-07-31', '2026-10-29', '4', '1', '晏良', '', null, null, '', null, null, null, null, '202109260008', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('61', '新核心开发测试虚拟化服务器', '服务器', 'J303LHXE', '联想', 'SR860', '1', 'A09', '28', '31', '2021-08-23', '2026-10-25', '4', '1', '晏良', null, '6.40.14.21', null, '6.40.13.21', null, null, null, null, '202110280063', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('62', '新核心开发测试虚拟化服务器', '服务器', 'J303LHXL', '联想', 'SR860', '1', 'A09', '23', '26', '2021-08-23', '2026-10-25', '4', '1', '晏良', null, '6.40.14.20', null, '6.40.13.20', null, null, null, null, '202110280064', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('63', '新核心开发测试虚拟化服务器', '服务器', 'J303LHXD', '联想', 'SR860', '1', 'A09', '18', '21', '2021-08-23', '2026-10-25', '4', '1', '晏良', null, '6.40.14.19', null, '6.40.13.19', null, null, null, null, '202110280065', '新核心', null);
@@ -508,7 +508,6 @@ INSERT INTO `machine_infos` VALUES ('119', '新核心开发测试环境业务汇
 INSERT INTO `machine_infos` VALUES ('120', '新核心开发测试环境业务接入交换机1', '交换机', '102170106428', '华为', 'CE6881', '1', 'B08', '10', '10', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.5', null, null, null, null, '202110280007', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('121', '新核心开发测试环境业务接入交换机3', '交换机', '102170106440', '华为', 'CE6881', '1', 'B08', '8', '8', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.7', null, null, null, null, '202110280019', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('122', '新核心开发测试环境业务接入交换机5', '交换机', '2102350RTC6TJB000469', '华为', 'CE6881', '1', 'B08', '6', '6', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.9', null, null, null, null, '', '新核心', null);
-INSERT INTO `machine_infos` VALUES ('123', '新核心开发测试环境业务接入交换机7', '交换机', '2102350EGX10H5000430', '华为', 'CE6881', '1', 'B08', '4', '4', '2021-10-21', null, '4', '4', '晏良', null, null, null, '172.250.13.11', null, '2023-08-25', null, '20230824关机', null, '新核心', null);
 INSERT INTO `machine_infos` VALUES ('124', '新核心开发测试环境存储光纤交换机2', '存储光交', 'EWY1914S033', '华为', 'SNS3664', '1', 'B09', '20', '20', '2021-11-22', null, '4', '1', '晏良', null, null, null, '172.250.13.102', null, null, null, null, '202111260002', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('125', '新核心开发测试环境存储光纤交换机4', '存储光交', 'EWY1914S01F', '华为', 'SNS3664', '1', 'B09', '18', '18', '2021-11-22', null, '4', '1', '晏良', null, null, null, '172.250.13.104', null, null, null, null, '202111260004', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('126', '新核心开发发测试环境带外管理交换机2', '交换机', '2102351YPQDMM4000009', '华为', 'CE6856', '1', 'B09', '16', '16', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.202', null, null, null, null, '202110280009', '新核心', null);
@@ -517,11 +516,10 @@ INSERT INTO `machine_infos` VALUES ('128', '新核心开发测试环境业务汇
 INSERT INTO `machine_infos` VALUES ('129', '新核心开发测试环境业务接入交换机2', '交换机', '102170106425', '华为', 'CE6881', '1', 'B09', '10', '10', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.5', null, null, null, null, '202110280018', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('130', '新核心开发测试环境业务接入交换机4', '交换机', '102170106431', '华为', 'CE6881', '1', 'B09', '8', '8', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.7', null, null, null, null, '202110280020', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('131', '新核心开发测试环境业务接入交换机6', '交换机', '2102350RTC6TJB000470', '华为', 'CE6881', '1', 'B09', '6', '6', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.9', null, null, null, null, '', '新核心', null);
-INSERT INTO `machine_infos` VALUES ('132', '新核心开发测试环境业务接入交换机8', '交换机', '2102350EGX10H6000006', '华为', 'CE6881', '1', 'B09', '4', '4', '2021-10-21', null, '4', '4', '晏良', null, null, null, '172.250.13.11', null, '2023-08-25', null, '20230824关机', null, '新核心', null);
 INSERT INTO `machine_infos` VALUES ('133', '新核心开发测试环境万兆防火墙1', '防火墙', 'Q2108148110', '天融信', 'NGFW4000-UF', '1', 'B10', '36', '37', '2021-11-15', '2024-11-14', '4', '1', '吴君华', null, null, null, '172.250.13.3', null, null, null, null, '202110280016', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('134', '新核心开发测试环境全局负载均衡', '负载均衡', '42105040', 'Radware', 'Alteon D-5208', '1', 'B10', '34', '34', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.26', null, null, null, null, '202110280010', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('135', '新核心开发测试环境服务器负载均衡1', '负载均衡', '42205205', 'Radware', 'Alteon D-5208', '1', 'B10', '32', '32', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.19', null, null, null, null, '202212140028', '新核心', null);
-INSERT INTO `machine_infos` VALUES ('136', '新核心开发测试环境VPN设备', '其它网络设备', 'Q2108154304', '天融信', 'TopVPN 6000', '1', 'B10', '24', '24', '2021-11-15', '2024-11-14', '4', '1', '吴君华', null, null, null, '172.250.13.27', null, null, null, null, '202110280015', '新核心', null);
+INSERT INTO `machine_infos` VALUES ('136', '新核心开发测试环境VPN设备', '安全设备', 'Q2108154304', '天融信', 'TopVPN 6000', '1', 'B10', '24', '24', '2021-11-15', '2024-11-14', '4', '1', '吴君华', null, null, null, '172.250.13.27', null, null, null, null, '202110280015', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('137', '新核心开发测试环境服务器负载均衡2', '负载均衡', '42205189', 'Radware', 'ALTEON 5208', '1', 'B10', '22', '22', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.20', null, null, null, null, '202212140030', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('138', '新核心开发测试环境服务器负载均衡3', '负载均衡', '42205193', 'Radware', 'ALTEON 5208', '1', 'B10', '20', '20', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.21', null, null, null, null, '202212140032', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('139', '新核心开发测试环境服务器负载均衡4', '负载均衡', '42205206', 'Radware', 'ALTEON 5208', '1', 'B10', '18', '18', '2021-10-21', null, '4', '1', '吴君华', null, null, null, '172.250.13.22', null, null, null, null, '202212140035', '新核心', null);
@@ -568,11 +566,11 @@ INSERT INTO `machine_infos` VALUES ('179', '新核心开发测试环境大数据
 INSERT INTO `machine_infos` VALUES ('180', '新核心开发测试环境大数据服务器9', '服务器', '221543830', '浪潮', 'NF8480M5', '1', 'B16', '13', '16', '2021-06-26', '2026-07-31', '4', '1', '兰明辉', null, '6.34.56.29', null, '6.40.13.66', null, null, null, null, '202108300024', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('181', '新核心开发测试环境大数据服务器8', '服务器', '221543833', '浪潮', 'NF8480M5', '1', 'B16', '8', '11', '2021-06-26', '2026-07-31', '4', '1', '兰明辉', null, '6.34.56.28', null, '6.40.13.65', null, null, null, null, '202108300021', '新核心', null);
 INSERT INTO `machine_infos` VALUES ('182', '新核心开发测试环境大数据服务器7', '服务器', '221543820', '浪潮', 'NF8480M5', '1', 'B16', '3', '6', '2021-06-26', '2026-07-31', '4', '1', '兰明辉', null, '6.34.56.27', null, '6.40.13.64', null, null, null, null, '202108300022', '新核心', null);
-INSERT INTO `machine_infos` VALUES ('183', '信创负载均衡', '交换机', '210235A2VEH2290CG005', '紫光', 'S7800XP-G', '1', 'C01', '37', '37', null, null, '1', '3', '吴君华', null, null, null, '172.250.128.23', null, null, null, null, '202301186086', '信创', null);
+INSERT INTO `machine_infos` VALUES ('183', '带外管理接入交换机', '交换机', '210235A2VEH2290CG005', '紫光', 'S7800XP-G', '1', 'C01', '37', '37', null, null, '1', '3', '吴君华', null, null, null, '172.250.128.23', null, null, null, null, '202301186086', '信创', null);
 INSERT INTO `machine_infos` VALUES ('184', '信创负载均衡', '负载均衡', '02051526D26D22A000003', '迪普', 'ADX3000-GC-G', '1', 'C01', '22', '22', null, null, '1', '3', '吴君华', null, null, null, null, null, null, null, null, null, '信创', null);
-INSERT INTO `machine_infos` VALUES ('185', '信创防火墙1', '负载均衡', '02051526D26D22A000002', '迪普', 'ADX3000-GC-G', '1', 'C01', '20', '20', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, '信创', null);
+INSERT INTO `machine_infos` VALUES ('185', '信创负载均衡', '负载均衡', '02051526D26D22A000002', '迪普', 'ADX3000-GC-G', '1', 'C01', '20', '20', null, null, '1', '3', '吴君华', null, null, null, null, null, null, null, null, null, '信创', null);
 INSERT INTO `machine_infos` VALUES ('186', '信创核心交换机1', '交换机', '1022A5784471', '华为', 'CE16800', '1', 'C01', '3', '13', '2022-10-15', null, '1', '1', '吴君华', null, null, null, '172.250.128.15', null, null, null, null, '202301186107', '信创', null);
-INSERT INTO `machine_infos` VALUES ('187', '信创内部交换机', '交换机', '210235A2VEH2290CG00F', '紫光', 'S7800XP-G', '1', 'C02', '37', '37', null, null, '1', '1', '吴君华', null, null, null, '172.250.128.24', null, null, null, null, '202301186090', '信创', null);
+INSERT INTO `machine_infos` VALUES ('187', '带外管理接入交换机2', '交换机', '210235A2VEH2290CG00F', '紫光', 'S7800XP-G', '1', 'C02', '37', '37', null, null, '1', '1', '吴君华', null, null, null, '172.250.128.24', null, null, null, null, '202301186090', '信创', null);
 INSERT INTO `machine_infos` VALUES ('188', '信创负载均衡', '负载均衡', '02051526D26D22A000001', '迪普', 'ADX3000-GC-G', '1', 'C02', '22', '22', null, null, '1', '3', '吴君华', null, null, null, null, null, null, null, null, null, '信创', null);
 INSERT INTO `machine_infos` VALUES ('190', '信创防火墙2', '防火墙', '210235A3BLB228000001', '紫光', 'F5000-CN40', '1', 'C02', '17', '18', null, null, '1', '1', '吴君华', null, null, null, '172.250.128.20', null, null, null, null, '202301300040', '信创', null);
 INSERT INTO `machine_infos` VALUES ('191', '信创核心交换机2', '交换机', '1022A5784472', '华为', 'CE16800', '1', 'C02', '3', '13', '2023-01-15', '2026-01-14', '1', '1', '吴君华', null, null, null, '172.250.128.16', null, null, null, null, '202301186108', '信创', null);
@@ -682,9 +680,9 @@ INSERT INTO `machine_infos` VALUES ('294', '新核心开发测试环境新核心
 INSERT INTO `machine_infos` VALUES ('295', 'Veeam备份服务器', '服务器', '210235A2CRH189000292', 'H3C', 'R4900 G3', '2', 'A01', '32', '33', '2018-10-13', '2024-01-11', '5', '1', '张杭', null, '6.40.0.243', null, '', null, null, null, '网卡bond已禁用', null, 'veeam', null);
 INSERT INTO `machine_infos` VALUES ('296', '大数据CDH1', '服务器', '220967870', '浪潮', 'NF8480M5', '2', 'A01', '27', '30', '2020-09-07', '2025-10-31', '1', '1', '兰明辉', null, '6.12.3.80', null, '172.28.0.80', null, null, null, null, null, '大数据', null);
 INSERT INTO `machine_infos` VALUES ('297', '大数据CDH2', '服务器', '220967871', '浪潮', 'NF8480M5', '2', 'A01', '22', '25', '2020-09-07', '2025-10-31', '1', '1', '兰明辉', null, '6.12.3.81', null, '172.28.0.81', null, null, null, null, null, '大数据', null);
-INSERT INTO `machine_infos` VALUES ('298', '后督OCR服务器1', '服务器', '99G0990', 'IBM', 'X3550', '2', 'A01', '20', '20', '2011-12-15', null, '1', '2', '张杭', '周薇', '169.37.4.117', null, null, null, null, null, '20230920断网', null, '后督', null);
-INSERT INTO `machine_infos` VALUES ('299', '后督数据库服务器', '服务器', '99Z4528', 'IBM', 'X3650 M3', '2', 'A01', '17', '18', null, null, '1', '2', '张杭', '周薇', '169.37.4.116', null, null, null, null, null, '20230920断网', null, '后督', null);
-INSERT INTO `machine_infos` VALUES ('300', '后督影像服务器', '服务器', '99Z4510', 'IBM', 'X3650 M3', '2', 'A01', '14', '15', null, null, '1', '2', '张杭', '周薇', '169.37.4.115', null, null, null, null, null, '20230920断网', null, '后督', null);
+INSERT INTO `machine_infos` VALUES ('298', '后督OCR服务器1', '服务器', '99G0990', 'IBM', 'X3550', '2', 'A01', '20', '20', '2011-12-15', null, '1', '3', '张杭', '周薇', '169.37.4.117', null, null, null, null, null, '20230924关机', null, '后督', null);
+INSERT INTO `machine_infos` VALUES ('299', '后督数据库服务器', '服务器', '99Z4528', 'IBM', 'X3650 M3', '2', 'A01', '17', '18', null, null, '1', '3', '张杭', '周薇', '169.37.4.116', null, null, null, null, null, '20230924关机', null, '后督', null);
+INSERT INTO `machine_infos` VALUES ('300', '后督影像服务器', '服务器', '99Z4510', 'IBM', 'X3650 M3', '2', 'A01', '14', '15', null, null, '1', '3', '张杭', '周薇', '169.37.4.115', null, null, null, null, null, '20230924关机', null, '后督', null);
 INSERT INTO `machine_infos` VALUES ('301', '大数据CDH3', '服务器', '220967867', '浪潮', 'NF8480M5', '2', 'A01', '9', '12', '2020-09-07', '2025-10-31', '1', '1', '兰明辉', null, '6.12.3.82', null, '172.28.0.82', null, null, null, null, null, '大数据', null);
 INSERT INTO `machine_infos` VALUES ('302', '大数据CDH4', '服务器', '220967859', '浪潮', 'NF8480M5', '2', 'A01', '4', '7', '2020-09-07', '2025-10-31', '1', '1', '兰明辉', null, '6.12.3.83', null, '172.28.0.83', null, null, null, null, null, '大数据', null);
 INSERT INTO `machine_infos` VALUES ('303', '长沙业务一区-蚂蚁金服F5A', '负载均衡', '334980474', 'F5', 'BIG-IP i2600', '2', 'A02', '36', '36', '2019-04-25', null, '1', '1', '彭霄', null, null, null, '172.250.0.110', null, null, null, null, null, '外联', null);
@@ -715,7 +713,7 @@ INSERT INTO `machine_infos` VALUES ('327', '行为管理', '服务器', 'CB62SF3
 INSERT INTO `machine_infos` VALUES ('328', '大数据CDH6', '服务器', '220967858', '浪潮', 'NF8480M5', '2', 'A05', '32', '25', '2020-09-07', '2025-10-31', '1', '1', '张杭', null, '6.12.3.86', null, null, null, null, null, null, null, '大数据', null);
 INSERT INTO `machine_infos` VALUES ('329', '大数据CDH7', '服务器', '220967863', '浪潮', 'NF8480M5', '2', 'A05', '27', '30', '2020-09-07', '2025-10-31', '1', '1', '张杭', null, '6.12.3.85', null, null, null, null, null, null, null, '大数据', null);
 INSERT INTO `machine_infos` VALUES ('330', '大数据cdh8', '服务器', '220967868', '浪潮', 'NF8480M5', '2', 'A05', '22', '25', '2020-09-07', '2025-10-31', '1', '1', '张杭', null, '6.12.3.84', null, null, null, null, null, null, null, '大数据', null);
-INSERT INTO `machine_infos` VALUES ('331', '亚信威胁发现设备TDA', '安全设备', null, '亚信', null, '2', 'A05', '20', '20', null, null, '1', '1', '甘杏良', null, '6.40.7.44', null, null, null, null, null, null, null, '亚信防病毒', null);
+INSERT INTO `machine_infos` VALUES ('331', '亚信威胁发现设备TDA', '安全设备', 'GVK8R12', '亚信', 'TDA 6200EE', '2', 'A05', '20', '20', '2015-08-11', '2017-08-11', '1', '1', '甘杏良', null, '6.40.7.44', null, null, null, null, null, null, null, '亚信防病毒', null);
 INSERT INTO `machine_infos` VALUES ('332', '生产管理ESXI主机', '服务器', 'J31KZGP', '联想', 'X3850 X6', '2', 'A05', '15', '18', '2017-05-03', '2020-05-02', '1', '1', '张杭/晏良', null, '6.40.2.54', null, null, null, null, null, null, null, '生产虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('333', '生产管理ESXI主机', '服务器', 'J32XWN4', '联想', 'X3850 X6', '2', 'A05', '10', '13', '2017-04-28', '2020-04-27', '1', '3', '张杭/晏良', null, '6.40.2.51', null, null, null, null, null, '20221231张杭关机', null, '生产虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('334', '生产管理ESXI主机', '服务器', 'J32XWN3', '联想', 'X3850 X6', '2', 'A05', '5', '8', '2017-04-28', '2020-04-27', '1', '1', '张杭/晏良', null, '6.40.2.50', null, null, null, null, null, null, null, '生产虚拟化', null);
@@ -823,7 +821,7 @@ INSERT INTO `machine_infos` VALUES ('435', 'GP-Mdw服务器B', '服务器', 'J30
 INSERT INTO `machine_infos` VALUES ('436', 'GP-Mdw服务器A', '服务器', 'J3006HKX', '联想', 'SR650', '2', 'A17', '2', '3', '2018-03-21', '2021-05-24', '1', '1', '兰明辉', null, '14.1.1.240', null, '6.40.4.30', null, null, null, null, null, 'GP', null);
 INSERT INTO `machine_infos` VALUES ('437', '电渠外联交换机A', '交换机', '210235A1GDH174000347', 'H3C', 'S5560', '2', 'B01', '37', '37', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.4', null, null, null, null, null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('438', '电渠DMZ交换机A', '交换机', '210235A1GDH174000409', 'H3C', 'S5560', '2', 'B01', '35', '35', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.10', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('439', '电渠网银汇聚交换机A', '交换机', '210235A1GCH175000082', 'H3C', 'S5560', '2', 'B01', '33', '33', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.26', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
+INSERT INTO `machine_infos` VALUES ('439', '集中化作业接入交换机-分行管理室', '交换机', '210235A1GCH175000082', 'H3C', 'S5560', '3', 'A01', '1', '1', '2017-06-11', null, '6', '1', '李文哲', '', '', '', '', '2023-11-22', '2023-08-25', null, '20231122彭宵安排李师定重新上架', '20190404101310966-0-7653', '分行管理室-集中化作业', null);
 INSERT INTO `machine_infos` VALUES ('440', '电渠外联接入区绿盟防DDOS设备A  电信', '安全设备', '21-32-P-0252', '绿盟', 'ADS NX3-servics', '2', 'B01', '34', '35', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.1', null, null, null, null, null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('441', null, '服务器', '7MVJW02', 'DELL', 'R320', '2', 'B01', '32', '32', '2015-04-09', '2017-04-09', '1', '3', '晏良', null, null, null, null, null, null, '1', '关机', null, '电渠服务器', null);
 INSERT INTO `machine_infos` VALUES ('442', '电渠外联接入区绿盟防DDOS设备C', '安全设备', '15-37-J-0259', '绿盟', 'ADS NX3 Series', '2', 'B01', '29', '30', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.3', null, null, null, null, null, '电渠IPV4网络设备', null);
@@ -833,11 +831,9 @@ INSERT INTO `machine_infos` VALUES ('445', '电渠DMZ区WEB汇聚区入侵防御
 INSERT INTO `machine_infos` VALUES ('446', '电渠DMZ区迪普WAF-A', '防火墙', '02050364D175000059', '迪普', 'WAF 3000', '2', 'B01', '13', '13', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.18', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('447', '电渠网银汇聚区天融信千兆防火墙A', '防火墙', 'Q1706547597', '天融信', 'NGFW4000-UF', '2', 'B01', '10', '11', '2017-06-30', '2017-06-30', '1', '4', '吴君华', null, null, null, '172.250.4.28', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('448', '电渠APP接入区山石千兆防火墙A', '防火墙', '2508318174015449', '山石', 'SG6000-E2300', '2', 'B01', '8', '8', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.24', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('449', '电渠DMZ区WEB应用负载均衡A', '负载均衡', 'f5-rovc-lvtx', 'F5', 'F5-4000S', '2', 'B01', '6', '6', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.14', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('450', '电渠外联交换机B', '交换机', '210235A1GDH159000295', 'H3C', 'S5560', '2', 'B02', '37', '37', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.5', null, null, null, null, null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('451', '电渠DMZ交换机B', '交换机', '210235A1GDH159000301', 'H3C', 'S5560', '2', 'B02', '35', '35', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.11', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('452', '电渠网银汇聚交换机B', '交换机', '210235A1GCH159000136', 'H3C', 'S5560', '2', 'B02', '33', '33', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.27', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('453', '电渠带外管理交换机', '交换机', '210235A1GDH159000301', '华为', 'S5700', '2', 'B02', '35', '35', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.39', null, null, '1', null, '', '电渠网络设备', null);
+INSERT INTO `machine_infos` VALUES ('453', '电渠带外管理交换机', '交换机', '210235A0YQC159000222', 'H3C', '5120', '2', 'B02', '35', '35', '2017-06-11', null, '1', '1', '吴君华', null, null, null, '172.250.4.39', null, null, '1', null, '', '电渠网络设备', null);
 INSERT INTO `machine_infos` VALUES ('454', '迈普流量分析接入SW2', '交换机', 'C978-195182100005', 'MAIPU', 'Mypower T4320', '2', 'B02', '34', '34', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, '电渠网络设备', null);
 INSERT INTO `machine_infos` VALUES ('455', '电渠绿盟漏扫', '安全设备', '15-37-L-0260', '绿盟', 'RSASNX3-S', '2', 'B02', '27', '27', null, null, '1', '4', '吴君华', null, null, null, '172.250.4.38', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('456', '电渠外联接入区绿盟防DDOS设备B', '安全设备', '17-12-J-0157', '绿盟', 'ADS NX3 Series', '2', 'B02', '32', '33', null, null, '1', '1', '吴君华', null, null, null, '172.250.4.2', null, null, null, null, null, '电渠IPV4网络设备', null);
@@ -847,7 +843,6 @@ INSERT INTO `machine_infos` VALUES ('459', '电渠DMZ区WEB汇聚区入侵IPS B'
 INSERT INTO `machine_infos` VALUES ('460', '电渠DMZ区迪普WAF-B', '防火墙', '02050118d158000088', '迪普', 'WAF 3000', '2', 'B02', '13', '13', '2020-12-26', null, '1', '4', '吴君华', null, null, null, '172.250.4.19', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('461', '电渠网银汇聚区天融信千兆防火墙B', '防火墙', 'Q1509356105', '天融信', 'NGFW4000-UF', '2', 'B02', '10', '11', '2015-10-31', '2023-11-30', '1', '4', '吴君华', null, null, null, '172.250.4.29', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('462', '电渠APP接入区山石千兆防火墙B', '防火墙', '2508333150007340', '山石', 'SG6000', '2', 'B02', '8', '8', null, null, '1', '4', '吴君华', null, null, null, '172.250.4.25', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('463', '电渠DMZ区WEB应用负载均衡B', '负载均衡', 'f5-smwi-tnmi', 'F5', 'F5-4000S', '2', 'B02', '6', '6', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.15', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('464', '电渠DMZ区WEB接入交换机A', '交换机', '210235A1GDH174000327', 'H3C', 'S5560', '2', 'B03', '37', '37', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.20', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('465', '电渠APP接入区交换机A', '交换机', '210235A1GDH174000124', 'H3C', 'S5560', '2', 'B03', '35', '35', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.30', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('466', '亚信安全深度威胁发现设备', '安全设备', '2WT4Y23', '亚信', 'TDA EE2300', '2', 'B03', '37', '37', '2021-09-03', null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, null, null);
@@ -864,10 +859,10 @@ INSERT INTO `machine_infos` VALUES ('476', '虚拟化服务器', '服务器', 'J
 INSERT INTO `machine_infos` VALUES ('477', '电渠APP区动态密码服务器B', '动态密码', 'XA15070721', '信安世纪', 'NetPass 1000', '2', 'B04', '26', '27', '2017-06-11', null, '1', '4', '吴君华', null, null, null, '172.250.4.37', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('478', '电渠APP应用负载均衡B', '负载均衡', '31513226', 'F5', 'F5-4000S', '2', 'B04', '22', '22', null, null, '1', '4', '吴君华', null, null, null, '172.250.4.33', null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠IPV4网络设备', null);
 INSERT INTO `machine_infos` VALUES ('479', '电渠DMZ区入侵防御IDS-B', '入侵防御', '02050038d159001129', '迪普', 'IDS2000-ME', '2', 'B04', '20', '20', '2019-07-25', null, '1', '4', '吴君华', null, null, null, '172.250.4.23', null, '2023-08-23', null, '20230404系统室关机', null, '电渠IPV4网络设备', null);
-INSERT INTO `machine_infos` VALUES ('480', '电渠-WEBEXSI主机', '服务器', 'J32XWN1', '联想', 'X3850 X6', '2', 'B04', '15', '18', '2017-04-28', '2020-04-27', '1', '4', '张杭', null, '6.40.3.38', null, null, null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠服务器', null);
+INSERT INTO `machine_infos` VALUES ('480', '电渠-WEBEXSI主机', '服务器', 'J32XWN1', '联想', 'X3850 X6', '2', 'B07', '16', '19', '2017-04-28', '2020-04-27', '2', '1', '张杭', '', '6.40.3.38', '', '', '2023-11-16', '2023-08-25', '0', '20231116张杭安装重新上架临时用1个月', '', '', null);
 INSERT INTO `machine_infos` VALUES ('481', '电渠EXSI主机', '服务器', '215288524', '浪潮', 'NF8460 M3', '2', 'B04', '10', '13', '2015-10-13', '2020-11-30', '1', '4', '张杭', null, '6.40.3.36', null, null, null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠服务器', null);
 INSERT INTO `machine_infos` VALUES ('482', '电渠EXSI主机', '服务器', '816451311', '浪潮', 'NF8460 M3', '2', 'B04', '5', '8', '2016-08-17', '2019-09-30', '1', '4', '张杭', null, '6.40.3.37', null, null, null, '2023-08-25', null, '20230823系统室安排关机', null, '电渠服务器', null);
-INSERT INTO `machine_infos` VALUES ('483', '迪普防火墙', '防火墙', null, '迪普', null, '2', 'B04', '2', '3', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('483', '迪普防火墙', '防火墙', '0205115218000007', '迪普', 'EDS1000-TM', '2', 'B04', '2', '3', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('484', '交易要素采集设备Smart NCSP ZZ-CL 42T8', '采集设备', null, '智卓', 'Smart NCSP ZZ-CL', '2', 'B05', '34', '36', '2020-05-19', null, '1', '1', '王柱石', null, '6.40.4.89', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('485', 'wifi手机银行管理系统', '服务器', '06ECNZ0', 'IBM', 'X3650 M3', '2', 'B05', '29', '30', null, null, '1', '2', '晏良', null, '192.168.10.11', null, null, null, null, null, '未接网线', null, 'wifi手机银行管理系统', null);
 INSERT INTO `machine_infos` VALUES ('486', '虚拟化服务器', '服务器', 'J300LVN7', '联想', 'SR650', '2', 'B05', '26', '27', '2018-12-08', '2024-02-07', '1', '1', '晏良', null, '6.40.3.41', null, null, null, null, null, null, null, '虚拟化', null);
@@ -883,7 +878,7 @@ INSERT INTO `machine_infos` VALUES ('495', '电渠DMZ虚拟化服务器', '服�
 INSERT INTO `machine_infos` VALUES ('496', '电渠DMZ虚拟化服务器', '服务器', '2102311TYKN0KA000572', '华为', 'RH2288 V5', '2', 'B13', '7', '8', '2020-01-23', '2025-01-22', '2', '1', '张杭', null, '6.40.2.25', null, null, null, '2023-08-25', null, '20231020重新上架安装至电渠DMZ区，20230824关机，下架至706', null, '虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('497', 'swfit 加密机Luna IS6 gemalto', '加密机', null, 'gemalto luna', 'IS6', '2', 'B07', '36', '36', null, null, '1', '1', '陈柏', null, '192.168.0.120', null, null, null, null, null, null, null, 'swfit', null);
 INSERT INTO `machine_infos` VALUES ('498', 'swfit 加密机Luna IS6 gemalto', '加密机', null, 'gemalto luna', 'IS6', '2', 'B07', '35', '35', null, null, '1', '1', '陈柏', null, '192.168.0.121', null, null, null, null, null, null, null, 'swfit', null);
-INSERT INTO `machine_infos` VALUES ('499', null, '交换机', null, '华为', 'S5700', '2', 'B07', '14', '14', null, null, null, '1', '吴君华', null, null, null, null, null, null, '1', null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('499', '华为交换机', '交换机', null, '华为', 'S5700', '2', 'B07', '14', '14', null, null, null, '1', '吴君华', null, null, null, null, null, null, '1', null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('500', 'X3850 X6长沙DMZ虚拟化Exsi主机A', '服务器', '06BF150', 'IBM', 'X3850 X6', '2', 'B07', '10', '13', '2014-06-30', null, '1', '1', '晏良', null, '6.40.3.51', null, null, null, null, null, null, null, 'DMZ虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('501', 'X3850 X6长沙DMZ虚拟化Exsi主机B', '服务器', '06BF157', 'IBM', 'X3850 X6', '2', 'B07', '5', '8', '2014-06-30', null, '1', '1', '晏良', null, '6.40.3.52', null, null, null, null, null, null, null, 'DMZ虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('502', '虚拟化', '服务器', '2102311TXHP0L9000584', '华为', 'RH2288 V5', '2', 'B08', '25', '26', '2020-12-16', '2025-12-15', '1', '1', '晏良', null, '6.40.2.73', null, null, null, null, null, null, null, '虚拟化', null);
@@ -894,9 +889,9 @@ INSERT INTO `machine_infos` VALUES ('506', '终端安全管控平台主', '服�
 INSERT INTO `machine_infos` VALUES ('507', '智能语音', '服务器', '221587184', '浪潮', 'NF5280M5', '2', 'B08', '10', '11', '2021-07-10', '2026-08-31', '1', '1', '谭志浩', null, '6.36.1.231', null, null, null, null, null, null, null, '智能语音', null);
 INSERT INTO `machine_infos` VALUES ('508', '终端安全管控平台备', '服务器', '818264853', '浪潮', 'NF5280M4', '2', 'B08', '7', '8', '2018-03-29', '2021-04-30', '1', '3', '罗啸', null, '6.40.6.22', null, null, null, null, null, null, null, '终端安全管控平台', null);
 INSERT INTO `machine_infos` VALUES ('509', '灾备图形前端系统应用服务器1', '服务器', '210235A2CR6217F005DM', 'H3C', 'R4900 G3', '2', 'B03', '11', '12', '2021-07-31', '2026-10-29', '3', '1', '张杭', '潘定金', '', null, '6.40.16.15', null, null, null, '20231008由华讯调整位置', null, null, null);
-INSERT INTO `machine_infos` VALUES ('510', null, '服务器', '210235A2CR6217F005DC', 'H3C', 'R4900 G3', '2', 'B09', '18', '19', '2021-07-31', '2026-10-29', null, '3', '晏良', null, null, null, null, null, null, null, '未启动，在BIOS界面，20230117关机', null, null, null);
-INSERT INTO `machine_infos` VALUES ('511', null, '服务器', '210235A2CR6217F005DK', 'H3C', 'R4900 G3', '2', 'B09', '15', '16', '2021-07-31', '2026-10-29', null, '3', '晏良', null, null, null, null, null, null, null, '未启动，在BIOS界面，20230117关机', null, null, null);
-INSERT INTO `machine_infos` VALUES ('512', null, '服务器', '210235A2CR6217F005D9', 'H3C', 'R4900 G3', '2', 'B09', '12', '13', '2021-07-31', '2026-10-29', null, '3', '晏良', null, null, null, null, null, null, null, '未启动，在BIOS界面，20230117关机', null, null, null);
+INSERT INTO `machine_infos` VALUES ('510', null, '服务器', '210235A2CR6217F005DC', 'H3C', 'R4900 G3', '2', 'B09', '18', '19', '2021-07-31', '2026-10-29', null, '4', '晏良', null, null, null, null, null, '2023-11-24', null, '未启动，在BIOS界面，20230117关机', null, null, null);
+INSERT INTO `machine_infos` VALUES ('511', null, '服务器', '210235A2CR6217F005DK', 'H3C', 'R4900 G3', '2', 'B09', '15', '16', '2021-07-31', '2026-10-29', null, '4', '晏良', null, null, null, null, null, '2023-11-24', null, '未启动，在BIOS界面，20230117关机', null, null, null);
+INSERT INTO `machine_infos` VALUES ('512', null, '服务器', '210235A2CR6217F005D9', 'H3C', 'R4900 G3', '2', 'B09', '12', '13', '2021-07-31', '2026-10-29', null, '4', '晏良', null, null, null, null, null, '2023-11-24', null, '未启动，在BIOS界面，20230117关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('513', null, '服务器', '210235A2CR6217F005DY', 'H3C', 'R4900 G3', '2', 'B09', '9', '10', '2021-07-31', '2026-10-29', null, '3', '晏良', null, null, null, null, null, null, null, '未启动，在BIOS界面，20230117关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('514', null, '服务器', '2102350FEB10J3000024', '华为', 'RH2288 V3', '2', 'B09', '7', '7', '2018-07-23', '2021-07-22', null, '1', '晏良', null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('515', null, '服务器', '2102350FEB10J4000016', '华为', 'RH2288 V3', '2', 'B09', '5', '5', '2018-07-23', '2021-07-22', null, '1', '晏良', null, null, null, null, null, null, null, null, null, null, null);
@@ -977,7 +972,7 @@ INSERT INTO `machine_infos` VALUES ('589', 'IPv6 APP区服务器4', '服务器',
 INSERT INTO `machine_infos` VALUES ('590', 'IPv6 APP区服务器6', '服务器', '2102311TXHFSLA000220', '华为', 'RH2288 V5', '2', 'B17', '18', '19', '2020-12-16', '2025-12-15', '1', '1', '晏良', null, '6.40.12.6', null, null, null, null, null, null, null, 'IPV6 APP区', null);
 INSERT INTO `machine_infos` VALUES ('591', '邮箱DMZ服务器', '服务器', 'XJRFN00060A2210170015', '鲲鹏', '兆瀚 RH220K', '2', 'B17', '15', '16', '2022-10-17', null, '1', '1', '晏良', null, '6.37.0.180', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('592', '邮箱DMZ服务器', '服务器', 'XJRFN00060A2210170014', '鲲鹏', '兆瀚 RH220K', '2', 'B17', '12', '13', '2022-10-17', null, '1', '1', '晏良', null, '6.37.0.181', null, null, null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('593', '分行NVR影像存储不动产云抵押监管项目', '磁盘阵列', null, '大华', null, '2', 'B17', '3', '10', null, null, '6', '1', '向宇', null, null, null, null, null, null, null, null, null, '分行不动产云抵押监管项目', null);
+INSERT INTO `machine_infos` VALUES ('593', '分行NVR影像存储不动产云抵押监管项目', '磁盘阵列', '6C0285EPAJAF8C4', '大华', 'DH-EVS5048S', '2', 'B17', '3', '10', null, null, '6', '1', '向宇', null, null, null, null, null, null, null, null, null, '分行不动产云抵押监管项目', null);
 INSERT INTO `machine_infos` VALUES ('594', null, '服务器', '210235A3JLN18A000006', 'H3C', 'R4900 G2', '3', 'A01', '36', '37', '2017-10-22', '2020-10-21', null, '1', '向宇', null, null, null, null, null, null, null, '分行管理室', null, null, null);
 INSERT INTO `machine_infos` VALUES ('595', 'CS-ZH-HX-S5560-S1长沙支行核心SW1-H3CS5560', '交换机', null, 'H3C', 'S5560 Series', '3', 'A01', '34', '34', null, null, '6', '1', '李文哲', null, null, null, null, null, null, null, null, null, '长沙分行', null);
 INSERT INTO `machine_infos` VALUES ('596', 'CS-ZH-HX-S5560-S2长沙支行核心SW2-H3CS5560', '交换机', null, 'H3C', 'S5560 Series', '3', 'A01', '32', '32', null, null, '6', '1', '李文哲', null, null, null, null, null, null, null, null, null, '长沙分行', null);
@@ -1021,8 +1016,8 @@ INSERT INTO `machine_infos` VALUES ('633', '长沙A类第三方汇聚SW2', '交�
 INSERT INTO `machine_infos` VALUES ('634', '长沙外联前置DMZ区-迪普FW2', '防火墙', '02050392D177000169', '迪普', 'FW1000', '3', 'A04', '7', '7', '2017-07-14', null, '1', '1', '彭霄', null, null, null, '172.250.0.43', null, null, null, null, null, '外联前置', null);
 INSERT INTO `machine_infos` VALUES ('635', '长沙外联前置DMZ区汇聚SW2', '交换机', '2102350RTC6TJB000343', '华为', 'CE6860', '3', 'A04', '5', '5', '2017-06-30', null, '1', '1', '彭霄', null, null, null, null, null, null, null, null, null, '外联前置', null);
 INSERT INTO `machine_infos` VALUES ('636', '长沙D类第三方接入RT1', '路由器', '21021312128NJA002638', '华为', 'AR2204E', '3', 'A05', '35', '37', null, null, '1', '1', '彭霄', null, null, null, '172.250.0.92', null, null, null, null, null, 'D类外联', null);
-INSERT INTO `machine_infos` VALUES ('637', '长沙OA加速WOC深信服4050-老', '其它网络设备', '', '深信服', 'WOC-4050', '3', 'A05', '33', '34', null, null, '1', '3', '吴君华', null, null, null, null, null, null, null, '可下架，未接线', null, 'OA加速器', null);
-INSERT INTO `machine_infos` VALUES ('638', '长沙OA加速WOC深信服1000', '其它网络设备', 'W1XBBC0157', '深信服', 'WOC-1000', '3', 'A05', '32', '32', null, null, '1', '1', '吴君华', null, null, null, '10.37.0.3', null, null, '1', '2路只接了一路电源', null, 'OA加速器', null);
+INSERT INTO `machine_infos` VALUES ('637', '长沙OA加速WOC深信服4050-老', '其它网络设备', '', '深信服', 'WOC-4050', '3', 'A05', '32', '33', null, null, '1', '3', '吴君华', null, null, null, null, null, null, null, '可下架，未接线', null, 'OA加速器', null);
+INSERT INTO `machine_infos` VALUES ('638', '长沙OA加速WOC深信服1000', '其它网络设备', 'W1XBBC0157', '深信服', 'WOC-1000', '3', 'A05', '31', '31', null, null, '1', '1', '吴君华', null, null, null, '10.37.0.3', null, null, '1', '2路只接了一路电源', null, 'OA加速器', null);
 INSERT INTO `machine_infos` VALUES ('639', '长沙B类第三方接入RT1', '路由器', '21021312128NH6002982', '华为', 'AR3260', '3', 'A05', '28', '30', '2017-06-30', null, '1', '1', '彭霄', null, null, null, '172.250.0.89', null, null, null, null, null, 'B类外联', null);
 INSERT INTO `machine_infos` VALUES ('640', '长沙B类第三方接入SW1', '交换机', '2102350BDQDMH6000685', '华为', 'S5720', '3', 'A05', '26', '26', '2017-06-30', null, '1', '1', '彭霄', null, null, null, '172.250.0.87', null, null, null, null, null, 'B类外联', null);
 INSERT INTO `machine_infos` VALUES ('641', '迪普B类外联入侵防御系统(IPS)长沙B类第三方接入区', '入侵防御', '02050297D177000202', '迪普', 'IPS2000', '3', 'A05', '24', '24', '2017-07-14', null, '1', '1', '彭霄', null, null, null, '172.250.0.85', null, null, null, null, null, 'B类外联', null);
@@ -1044,17 +1039,17 @@ INSERT INTO `machine_infos` VALUES ('656', '长沙C类第三方接入RT2', '路�
 INSERT INTO `machine_infos` VALUES ('657', '长沙C类第三方接入SW2', '交换机', '2102350BDQDMH6000683', '华为', 'S5720', '3', 'A06', '13', '13', '2017-06-30', null, '1', '1', '彭霄', null, null, null, '172.250.0.77', null, null, null, null, null, 'C类外联', null);
 INSERT INTO `machine_infos` VALUES ('658', '长沙C类第三方接入区-绿盟C类外联入侵防御系统(IPS)2', '入侵防御', '17-25-J-0494', '绿盟', 'NIPS NX3-N1600A', '3', 'A06', '10', '11', '2017-07-14', null, '1', '1', '彭霄', null, null, null, '172.250.0.76', null, null, null, null, null, 'C类外联', null);
 INSERT INTO `machine_infos` VALUES ('659', '长沙C类第三方接入区-天融信FW2', '防火墙', 'Q1611488209', '天融信', 'NGFW4000-UF', '3', 'A06', '9', '9', '2016-12-31', '2023-11-30', '1', '1', '彭霄', null, null, null, '172.250.0.73', null, null, null, null, null, 'C类外联', null);
-INSERT INTO `machine_infos` VALUES ('660', '外联网路由器（票交所纸票）', '路由器', 'FGL155312QZ', '思科', '2811', '3', 'A06', '6', '6', null, null, '1', '1', '彭霄', null, null, null, null, null, null, '1', null, null, 'C类外联', null);
+INSERT INTO `machine_infos` VALUES ('660', '外联网路由器（票交所纸票）', '路由器', 'FGL155312QZ', '思科', '2811', '3', 'A06', '6', '6', null, null, '1', '3', '彭霄', null, null, null, null, null, null, '1', '20231206关机', null, 'C类外联', null);
 INSERT INTO `machine_infos` VALUES ('661', '长沙C类第三方汇聚SW2', '交换机', '2102359562DMH6001164', '华为', 'S5720', '3', 'A06', '5', '5', '2017-06-30', null, '1', '1', '彭霄', null, null, null, '172.250.0.71', null, null, null, null, null, 'C类外联', null);
 INSERT INTO `machine_infos` VALUES ('662', '启明星辰C类外联VPN防火墙2', '防火墙', 'NT00277182', '启明星辰', 'USG-FW-3600EP', '3', 'A06', '1', '2', '2017-07-14', null, '1', '1', '彭霄', null, null, null, '172.250.0.73', null, null, null, null, null, 'C类外联', null);
-INSERT INTO `machine_infos` VALUES ('663', '长沙VPN外联接入SW1', '交换机', '210235A2CR6217F005F6', '华为', 'CE6810', '3', 'A07', '37', '37', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '170.250.0.115', null, null, null, null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('663', '长沙VPN外联接入SW1', '交换机', '2102359562DMJB000418', '华为', 'CE6810', '3', 'A07', '37', '37', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '170.250.0.115', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('664', '长沙VPN外联接入SW2', '交换机', '2102359562DMJB000427', '华为', 'CE6810', '3', 'A07', '36', '36', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '170.250.0.115', null, null, null, null, null, 'VPN外联接入', null);
 INSERT INTO `machine_infos` VALUES ('665', null, '服务器', '210235A2CR6217F005F6', 'H3C', 'R4900 G3', '3', 'A07', '31', '32', '2021-07-31', '2026-10-29', '1', '1', '晏良', null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('666', '新核心开发测试服务器2', '服务器', '210235A2CR6217F005FD', 'H3C', 'R4900 G3', '3', 'A07', '28', '29', '2021-07-31', '2026-10-29', '4', '1', '晏良', null, null, null, '6.40.13.99', null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('667', '广州银行镜像', '交换机', '210235A0YQC159000295', 'H3C', 'S5120', '3', 'A07', '26', '26', null, null, null, '1', '彭霄', null, null, null, null, null, null, '1', '单电源', null, null, null);
+INSERT INTO `machine_infos` VALUES ('667', '广州银行镜像', '交换机', '210235A0YQC159000295', 'H3C', 'S5120', '3', 'A07', '26', '26', null, null, null, '3', '彭霄', null, null, null, null, null, null, '1', '20231206关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('668', '广州银行专线对接', '防火墙', 'Q1510362052', '天融信', 'NGFW4000-UF', '3', 'A07', '24', '24', null, null, null, '1', '彭霄', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('669', '生产DMZ区深信服SSL VPN1', '其它网络设备', 'W1XADD0018', '深信服', 'VPN-1000', '3', 'A07', '22', '23', '2020-09-29', null, '1', '1', '吴君华', null, null, null, '172.250.0.116', null, null, null, null, null, '生产DMZ区VPN', null);
-INSERT INTO `machine_infos` VALUES ('670', '生产DMZ区深信服SSL VPN2', '其它网络设备', 'W1XADD0008', '深信服', 'VPN-1000', '3', 'A07', '19', '20', '2020-09-29', null, '1', '1', '吴君华', null, null, null, '172.250.0.117', null, null, null, null, null, '生产DMZ区VPN', null);
+INSERT INTO `machine_infos` VALUES ('669', '生产DMZ区深信服SSL VPN1', '安全设备', 'W1XADD0018', '深信服', 'VPN-1000', '3', 'A07', '22', '23', '2020-09-29', null, '1', '1', '吴君华', null, null, null, '172.250.0.116', null, null, null, null, null, '生产DMZ区VPN', null);
+INSERT INTO `machine_infos` VALUES ('670', '生产DMZ区深信服SSL VPN2', '安全设备', 'W1XADD0008', '深信服', 'VPN-1000', '3', 'A07', '19', '20', '2020-09-29', null, '1', '1', '吴君华', null, null, null, '172.250.0.117', null, null, null, null, null, '生产DMZ区VPN', null);
 INSERT INTO `machine_infos` VALUES ('671', '长沙生产外联DMZ-信安世纪SSL', '安全设备', 'I72030229', '信安世纪', 'SJJ1515 NSAE1800', '3', 'A07', '17', '17', '2020-12-26', null, '1', '1', '吴君华', null, '6.28.10.250', null, null, null, null, null, null, null, '生产外联区SSL', null);
 INSERT INTO `machine_infos` VALUES ('672', '长沙生产外联DMZ-信安世纪SSL', '安全设备', 'I72030227', '信安世纪', 'SJJ1515 NSAE1800', '3', 'A07', '15', '15', '2020-12-26', null, '1', '1', '吴君华', null, '6.28.10.249', null, null, null, null, null, null, null, '生产外联区SSL', null);
 INSERT INTO `machine_infos` VALUES ('673', '生产DMZ区天融信VPN1', '防火墙', 'Q1811758078', '天融信', 'NGFW4000-UF', '3', 'A07', '12', '13', '2018-11-30', '2023-11-30', '1', '1', '吴君华', null, null, null, '172.250.0.113', null, null, null, null, null, '生产DMZ区VPN', null);
@@ -1063,15 +1058,15 @@ INSERT INTO `machine_infos` VALUES ('675', '绿盟远程安全评估系统(安�
 INSERT INTO `machine_infos` VALUES ('676', null, '服务器', '3HVBS63', 'DELL', 'R740', '3', 'A07', '2', '3', '2020-09-07', '2025-09-08', '1', '1', '张杭', null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('677', '奇安信网神新一代安全感知系统V4.0', '安全设备', 'DF33011920', '奇安信', 'TSS10000-A58-WS', '3', 'B01', '4', '5', null, null, '1', '1', '王博文', null, '6.40.7.56', null, null, null, null, null, null, null, '奇安信网神新一代安全感知系统', null);
 INSERT INTO `machine_infos` VALUES ('678', '奇安信网神新一代安全感知系统V4.0', '安全设备', 'DF30001565', '奇安信', 'TSS10000-A58-WS', '3', 'B01', '1', '2', null, null, '1', '1', '王博文', null, '6.40.7.55', null, null, null, null, null, null, null, '奇安信网神新一代安全感知系统', null);
-INSERT INTO `machine_infos` VALUES ('679', '山石SG6000-E5560防火墙', '防火墙', '2809322162001339', '山石', 'SG6000-E5560', '3', 'B02', '33', '34', null, null, '1', '1', '吴君华', null, null, null, '6.63.254.17', null, null, null, null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('679', '山石SG6000-E5560防火墙', '防火墙', '2809322162001339', '山石', 'SG6000-E5560', '3', 'B02', '32', '33', null, null, '1', '1', '吴君华', null, null, null, '6.63.254.17', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('680', '迈普 镜像网区域汇聚交换机01', '交换机', 'D020-191270100013', 'MAIPU', 'Mypower T5820', '3', 'B02', '30', '30', '2019-04-14', null, '1', '1', '吴君华', null, null, null, '172.250.15.220', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('681', '科来网络回溯分析系统', '其它网络设备', 'PHCS2306SX20190528001', '科来', 'CS2306SX', '3', 'B02', '27', '28', '2018-12-21', null, '1', '1', '吴君华', null, '6.40.7.35', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('682', '齐治运维操作管理系统1-堡垒机', '安全设备', 'SH-TJY18-JP250', '齐治', 'Shterm-SHN200', '3', 'B02', '24', '25', '2017-07-14', null, '1', '1', '彭霄', null, '6.40.7.37', null, null, null, null, null, null, null, '堡垒机', null);
 INSERT INTO `machine_infos` VALUES ('683', '运管区S5700-SW1', '交换机', 'ZZ201512300004', '华为', 'S5700', '3', 'B02', '22', '22', '2017-06-30', null, '1', '1', '吴君华', null, null, null, null, null, null, '1', '不是华为5700', null, '接入交换机', null);
-INSERT INTO `machine_infos` VALUES ('684', '长沙运管区-山石FW1', '防火墙', '2508318174007652', '山石', 'G2120-AEL', '3', 'B02', '21', '21', null, null, '1', '1', '吴君华', null, null, null, '172.250.1.248', null, null, null, null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('684', '长沙运管区-山石FW1', '防火墙', '2508318174007652', '山石', 'G2120-AEL', '3', 'B02', '21', '21', null, null, '1', '3', '吴君华', null, null, null, '172.250.1.248', null, null, null, '20231101华讯关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('685', '长沙运管区汇聚SW1-ce6855-48s-19u', '交换机', '2102350RTC6TJ8000487', '华为', 'CE6860', '3', 'B02', '19', '19', null, null, '1', '1', '吴君华', null, null, null, '6.63.254.166', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('686', 'L2汇聚交换机（虚拟化）,长沙交换资源L2汇聚SW1', '交换机', '210235A1EUX171000058', 'H3C', 'S12508X', '3', 'B02', '6', '17', null, null, '1', '1', '吴君华', null, null, null, '172.250.0.43', null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('687', '攻防演练设备', '服务器', '9800161302483095', '微步', '2U RACK SERVER', '3', 'B03', '25', '26', null, null, '1', '3', '王博文', '王博文', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('687', '攻防演练设备', '服务器', '9800161302483095', '微步', '2U RACK SERVER', '3', 'B03', '25', '26', null, null, '1', '1', '王博文', '王博文', '6.40.7.98', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('688', 'OA终端安全网关（主）', '安全设备', 'NACC5900201022SZ00001', '联软', 'UNACC-5900', '3', 'B03', '16', '17', null, null, '1', '1', '罗啸', null, '6.63.253.23', null, null, null, null, null, null, null, 'OA终端安全网关', null);
 INSERT INTO `machine_infos` VALUES ('689', 'OA终端安全网关（备）', '安全设备', 'NACC5900201022SZ00002', '联软', 'UNACC-5900', '3', 'B03', '13', '14', null, null, '1', '1', '罗啸', null, '6.63.253.24', null, null, null, null, null, null, null, 'OA终端安全网关', null);
 INSERT INTO `machine_infos` VALUES ('690', '长沙办公接入区-山石FW2-', '防火墙', '1504942140008139', '山石', 'G2120-AEL', '3', 'B03', '11', '11', '2017-07-14', null, '1', '1', '彭霄', null, null, null, '172.250.0.31', null, null, null, null, null, null, null);
@@ -1079,7 +1074,7 @@ INSERT INTO `machine_infos` VALUES ('691', '华为交换机', '交换机', '2102
 INSERT INTO `machine_infos` VALUES ('692', '绿盟UTS NX3 Series', '安全设备', null, '绿盟', 'UTS NX3 Series', '3', 'B03', '3', '4', null, null, '1', '4', '吴君华', null, null, null, null, null, '2023-02-08', null, '20230208绿盟厂家下架搬回，原外借设备', null, null, null);
 INSERT INTO `machine_infos` VALUES ('693', '态势感知设备', '服务器', '2102310QPD10F5005854', '华为', 'RH2288 V2', '3', 'B03', '1', '2', null, null, '1', '4', '柏君兰', null, null, null, null, null, '2023-07-17', null, '20230717绿盟厂家下架搬回，原外借设备', null, null, null);
 INSERT INTO `machine_infos` VALUES ('694', '联通、中信波分', '其它网络设备', '2102121961N0N6000186', '华为', 'OSN9800 M12', '3', 'B04', '26', '41', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
-INSERT INTO `machine_infos` VALUES ('695', '中信波分', '其它网络设备', '2102120495N0H1000262', '华为', 'OSN8800', '3', 'B04', '5', '24', '2017-03-15', null, '1', '2', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
+INSERT INTO `machine_infos` VALUES ('695', '中信波分', '其它网络设备', '2102120495N0H1000262', '华为', 'OSN8800', '3', 'B04', '5', '24', '2017-03-15', null, '1', '3', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
 INSERT INTO `machine_infos` VALUES ('696', '长沙运维接入 s5720-SW-CSDC-5F3B05-M1-C58AS01', '交换机', '2102359504DMH6001189', '华为', 'S5700', '3', 'B05', '21', '21', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '172.250.1.84', null, null, '1', '单电源', null, null, null);
 INSERT INTO `machine_infos` VALUES ('697', '长沙广域网汇聚绿盟IDS', '安全设备', '17-13-J-0088', '绿盟', 'NIDS NX3-N3000', '3', 'B05', '19', '20', '2017-09-28', null, '1', '1', '吴君华', null, null, null, '172.250.1.243', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('698', '长沙运管接入区 ce5855-48t-SW-CSDC-5F3B05-M1-S57AS01', '交换机', '2102350GTW6TH6000171', '华为', 'CE5855', '3', 'B05', '18', '18', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '6.41.239.241', null, null, null, null, null, null, null);
@@ -1096,13 +1091,13 @@ INSERT INTO `machine_infos` VALUES ('708', '长沙运管区绿盟数据库审计
 INSERT INTO `machine_infos` VALUES ('709', '长沙运管接入区SW-CSDC-5F3B07-M1-S57AS02', '交换机', '2102359504DMH6000722', '华为', 'CE5855', '3', 'B07', '18', '18', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '172.250.1.85', null, null, null, null, null, '接入交换机', null);
 INSERT INTO `machine_infos` VALUES ('710', '骨干交换机3', '交换机', '210235A1EUX171000006', 'H3C', 'S12508X', '3', 'B07', '6', '17', null, null, '1', '1', '吴君华', null, null, null, '6.63.254.130', null, null, null, null, null, '骨干交换机', null);
 INSERT INTO `machine_infos` VALUES ('711', '联通、中信波分', '其它网络设备', '2102121961N0N6000096', '华为', 'OSN9800 M12', '3', 'B08', '26', '41', null, null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
-INSERT INTO `machine_infos` VALUES ('712', '电信波分', '其它网络设备', '2102120495N0H1000255', '华为', 'OSN8800', '3', 'B08', '5', '24', '2017-03-15', null, '1', '2', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
+INSERT INTO `machine_infos` VALUES ('712', '电信波分', '其它网络设备', '2102120495N0H1000255', '华为', 'OSN8800', '3', 'B08', '5', '24', '2017-03-15', null, '1', '3', '吴君华', null, null, null, null, null, null, null, null, null, '波分', null);
 INSERT INTO `machine_infos` VALUES ('713', '运管区防火墙', '防火墙', '2809347162002549', '山石', 'SG6000-E5560', '3', 'B09', '32', '33', null, null, '1', '1', '吴君华', null, null, null, '6.63.254.17', null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('714', '大数据内联接入交换机SW1', '交换机', '102266442726', '华为', 'CE6881', '3', 'B09', '29', '29', null, null, '1', '1', '吴君华', null, null, null, '172.250.14.41', null, null, null, null, null, '大数据内联接入交换机', null);
 INSERT INTO `machine_infos` VALUES ('715', '大数据内联接入交换机SW2', '交换机', '102266442711', '华为', 'CE6881', '3', 'B09', '27', '27', null, null, '1', '1', '吴君华', null, null, null, '172.250.14.42', null, null, null, null, null, '大数据内联接入交换机', null);
 INSERT INTO `machine_infos` VALUES ('716', '齐治运维操作管理系统2-堡垒机', '安全设备', 'SH-TJY18-JP249', '齐治', 'Shterm-SHN200', '3', 'B09', '24', '25', '2017-07-14', null, '1', '1', '彭霄', null, '6.40.7.37', null, null, null, null, null, null, null, '保垒机', null);
-INSERT INTO `machine_infos` VALUES ('717', '5130-SW2', '交换机', '219801A12T9175Q00107', 'H3C', 'S5130S', '3', 'B09', '22', '22', '2017-09-27', null, '1', '1', '吴君华', null, null, null, null, null, null, null, null, null, '智能化接入交换机', null);
-INSERT INTO `machine_infos` VALUES ('718', '长沙运管区-山石FW2', '防火墙', '001C549FE8AB', '山石', 'G2120-AEL', '3', 'B09', '21', '21', '2017-07-14', null, '1', '2', '吴君华', null, null, null, '172.250.1.248', null, null, null, '未接线', null, null, null);
+INSERT INTO `machine_infos` VALUES ('717', 'Swift VPN直接交换机', '交换机', '219801A12T9175Q00107', 'H3C', 'S5130S', '2', 'B07', '17', '17', '2017-09-27', null, '1', '3', '吴君华', null, '', null, '', null, null, null, '20231206吴尚龙更换至5-2', null, '智能化接入交换机', null);
+INSERT INTO `machine_infos` VALUES ('718', '长沙运管区-山石FW2', '防火墙', '001C549FE8AB', '山石', 'G2120-AEL', '3', 'B09', '21', '21', '2017-07-14', null, '1', '3', '吴君华', null, null, null, '172.250.1.248', null, null, null, '20231101华讯关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('719', '长沙运管接入区SW-CSDC-5F3B07-M1-S57AS02-19u', '交换机', '2102350RTCDMK6001799', '华为', 'CE6860', '3', 'B09', '19', '19', '2017-06-30', null, '1', '1', '吴君华', null, null, null, '172.250.1.254', null, null, null, null, null, '接入交换机', null);
 INSERT INTO `machine_infos` VALUES ('720', 'L3汇聚交换机', '交换机', '210235A1EUX172000012', 'H3C', 'S12508X', '3', 'B09', '6', '17', null, null, '1', '1', '吴君华', null, null, null, '172.250.0.4', null, null, null, null, null, 'L3汇聚交换机', null);
 INSERT INTO `machine_infos` VALUES ('721', '长沙业务二区-基础服务2RadwareA', '负载均衡', '31703060', 'Radware', 'Alteon 5224', '3', 'C01', '36', '37', '2017-10-19', null, '1', '1', '吴君华', null, '192.168.10.52', null, null, null, null, null, null, null, '长沙业务二区', null);
@@ -1136,11 +1131,11 @@ INSERT INTO `machine_infos` VALUES ('748', '开发终端安全管理系统网关
 INSERT INTO `machine_infos` VALUES ('749', '环网区路由器2', '路由器', '210235A0YVX175000046', 'H3C', 'SR8808X', '3', 'C04', '5', '24', null, null, '1', '1', '彭霄', null, null, null, '172.250.0.28', null, null, null, null, null, '环网设备', null);
 INSERT INTO `machine_infos` VALUES ('750', '广域网区山石FW1', '防火墙', '1304422172001835', '山石', 'SG-6000-X7180', '3', 'C05', '34', '38', '2017-10-19', null, '1', '4', '吴君华', null, null, null, '172.250.0.23', null, '2023-08-25', null, '20230824关机', null, '安全设备', null);
 INSERT INTO `machine_infos` VALUES ('751', 'HUAWEI usg5500 SACG_A', '安全设备', '210235G6HW10D8000003', '华为', 'USG5500', '3', 'C05', '32', '32', null, null, '1', '4', '吴君华', null, '131.20.1.82', null, '', null, '2023-08-25', null, '20230824关机', null, '安全设备', null);
-INSERT INTO `machine_infos` VALUES ('752', '汇聚交换机（虚拟化）,长沙广域网接入汇聚SW1', '交换机', '210235A1GFX177000007', 'H3C', 'LS-12504X-AF', '3', 'C05', '26', '31', '2019-05-01', '2022-05-01', '1', '1', '吴君华', null, null, null, '172.250.0.21', null, null, null, null, null, '广域网网络设备', null);
+INSERT INTO `machine_infos` VALUES ('752', '汇聚交换机（虚拟化）,长沙广域网接入汇聚SW1', '交换机', '210235A1GFX177000007', 'H3C', 'LS-12504X-AF', '3', 'C05', '26', '31', '2019-05-01', '2022-05-01', '1', '3', '吴君华', null, null, null, '172.250.0.21', null, null, null, '20231101华讯关机', null, '广域网网络设备', null);
 INSERT INTO `machine_infos` VALUES ('753', '下联分行接入路由器2,长沙广域网接入分行RT1', '路由器', '210235A0YVX175000038', 'H3C', 'SR8808X', '3', 'C05', '5', '24', null, null, '1', '4', '彭霄', null, null, null, '172.250.0.25', null, '2023-08-24', null, '20230823系统室安排关机', null, '广域网网络设备', null);
 INSERT INTO `machine_infos` VALUES ('754', '广域网区山石FW2', '防火墙', '1304452162004032', '山石', 'SG-6000-X7180', '3', 'C06', '34', '38', '2017-10-19', null, '1', '4', '吴君华', null, null, null, '172.250.0.24', null, '2023-08-25', null, '20230824关机', null, '安全设备', null);
 INSERT INTO `machine_infos` VALUES ('755', 'HUAWEI usg5500 SACG_B', '安全设备', '210235G6HWZ0D1000011', '华为', 'USG5500', '3', 'C06', '32', '32', null, null, '1', '4', '吴君华', null, '131.20.1.90/94', null, null, null, '2023-08-25', null, '20230824关机', null, '安全设备', null);
-INSERT INTO `machine_infos` VALUES ('756', '汇聚交换机（虚拟化）,长沙广域网接入汇聚SW2', '交换机', '210235A1GFX175000020', 'H3C', 'LS-12504X-AF', '3', 'C06', '26', '31', '2019-05-01', '2022-05-01', '1', '1', '彭霄', null, null, null, '172.250.0.21', null, null, null, null, null, '广域网网络设备', null);
+INSERT INTO `machine_infos` VALUES ('756', '汇聚交换机（虚拟化）,长沙广域网接入汇聚SW2', '交换机', '210235A1GFX175000020', 'H3C', 'LS-12504X-AF', '3', 'C06', '26', '31', '2019-05-01', '2022-05-01', '1', '3', '彭霄', null, null, null, '172.250.0.21', null, null, null, '20231101华讯关机', null, '广域网网络设备', null);
 INSERT INTO `machine_infos` VALUES ('757', '下联分行接入路由器2,长沙广域网接入分行RT2', '路由器', '210235A0YVX175000044', 'H3C', 'SR8808X', '3', 'C06', '5', '24', null, null, '1', '4', '彭霄', null, null, null, '172.250.0.26', null, '2023-09-07', null, null, null, '广域网网络设备', null);
 INSERT INTO `machine_infos` VALUES ('758', '核心存储', '磁盘阵列', 'CN497800109', 'EMC', 'VMAX250F', '4', 'A00', '1', '42', null, null, '1', '1', '周中秋', null, '6.40.5.73-76', null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('759', '核心存储', '磁盘阵列', 'CN497800110', 'EMC', 'VMAX250F', '4', 'A01', '1', '42', null, null, '1', '1', '周中秋', null, '6.40.5.77-80', null, null, null, null, null, null, null, '存储设备', null);
@@ -1159,7 +1154,7 @@ INSERT INTO `machine_infos` VALUES ('771', '存储核心光交', '存储光交',
 INSERT INTO `machine_infos` VALUES ('772', 'SAN备份网络光交-备用', '存储光交', '10147RW', 'IBM', 'SAN48B-5', '4', 'A08', '15', '15', null, null, '1', '1', '周中秋', null, null, null, null, null, null, null, '备用', null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('773', '存储核心光交', '存储光交', 'BRCANN1950M00B', 'EMC', 'DCX8510-4', '4', 'A08', '5', '13', '2017-07-26', null, '1', '1', '周中秋', null, '6.40.4.19', null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('774', '交换机A0-A5存储柜用', '交换机', null, 'H3C', 'S5120', '4', 'A09', '38', '38', null, null, '1', '1', '彭霄', null, null, null, null, null, null, '1', null, null, '生产区网络设备', null);
-INSERT INTO `machine_infos` VALUES ('775', 'NAS存储', '磁盘阵列', 'FCNVX142800035', 'EMC', 'VNX5300', '4', 'A09', '5', '33', null, null, '1', '1', '王德明', null, '6.4.0.1', null, null, null, null, '1', null, null, '存储设备', null);
+INSERT INTO `machine_infos` VALUES ('775', 'NAS存储', '磁盘阵列', 'FCNVX142800035', 'EMC', 'VNX5300', '4', 'A09', '5', '33', null, null, '1', '1', '王德明', null, '6.0.0.1/6.4.0.1', null, null, null, null, '1', null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('776', 'OA光交-1', '存储光交', 'BRCALJ1924H0PB', 'EMC', 'DS_300B', '4', 'A10', '36', '36', null, null, '1', '1', '周中秋', null, null, null, null, null, null, '1', null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('777', '华为虚拟存储网关 VIS660T', '存储网关', '2102350AWH10FC000012', '华为', 'VIS6600T', '4', 'A10', '17', '20', '2016-07-14', null, '1', '3', '晏良', null, '192.168.210.53', null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('778', '华为 OceanStor 5500 V3存储', '磁盘阵列', '2102350HYS10FA000041', '华为', 'OceanStor 5500 V3', '4', 'A10', '5', '14', '2016-02-06', '2023-02-05', '1', '1', '晏良', '晏良', '6.40.5.36', null, null, null, null, null, null, null, '存储设备', null);
@@ -1171,7 +1166,7 @@ INSERT INTO `machine_infos` VALUES ('783', '华为虚拟存储网关 VIS660T', '
 INSERT INTO `machine_infos` VALUES ('784', '华为 OceanStor 5500 V3存储', '磁盘阵列', '2102350HYS10FA000040', '华为', 'OceanStor 5500 V3', '4', 'A11', '5', '14', '2016-02-06', '2023-02-05', '1', '1', '晏良', '晏良', '6.40.5.37', null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('785', 'AGGR-SW1', '交换机', '201235A0LMH15900041', 'H3C', '5820X', '4', 'A12', '31', '31', null, null, '1', '1', '彭霄', null, null, null, null, null, null, null, null, null, '生产区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('786', 'AGGR-SW2', '交换机', '201235A0LMH15800010', 'H3C', '5820X', '4', 'A12', '29', '29', null, null, '1', '1', '彭霄', null, null, null, null, null, null, null, null, null, '生产区网络设备', null);
-INSERT INTO `machine_infos` VALUES ('787', 'l-sw2', '交换机', null, 'H3C', 'S5120', '4', 'A12', '23', '23', null, null, '1', '1', '彭霄', null, null, null, null, null, null, '1', null, null, '生产区网络设备', null);
+INSERT INTO `machine_infos` VALUES ('787', 'l-sw2', '交换机', null, 'H3C', 'S5120', '4', 'A12', '23', '23', null, null, '1', '3', '彭霄', null, null, null, null, null, null, '1', '20231206关机', null, '生产区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('788', '虚拟带库（network）', '虚拟带库', 'CKM00182400820', 'EMC', 'DD6300', '4', 'A13', '13', '17', null, null, '1', '1', '周中秋', null, '192.168.1.155', null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('789', '虚拟带库（network）', '虚拟带库', null, 'EMC', 'DD670', '4', 'A13', '5', '12', null, null, '1', '3', '周中秋', null, null, null, null, null, null, null, null, null, '存储设备', null);
 INSERT INTO `machine_infos` VALUES ('790', 'EMC Unity XT 680F存储', '磁盘阵列', 'DE409222372878', 'DELL EMC', 'Unity XT', '4', 'B05', '22', '27', '2022-06-15', '2027-09-22', '1', '1', '周中秋', '周中秋', '6.40.5.85', null, null, null, null, null, null, null, '存储设备', null);
@@ -1228,7 +1223,7 @@ INSERT INTO `machine_infos` VALUES ('840', '生产应用Esxi主机', '服务器'
 INSERT INTO `machine_infos` VALUES ('841', '生产应用Esxi主机', '服务器', 'J32XWMH', '联想', 'X3850 X6', '5', 'A03', '5', '8', '2017-04-28', '2020-04-27', '1', '1', '张杭/晏良', null, '6.40.2.11', null, null, null, null, null, null, null, '生产虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('842', '生产应用虚拟化平台', '服务器', '210235A2CR6217F005DS', 'H3C', 'R4900 G3', '5', 'A04', '29', '30', '2021-07-31', '2026-10-29', '1', '1', '张杭', null, '6.40.2.80', null, null, null, null, null, '20230410张杭申请开机', null, '虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('843', '生产应用虚拟化平台', '服务器', '210235A2CR6217F005DB', 'H3C', 'R4900 G3', '5', 'A04', '26', '27', '2021-07-31', '2026-10-29', '1', '1', '张杭', null, '6.40.2.79', null, null, null, null, null, '20230410张杭申请开机', null, '虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('844', '灾备虚拟化平台灾备机05', '服务器', '210235A2CR6217F005F0', 'H3C', 'R4900 G3', '2', 'B03', '8', '9', '2021-07-31', '2026-10-29', '3', '1', '张杭', null, '6.40.16.5', null, '6.40.15.5', null, null, null, '20230829移位，20221231张杭关机', null, '生产虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('844', '灾备虚拟化平台灾备机05', '服务器', '210235A2CR6217F005F0', 'H3C', 'R4900 G3', '2', 'B03', '8', '9', '2021-07-31', '2026-10-29', '3', '1', '张杭', null, '6.40.15.5', null, '6.40.16.5', null, null, null, '20230829移位，20221231张杭关机', null, '生产虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('845', '生产应用虚拟化服务器', '服务器', '210235A2CR6217F005DG', 'H3C', 'R4900 G3', '5', 'A04', '20', '21', '2021-07-31', '2026-10-29', '1', '1', '张杭/晏良', null, '6.40.2.77', null, null, null, null, null, null, null, '生产虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('846', '虚拟化服务器', '服务器', '2102311TXHP0L9000588', '华为', 'RH2288 V5', '5', 'A04', '17', '18', '2020-12-16', '2025-12-15', '1', '3', '张杭/晏良', null, null, null, null, null, null, null, '未配置IP,未接网线。20230117关机', null, '虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('847', '虚拟化服务器', '服务器', '2102311TXHP0L9000573', '华为', 'RH2288 V5', '5', 'A04', '14', '15', '2020-12-16', '2025-12-15', '1', '1', '张杭/晏良', null, '6.40.2.63', null, null, null, null, null, null, null, '虚拟化', null);
@@ -1292,10 +1287,10 @@ INSERT INTO `machine_infos` VALUES ('904', '数据库服务器', '服务器', 'B
 INSERT INTO `machine_infos` VALUES ('905', '数据库服务器', '服务器', '9M03SF3', 'DELL', 'R940xa', '5', 'A14', '13', '16', '2021-07-06', '2026-10-08', '1', '1', '王德明', null, null, null, null, null, null, null, null, null, '数据库', null);
 INSERT INTO `machine_infos` VALUES ('906', '数据库服务器', '服务器', '79JCWF3', 'DELL', 'R940xa', '5', 'A14', '8', '11', '2021-07-06', '2026-10-08', '1', '1', '王德明', null, null, null, null, null, null, null, null, null, '数据库', null);
 INSERT INTO `machine_infos` VALUES ('907', '数据库服务器', '服务器', '89JCWF3', 'DELL', 'R940xa', '5', 'A14', '3', '6', '2021-07-06', '2026-10-08', '1', '1', '王德明', null, null, null, null, null, null, null, null, null, '数据库', null);
-INSERT INTO `machine_infos` VALUES ('908', 'aomserv1', '服务器', '210235A2CR6217F005F3', 'H3C', 'R4900 G3', '5', 'B01', '31', '32', '2021-07-31', '2026-10-29', '1', '1', '王柱石', null, '6.40.7.23', null, null, null, null, null, null, null, 'aomserv', null);
+INSERT INTO `machine_infos` VALUES ('908', '自动化运维aomserv1', '服务器', '210235A2CR6217F005F3', 'H3C', 'R4900 G3', '5', 'B01', '31', '32', '2021-07-31', '2026-10-29', '1', '1', '王柱石', null, '6.40.7.23', null, null, null, null, null, null, null, 'aomserv', null);
 INSERT INTO `machine_infos` VALUES ('909', '生物识别-1', '服务器', 'J32LMHF', '联想', 'X3650 M5', '5', 'B01', '28', '29', '2017-02-27', '2020-02-26', '1', '1', '刘济东', null, '192.168.10.93', null, null, null, null, null, null, null, '生物识别', null);
 INSERT INTO `machine_infos` VALUES ('910', '支付密码系统', '服务器', 'O6FWXDX', '联想', 'X3650 M5', '5', 'B01', '25', '26', '2017-02-27', '2020-02-26', '1', '1', '许鹏', null, '192.168.10.92', null, null, null, null, null, null, null, '支付密码', null);
-INSERT INTO `machine_infos` VALUES ('911', 'aomserv2', '服务器', '210235A2CR6217F005FF', 'H3C', 'R4900 G3', '5', 'B01', '22', '23', '2021-07-31', '2026-10-29', '1', '1', '王柱石', null, '6.40.7.24', null, null, null, null, null, null, null, 'aomserv', null);
+INSERT INTO `machine_infos` VALUES ('911', '自动化运维aomserv2', '服务器', '210235A2CR6217F005FF', 'H3C', 'R4900 G3', '5', 'B01', '22', '23', '2021-07-31', '2026-10-29', '1', '1', '王柱石', null, '6.40.7.24', null, null, null, null, null, null, null, 'aomserv', null);
 INSERT INTO `machine_infos` VALUES ('912', 'NETWORK备份系统', '服务器', '06BFKA3', 'IBM', 'X3650 M3', '5', 'B01', '19', '20', null, null, '5', '1', '周中秋', null, '192.168.1.127', null, null, null, null, null, null, null, 'NETWORK备份', null);
 INSERT INTO `machine_infos` VALUES ('913', '国结冷备', '服务器', '06BKEM8', 'IBM', 'X3650 M4', '5', 'B01', '14', '15', null, null, '1', '2', '晏良', null, '192.168.1.104', null, null, null, null, null, '未接网线', null, '国结冷备', null);
 INSERT INTO `machine_infos` VALUES ('914', null, '服务器', '210235A2CR6217F005F9', 'H3C', 'R4900 G3', '5', 'B01', '8', '9', '2021-07-31', '2026-10-29', '1', '1', '晏良', null, '6.40.7.100', null, null, null, null, null, null, null, null, null);
@@ -1334,7 +1329,7 @@ INSERT INTO `machine_infos` VALUES ('946', '运维平台', '服务器', '2215871
 INSERT INTO `machine_infos` VALUES ('947', '运维平台', '服务器', '221587171', '浪潮', 'NF5270M5', '5', 'B05', '20', '21', '2021-07-10', '2026-08-31', '1', '1', '张杭', null, '6.40.7.94', null, null, null, null, null, null, null, '运维平台', null);
 INSERT INTO `machine_infos` VALUES ('948', '多媒体发布', '服务器', '210200a00JN178001877', 'H3C', 'R4900 G2', '5', 'B05', '17', '18', '2017-09-04', '2020-12-03', '1', '1', '刘晓帆', null, '6.12.1.18', null, null, null, null, null, '分行管理室', null, '多媒体发布', null);
 INSERT INTO `machine_infos` VALUES ('949', '电子渠道IT监控带外管理', '服务器', '2102310YPY10H7001022', '华为', 'RH2288 V3', '5', 'B05', '14', '15', '2017-10-22', '2020-10-21', '1', '1', '晏良', null, '6.40.7.1', null, null, null, null, null, null, null, '电渠服务器', null);
-INSERT INTO `machine_infos` VALUES ('950', null, '服务器', '221587183', '浪潮', 'NF5270M5', '5', 'B05', '11', '12', '2021-07-10', '2026-08-31', null, '3', '张杭', null, null, null, null, null, null, null, '未配置IP,未接网线，20230117关机', null, null, null);
+INSERT INTO `machine_infos` VALUES ('950', null, '服务器', '221587183', '浪潮', 'NF5270M5', '5', 'B05', '11', '12', '2021-07-10', '2026-08-31', null, '4', '张杭', null, null, null, null, null, '2023-11-06', null, '未配置IP,未接网线，20230117关机', null, null, null);
 INSERT INTO `machine_infos` VALUES ('951', '态势感知1', '服务器', '717203015', '浪潮', 'NF5270M4', '5', 'B05', '8', '9', '2021-07-10', '2026-08-31', '1', '1', '王博文', null, '6.40.7.12', null, null, null, null, null, null, null, '态势感知', null);
 INSERT INTO `machine_infos` VALUES ('952', '态势感知2', '服务器', '717203011', '浪潮', 'NF5270M4', '5', 'B05', '5', '6', '2021-07-10', '2026-08-31', '1', '1', '王博文', null, '6.40.7.13', null, null, null, null, null, null, null, '态势感知', null);
 INSERT INTO `machine_infos` VALUES ('953', null, '服务器', 'J303B6NN', '联想', 'SR860', '5', 'B06', '28', '31', '2021-06-26', '2026-08-28', null, '1', '晏良', null, null, null, null, null, null, null, null, null, null, null);
@@ -1362,9 +1357,9 @@ INSERT INTO `machine_infos` VALUES ('974', 'H3C S6820 生产接入-CSDC-5F5B09-R
 INSERT INTO `machine_infos` VALUES ('975', 'H3C S6800 生产接入-CSDC-5F5B09-RT-S68AS03', '交换机', null, 'H3C', 'S6800', '5', 'B09', '8', '8', null, null, '1', '1', '彭霄', null, '6.13.239.22', null, null, null, null, null, null, null, '生产区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('976', 'H3C S6800 生产接入-CSDC-5F5B09-RT-S68AS04', '交换机', '210235A1UMH177000207', 'H3C', 'S6800', '5', 'B09', '7', '7', null, null, '1', '1', '彭霄', null, '6.13.239.21', null, null, null, null, null, null, null, '生产区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('977', '华为CE5855-48T 运管接入-CSDC-5F5B09-M1-C58AS05', '交换机', '2102350GTW6TH6000172', '华为', 'CE5855', '5', 'B09', '6', '6', '2017-06-30', null, '1', '1', '彭霄', null, '6.41.239.204', null, null, null, null, null, null, null, '运管区网络设备', null);
-INSERT INTO `machine_infos` VALUES ('978', '云宏国产虚拟化主机3', '服务器', 'J31KZGM', '联想', 'X3850 X6', '1', 'C04', '1', '4', '2014-06-30', '2017-06-29', '4', '1', '张杭', null, '6.40.14.203', null, '6.40.13.109', null, null, null, '20231008调整至5-1给国产虚拟化测试用', null, '生产管理虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('979', '云宏国产虚拟化主机1', '服务器', 'J31KZGN', '联想', 'X3850 X6', '1', 'C03', '26', '29', '2014-06-30', '2017-06-29', '4', '1', '张杭', null, '6.40.14.201', null, '6.40.13.107', null, null, null, '20231008调整至5-1给国产虚拟化测试用', null, '生产管理虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('980', '云宏国产虚拟化主机2', '服务器', 'J31KZGK', '联想', 'X3850 X6', '1', 'C03', '21', '24', '2014-06-30', '2017-06-29', '4', '1', '张杭', null, '6.40.14.202', null, '6.40.13.108', null, null, null, '20231008调整至5-1给国产虚拟化测试用', null, '生产管理虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('978', '云宏国产虚拟化主机3', '服务器', 'J31KZGM', '联想', 'X3850 X6', '1', 'C04', '1', '4', '2014-06-30', '2017-06-29', '4', '4', '张杭', null, '6.40.14.203', null, '6.40.13.109', null, '2023-12-07', null, '20231008调整至5-1给国产虚拟化测试用', null, '生产管理虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('979', '云原生业务性能监控系统', '服务器', 'J31KZGN', '联想', 'X3850 X6', '6', 'B05', '22', '25', '2014-06-30', '2017-06-29', '4', '1', '张杭', null, '6.32.3.75', null, '6.40.3.64', null, null, null, '20231207张杭安排搬至6-2给李远志-云原生业务性能监控系统用', null, '生产管理虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('980', '核心年终决算演练跑批', '服务器', 'J31KZGK', '联想', 'X3850 X6', '4', 'B10', '20', '23', '2014-06-30', '2017-06-29', '4', '1', '张杭', null, '6.12.2.200', null, '6.40.3.65', null, null, null, '20231211张杭安排搬至5-4机房 王肯年张决算用', null, '生产管理虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('981', 'informatica服务器', '服务器', '99V2591', 'IBM', 'X3650 M3', '5', 'B10', '13', '14', null, null, '1', '1', '晏良', null, '192.168.81.15', null, null, null, null, null, null, null, 'informatica', null);
 INSERT INTO `machine_infos` VALUES ('982', '灾备系统管理平台', '服务器', '06DDDT7', 'IBM', 'X3650 M3', '5', 'B10', '10', '11', null, null, '3', '1', '周中秋', null, '192.168.81.53', null, null, null, null, null, null, null, '灾备系统管理平台', null);
 INSERT INTO `machine_infos` VALUES ('983', '鸿元超微测试服务器', '服务器', null, '超微', '4028GR-TR', '5', 'B10', '1', '2', null, null, null, '4', '王博文', null, '6.12.1.61', null, null, null, '2023-02-27', null, '20230227下架退回厂商', null, null, null);
@@ -1383,7 +1378,7 @@ INSERT INTO `machine_infos` VALUES ('995', 'OCR智能识别', '服务器', '2102
 INSERT INTO `machine_infos` VALUES ('996', '虚拟化服务器', '服务器', '210235A2CRH19A000281', 'H3C', 'R4900 G3', '5', 'B12', '13', '14', '2020-09-15', '2025-01-14', '1', '1', '张杭/晏良', null, null, null, null, null, null, null, '未配置IP', null, '虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('997', '灾备虚拟化平台灾备机02', '服务器', '210235A2CRH19A000276/210200A00QH19A000356', 'H3C', 'R4900 G3', '2', 'B04', '5', '6', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.15.2', null, '6.40.16.2', null, null, null, '20230907调整位置，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('998', '灾备虚拟化平台灾备机04', '服务器', '210235A2CRH19A000275/210200A00QH19A000353', 'H3C', 'R4900 G3', '2', 'B04', '8', '9', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.15.4', null, '6.40.16.4', null, null, null, '20230907调整位置，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('999', '灾备虚拟化平台灾备机03', '服务器', '210235A2CRH19A000273/210200A00QH19A000354', 'H3C', 'R4900 G3', '2', 'B03', '5', '6', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.16.3', null, '6.40.15.3', null, null, null, '20230829移位，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('999', '灾备虚拟化平台灾备机03', '服务器', '210235A2CRH19A000273/210200A00QH19A000354', 'H3C', 'R4900 G3', '2', 'B03', '5', '6', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.15.3', null, '6.40.16.3', null, null, null, '20230829移位，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1000', '交易要素采集设备Smart NCSP ZZ-CL 42T8', '采集设备', null, '智卓', 'Smart NCSP ZZ-CL', '5', 'B13', '35', '37', '2020-05-19', null, '1', '1', '王柱石', null, null, null, null, null, null, null, null, null, '采集设备', null);
 INSERT INTO `machine_infos` VALUES ('1001', '脱敏', '服务器', '221587182', '浪潮', 'NF5280M5', '5', 'B13', '31', '32', '2021-07-10', '2026-08-31', '1', '1', '朱颖', null, '6.12.1.73', null, null, null, null, null, null, null, '脱敏', null);
 INSERT INTO `machine_infos` VALUES ('1002', '脱敏', '服务器', '221587185', '浪潮', 'NF5280M5', '5', 'B13', '28', '29', '2021-07-10', '2026-08-31', '1', '1', '朱颖', null, '6.12.1.74', null, null, null, null, null, null, null, '脱敏', null);
@@ -1393,7 +1388,7 @@ INSERT INTO `machine_infos` VALUES ('1005', '客户行为分析', '服务器', '
 INSERT INTO `machine_infos` VALUES ('1006', '客户行为分析', '服务器', '210235A2CT6209F001B8', 'H3C', 'R4900 G3', '5', 'B13', '16', '17', '2020-09-28', '2025-12-27', '1', '1', '晏良', null, '6.12.1.54', null, null, null, null, null, null, null, '客户行为分析', null);
 INSERT INTO `machine_infos` VALUES ('1007', '虚拟化服务器', '服务器', '210235A2CRH19A000279', 'H3C', 'R4900 G3', '5', 'B13', '13', '14', '2020-09-15', '2025-01-14', '1', '1', '张杭/晏良', null, null, null, null, null, null, null, '未配置IP', null, '虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1008', '信用卡外围系统虚拟化平台', '服务器', '210235A2CRH19A000271', 'H3C', 'R4900 G3', '5', 'B13', '10', '11', '2020-09-15', '2025-01-14', '1', '1', '晏良', null, '6.40.2.15', null, null, null, null, null, null, null, '信用卡外围系统虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1009', '灾备虚拟化平台灾备机01', '服务器', '210235A2CRH19A000272/210200A00QH19A000357', 'H3C', 'R4900 G3', '2', 'B03', '2', '3', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.16.1', null, '6.40.15.1', null, null, null, '20230829移位，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1009', '灾备虚拟化平台灾备机01', '服务器', '210235A2CRH19A000272/210200A00QH19A000357', 'H3C', 'R4900 G3', '2', 'B03', '2', '3', '2020-09-15', '2025-01-14', '3', '1', '张杭', null, '6.40.15.1', null, '6.40.16.1', null, null, null, '20230829移位，20221231张杭关机', null, '信用卡外围系统虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1010', '信用卡外围系统虚拟化平台', '服务器', '210235A2CRH19A000263', 'H3C', 'R4900 G3', '5', 'B13', '4', '5', '2020-09-15', '2025-01-14', '1', '1', '晏良', null, '6.40.2.13', null, null, null, null, null, null, null, '信用卡外围系统虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1011', '知识图谱平台（图数据库）', '服务器', '3BR8S63', 'DELL', 'R740', '5', 'B14', '31', '32', '2020-09-07', '2025-09-08', '1', '1', '许志超', null, '6.12.1.57', null, null, null, null, null, null, null, '知识图谱平台', null);
 INSERT INTO `machine_infos` VALUES ('1012', '市场风险管理系统', '服务器', '221587178', '浪潮', 'NF5280M5', '5', 'B14', '28', '29', '2021-07-10', '2026-08-31', '1', '1', '梁林', null, '6.4.1.111', null, null, null, null, null, null, null, '市场风险管理系统', null);
@@ -1420,12 +1415,12 @@ INSERT INTO `machine_infos` VALUES ('1032', null, '服务器', 'J303B6NP', '联�
 INSERT INTO `machine_infos` VALUES ('1033', null, '服务器', 'J303B6NK', '联想', 'SR860', '5', 'B16', '8', '11', '2021-06-26', '2026-08-28', null, '1', '晏良', null, null, null, null, null, null, null, '未配置IP', null, null, null);
 INSERT INTO `machine_infos` VALUES ('1034', null, '服务器', 'J303B6NR', '联想', 'SR860', '5', 'B16', '3', '6', '2021-06-26', '2026-08-28', null, '1', '晏良', null, null, null, null, null, null, null, '未配置IP', null, null, null);
 INSERT INTO `machine_infos` VALUES ('1035', '新核心开发测试环境', '加密机', 'JH702R162', '江南科友', 'SJJ1748', '5', 'C01', '29', '29', null, null, '4', '1', '王德明', null, null, null, '172.250.13.35', null, null, null, null, null, '加密机', null);
-INSERT INTO `machine_infos` VALUES ('1036', '吉大正元数字签名服务器', '数字签名', 'LZ20070999', '吉大正元', 'V1000-CP', '5', 'C01', '26', '26', null, null, '1', '1', '吴君华', null, null, null, null, null, null, '1', null, null, '数字签名服务器', null);
+INSERT INTO `machine_infos` VALUES ('1036', '吉大正元数字签名服务器', '数字签名', 'LZ20070999', '吉大正元', 'V1000-CP', '5', 'C01', '26', '26', null, null, '1', '1', '廖松荣', null, null, null, null, null, null, '1', null, null, '数字签名服务器', null);
 INSERT INTO `machine_infos` VALUES ('1037', '信雅达 sjj1316金融数据密码机', '加密机', '712180400059', '信雅达', 'SJJ1316', '5', 'C01', '23', '24', null, null, '1', '1', '王德明', null, null, null, null, null, null, null, null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1038', '支付系统汇票密押机（备）', '加密机', '705131100013', '信雅达', 'SJ1111', '5', 'C01', '20', '21', null, null, '1', '2', '王德明', null, '192.168.1.245冷备', null, null, null, null, null, '无网线', null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1039', '国密密码机组', '加密机', 'SJJ121416482', '江南科友', 'SJJ1214', '5', 'C01', '17', '18', '2017-07-21', null, '1', '1', '王德明', null, '192.168.10.102', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1040', '国密密码机组', '加密机', 'SJJ121416481', '江南科友', 'SJJ1214', '5', 'C01', '14', '15', '2017-07-21', null, '1', '1', '王德明', null, '192.168.10.101', null, null, null, null, '1', null, null, '加密机', null);
-INSERT INTO `machine_infos` VALUES ('1041', '国密密码机组', '加密机', 'SJJ121416396', '江南科友', 'SJJ1214', '5', 'C01', '11', '12', '2017-07-21', null, '1', '1', '王德明', null, '192.168.10.100', null, null, null, null, '1', null, null, '加密机', null);
+INSERT INTO `machine_infos` VALUES ('1041', '国密密码机组', '加密机', 'SJJ121416359', '江南科友', 'SJJ1214', '5', 'C01', '11', '12', '2017-07-21', null, '1', '1', '王德明', null, '192.168.10.100', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1042', '国密密码机组', '加密机', 'SJJ121416394', '江南科友', 'SJJ1214', '5', 'C01', '8', '9', '2017-07-21', null, '1', '1', '王德明', null, '192.168.10.99', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1043', '集团现金加密（主）', '加密机', null, '江南科友', 'SJJ1012', '5', 'C01', '5', '6', '2012-12-28', null, '1', '1', '王德明', null, '192.168.1.37', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1044', '国密密码机组', '加密机', 'SJJ121416038', '江南科友', 'SJJ1214G', '5', 'C02', '26', '27', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.90', null, null, null, null, '1', null, null, '加密机', null);
@@ -1433,7 +1428,7 @@ INSERT INTO `machine_infos` VALUES ('1045', '国密密码机组', '加密机', '
 INSERT INTO `machine_infos` VALUES ('1046', '国密密码机组', '加密机', 'SJJ121416148', '江南科友', 'SJJ1214G', '5', 'C02', '20', '21', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.88', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1047', '国密密码机组', '加密机', 'SJJ121416021', '江南科友', 'SJJ1214G', '5', 'C02', '17', '18', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.83', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1048', '国密密码机组', '加密机', 'SJJ121416076', '江南科友', 'SJJ1214G', '5', 'C02', '14', '15', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.82', null, null, null, null, '1', null, null, '加密机', null);
-INSERT INTO `machine_infos` VALUES ('1049', '国密密码机组', '加密机', 'SJJ121416022', '江南科友', 'SJJ1214G', '5', 'C02', '11', '12', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.81', null, null, null, null, '1', null, null, '加密机', null);
+INSERT INTO `machine_infos` VALUES ('1049', '国密密码机组', '加密机', 'SJJ121416108', '江南科友', 'SJJ1214G', '5', 'C02', '11', '12', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.81', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1050', '国密密码机组', '加密机', 'SJJ121416074', '江南科友', 'SJJ1214G', '5', 'C02', '8', '9', '2016-09-20', null, '1', '1', '王德明', null, '192.168.10.80', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1051', '集团现金加密（备）', '加密机', null, '江南科友', 'SJJ1012', '5', 'C02', '5', '6', '2012-12-28', null, '1', '3', '王德明', null, '192.168.1.37', null, null, null, null, '1', '无网线，无电源线', null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1052', '电信诈骗风险交易事件管理平台标准前置机', '安全设备', 'E5GGUF19006622', '中金国信', 'CF-FEP3100', '5', 'C03', '29', '30', '2021-12-02', null, '1', '1', '晏良/刘志远', null, null, null, null, null, null, null, null, null, '安全设备', null);
@@ -1447,7 +1442,7 @@ INSERT INTO `machine_infos` VALUES ('1059', '国密制卡密码机组', '加密�
 INSERT INTO `machine_infos` VALUES ('1060', '集团现金加密（备）', '加密机', null, '江南科友', 'SJJ1012', '5', 'C03', '1', '2', null, null, '1', '3', '王德明', null, '192.168.1.37', null, null, null, null, null, '无网线，无电源线', null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1061', '电信诈骗风险交易事件管理平台标准前置机', '安全设备', 'E5GGUF19006616', '中金国信', 'CF-FEP3100', '5', 'C04', '29', '30', '2021-12-02', null, '1', '1', '晏良/刘志远', null, null, null, null, null, null, null, null, null, '安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1062', '安全防护短信加密机', '服务器', '92B50K2', 'DELL', 'R430', '5', 'C04', '27', '27', '2017-04-16', '2020-04-18', '1', '1', '张超', null, '192.168.10.98', null, null, null, null, null, null, null, '加密机', null);
-INSERT INTO `machine_infos` VALUES ('1063', '3.5平台华融制卡密码机组', '加密机', 'SJJ121413058', '江南科友', 'SJJ1214', '5', 'C04', '24', '25', '2014-10-11', null, '1', '1', '王德明', null, '192.168.10.107', null, null, null, null, null, null, null, '加密机', null);
+INSERT INTO `machine_infos` VALUES ('1063', '3.5平台华融制卡密码机组', '加密机', 'SJJ121413058', '江南科友', 'SJJ1214', '5', 'C04', '24', '25', '2014-10-11', null, '1', '1', '王德明', null, '192.168.10.107', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1064', '3.5平台华融制卡密码机组', '加密机', 'SJJ121413045', '江南科友', 'SJJ1214', '5', 'C04', '21', '22', '2014-10-11', null, '1', '1', '王德明', null, '192.168.10.108', null, null, null, null, '1', null, null, '加密机', null);
 INSERT INTO `machine_infos` VALUES ('1065', '中金国信电信诈骗风险交易事件管理平台标准前置机', '安全设备', 'E5GGPE10003251', '中金国信', 'CF-FEP3000', '5', 'C04', '18', '19', null, null, '1', '1', '晏良/刘志远', null, '192.168.10.66', null, null, null, null, null, null, null, '安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1066', '数字签名服务器', '数字签名', 'LZ16020313', '吉大正元', 'V3000-C', '5', 'C04', '11', '12', '2018-12-26', null, '1', '1', '向际淼', null, '192.168.10.58', null, null, null, null, null, null, null, '数字签名服务器', null);
@@ -1512,7 +1507,7 @@ INSERT INTO `machine_infos` VALUES ('1124', '电子政务-防火墙', '防火墙
 INSERT INTO `machine_infos` VALUES ('1125', '湖南省电子政务内网RT路由器', '路由器', null, '华为', 'NE05E-S2', '5', 'C13', '14', '14', null, null, '1', '4', '彭霄', null, '18.94.2.1', null, null, null, '2023-01-23', null, '20230123日搬迁至一中心', null, '电子政务', null);
 INSERT INTO `machine_infos` VALUES ('1126', '指纹保密机,机架式指纹保密柜', '其它设备', null, null, '平安网脉', '5', 'C13', '5', '12', null, null, '1', '4', '刘济东', null, '18.94.2.10', null, null, null, '2023-01-23', null, '20230123日搬迁至一中心', null, '生产区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('1127', '省委机要局联通专线设备', '运营商设备', null, '格林威尔', 'MSAP-E6080P', '5', 'C13', '3', '3', null, null, '1', '4', '彭霄', null, '192.168.7.35', null, null, null, '2023-01-23', null, '20230123日搬迁至一中心', null, '运营商设备', null);
-INSERT INTO `machine_infos` VALUES ('1128', '深信服VPN-1000 长沙开发测试区', '其它网络设备', 'KDJE4X6ANRDCTRDF', '深信服', 'VPN-1000', '6', 'A01', '17', '17', '2020-09-29', null, '4', '1', '吴君华', null, '6.33.255.190', null, null, null, null, null, '', null, '测试区网络设备', null);
+INSERT INTO `machine_infos` VALUES ('1128', '深信服VPN-1000 长沙开发测试区', '安全设备', 'KDJE4X6ANRDCTRDF', '深信服', 'VPN-1000', '6', 'A01', '17', '17', '2020-09-29', null, '4', '1', '吴君华', null, '6.33.255.190', null, null, null, null, null, '', null, '测试区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('1129', '绿盟ADS NX3 长沙开发测试区', '安全设备', '20-18-J-0079', '绿盟', 'ADS NX3 Series', '6', 'A01', '15', '16', '2020-04-22', null, '4', '1', '吴君华', null, null, null, '172.250.1.217', null, null, null, '', null, '测试区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('1130', 'H3C S6861 长沙开发测试区外联接入交换机', '交换机', '210235A3GKH204000002', 'H3C', 'LS-6861-54QT', '6', 'A01', '13', '13', '2020-04-22', null, '4', '1', '彭霄', null, '6.40.6.16', null, null, null, null, null, null, null, '测试区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('1131', '迪普FW1000-GM-A 长沙开发测试区-迪普FW', '防火墙', '02050389D176000240', '迪普', 'FW1000', '6', 'A01', '11', '11', '2017-07-14', null, '4', '1', '吴君华', null, '6.63.254.5', null, null, null, null, null, null, null, '测试区网络设备', null);
@@ -1530,7 +1525,7 @@ INSERT INTO `machine_infos` VALUES ('1142', '开发测试虚拟化服务器', '�
 INSERT INTO `machine_infos` VALUES ('1143', '开发测试虚拟化服务器', '服务器', 'J300LVZG', '联想', 'SR860', '6', 'A02', '14', '17', '2018-12-10', '2024-02-09', '4', '1', '晏良', null, '6.40.0.61', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1144', '开发测试虚拟化服务器', '服务器', 'J300LVZE', '联想', 'SR860', '6', 'A02', '9', '12', '2018-12-10', '2024-02-09', '4', '1', '晏良', null, '6.40.0.60', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1145', '开发测试虚拟化服务器', '服务器', 'J300LVZ9', '联想', 'SR860', '6', 'A02', '4', '7', '2018-12-10', '2024-02-09', '4', '1', '晏良', null, '6.40.0.59', null, null, null, null, null, null, null, '开发测试虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1146', '华三S5130S-52S-HT智能化交换机', '交换机', '219801A12T9175Q00054', 'H3C', 'S5130S', '6', 'A02', '1', '1', '2017-09-27', null, '4', '1', '彭霄', null, '6.32.4.253', null, null, null, null, '1', null, null, '测试区网络设备', null);
+INSERT INTO `machine_infos` VALUES ('1146', '华三S5130S-52S-HT智能化交换机', '交换机', '219801A12T9175Q00054', 'H3C', 'S5130S', '6', 'A02', '1', '1', '2017-09-27', null, '4', '3', '彭霄', null, '6.32.4.253', null, null, null, null, '1', '20231206关机', null, '测试区网络设备', null);
 INSERT INTO `machine_infos` VALUES ('1147', '华为Oceanseor SNS3096 光交换机1', '存储光交', 'CHQ1946P031', '华为', 'SNS3096', '6', 'A03', '36', '37', '2019-06-27', null, '4', '1', '周中秋', null, '6.40.5.45', null, null, null, null, null, null, null, '测试区存储设备', null);
 INSERT INTO `machine_infos` VALUES ('1148', '华为Oceanseor SNS3096 光交换机2', '存储光交', 'CHQ1946P02X', '华为', 'SNS3096', '6', 'A03', '33', '34', '2019-06-27', null, '4', '1', '周中秋', null, '6.40.5.46', null, null, null, null, null, null, null, '测试区存储设备', null);
 INSERT INTO `machine_infos` VALUES ('1149', '开发测试虚拟化服务器', '服务器', '819439372', '浪潮', 'NF8480M5', '6', 'A03', '27', '30', '2019-09-30', '2024-10-31', '4', '1', '晏良', null, '6.40.0.68', null, null, null, null, null, null, null, '开发测试虚拟化', null);
@@ -1540,9 +1535,9 @@ INSERT INTO `machine_infos` VALUES ('1152', '开发测试虚拟化服务器', '�
 INSERT INTO `machine_infos` VALUES ('1153', '开发测试虚拟化服务器', '服务器', 'J300LVZ8', '联想', 'SR860', '6', 'A03', '9', '12', '2018-12-10', '2024-02-09', '4', '1', '晏良', null, '6.40.0.63', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1154', '开发测试虚拟化服务器', '服务器', 'J300LVZB', '联想', 'SR860', '6', 'A03', '4', '7', '2018-12-10', '2024-02-09', '4', '1', '晏良', null, '6.40.0.62', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1155', '长沙开发测试区-F5', '负载均衡', '334951596', 'F5', 'BIG-IP i2600', '6', 'A03', '2', '2', '2019-05-28', null, '4', '1', '吴君华', null, null, null, '172.250.0.108', null, null, null, null, null, '测试区网络设备', null);
-INSERT INTO `machine_infos` VALUES ('1156', '启明星辰A类外联千兆防火墙', '防火墙', 'NT00279843', '启明星辰', 'USG-FW', '6', 'A04', '38', '38', null, null, '4', '1', '吴君华', null, null, null, null, null, null, '1', null, null, '测试区安全设备', null);
+INSERT INTO `machine_infos` VALUES ('1156', '启明星辰A类外联千兆防火墙', '防火墙', 'NT00279843', '启明星辰', 'USG-FW', '6', 'A04', '38', '38', null, null, '4', '3', '吴君华', null, null, null, null, null, null, '1', '20231206关机', null, '测试区安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1157', '信安世纪netsign 3300-网银签名验签服器', '数字签名', 'I302G3035', '信安世纪', 'NetSign 3300', '6', 'A04', '37', '37', null, null, '4', '1', '吴君华', null, '192.168.120.203', null, null, null, null, null, null, null, '测试区安全设备', null);
-INSERT INTO `machine_infos` VALUES ('1158', '人行加密机sjj1127', '加密机', 'KFQ00C512', '江南科友', 'SJJ1127', '6', 'A04', '35', '35', null, null, '4', '1', '王德明', null, '192.168.10.68', null, null, null, null, '1', null, null, '测试区安全设备', null);
+INSERT INTO `machine_infos` VALUES ('1158', '人行加密机sjj1127', '加密机', 'KFQ00C512', '江南科友', 'SJJ1127', '6', 'A04', '35', '35', null, null, '4', '3', '王德明', null, '192.168.10.68', null, null, null, null, '1', '20231206关机', null, '测试区安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1159', '开发测试网安全加固', '入侵防御', 'A720-110B-34AE-B90E', '绿盟', 'NIPS NX3 series', '6', 'A04', '32', '33', '2020-04-22', null, '4', '1', '吴君华', null, '6.40.6.30', null, null, null, null, null, null, null, '测试区安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1160', '开发测试网安全加固', '防火墙', '02050501D186000001', '迪普', 'WAF 3000', '6', 'A04', '30', '30', '2020-04-22', null, '4', '1', '吴君华', null, '6.40.6.14', null, null, null, null, null, null, null, '测试区安全设备', null);
 INSERT INTO `machine_infos` VALUES ('1161', '开发测试网安全加固,H3C LS-6861-54QT 开发测试外联接入', '交换机', '210235A3GKH204000031', 'H3C', 'LS-6861-54QT', '6', 'A04', '28', '28', '2020-04-22', null, '4', '1', '彭霄', null, '6.40.6.24', null, null, null, null, null, null, null, '测试区网络设备', null);
@@ -1596,13 +1591,13 @@ INSERT INTO `machine_infos` VALUES ('1209', '未使用，未接网线', '服务�
 INSERT INTO `machine_infos` VALUES ('1210', '开发测试虚拟化服务器', '服务器', '210235A2CR6217F005F1', 'H3C', 'R4900 G3', '6', 'B03', '27', '28', '2021-07-31', '2026-10-29', '4', '1', '晏良', null, '6.40.0.146', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1211', '开发测试虚拟化服务器', '服务器', '210235A2CR6217F005F4', 'H3C', 'R4900 G3', '6', 'B03', '24', '25', '2021-07-31', '2026-10-29', '4', '3', '晏良', null, null, null, null, null, null, null, '未开机', null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1212', '电信诈骗风险交易事件管理平台标准前置机（CF-FEP3100）', '安全设备', 'E5GGUF19006646', '中金国信', 'CF-FEP3100', '6', 'B03', '21', '22', '2021-12-02', null, '4', '1', '晏良/刘志远', null, '6.32.3.65', null, null, null, null, null, null, null, '测试区安全设备', null);
-INSERT INTO `machine_infos` VALUES ('1213', 'oracle数据库', '服务器', '210235A2CRH19A000270', 'H3C', 'R4900 G3', '6', 'B03', '18', '19', '2019-10-15', '2025-01-14', '4', '1', '王德明', null, null, null, null, null, null, null, null, null, '数据库', null);
-INSERT INTO `machine_infos` VALUES ('1214', 'oracle数据库', '服务器', '210235A2CRH19A000269', 'H3C', 'R4900 G3', '6', 'B03', '15', '16', '2019-10-15', '2025-01-14', '4', '1', '王德明', null, null, null, null, null, null, null, null, null, '数据库', null);
+INSERT INTO `machine_infos` VALUES ('1213', 'oracle数据库', '服务器', '210235A2CRH19A000270', 'H3C', 'R4900 G3', '6', 'B03', '18', '19', '2019-10-15', '2025-01-14', '4', '1', '王德明', null, '6.32.4.44', null, '192.168.1.32', null, null, null, null, null, '数据库', null);
+INSERT INTO `machine_infos` VALUES ('1214', 'oracle数据库', '服务器', '210235A2CRH19A000269', 'H3C', 'R4900 G3', '6', 'B03', '15', '16', '2019-10-15', '2025-01-14', '4', '1', '王德明', null, '6.32.4.43', null, null, null, null, null, null, null, '数据库', null);
 INSERT INTO `machine_infos` VALUES ('1215', null, '服务器', 'J3027ZDR', '联想', 'SR650', '6', 'B03', '12', '13', '2020-08-04', '2023-10-05', '4', '1', '晏良', null, '6.32.3.50', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('1216', '源代码检测', '服务器', '717203013', '浪潮', 'NF5270M4', '6', 'B03', '9', '10', '2017-07-18', '2020-08-31', '4', '1', '张杭', null, '6.32.3.29', null, null, null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('1217', '网银开发', '服务器', null, '联想', '台式机', '6', 'B03', '1', '3', null, null, '4', '1', '晏良', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `machine_infos` VALUES ('1218', '开发测试虚拟化服务器', '服务器', 'J303LHXK', '联想', 'SR860', '6', 'B04', '30', '33', '2021-08-21', '2026-10-25', '4', '1', '晏良', null, '6.40.0.143', null, null, null, null, null, null, null, '开发测试虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1219', '开发测试虚拟化服务器', '服务器', 'J303LHXF', '联想', 'SR860', '6', 'B04', '25', '28', '2021-08-21', '2026-10-25', '4', '1', '晏良', null, '6.40.0.142', null, null, null, null, null, null, null, '开发测试虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1217', '网银开发', '服务器', null, '联想', '台式机', '6', 'B03', '1', '3', null, null, '4', '1', '晏良', null, null, null, null, null, null, '1', null, null, null, null);
+INSERT INTO `machine_infos` VALUES ('1218', '开发测试虚拟化服务器', '服务器', 'J303LHXF', '联想', 'SR860', '6', 'B04', '30', '33', '2021-08-21', '2026-10-25', '4', '1', '晏良', null, '6.40.0.143', null, null, null, null, null, null, null, '开发测试虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1219', '开发测试虚拟化服务器', '服务器', 'J303LHXK', '联想', 'SR860', '6', 'B04', '25', '28', '2021-08-21', '2026-10-25', '4', '1', '晏良', null, '6.40.0.142', null, null, null, null, null, null, null, '开发测试虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1220', 'HMC控制台', '服务器', 'KD6P4CF', '联想', 'X3550M5', '6', 'B04', '23', '23', '2014-06-30', '2017-06-29', '4', '1', '周中秋', null, '6.40.11.1', null, null, null, null, null, null, null, 'HMC', null);
 INSERT INTO `machine_infos` VALUES ('1221', '开发测试小机', '小型机', '211AADW', 'IBM', 'POWER S824', '6', 'B04', '17', '20', '2020-09-16', null, '4', '1', '周中秋', null, '6.40.11.5', null, null, null, null, null, null, null, '开发测试小机', null);
 INSERT INTO `machine_infos` VALUES ('1222', '开发测试小机', '小型机', '21729FV', 'IBM', 'POWER S824', '6', 'B04', '12', '15', '2020-09-16', null, '4', '1', '周中秋', null, '6.40.11.4', null, null, null, null, null, null, null, '开发测试小机', null);
@@ -1628,8 +1623,8 @@ INSERT INTO `machine_infos` VALUES ('1241', '绿盟远程安全评估系统(安�
 INSERT INTO `machine_infos` VALUES ('1242', '智能语音GPU服务器', '服务器', 'J30AA73H', '联想', 'SR650', '6', 'B08', '9', '10', '2022-07-11', '2027-09-16', '4', '4', '谭志浩', null, '6.32.3.101', null, null, null, '2023-04-20', null, '20230420搬迁至一中心', null, null, null);
 INSERT INTO `machine_infos` VALUES ('1243', '电子支付密码验证服务器', '服务器', '06FWWRW', '联想', 'X3650 M5', '6', 'B08', '6', '7', '2017-02-27', '2020-02-26', '4', '1', '许鹏', null, '6.32.3.102', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('1244', '长沙测试区DNS-T7100', 'DNS设备', null, 'ZDNS', 'T7100', '6', 'B08', '3', '4', '2017-11-23', null, '4', '1', '彭霄', null, null, null, null, null, null, null, null, null, '测试区网络设备', null);
-INSERT INTO `machine_infos` VALUES ('1245', 'VDIS3 HR-VDI-10GS3', '交换机', null, 'H3C', 'S6800', '6', 'C01', '40', '40', null, null, '4', '1', '彭霄', null, '6.40.9.253', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1246', null, '交换机', null, 'H3C', 'S6800', '6', 'C01', '38', '38', null, null, '4', '1', '彭霄', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1245', 'VDIS3 HR-VDI-10GS3', '交换机', null, 'H3C', 'S6800', '6', 'C01', '40', '40', null, null, '4', '1', '李文哲', null, '6.40.9.253', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1246', null, '交换机', null, 'H3C', 'S6800', '6', 'C01', '38', '38', null, null, '4', '1', '李文哲', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1247', 'Vmhost74 HR-VDI-74', '服务器', '210235A2CR6218F00548', 'H3C', 'R4900 G3', '6', 'C01', '32', '33', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.74', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1248', 'Vmhost73 HR-VDI-73', '服务器', '210235A2CR6218F00549', 'H3C', 'R4900 G3', '6', 'C01', '30', '31', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.73', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1249', 'Vmhost72 HR-VDI-72', '服务器', '210235A2CR6218F0054G', 'H3C', 'R4900 G3', '6', 'C01', '28', '29', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.72', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
@@ -1639,14 +1634,14 @@ INSERT INTO `machine_infos` VALUES ('1252', 'Vmhost64 HR-VDI-64', '服务器', '
 INSERT INTO `machine_infos` VALUES ('1253', 'Vmhost63 HR-VDI-63', '服务器', '210235A2CR6218F0054B', 'H3C', 'R4900 G3', '6', 'C01', '18', '19', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.63', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1254', 'Vmhost62 HR-VDI-62', '服务器', '210235A2CR6218F0054H', 'H3C', 'R4900 G3', '6', 'C01', '15', '16', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.62', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1255', 'Vmhost61 HR-VDI-61', '服务器', '210235A2CR6218F0054F', 'H3C', 'R4900 G3', '6', 'C01', '12', '13', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, '6.40.9.61', null, null, null, null, null, null, null, '开发桌面虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1256', '分行管理室 H3C SecPath F1030', '安全设备', null, 'H3C', 'secpath F1030', '6', 'C01', '10', '10', null, null, '4', '1', '向宇', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1257', '分行管理室安全审计系统', '安全审计', null, 'H3C', 'secpath ACG1000-3E', '6', 'C01', '8', '8', null, null, '4', '1', '向宇', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1258', '分行管理室 H3C WX2560H', '安全设备', null, 'H3C', 'WX2560H', '6', 'C01', '6', '6', null, null, '4', '1', '向宇', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1256', '分行管理室 H3C SecPath F1030', '安全设备', null, 'H3C', 'secpath F1030', '6', 'C01', '10', '10', null, null, '4', '1', '李文哲', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1257', '分行管理室安全审计系统', '安全审计', null, 'H3C', 'secpath ACG1000-3E', '6', 'C01', '8', '8', null, null, '4', '1', '李文哲', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
+INSERT INTO `machine_infos` VALUES ('1258', '分行管理室 H3C WX2560H', '安全设备', null, 'H3C', 'WX2560H', '6', 'C01', '6', '6', null, null, '4', '1', '李文哲', null, null, null, null, null, null, '1', null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1259', '分行管理室 H3C R4900 win2008', '服务器', '210200A00JN16C001407', 'H3C', 'R4900 G2', '6', 'C01', '3', '4', '2017-01-05', '2020-04-05', '4', '1', '向宇', null, '6.32.3.240', null, null, null, null, null, '分行管理室', null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1260', 'Vmhost75 HR-VDI-75', '服务器', '210235A2CR6218F00547', 'H3C', 'R4900 G3', '6', 'C02', '36', '37', '2021-09-03', '2024-12-02', '4', '1', '向宇', null, null, null, null, null, null, null, '分行管理室', null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1261', '开发桌面虚拟化存储扩展柜VDIBackupStorage2-1 HR-BakNAS-08-1', '磁盘阵列', 'SGH137VCQG', 'HPE', 'D3610 Enclosure', '6', 'C02', '34', '35', '2021-10-20', '2024-11-21', '4', '1', '向宇', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1262', '开发桌面虚拟化存储VDIBackupStorage2 HR-BakNAS-08', '磁盘阵列', 'SGH137VCQG', 'HPE', 'StoreEasy 1660', '6', 'C02', '32', '33', '2021-10-20', '2024-11-21', '4', '1', '向宇', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
-INSERT INTO `machine_infos` VALUES ('1263', '吉大正元数字签名服务器', '数字签名', 'AT21031901', '吉大正元', 'V3000-5', '6', 'C02', '15', '17', null, null, '4', '1', '吴君华', null, null, null, null, null, null, '1', null, null, '数字签名服务器', null);
+INSERT INTO `machine_infos` VALUES ('1263', '吉大正元数字签名服务器', '数字签名', 'AT21031901', '吉大正元', 'V3000-5', '6', 'C02', '15', '17', null, null, '4', '1', '廖松荣', null, '6.32.6.200', null, null, null, null, '1', null, null, '数字签名服务器', null);
 INSERT INTO `machine_infos` VALUES ('1264', '分行管理室 应用系统交互式安全检测工具', '安全设备', null, '默安科技', null, '6', 'C02', '5', '6', null, null, '4', '1', '向宇', null, '6.32.3.35', null, null, null, null, null, null, null, null, null);
 INSERT INTO `machine_infos` VALUES ('1265', '分行管理室', '交换机', null, 'H3C', 'S5130', '6', 'C03', '41', '41', null, null, '4', '1', '彭霄', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
 INSERT INTO `machine_infos` VALUES ('1266', '分行管理室', '交换机', null, 'H3C', 'S5130', '6', 'C03', '39', '39', null, null, '4', '1', '彭霄', null, null, null, null, null, null, null, null, null, '开发桌面虚拟化', null);
@@ -1709,7 +1704,7 @@ INSERT INTO `machine_infos` VALUES ('2021', '异地灾备华为6800V5存储', '�
 INSERT INTO `machine_infos` VALUES ('2022', '灾备虚拟带库6900', '虚拟带库', 'DE410223775222', 'EMC', 'DD6900', '7', 'A07', '3', '20', '2022-12-01', null, '3', '1', '周中秋', '周中秋', '6.120.0.30', null, '6.123.253.33/34', null, null, null, null, null, '异地灾备', null);
 INSERT INTO `machine_infos` VALUES ('2023', '医保基金财务电子凭证库系统数字签名服务器', '数字签名', 'LZ22080924', '吉大正元', 'V3000-S', '6', 'A07', '5', '7', '2022-10-21', '2025-10-21', '4', '1', '廖松嵘', '', '6.32.3.105', '', '', '2023-05-11', null, '0', '廖松嵘带厂商人员安装，（临时使用）', null, null, null);
 INSERT INTO `machine_infos` VALUES ('2025', '迈普信创生产区域流量镜像交换机', '交换机', 'D643-211472000006', 'MAIPU', 'T6100', '1', 'C01', '24', '24', '2000-01-01', '2000-01-01', '1', '1', '吴君华', '吴君华', '', '', '172.250.128.30', '2023-05-24', null, '0', '20230525上架信创生产区域流量镜像', '', '', null);
-INSERT INTO `machine_infos` VALUES ('2026', '迈普信创生产区域流量镜像交换机', '交换机', 'D643-225471200039', 'MAIPU', 'T6100', '1', 'C02', '24', '24', '2000-01-01', '2000-01-01', '1', '1', '吴君华', '吴君华', '', '', '172.250.128.31', '2023-05-24', null, '0', '信创生产区域流量镜像交换机', '', '', null);
+INSERT INTO `machine_infos` VALUES ('2026', '迈普信创生产区域流量镜像交换机', '交换机', 'D643-225471200039', 'MAIPU', 'T6100', '1', 'B09', '4', '4', '2000-01-01', '2000-01-01', '1', '1', '吴君华', '吴君华', '', '', '172.250.128.31', '2023-05-24', null, '0', '20121122吴君华安排移动至B09', '', '', null);
 INSERT INTO `machine_infos` VALUES ('2027', '邮件网关-亚信安全', '安全设备', '8CZ1WC3', '亚信', 'DDEI-EE680', '2', 'B15', '1', '1', '2021-03-12', '2024-06-14', '2', '1', '王博文', '王博文', '6.37.0.230', '', '', '2023-06-06', null, '0', 'DMZ区域，借用设备临时使用2个月', '', '邮件网关', null);
 INSERT INTO `machine_infos` VALUES ('2028', '攻防演练全流量分析系统-新一代威胁感知系统', '安全设备', 'EF10000293', '奇安信', 'TY-TSS10000', '3', 'B10', '1', '2', '2023-06-08', '2023-06-08', '1', '1', '王博文', '王博文', '6.40.7.54', '', '', '2023-06-08', null, '0', '安全室：演练临时借用设备', '', '新一代威胁感知系统', null);
 INSERT INTO `machine_infos` VALUES ('2029', '方向标邮件网关服务器', '安全设备', 'W96012207002349', '北京方向标', '方向标邮件网关', '2', 'B14', '1', '2', '2023-06-12', '2023-06-12', '0', '1', '王博文', '王博文', '6.37.0.231', '', '', '2023-06-12', null, '0', '临时借用', '', '邮件网关服务器', null);
@@ -1743,15 +1738,47 @@ INSERT INTO `machine_infos` VALUES ('2059', 'SLB资源池区负载资源池1应�
 INSERT INTO `machine_infos` VALUES ('2060', '灾备图形前端系统应用服务器2', '服务器', '210235A2CR6217F005F8', 'H3C', 'R4900 G3', '2', 'B03', '14', '15', '2021-07-31', '2026-10-29', '3', '1', '张杭', '潘定金', '', '', '6.40.16.16', '2023-10-08', null, '0', '20231008由华讯上架安装', '2021092415394664920009', '图形前端系统', null);
 INSERT INTO `machine_infos` VALUES ('2061', '灾备图形前端系统应用服务器3', '服务器', '210235A2CR6217F005FC', 'H3C', 'R4900 G3', '2', 'B04', '14', '15', '2021-07-31', '2026-10-29', '3', '1', '张杭', '潘定金', '', '', '6.40.16.17', '2023-10-08', null, '0', '20231008由华讯上架安装', '2021092415394664920009', '图形前端系统', null);
 INSERT INTO `machine_infos` VALUES ('2062', '生产业务区入侵检测设备01', '入侵防御', '0113211904089997', '启明星辰', 'NGIPS5000', '3', 'C05', '37', '38', '2000-01-01', '2000-01-01', '3', '1', '吴君华', '吴君华', '', '', '172.250.15.241', '2023-10-08', null, '0', '20231008由华讯上架安装，原湘潭利旧设备', '', '', null);
-INSERT INTO `machine_infos` VALUES ('2063', '科来 镜像网NPM探针和管理平台01', '其它网络设备', 'PHCS2306SX201905300004', '科来', 'CS2306SX-HR', '3', 'B02', '1', '2', '2000-01-01', '2000-01-01', '3', '1', '吴君华', '吴君华', '', '', '172.250.15.242', '2023-10-08', null, '0', '20231008由华讯上架安装，原湘潭利旧设备', '', '', null);
+INSERT INTO `machine_infos` VALUES ('2063', '科来 镜像网NPM探针和管理平台01', '其它网络设备', 'PHCS2306SX201905300004', '科来', 'CS2306SX-HR', '3', 'B02', '2', '3', '2000-01-01', '2000-01-01', '3', '1', '吴君华', '吴君华', '', '', '172.250.15.242', '2023-10-08', null, '0', '20231008由华讯上架安装，原湘潭利旧设备', '', '', null);
 INSERT INTO `machine_infos` VALUES ('2064', '数据库防火墙', '安全审计', '01020016912923', '中安威士', 'VS-FW-5000', '1', 'B10', '3', '4', '2000-01-01', '2000-01-01', '1', '1', '王德明', '', '', '', '', '2000-01-01', null, '0', '', '', null, null);
-INSERT INTO `machine_infos` VALUES ('2065', '信创防火墙1', '防火墙', '02051526D26D22A000002', '紫光', 'F5000-CN40', '1', 'C01', '17', '18', '2023-01-16', '2000-01-01', '1', '1', '吴君华', '', '', '', '172.250.128.19', '2000-01-01', null, '0', '', '', '信创测试区', null);
+INSERT INTO `machine_infos` VALUES ('2065', '信创防火墙1', '防火墙', '210235A3BLB229000031', '紫光', 'F5000-CN40', '1', 'C01', '17', '18', '2023-01-16', '2000-01-01', '1', '1', '吴君华', '', '', '', '172.250.128.19', '2000-01-01', null, '0', '', '', '信创测试区', null);
 INSERT INTO `machine_infos` VALUES ('2066', '灾备新核心账务系统服务器1', '服务器', '210235A3KHH226000597/210200A00VH227000205', 'H3C', '6900G3', '2', 'B01', '2', '5', '2022-08-08', '2027-11-06', '3', '1', '张杭', '', '', '', '', '2023-10-13', null, '0', '由一中心搬至二中心灾备用', '', '灾备新核心账务系统', null);
 INSERT INTO `machine_infos` VALUES ('2067', '灾备新核心账务系统服务器2', '服务器', '21A7E6551', '浪潮', 'NF8480M5', '2', 'B02', '2', '5', '2022-07-01', '2027-07-01', '3', '1', '张杭', '', '', '', '', '2023-10-13', null, '0', '由一中心搬至二中心灾备用', '', '灾备新核心账务系统', null);
 INSERT INTO `machine_infos` VALUES ('2068', 'swift开发VPN1', '安全设备', 'DS0723AN0026', 'Juniper', 'SRX345', '6', 'A04', '39', '39', '2023-02-20', '2026-02-20', '4', '1', '陈柏', '', '', '', '', '2023-10-17', null, '0', '2023/10/17上架安装', '', '开发swift', null);
 INSERT INTO `machine_infos` VALUES ('2069', 'swift开发VPN2', '安全设备', 'DS0723AN0019', 'Juniper', 'SRX345', '6', 'A05', '39', '39', '2023-02-20', '2026-02-20', '4', '1', '陈柏', '', '', '', '', '2023-10-17', null, '0', '2023/10/17上架安装', '', '开发 swift', null);
 INSERT INTO `machine_infos` VALUES ('2070', '国库电子华测试-吉大正元数字签名', '数字签名', 'LZ22040140', '吉大正元', 'V5000-C', '6', 'A07', '13', '15', '2000-01-01', '2000-01-01', '4', '1', '', '', '6.32.3.10', '', '', '2000-01-19', null, '0', '', '', null, null);
-INSERT INTO `machine_infos` VALUES ('2071', '异地灾备HMC', '服务器', '06ZFCY9', 'IBM', 'X3550', '7', 'A05', '15', '15', '2000-01-01', '2000-01-01', '3', '1', '', '', '6.123.253.30', '', '', '2000-01-23', null, '0', '20231020搬迁至郴州', '', '异地HMC', null);
+INSERT INTO `machine_infos` VALUES ('2071', '异地灾备HMC(新上架)', '服务器', '06ZFCY9', 'IBM', 'X3550', '7', 'A05', '15', '15', '2000-01-01', '2000-01-01', '3', '1', '周中秋', '周中秋', '6.123.253.30', '', '', '2023-10-20', null, '1', '20231020搬迁至郴州', '', '异地HMC', null);
+INSERT INTO `machine_infos` VALUES ('2072', '灾备核心应用1', '服务器', '210235A3KHH227000032', 'H3C', 'R6900 G3', '2', 'B01', '7', '10', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.8', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2073', '灾备核心应用2', '服务器', '210235A3KHH227000050', 'H3C', 'R6900 G3', '2', 'B01', '12', '15', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.9', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2074', '灾备核心应用3', '服务器', '210235A3KHH227000009', 'H3C', 'R6900 G3', '2', 'B01', '17', '20', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.13', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2075', '灾备核心应用4', '服务器', '210235A3KHH227000027', 'H3C', 'R6900 G3', '2', 'B02', '7', '10', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.10', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2076', '灾备核心应用5', '服务器', '210235A3KHH227000002', 'H3C', 'R6900 G3', '2', 'B02', '12', '15', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.11', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2077', '灾备核心应用6', '服务器', '210235A3KHH227000010', 'H3C', 'R6900 G3', '2', 'B02', '17', '20', '2022-07-22', '2027-10-20', '3', '1', '周中秋', '', '', '', '6.40.16.14', '2023-10-26', null, '0', '20231026上架临时给灾备核心应用用', '', '灾备核心应用', null);
+INSERT INTO `machine_infos` VALUES ('2078', '灾备数据库RAC1', '服务器', '210235A3KHH227000031', 'H3C', 'R6900 G3', '4', 'B02', '2', '5', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.18', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2079', '灾备数据库RAC2', '服务器', '210235A3KHH227000016', 'H3C', 'R6900 G3', '4', 'B02', '7', '10', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.19', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2080', '灾备数据库RAC3', '服务器', '210235A3KHH227000028', 'H3C', 'R6900 G3', '4', 'B02', '12', '15', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.20', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2081', '灾备数据库RAC4', '服务器', '210235A3KHH227000033', 'H3C', 'R6900 G3', '4', 'B02', '17', '20', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.21', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2082', '灾备数据库RAC5', '服务器', '210235A3KHH227000001', 'H3C', 'R6900 G3', '4', 'B02', '22', '25', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.22', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2083', '灾备数据库RAC6', '服务器', '210235A3KHH227000004', 'H3C', 'R6900 G3', '4', 'B02', '27', '30', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.23', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2084', '灾备数据库RAC7', '服务器', '210235A3KHH227000014', 'H3C', 'R6900 G3', '4', 'B03', '2', '5', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.24', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2085', '灾备数据库RAC8', '服务器', '210235A3KHH227000025', 'H3C', 'R6900 G3', '4', 'B03', '7', '10', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.25', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2086', '灾备数据库RAC9', '服务器', '210235A3KHH227000012', 'H3C', 'R6900 G3', '4', 'B03', '12', '15', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.26', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2087', '灾备数据库RAC10', '服务器', '210235A3KHH227000047', 'H3C', 'R6900 G3', '4', 'B03', '17', '20', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.27', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2088', '灾备数据库RAC11', '服务器', '210235A3KHH227000011', 'H3C', 'R6900 G3', '4', 'B03', '22', '25', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.28', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2089', '灾备数据库RAC12', '服务器', '210235A3KHH227000013', 'H3C', 'R6900 G3', '4', 'B03', '27', '30', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.29', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2090', '灾备数据库RAC13', '服务器', '210235A3KHH227000008', 'H3C', 'R6900 G3', '4', 'B04', '2', '5', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.30', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2091', '灾备数据库RAC14', '服务器', '210235A3KHH227000030', 'H3C', 'R6900 G3', '4', 'B04', '7', '10', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.31', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2092', '灾备数据库RAC15', '服务器', '210235A3KHH227000003', 'H3C', 'R6900 G3', '4', 'B04', '12', '15', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.32', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2093', '灾备数据库RAC16', '服务器', '210235A3KHH227000036', 'H3C', 'R6900 G3', '4', 'B04', '17', '20', '2022-07-22', '2027-10-20', '3', '1', '王德明', '', '', '', '6.40.16.33', '2023-10-26', null, '0', '20231026上架灾备数据库RAC', '', '灾备数据库RAC', null);
+INSERT INTO `machine_infos` VALUES ('2094', '宿主机-26 计算节点', '服务器', 'PR212K231019SZ00170', '宝德', 'PR212K', '1', 'C08', '15', '16', '2023-10-28', '2026-11-01', '4', '1', '晏良', '晏良', '', '', '172.250.129.75', '2023-11-01', null, '0', '20231101电信公司上架', '', '信创', null);
+INSERT INTO `machine_infos` VALUES ('2095', '宿主机-25 计算节点', '服务器', 'PR212K231019SZ00174', '宝德', 'PR212K', '1', 'C08', '12', '13', '2023-10-28', '2026-11-01', '4', '1', '晏良', '晏良', '', '', '172.250.129.76', '2023-11-01', null, '0', '20231101电信公司上架', '', '信创', null);
+INSERT INTO `machine_infos` VALUES ('2096', '宿主机-24 计算节点', '服务器', 'PR212K231019SZ00169', '宝德', 'PR212K', '1', 'C08', '9', '10', '2023-10-28', '2026-11-01', '4', '1', '晏良', '晏良', '', '', '172.250.129.77', '2023-11-01', null, '0', '20231101电信公司上架', '', '信创', null);
+INSERT INTO `machine_infos` VALUES ('2097', '一中心生产业务一区接入交换机10', '交换机', '102266066537', '华为', 'CE6863', '2', 'B03', '28', '28', '2022-10-23', '2025-11-22', '1', '1', '吴君华', '吴君华', '', '', '172.250.15.15', '2023-11-09', null, '0', '20231107华讯上架', '', '', null);
+INSERT INTO `machine_infos` VALUES ('2098', '一中心生产业务一区接入交换机9', '交换机', '102266066539', '华为', 'CE6863', '2', 'B02', '28', '28', '2022-10-23', '2025-11-22', '1', '1', '吴君华', '吴君华', '', '', '172.250.15.15', '2023-11-07', null, '0', '20231107华讯上架', '', '', null);
+INSERT INTO `machine_infos` VALUES ('2099', '集中化作业防火墙-分行管理室', '防火墙', 'NT00465980', '启明星辰', 'USG-FW-4000', '3', 'A01', '3', '3', '2000-01-01', '2000-01-01', '6', '1', '李文哲', '', '', '', '', '2023-11-22', null, '0', '20231122彭宵安排李师定重新上架,设备由一中心搬入', '20221206105024315-7-0003', '分行管理室-集中化作业', null);
+INSERT INTO `machine_infos` VALUES ('2100', '人工智能测试环境1', '服务器', 'J8000LCY', '联想', 'SR660 V2', '6', 'B08', '23', '24', '2023-11-17', '2029-01-15', '4', '1', '张杭', '李宗真', '6.32.3.71', '', '6.40.3.60', '2023-12-06', null, '0', '张杭安排联想工程师上架', '', '人工智能测试', null);
+INSERT INTO `machine_infos` VALUES ('2101', '人工智能测试环境2', '服务器', 'J8000LCZ', '联想', 'SR660 V2', '6', 'B08', '26', '27', '2023-11-17', '2029-01-15', '4', '1', '张杭', '李宗真', '6.32.3.72', '', '6.40.3.61', '2023-12-06', null, '0', '张杭安排联想工程师上架', '', '人工智能测试', null);
+INSERT INTO `machine_infos` VALUES ('2102', '人工智能测试环境3', '服务器', 'J8000LCX', '联想', 'SR660 V2', '6', 'B08', '29', '30', '2023-11-17', '2029-01-15', '4', '1', '张杭', '李宗真', '6.32.3.73', '', '6.40.3.62', '2023-12-06', null, '0', '张杭安排联想工程师上架', '', '人工智能测试', null);
+INSERT INTO `machine_infos` VALUES ('2103', '人工智能测试环境4', '服务器', 'J8000LD0', '联想', 'SR660 V2', '6', 'B08', '32', '33', '2023-11-17', '2029-01-15', '4', '1', '张杭', '李宗真', '6.32.3.74', '', '6.40.3.63', '2023-12-06', null, '0', '张杭安排联想工程师上架', '', '人工智能测试', null);
 
 -- ----------------------------
 -- Table structure for machine_password
@@ -1769,11 +1796,41 @@ CREATE TABLE `machine_password` (
   `machine_id` int DEFAULT NULL COMMENT '设备id',
   `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of machine_password
 -- ----------------------------
+INSERT INTO `machine_password` VALUES ('77', '灾备核心应用1', '6.40.16.8', '210235A3KHH227000032', '5-2', 'admin', 'Password@_', '0', '2072', '带外');
+INSERT INTO `machine_password` VALUES ('78', '灾备核心应用2', '6.40.16.9', '210235A3KHH227000050', '5-2', 'admin', 'Password@_', '0', '2073', '带外');
+INSERT INTO `machine_password` VALUES ('79', '灾备核心应用3', '6.40.16.13', '210235A3KHH227000009', '5-2', 'admin', 'Password@_', '0', '2074', '带外');
+INSERT INTO `machine_password` VALUES ('80', '灾备核心应用4', '6.40.16.10', '210235A3KHH227000027', '5-2', 'admin', 'Password@_', '0', '2075', '带外');
+INSERT INTO `machine_password` VALUES ('81', '灾备核心应用5', '6.40.16.11', '210235A3KHH227000002', '5-2', 'admin', 'Password@_', '0', '2076', '');
+INSERT INTO `machine_password` VALUES ('82', '灾备核心应用6', '6.40.16.14', '210235A3KHH227000010', '5-2', 'admin', 'Password@_', '0', '2077', '带外');
+INSERT INTO `machine_password` VALUES ('83', '灾备数据库RAC1', '6.40.16.18', '210235A3KHH227000031', '5-4', 'admin', 'Password@_', '0', '2078', '带外');
+INSERT INTO `machine_password` VALUES ('84', '灾备数据库RAC2', '6.40.16.19', '210235A3KHH227000016', '5-4', 'admin', 'Password@_', '0', '2079', '带外');
+INSERT INTO `machine_password` VALUES ('85', '灾备数据库RAC3', '6.40.16.20', '210235A3KHH227000028', '5-4', 'admin', 'Password@_', '0', '2080', '带外');
+INSERT INTO `machine_password` VALUES ('86', '灾备数据库RAC4', '6.40.16.21', '210235A3KHH227000033', '5-4', 'admin', 'Password@_', '0', '2081', '带外');
+INSERT INTO `machine_password` VALUES ('87', '灾备数据库RAC5', '6.40.16.22', '210235A3KHH227000001', '5-4', 'admin', 'Password@_', '0', '2082', '带外');
+INSERT INTO `machine_password` VALUES ('88', '灾备数据库RAC6', '6.40.16.23', '210235A3KHH227000004', '5-4', 'admin', 'Password@_', '0', '2083', '带外');
+INSERT INTO `machine_password` VALUES ('89', '灾备数据库RAC7', '6.40.16.24', '210235A3KHH227000014', '5-4', 'admin', 'Password@_', '0', '2084', '带外');
+INSERT INTO `machine_password` VALUES ('90', '灾备数据库RAC8', '6.40.16.25', '210235A3KHH227000025', '5-4', 'admin', 'Password@_', '0', '2085', '带外');
+INSERT INTO `machine_password` VALUES ('91', '灾备数据库RAC9', '6.40.16.26', '210235A3KHH227000012', '5-4', 'admin', 'Password@_', '0', '2086', '带外');
+INSERT INTO `machine_password` VALUES ('92', '灾备数据库RAC10', '6.40.16.27', '210235A3KHH227000047', '5-4', 'admin', 'Password@_', '0', '2087', '带外');
+INSERT INTO `machine_password` VALUES ('93', '灾备数据库RAC11', '6.40.16.28', '210235A3KHH227000011', '5-4', 'admin', 'Password@_', '0', '2088', '带外');
+INSERT INTO `machine_password` VALUES ('94', '灾备数据库RAC12', '6.40.16.29', '210235A3KHH227000013', '5-4', 'admin', 'Password@_', '0', '2089', '带外');
+INSERT INTO `machine_password` VALUES ('95', '灾备数据库RAC13', '6.40.16.30', '210235A3KHH227000008', '5-4', 'admin', 'Password@_', '0', '2090', '带外');
+INSERT INTO `machine_password` VALUES ('96', '灾备数据库RAC14', '6.40.16.31', '210235A3KHH227000030', '5-4', 'admin', 'Password@_', '0', '2091', '带外');
+INSERT INTO `machine_password` VALUES ('97', '灾备数据库RAC15', '6.40.16.32', '210235A3KHH227000003', '5-4', 'admin', 'Password@_', '0', '2092', '带外');
+INSERT INTO `machine_password` VALUES ('98', '灾备数据库RAC16', '6.40.16.33', '210235A3KHH227000036', '5-4', 'admin', 'Password@_', '0', '2093', '带外');
+INSERT INTO `machine_password` VALUES ('99', '新核心开发测试环境新核心服务器4', '6.34.56.55', 'FR9FYF3', '5-1', 'root', 'hrxj123', '0', '286', '系统密码');
+INSERT INTO `machine_password` VALUES ('100', '新核心开发测试环境新核心服务器4', '6.40.13.88', 'FR9FYF3', '5-1', 'root', 'dell123', '0', '286', 'IDRAC账号信息');
+INSERT INTO `machine_password` VALUES ('101', '人工智能测试环境1', '6.40.3.60', 'J8000LCY', '6-2', 'USERID', 'admin1234', '0', '2100', '带外IMM信息');
+INSERT INTO `machine_password` VALUES ('102', '人工智能测试环境2', '6.40.3.61', 'J8000LCZ', '6-2', 'USERID', 'admin1234', '0', '2101', 'IMM信息');
+INSERT INTO `machine_password` VALUES ('103', '人工智能测试环境3', '6.40.3.62', 'J8000LCX', '6-2', 'USERID', 'admin1234', '0', '2102', 'imm信息');
+INSERT INTO `machine_password` VALUES ('104', '人工智能测试环境4', '6.40.3.63', 'J8000LD0', '6-2', 'USERID', 'admin1234', '0', '2103', 'IMM信息');
+INSERT INTO `machine_password` VALUES ('105', '云原生业务性能监控系统', '6.40.3.64', 'J31KZGN', '6-2', 'USERID', 'PASSW0RD', '0', '979', '');
+INSERT INTO `machine_password` VALUES ('106', '核心年终决算演练跑批', '6.40.3.65', 'J31KZGK', '6-2', 'USERID', 'PASSW0RD', '0', '980', 'imm');
 
 -- ----------------------------
 -- Table structure for machine_room
@@ -1927,6 +1984,25 @@ INSERT INTO `manufacturer` VALUES ('56', '微步', null);
 INSERT INTO `manufacturer` VALUES ('57', '北京方向标', null);
 
 -- ----------------------------
+-- Table structure for organization
+-- ----------------------------
+DROP TABLE IF EXISTS `organization`;
+CREATE TABLE `organization` (
+  `org_id` int NOT NULL AUTO_INCREMENT COMMENT '公司ID',
+  `org_name` varchar(255) NOT NULL COMMENT '公司名称',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`org_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='单位信息表';
+
+-- ----------------------------
+-- Records of organization
+-- ----------------------------
+INSERT INTO `organization` VALUES ('1', '银信科技', '北京银信长远科技股份有限公司');
+INSERT INTO `organization` VALUES ('2', '维诺西', null);
+INSERT INTO `organization` VALUES ('3', 'dell EMC', null);
+INSERT INTO `organization` VALUES ('4', '天矶科技', null);
+
+-- ----------------------------
 -- Table structure for shelf_manage
 -- ----------------------------
 DROP TABLE IF EXISTS `shelf_manage`;
@@ -1941,7 +2017,7 @@ CREATE TABLE `shelf_manage` (
   PRIMARY KEY (`id`),
   KEY `shelf_manage_ibfk_machina_id` (`machine_id`),
   CONSTRAINT `shelf_manage_ibfk_machina_id` FOREIGN KEY (`machine_id`) REFERENCES `machine_infos` (`machine_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- Records of shelf_manage
@@ -1985,19 +2061,16 @@ INSERT INTO `shelf_manage` VALUES ('64', '444', '2', '周立', '2023-08-23', nul
 INSERT INTO `shelf_manage` VALUES ('65', '445', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('66', '446', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('67', '447', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
-INSERT INTO `shelf_manage` VALUES ('68', '449', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
-INSERT INTO `shelf_manage` VALUES ('69', '451', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('70', '457', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('71', '458', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('72', '459', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('73', '460', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('74', '461', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
-INSERT INTO `shelf_manage` VALUES ('75', '463', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('76', '464', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('77', '470', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('78', '474', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
 INSERT INTO `shelf_manage` VALUES ('79', '479', '2', '周立', '2023-08-23', null, '吴君华安排谢刚、华讯公司下架到706房间');
-INSERT INTO `shelf_manage` VALUES ('80', '439', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
+INSERT INTO `shelf_manage` VALUES ('80', '439', '3', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('81', '448', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('82', '452', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('83', '455', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
@@ -2012,7 +2085,7 @@ INSERT INTO `shelf_manage` VALUES ('91', '475', '2', '周立', '2023-08-24', nul
 INSERT INTO `shelf_manage` VALUES ('92', '476', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('93', '477', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('94', '478', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
-INSERT INTO `shelf_manage` VALUES ('95', '480', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
+INSERT INTO `shelf_manage` VALUES ('95', '480', '3', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('96', '481', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('97', '482', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
 INSERT INTO `shelf_manage` VALUES ('98', '753', '2', '周立', '2023-08-24', null, '20230824下架至706房间');
@@ -2020,8 +2093,6 @@ INSERT INTO `shelf_manage` VALUES ('99', '750', '2', '周立', '2023-08-25', nul
 INSERT INTO `shelf_manage` VALUES ('100', '754', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
 INSERT INTO `shelf_manage` VALUES ('101', '751', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
 INSERT INTO `shelf_manage` VALUES ('102', '755', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
-INSERT INTO `shelf_manage` VALUES ('103', '123', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
-INSERT INTO `shelf_manage` VALUES ('104', '132', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
 INSERT INTO `shelf_manage` VALUES ('105', '494', '2', '周立', '2023-08-25', null, '20230825吴君华安排华讯下架至706');
 INSERT INTO `shelf_manage` VALUES ('108', '2030', '1', '', '2023-08-28', null, '20230829上架安装');
 INSERT INTO `shelf_manage` VALUES ('109', '2031', '1', '华讯', '2023-08-28', null, '20230828上架');
@@ -2060,7 +2131,44 @@ INSERT INTO `shelf_manage` VALUES ('144', '2066', '1', '华讯', '2023-10-13', n
 INSERT INTO `shelf_manage` VALUES ('145', '2067', '1', '华讯', '2023-10-13', null, '由一中心搬至二中心灾备用');
 INSERT INTO `shelf_manage` VALUES ('146', '2068', '1', '吴尚龙', '2023-10-17', null, '2023/10/17上架安装');
 INSERT INTO `shelf_manage` VALUES ('147', '2069', '1', '吴尚龙', '2023-10-17', null, '2023/10/17上架安装');
-INSERT INTO `shelf_manage` VALUES ('148', '2071', '1', '华讯', '2000-01-23', null, '20231020搬迁至郴州');
+INSERT INTO `shelf_manage` VALUES ('148', '2071', '1', '华讯', '2023-10-20', null, '20231020搬迁至郴州');
+INSERT INTO `shelf_manage` VALUES ('159', '2072', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('160', '2073', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('161', '2074', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('162', '2075', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('163', '2076', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('164', '2077', '1', '', '2023-10-26', null, '20231026上架临时给灾备核心应用用');
+INSERT INTO `shelf_manage` VALUES ('165', '2078', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('166', '2079', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('167', '2080', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('168', '2081', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('169', '2082', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('170', '2083', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('171', '2084', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('172', '2085', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('173', '2086', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('174', '2087', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('175', '2088', '1', '', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('176', '2089', '1', '华讯', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('177', '2090', '1', '华讯', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('178', '2091', '1', '华讯', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('179', '2092', '1', '华讯', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('180', '2093', '1', '华讯', '2023-10-26', null, '20231026上架灾备数据库RAC');
+INSERT INTO `shelf_manage` VALUES ('181', '2094', '3', '中电信数智', '2023-11-01', null, '20231101电信公司上架');
+INSERT INTO `shelf_manage` VALUES ('182', '2095', '1', '中电信数智', '2023-11-01', null, '20231101电信公司上架');
+INSERT INTO `shelf_manage` VALUES ('183', '2096', '1', '', '2023-11-01', null, '20231101电信公司上架');
+INSERT INTO `shelf_manage` VALUES ('184', '950', '2', '王柱石', '2023-11-06', null, '下架搬迁至一中心，作日志服务器用');
+INSERT INTO `shelf_manage` VALUES ('185', '2097', '1', '华讯', '2023-11-09', null, '20231107华讯上架');
+INSERT INTO `shelf_manage` VALUES ('186', '2098', '1', '华讯', '2023-11-07', null, '20231107华讯上架');
+INSERT INTO `shelf_manage` VALUES ('187', '2099', '1', '李师定', '2023-11-22', null, '20231122彭宵安排李师定重新上架,设备由一中心搬入');
+INSERT INTO `shelf_manage` VALUES ('188', '510', '2', '华讯', '2023-11-24', null, '20231201下架搬迁至一中心');
+INSERT INTO `shelf_manage` VALUES ('189', '511', '2', '华讯', '2023-11-24', null, '20231201下架搬迁至一中心');
+INSERT INTO `shelf_manage` VALUES ('190', '512', '2', '华讯', '2023-11-24', null, '20231201下架搬迁至一中心');
+INSERT INTO `shelf_manage` VALUES ('191', '978', '2', '张杭', '2023-12-07', null, '下架至706仓库');
+INSERT INTO `shelf_manage` VALUES ('192', '2100', '1', '联想', '2023-12-06', null, '张杭安排联想工程师上架');
+INSERT INTO `shelf_manage` VALUES ('193', '2101', '1', '联想', '2023-12-06', null, '张杭安排联想工程师上架');
+INSERT INTO `shelf_manage` VALUES ('194', '2102', '1', '联想', '2023-12-06', null, '张杭安排联想工程师上架');
+INSERT INTO `shelf_manage` VALUES ('195', '2103', '1', '联想', '2023-12-06', null, '张杭安排联想工程师上架');
 
 -- ----------------------------
 -- Table structure for warranty_infos
@@ -2071,14 +2179,14 @@ CREATE TABLE `warranty_infos` (
   `machine_id` int NOT NULL COMMENT '设备ID',
   `start_date` date DEFAULT NULL COMMENT '维保开始日期',
   `end_date` date DEFAULT NULL COMMENT '维保结束日期',
-  `how_long` int DEFAULT NULL COMMENT '保修时长',
+  `organ` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '维保单位',
   `w_type` int DEFAULT NULL COMMENT '维保类型:0:不确定； 1:原厂保； 2:续保；',
   `is_under` int DEFAULT NULL COMMENT '是否在保内：0未知；1在保内；2已过保',
   `comment` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`w_id`),
   KEY `warranty_infos_FK` (`machine_id`),
   CONSTRAINT `warranty_infos_FK` FOREIGN KEY (`machine_id`) REFERENCES `machine_infos` (`machine_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2095 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='维保信息';
+) ENGINE=InnoDB AUTO_INCREMENT=2176 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='维保信息';
 
 -- ----------------------------
 -- Records of warranty_infos
@@ -2205,7 +2313,6 @@ INSERT INTO `warranty_infos` VALUES ('119', '119', '2021-10-21', null, null, '0'
 INSERT INTO `warranty_infos` VALUES ('120', '120', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('121', '121', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('122', '122', '2021-10-21', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('123', '123', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('124', '124', '2021-11-22', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('125', '125', '2021-11-22', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('126', '126', '2021-10-21', null, null, '0', '0', null);
@@ -2214,7 +2321,6 @@ INSERT INTO `warranty_infos` VALUES ('128', '128', '2021-10-21', null, null, '0'
 INSERT INTO `warranty_infos` VALUES ('129', '129', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('130', '130', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('131', '131', '2021-10-21', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('132', '132', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('133', '133', '2021-11-15', '2024-11-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('134', '134', '2021-10-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('135', '135', '2021-10-21', null, null, '0', '0', null);
@@ -2385,20 +2491,20 @@ INSERT INTO `warranty_infos` VALUES ('300', '300', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('301', '301', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('302', '302', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('303', '303', '2019-04-25', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('304', '304', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('305', '305', '2016-12-31', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('306', '306', '2017-07-18', '2020-08-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('307', '307', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('308', '308', '2017-07-18', '2020-08-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('309', '309', '2017-10-22', '2020-10-21', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('304', '304', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('305', '305', '2016-12-31', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('306', '306', '2017-07-18', '2020-08-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('307', '307', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('308', '308', '2017-07-18', '2020-08-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('309', '309', '2017-10-22', '2020-10-21', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('310', '310', '2018-10-13', '2024-01-11', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('311', '311', '2018-10-13', '2024-01-11', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('312', '312', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('313', '313', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('314', '314', '2019-04-25', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('315', '315', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('316', '316', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('317', '317', '2017-07-18', '2020-08-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('315', '315', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('316', '316', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('317', '317', '2017-07-18', '2020-08-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('318', '318', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('319', '319', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('320', '320', null, null, null, '0', '0', null);
@@ -2413,17 +2519,17 @@ INSERT INTO `warranty_infos` VALUES ('328', '328', '2020-09-07', '2025-10-31', n
 INSERT INTO `warranty_infos` VALUES ('329', '329', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('330', '330', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('331', '331', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('332', '332', '2017-05-03', '2020-05-02', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('333', '333', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('334', '334', '2017-04-28', '2020-04-27', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('332', '332', '2017-05-03', '2020-05-02', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('333', '333', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('334', '334', '2017-04-28', '2020-04-27', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('335', '335', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('336', '336', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('337', '337', '2020-09-07', '2025-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('338', '338', '2020-09-07', '2025-10-31', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('339', '339', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('340', '340', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('341', '341', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('342', '342', '2018-05-05', '2021-06-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('339', '339', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('340', '340', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('341', '341', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('342', '342', '2018-05-05', '2021-06-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('343', '343', '2017-09-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('344', '344', '2017-09-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('345', '345', '2017-09-28', null, null, '0', '0', null);
@@ -2436,16 +2542,16 @@ INSERT INTO `warranty_infos` VALUES ('351', '351', '2017-09-28', null, null, '0'
 INSERT INTO `warranty_infos` VALUES ('352', '352', '2017-09-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('353', '353', '2017-09-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('354', '354', '2017-09-28', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('355', '355', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('356', '356', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('357', '357', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('358', '358', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('359', '359', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('360', '360', '2018-05-05', '2021-06-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('355', '355', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('356', '356', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('357', '357', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('358', '358', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('359', '359', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('360', '360', '2018-05-05', '2021-06-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('361', '361', '2020-05-19', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('362', '362', '2020-09-28', '2025-12-27', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('363', '363', '2020-09-28', '2025-12-27', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('364', '364', '2018-05-05', '2021-06-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('364', '364', '2018-05-05', '2021-06-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('365', '365', '2019-11-13', '2025-02-12', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('366', '366', '2019-11-13', '2025-02-12', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('367', '367', '2019-11-13', '2025-02-12', null, '1', '1', null);
@@ -2464,17 +2570,17 @@ INSERT INTO `warranty_infos` VALUES ('379', '379', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('380', '380', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('381', '381', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('382', '382', '2018-12-08', '2024-02-07', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('383', '383', '2018-05-05', '2021-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('384', '384', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('385', '385', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('386', '386', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('387', '387', '2016-12-26', '2020-01-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('383', '383', '2018-05-05', '2021-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('384', '384', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('385', '385', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('386', '386', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('387', '387', '2016-12-26', '2020-01-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('388', '388', '2018-12-08', '2024-02-07', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('389', '389', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('390', '390', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('391', '391', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('392', '392', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('393', '393', '2016-12-26', '2020-01-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('389', '389', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('390', '390', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('391', '391', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('392', '392', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('393', '393', '2016-12-26', '2020-01-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('394', '394', '2019-11-13', '2025-02-12', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('395', '395', '2019-11-13', '2025-02-12', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('396', '396', '2019-09-25', '2024-11-29', null, '1', '1', null);
@@ -2506,33 +2612,31 @@ INSERT INTO `warranty_infos` VALUES ('421', '421', '2019-06-25', '2024-08-28', n
 INSERT INTO `warranty_infos` VALUES ('422', '422', '2019-06-25', '2024-08-28', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('423', '423', '2019-06-25', '2024-08-28', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('424', '424', '2019-06-25', '2024-08-28', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('425', '425', '2018-09-28', '2019-11-29', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('426', '426', '2018-09-25', '2019-11-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('427', '427', '2018-09-25', '2019-11-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('428', '428', '2018-09-25', '2019-11-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('429', '429', '2018-07-26', '2019-09-25', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('430', '430', '2018-07-26', '2019-09-25', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('431', '431', '2018-03-21', '2021-05-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('432', '432', '2018-03-21', '2021-05-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('433', '433', '2018-03-21', '2021-05-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('434', '434', '2018-03-22', '2021-05-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('435', '435', '2018-03-21', '2021-05-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('436', '436', '2018-03-21', '2021-05-24', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('425', '425', '2018-09-28', '2019-11-29', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('426', '426', '2018-09-25', '2019-11-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('427', '427', '2018-09-25', '2019-11-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('428', '428', '2018-09-25', '2019-11-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('429', '429', '2018-07-26', '2019-09-25', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('430', '430', '2018-07-26', '2019-09-25', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('431', '431', '2018-03-21', '2021-05-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('432', '432', '2018-03-21', '2021-05-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('433', '433', '2018-03-21', '2021-05-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('434', '434', '2018-03-22', '2021-05-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('435', '435', '2018-03-21', '2021-05-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('436', '436', '2018-03-21', '2021-05-24', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('437', '437', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('438', '438', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('439', '439', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('440', '440', '2017-06-11', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('441', '441', '2015-04-09', '2017-04-09', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('441', '441', '2015-04-09', '2017-04-09', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('442', '442', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('443', '443', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('444', '444', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('445', '445', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('446', '446', '2017-06-11', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('447', '447', '2017-06-30', '2017-06-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('447', '447', '2017-06-30', '2017-06-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('448', '448', '2017-06-11', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('449', '449', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('450', '450', '2017-06-11', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('451', '451', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('452', '452', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('453', '453', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('454', '454', null, null, null, '0', '0', null);
@@ -2544,7 +2648,6 @@ INSERT INTO `warranty_infos` VALUES ('459', '459', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('460', '460', '2020-12-26', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('461', '461', '2015-10-31', '2023-11-30', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('462', '462', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('463', '463', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('464', '464', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('465', '465', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('466', '466', '2021-09-03', null, null, '0', '0', null);
@@ -2552,30 +2655,30 @@ INSERT INTO `warranty_infos` VALUES ('467', '467', '2021-09-03', null, null, '0'
 INSERT INTO `warranty_infos` VALUES ('468', '468', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('469', '469', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('470', '470', '2017-06-11', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('471', '471', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('472', '472', '2015-10-13', '2020-11-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('473', '473', '2016-08-17', '2019-09-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('471', '471', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('472', '472', '2015-10-13', '2020-11-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('473', '473', '2016-08-17', '2019-09-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('474', '474', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('475', '475', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('476', '476', '2018-12-07', '2024-02-07', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('477', '477', '2017-06-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('478', '478', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('479', '479', '2019-07-25', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('480', '480', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('481', '481', '2015-10-13', '2020-11-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('482', '482', '2016-08-17', '2019-09-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('480', '480', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('481', '481', '2015-10-13', '2020-11-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('482', '482', '2016-08-17', '2019-09-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('483', '483', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('484', '484', '2020-05-19', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('485', '485', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('486', '486', '2018-12-08', '2024-02-07', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('487', '487', '2018-08-13', '2021-08-12', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('488', '488', '2018-08-15', '2021-08-14', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('489', '489', '2018-08-13', '2021-08-12', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('490', '490', '2018-06-15', '2021-06-14', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('491', '491', '2017-01-05', '2020-04-05', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('492', '492', '2017-01-05', '2020-04-05', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('493', '493', '2017-01-05', '2020-04-05', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('494', '494', '2017-10-22', '2020-10-21', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('487', '487', '2018-08-13', '2021-08-12', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('488', '488', '2018-08-15', '2021-08-14', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('489', '489', '2018-08-13', '2021-08-12', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('490', '490', '2018-06-15', '2021-06-14', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('491', '491', '2017-01-05', '2020-04-05', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('492', '492', '2017-01-05', '2020-04-05', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('493', '493', '2017-01-05', '2020-04-05', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('494', '494', '2017-10-22', '2020-10-21', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('495', '495', '2020-01-23', '2025-01-22', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('496', '496', '2020-01-23', '2025-01-22', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('497', '497', null, null, null, '0', '0', null);
@@ -2587,16 +2690,16 @@ INSERT INTO `warranty_infos` VALUES ('502', '502', '2020-12-16', '2025-12-15', n
 INSERT INTO `warranty_infos` VALUES ('503', '503', '2020-12-16', '2025-12-15', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('504', '504', '2020-09-16', '2025-09-17', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('505', '505', '2020-09-16', '2025-09-17', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('506', '506', '2018-05-24', '2021-04-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('506', '506', '2018-05-24', '2021-04-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('507', '507', '2021-07-10', '2026-08-31', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('508', '508', '2018-03-29', '2021-04-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('508', '508', '2018-03-29', '2021-04-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('509', '509', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('510', '510', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('511', '511', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('512', '512', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('513', '513', '2021-07-31', '2026-10-29', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('514', '514', '2018-07-23', '2021-07-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('515', '515', '2018-07-23', '2021-07-22', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('514', '514', '2018-07-23', '2021-07-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('515', '515', '2018-07-23', '2021-07-22', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('516', '516', '2020-11-25', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('517', '517', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('518', '518', '2017-06-30', null, null, '0', '0', null);
@@ -2675,7 +2778,7 @@ INSERT INTO `warranty_infos` VALUES ('590', '590', '2020-12-16', '2025-12-15', n
 INSERT INTO `warranty_infos` VALUES ('591', '591', '2022-10-17', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('592', '592', '2022-10-17', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('593', '593', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('594', '594', '2017-10-22', '2020-10-21', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('594', '594', '2017-10-22', '2020-10-21', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('595', '595', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('596', '596', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('597', '597', null, null, null, '0', '0', null);
@@ -2685,8 +2788,8 @@ INSERT INTO `warranty_infos` VALUES ('600', '600', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('601', '601', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('602', '602', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('603', '603', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('604', '604', '2017-09-25', '2020-12-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('605', '605', '2017-09-25', '2020-12-24', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('604', '604', '2017-09-25', '2020-12-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('605', '605', '2017-09-25', '2020-12-24', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('606', '606', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('607', '607', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('608', '608', null, null, null, '0', '0', null);
@@ -2696,7 +2799,7 @@ INSERT INTO `warranty_infos` VALUES ('611', '611', '2018-12-15', '2023-11-30', n
 INSERT INTO `warranty_infos` VALUES ('612', '612', '2018-12-12', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('613', '613', '2019-05-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('614', '614', '2017-07-14', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('615', '615', '2017-08-31', '2017-08-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('615', '615', '2017-08-31', '2017-08-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('616', '616', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('617', '617', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('618', '618', '2017-07-14', null, null, '0', '0', null);
@@ -2710,7 +2813,7 @@ INSERT INTO `warranty_infos` VALUES ('625', '625', '2018-12-15', '2023-11-30', n
 INSERT INTO `warranty_infos` VALUES ('626', '626', '2019-06-27', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('627', '627', '2019-05-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('628', '628', '2017-07-14', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('629', '629', '2017-08-31', '2017-08-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('629', '629', '2017-08-31', '2017-08-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('630', '630', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('631', '631', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('632', '632', '2017-07-14', null, null, '0', '0', null);
@@ -2859,7 +2962,7 @@ INSERT INTO `warranty_infos` VALUES ('774', '774', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('775', '775', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('776', '776', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('777', '777', '2016-07-14', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('778', '778', '2016-02-06', '2023-02-05', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('778', '778', '2016-02-06', '2023-02-05', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('779', '779', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('780', '780', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('781', '781', null, null, null, '0', '0', null);
@@ -2907,22 +3010,22 @@ INSERT INTO `warranty_infos` VALUES ('822', '822', '2011-05-27', null, null, '0'
 INSERT INTO `warranty_infos` VALUES ('823', '823', '2011-05-27', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('824', '824', '2011-12-06', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('825', '825', '2011-05-27', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('826', '826', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('827', '827', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('828', '828', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('829', '829', '2017-04-29', '2020-04-28', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('830', '830', '2017-04-29', '2020-04-28', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('831', '831', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('832', '832', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('833', '833', '2017-04-28', '2020-04-27', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('826', '826', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('827', '827', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('828', '828', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('829', '829', '2017-04-29', '2020-04-28', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('830', '830', '2017-04-29', '2020-04-28', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('831', '831', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('832', '832', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('833', '833', '2017-04-28', '2020-04-27', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('834', '834', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('835', '835', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('836', '836', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('837', '837', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('838', '838', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('839', '839', '2021-07-31', '2026-10-29', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('840', '840', '2017-04-28', '2020-04-27', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('841', '841', '2017-04-28', '2020-04-27', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('840', '840', '2017-04-28', '2020-04-27', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('841', '841', '2017-04-28', '2020-04-27', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('842', '842', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('843', '843', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('844', '844', '2021-07-31', '2026-10-29', null, '1', '1', null);
@@ -2990,47 +3093,47 @@ INSERT INTO `warranty_infos` VALUES ('905', '905', '2021-07-06', '2026-10-08', n
 INSERT INTO `warranty_infos` VALUES ('906', '906', '2021-07-06', '2026-10-08', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('907', '907', '2021-07-06', '2026-10-08', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('908', '908', '2021-07-31', '2026-10-29', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('909', '909', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('910', '910', '2017-02-27', '2020-02-26', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('909', '909', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('910', '910', '2017-02-27', '2020-02-26', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('911', '911', '2021-07-31', '2026-10-29', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('912', '912', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('913', '913', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('914', '914', '2021-07-31', '2026-10-29', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('915', '915', '2017-03-04', '2020-04-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('916', '916', '2009-12-30', '2012-12-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('917', '917', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('918', '918', '2017-02-27', '2020-02-26', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('915', '915', '2017-03-04', '2020-04-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('916', '916', '2009-12-30', '2012-12-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('917', '917', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('918', '918', '2017-02-27', '2020-02-26', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('919', '919', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('920', '920', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('921', '921', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('922', '922', '2017-02-27', '2020-02-26', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('921', '921', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('922', '922', '2017-02-27', '2020-02-26', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('923', '923', '2021-07-31', '2026-10-29', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('924', '924', '2017-03-04', '2020-04-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('925', '925', '2017-03-04', '2020-04-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('924', '924', '2017-03-04', '2020-04-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('925', '925', '2017-03-04', '2020-04-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('926', '926', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('927', '927', '2022-07-11', '2027-09-16', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('928', '928', '2022-07-11', '2027-09-16', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('929', '929', '2016-12-26', '2020-01-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('929', '929', '2016-12-26', '2020-01-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('930', '930', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('931', '931', '2017-07-18', '2020-08-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('932', '932', '2017-07-18', '2020-08-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('933', '933', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('934', '934', '2017-02-27', '2020-02-26', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('935', '935', '2016-06-01', '2019-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('936', '936', '2016-06-01', '2019-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('937', '937', '2016-06-01', '2019-06-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('931', '931', '2017-07-18', '2020-08-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('932', '932', '2017-07-18', '2020-08-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('933', '933', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('934', '934', '2017-02-27', '2020-02-26', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('935', '935', '2016-06-01', '2019-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('936', '936', '2016-06-01', '2019-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('937', '937', '2016-06-01', '2019-06-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('938', '938', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('939', '939', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('940', '940', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('941', '941', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('942', '942', '2017-02-27', '2020-02-26', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('941', '941', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('942', '942', '2017-02-27', '2020-02-26', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('943', '943', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('944', '944', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('945', '945', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('946', '946', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('947', '947', '2021-07-10', '2026-08-31', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('948', '948', '2017-09-04', '2020-12-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('949', '949', '2017-10-22', '2020-10-21', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('948', '948', '2017-09-04', '2020-12-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('949', '949', '2017-10-22', '2020-10-21', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('950', '950', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('951', '951', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('952', '952', '2021-07-10', '2026-08-31', null, '1', '1', null);
@@ -3041,11 +3144,11 @@ INSERT INTO `warranty_infos` VALUES ('956', '956', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('957', '957', '2021-07-10', '2026-08-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('958', '958', '2020-09-28', '2025-12-27', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('959', '959', '2020-09-28', '2025-12-27', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('960', '960', '2018-12-19', '2019-03-19', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('961', '961', '2018-11-18', '2019-02-19', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('962', '962', '2017-04-29', '2020-04-28', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('963', '963', '2017-04-29', '2020-04-28', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('964', '964', '2017-04-29', '2020-04-28', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('960', '960', '2018-12-19', '2019-03-19', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('961', '961', '2018-11-18', '2019-02-19', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('962', '962', '2017-04-29', '2020-04-28', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('963', '963', '2017-04-29', '2020-04-28', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('964', '964', '2017-04-29', '2020-04-28', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('965', '965', '2019-08-06', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('966', '966', '2019-12-27', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('967', '967', null, null, null, '0', '0', null);
@@ -3059,9 +3162,9 @@ INSERT INTO `warranty_infos` VALUES ('974', '974', null, null, null, '0', '0', n
 INSERT INTO `warranty_infos` VALUES ('975', '975', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('976', '976', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('977', '977', '2017-06-30', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('978', '978', '2014-06-30', '2017-06-29', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('979', '979', '2014-06-30', '2017-06-29', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('980', '980', '2014-06-30', '2017-06-29', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('978', '978', '2014-06-30', '2017-06-29', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('979', '979', '2014-06-30', '2017-06-29', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('980', '980', '2014-06-30', '2017-06-29', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('981', '981', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('982', '982', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('983', '983', null, null, null, '0', '0', null);
@@ -3070,9 +3173,9 @@ INSERT INTO `warranty_infos` VALUES ('985', '985', '2018-12-11', '2024-02-09', n
 INSERT INTO `warranty_infos` VALUES ('986', '986', '2018-12-10', '2024-02-09', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('987', '987', '2018-12-10', '2024-02-09', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('988', '988', '2018-12-10', '2024-02-09', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('989', '989', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('990', '990', '2017-10-22', '2020-10-21', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('991', '991', '2017-10-22', '2020-10-21', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('989', '989', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('990', '990', '2017-10-22', '2020-10-21', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('991', '991', '2017-10-22', '2020-10-21', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('992', '992', '2020-05-07', '2023-07-07', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('993', '993', '2020-09-28', '2025-12-27', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('994', '994', '2020-09-28', '2025-12-27', null, '1', '1', null);
@@ -3134,7 +3237,7 @@ INSERT INTO `warranty_infos` VALUES ('1049', '1049', '2016-09-20', null, null, '
 INSERT INTO `warranty_infos` VALUES ('1050', '1050', '2016-09-20', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1051', '1051', '2012-12-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1052', '1052', '2021-12-02', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1053', '1053', '2017-04-16', '2020-04-18', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1053', '1053', '2017-04-16', '2020-04-18', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1054', '1054', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1055', '1055', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1056', '1056', null, null, null, '0', '0', null);
@@ -3143,7 +3246,7 @@ INSERT INTO `warranty_infos` VALUES ('1058', '1058', '2017-07-21', null, null, '
 INSERT INTO `warranty_infos` VALUES ('1059', '1059', '2017-07-21', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1060', '1060', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1061', '1061', '2021-12-02', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1062', '1062', '2017-04-16', '2020-04-18', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1062', '1062', '2017-04-16', '2020-04-18', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1063', '1063', '2014-10-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1064', '1064', '2014-10-11', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1065', '1065', null, null, null, '0', '0', null);
@@ -3156,7 +3259,7 @@ INSERT INTO `warranty_infos` VALUES ('1071', '1071', null, null, null, '0', '0',
 INSERT INTO `warranty_infos` VALUES ('1072', '1072', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1073', '1073', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1074', '1074', '2019-12-27', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1075', '1075', '2017-11-07', '2022-11-06', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1075', '1075', '2017-11-07', '2022-11-06', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1076', '1076', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1077', '1077', '2017-06-30', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1078', '1078', null, null, null, '0', '0', null);
@@ -3180,22 +3283,22 @@ INSERT INTO `warranty_infos` VALUES ('1095', '1095', '2018-10-13', '2024-01-11',
 INSERT INTO `warranty_infos` VALUES ('1096', '1096', '2018-10-13', '2024-01-11', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1097', '1097', '2018-10-13', '2024-01-11', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1098', '1098', '2018-10-13', '2024-01-11', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1099', '1099', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1100', '1100', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1101', '1101', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1102', '1102', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1103', '1103', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1104', '1104', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1105', '1105', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1106', '1106', '2019-06-21', '2014-09-22', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1107', '1107', '2019-08-26', '2020-09-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1108', '1108', '2019-08-26', '2020-09-24', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1109', '1109', '2019-09-05', '2022-10-04', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1099', '1099', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1100', '1100', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1101', '1101', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1102', '1102', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1103', '1103', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1104', '1104', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1105', '1105', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1106', '1106', '2019-06-21', '2014-09-22', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1107', '1107', '2019-08-26', '2020-09-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1108', '1108', '2019-08-26', '2020-09-24', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1109', '1109', '2019-09-05', '2022-10-04', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1110', '1110', '2020-09-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1111', '1111', '2020-09-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1112', '1112', '2019-10-18', '2024-11-30', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1113', '1113', '2019-09-30', '2024-10-31', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1114', '1114', '2018-11-09', '2022-03-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1114', '1114', '2018-11-09', '2022-03-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1115', '1115', '2020-10-12', '2026-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1116', '1116', '2020-10-12', '2026-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1117', '1117', '2020-10-12', '2026-01-14', null, '1', '1', null);
@@ -3245,23 +3348,23 @@ INSERT INTO `warranty_infos` VALUES ('1160', '1160', '2020-04-22', null, null, '
 INSERT INTO `warranty_infos` VALUES ('1161', '1161', '2020-04-22', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1162', '1162', '2020-05-20', '2023-05-19', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1163', '1163', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1164', '1164', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1165', '1165', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1166', '1166', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1167', '1167', '2018-10-13', '2022-01-11', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1164', '1164', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1165', '1165', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1166', '1166', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1167', '1167', '2018-10-13', '2022-01-11', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1168', '1168', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1169', '1169', '2020-10-16', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1170', '1170', '2020-10-16', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1171', '1171', '2018-04-13', null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1172', '1172', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1173', '1173', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1174', '1174', '2018-10-13', '2022-01-11', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1175', '1175', '2018-10-13', '2022-01-11', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1172', '1172', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1173', '1173', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1174', '1174', '2018-10-13', '2022-01-11', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1175', '1175', '2018-10-13', '2022-01-11', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1176', '1176', '2019-09-30', '2024-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1177', '1177', '2019-10-06', '2024-11-30', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1178', '1178', '2019-09-30', '2024-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1179', '1179', '2019-09-30', '2024-10-31', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1180', '1180', '2019-10-05', '2022-11-30', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1180', '1180', '2019-10-05', '2022-11-30', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1181', '1181', '2019-09-30', '2024-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1182', '1182', '2019-09-30', '2024-10-31', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1183', '1183', '2020-04-22', null, null, '0', '0', null);
@@ -3283,10 +3386,10 @@ INSERT INTO `warranty_infos` VALUES ('1199', '1199', '2020-09-07', '2025-09-08',
 INSERT INTO `warranty_infos` VALUES ('1200', '1200', '2020-09-28', '2025-12-27', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1201', '1201', '2020-09-16', '2025-11-19', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1202', '1202', '2020-09-17', '2025-11-19', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1203', '1203', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1204', '1204', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1205', '1205', '2016-12-26', '2020-01-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1206', '1206', '2016-12-26', '2020-01-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1203', '1203', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1204', '1204', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1205', '1205', '2016-12-26', '2020-01-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1206', '1206', '2016-12-26', '2020-01-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1207', '1207', '2019-10-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1208', '1208', '2019-10-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1209', '1209', '2021-07-26', '2026-10-24', null, '1', '1', null);
@@ -3296,11 +3399,11 @@ INSERT INTO `warranty_infos` VALUES ('1212', '1212', '2021-12-02', null, null, '
 INSERT INTO `warranty_infos` VALUES ('1213', '1213', '2019-10-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1214', '1214', '2019-10-15', '2025-01-14', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1215', '1215', '2020-08-04', '2023-10-05', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1216', '1216', '2017-07-18', '2020-08-31', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1216', '1216', '2017-07-18', '2020-08-31', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1217', '1217', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1218', '1218', '2021-08-21', '2026-10-25', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1219', '1219', '2021-08-21', '2026-10-25', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1220', '1220', '2014-06-30', '2017-06-29', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1220', '1220', '2014-06-30', '2017-06-29', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1221', '1221', '2020-09-16', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1222', '1222', '2020-09-16', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1223', '1223', '2020-09-16', null, null, '0', '0', null);
@@ -3323,7 +3426,7 @@ INSERT INTO `warranty_infos` VALUES ('1239', '1239', '2020-12-16', '2025-12-15',
 INSERT INTO `warranty_infos` VALUES ('1240', '1240', '2020-12-16', '2025-12-15', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1241', '1241', '2017-09-28', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1242', '1242', '2022-07-11', '2027-09-16', null, '1', '1', null);
-INSERT INTO `warranty_infos` VALUES ('1243', '1243', '2017-02-27', '2020-02-26', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1243', '1243', '2017-02-27', '2020-02-26', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1244', '1244', '2017-11-23', null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1245', '1245', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1246', '1246', null, null, null, '0', '0', null);
@@ -3339,7 +3442,7 @@ INSERT INTO `warranty_infos` VALUES ('1255', '1255', '2021-09-03', '2024-12-02',
 INSERT INTO `warranty_infos` VALUES ('1256', '1256', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1257', '1257', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1258', '1258', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1259', '1259', '2017-01-05', '2020-04-05', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1259', '1259', '2017-01-05', '2020-04-05', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1260', '1260', '2021-09-03', '2024-12-02', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1261', '1261', '2021-10-20', '2024-11-21', null, '1', '1', null);
 INSERT INTO `warranty_infos` VALUES ('1262', '1262', '2021-10-20', '2024-11-21', null, '1', '1', null);
@@ -3348,39 +3451,39 @@ INSERT INTO `warranty_infos` VALUES ('1264', '1264', null, null, null, '0', '0',
 INSERT INTO `warranty_infos` VALUES ('1265', '1265', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1266', '1266', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1267', '1267', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1268', '1268', '2015-09-28', '2018-10-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1269', '1269', '2015-09-28', '2018-10-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1270', '1270', '2015-09-25', '2018-10-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1271', '1271', '2019-08-20', '2022-09-18', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1268', '1268', '2015-09-28', '2018-10-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1269', '1269', '2015-09-28', '2018-10-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1270', '1270', '2015-09-25', '2018-10-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1271', '1271', '2019-08-20', '2022-09-18', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1272', '1272', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1273', '1273', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1274', '1274', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1275', '1275', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1276', '1276', '2015-11-25', '2018-12-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1277', '1277', '2017-05-24', '2020-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1278', '1278', '2017-05-24', '2020-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1279', '1279', '2015-11-25', '2018-12-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1280', '1280', '2015-11-25', '2018-12-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1281', '1281', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1282', '1282', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1283', '1283', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1284', '1284', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1285', '1285', '2019-08-20', '2022-09-18', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1286', '1286', '2019-08-20', '2022-09-18', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1276', '1276', '2015-11-25', '2018-12-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1277', '1277', '2017-05-24', '2020-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1278', '1278', '2017-05-24', '2020-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1279', '1279', '2015-11-25', '2018-12-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1280', '1280', '2015-11-25', '2018-12-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1281', '1281', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1282', '1282', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1283', '1283', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1284', '1284', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1285', '1285', '2019-08-20', '2022-09-18', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1286', '1286', '2019-08-20', '2022-09-18', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1287', '1287', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1288', '1288', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1289', '1289', null, null, null, '0', '0', null);
-INSERT INTO `warranty_infos` VALUES ('1290', '1290', '2017-05-24', '2020-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1291', '1291', '2015-11-25', '2018-12-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1292', '1292', '2017-05-24', '2020-06-30', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1293', '1293', '2015-09-25', '2018-10-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1294', '1294', '2015-09-26', '2018-10-31', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1295', '1295', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1296', '1296', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1297', '1297', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1298', '1298', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1299', '1299', '2019-09-04', '2022-10-03', null, '2', '2', null);
-INSERT INTO `warranty_infos` VALUES ('1300', '1300', '2019-08-20', '2022-09-18', null, '2', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1290', '1290', '2017-05-24', '2020-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1291', '1291', '2015-11-25', '2018-12-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1292', '1292', '2017-05-24', '2020-06-30', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1293', '1293', '2015-09-25', '2018-10-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1294', '1294', '2015-09-26', '2018-10-31', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1295', '1295', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1296', '1296', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1297', '1297', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1298', '1298', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1299', '1299', '2019-09-04', '2022-10-03', null, '0', '2', null);
+INSERT INTO `warranty_infos` VALUES ('1300', '1300', '2019-08-20', '2022-09-18', null, '0', '2', null);
 INSERT INTO `warranty_infos` VALUES ('1301', '2000', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1302', '2001', null, null, null, '0', '0', null);
 INSERT INTO `warranty_infos` VALUES ('1303', '2002', null, null, null, '0', '0', null);
@@ -3442,12 +3545,93 @@ INSERT INTO `warranty_infos` VALUES ('2091', '2067', '2022-07-01', '2000-01-01',
 INSERT INTO `warranty_infos` VALUES ('2092', '2068', '2023-02-20', '2026-02-20', null, null, null, null);
 INSERT INTO `warranty_infos` VALUES ('2093', '2069', '2023-02-20', '2026-02-20', null, null, null, null);
 INSERT INTO `warranty_infos` VALUES ('2094', '2071', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2095', '2072', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2096', '2073', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2097', '2074', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2098', '2075', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2099', '2076', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2100', '2077', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2101', '2078', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2102', '2079', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2103', '2080', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2104', '2081', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2105', '2082', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2106', '2083', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2107', '2084', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2108', '2085', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2109', '2086', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2110', '2087', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2111', '2088', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2112', '2089', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2113', '2090', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2114', '2091', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2115', '2092', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2116', '2093', '2022-07-22', '2027-10-20', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2117', '2094', '2023-10-28', '2026-11-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2118', '2095', '2023-10-28', '2026-11-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2119', '2096', '2023-10-28', '2026-11-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2120', '2097', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2121', '2098', '2022-10-23', '2025-11-22', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2122', '2099', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2123', '2100', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2124', '2101', '2023-11-17', '2029-01-15', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2125', '2102', '2023-11-17', '2029-01-15', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2126', '2103', '2023-11-17', '2029-01-15', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2127', '1221', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2128', '1222', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2129', '1223', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2130', '1224', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2131', '1228', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2132', '1230', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2133', '1231', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2134', '1232', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2135', '781', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2136', '775', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2137', '776', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2138', '779', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2139', '780', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2140', '781', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2141', '784', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2142', '785', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2143', '805', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2144', '806', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2145', '807', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2146', '812', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2147', '813', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2148', '814', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2149', '815', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2150', '775', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2151', '776', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2152', '779', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2153', '780', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2154', '781', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2155', '784', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2156', '785', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2157', '805', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2158', '806', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2159', '807', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2160', '812', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2161', '813', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2162', '814', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2163', '815', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2164', '816', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2165', '817', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2166', '820', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2167', '822', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2168', '810', '2023-10-20', '2024-10-19', '银信科技', '2', '1', null);
+INSERT INTO `warranty_infos` VALUES ('2169', '2050', '2023-08-30', '2023-08-30', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2170', '2051', '2022-10-01', '2025-10-30', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2171', '2052', '2022-06-15', '2027-09-22', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2172', '2053', '2022-06-15', '2027-09-22', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2173', '2064', '2000-01-01', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2174', '2065', '2023-01-16', '2000-01-01', null, null, null, null);
+INSERT INTO `warranty_infos` VALUES ('2175', '2070', '2000-01-01', '2000-01-01', null, null, null, null);
 
 -- ----------------------------
 -- View structure for machine_list
 -- ----------------------------
 DROP VIEW IF EXISTS `machine_list`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `machine_list` AS select `machine_infos`.`machine_id` AS `machine_id`,`machine_room`.`room_id` AS `room_id`,`machine_room`.`room_name` AS `room_name`,`machine_infos`.`cabinet_name` AS `cab_name`,`machine_infos`.`start_position` AS `start_position`,((`machine_infos`.`end_position` - `machine_infos`.`start_position`) + 1) AS `postion_u`,`machine_infos`.`machine_sort_name` AS `machine_sort_name`,`machine_infos`.`machine_factory` AS `machine_factory`,`machine_infos`.`model` AS `model`,`machine_infos`.`machine_sn` AS `machine_sn`,`machine_infos`.`machine_name` AS `machine_name`,`machine_infos`.`mg_ip` AS `mg_ip`,`machine_infos`.`bmc_ip` AS `bmc_ip`,`machine_infos`.`machine_admin` AS `machine_admin`,`machine_infos`.`comments` AS `comments`,(case when (`machine_infos`.`run_state` = 1) then '运行' when (`machine_infos`.`run_state` = 2) then '断网' when (`machine_infos`.`run_state` = 3) then '关机' when (`machine_infos`.`run_state` = 4) then '下架' when (`machine_infos`.`run_state` = 5) then '未加电' end) AS `run_state` from (`machine_infos` join `machine_room` on((`machine_infos`.`machine_roomid` = `machine_room`.`room_id`))) where (`machine_infos`.`run_state` in (1,2,3,5)) order by `machine_room`.`room_id`,`machine_infos`.`cabinet_name`,`machine_infos`.`start_position` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `machine_list` AS select `machine_infos`.`machine_id` AS `machine_id`,`machine_room`.`room_id` AS `room_id`,`machine_room`.`room_name` AS `room_name`,`machine_infos`.`cabinet_name` AS `cab_name`,`machine_infos`.`start_position` AS `start_position`,((`machine_infos`.`end_position` - `machine_infos`.`start_position`) + 1) AS `postion_u`,`machine_infos`.`machine_sort_name` AS `machine_sort_name`,`machine_infos`.`machine_factory` AS `machine_factory`,`machine_infos`.`model` AS `model`,`machine_infos`.`machine_sn` AS `machine_sn`,`machine_infos`.`machine_name` AS `machine_name`,`machine_infos`.`mg_ip` AS `mg_ip`,`machine_infos`.`bmc_ip` AS `bmc_ip`,`machine_infos`.`machine_admin` AS `machine_admin`,`machine_infos`.`comments` AS `comments`,(case when (`machine_infos`.`run_state` = 1) then '运行' when (`machine_infos`.`run_state` = 2) then '断网' when (`machine_infos`.`run_state` = 3) then '关机' when (`machine_infos`.`run_state` = 4) then '下架' when (`machine_infos`.`run_state` = 5) then '未加电' end) AS `run_state`,`wi`.`organ` AS `organ`,(case when (`wi`.`is_under` = 0) then '未知' when (`wi`.`is_under` = 1) then '保内' when (`wi`.`is_under` = 2) then '过保' end) AS `is_under` from (((`machine_infos` join `machine_room` on((`machine_infos`.`machine_roomid` = `machine_room`.`room_id`))) join `warranty_infos` `wi` on((`wi`.`machine_id` = `machine_infos`.`machine_id`))) join (select max(`warranty_infos`.`w_id`) AS `wid`,`warranty_infos`.`machine_id` AS `machine_id` from `warranty_infos` group by `warranty_infos`.`machine_id`) `t` on(((`t`.`machine_id` = `wi`.`machine_id`) and (`t`.`wid` = `wi`.`w_id`)))) where (`machine_infos`.`run_state` in (1,2,3,5)) order by `machine_room`.`room_id`,`machine_infos`.`cabinet_name`,`machine_infos`.`start_position` desc ;
 
 -- ----------------------------
 -- View structure for view_check_cmd
@@ -3471,4 +3655,31 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `view_up
 -- View structure for view_warranty
 -- ----------------------------
 DROP VIEW IF EXISTS `view_warranty`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_warranty` AS select `wi`.`w_id` AS `w_id`,`wi`.`machine_id` AS `machine_id`,`mr`.`room_name` AS `room_name`,`mi`.`cabinet_name` AS `cabinet_name`,`mi`.`start_position` AS `start_position`,`mi`.`machine_name` AS `machine_name`,`mi`.`mg_ip` AS `mg_ip`,`mi`.`bmc_ip` AS `bmc_ip`,`mi`.`machine_sn` AS `machine_sn`,`wi`.`start_date` AS `start_date`,`wi`.`end_date` AS `end_date`,`wi`.`how_long` AS `how_long`,(case when (`wi`.`w_type` = 0) then '未知' when (`wi`.`w_type` = 1) then '原厂保' when (`wi`.`w_type` = 2) then '继保' end) AS `w_type`,(case when (`wi`.`is_under` = 0) then '未知' when (`wi`.`is_under` = 1) then '在保内' when (`wi`.`is_under` = 2) then '已过保' end) AS `is_under`,`wi`.`comment` AS `comment`,(case when (`mi`.`run_state` = 1) then '运行' when (`mi`.`run_state` = 2) then '断网' when (`mi`.`run_state` = 3) then '已过保' when (`mi`.`run_state` = 4) then '下架' when (`mi`.`run_state` = 5) then '未加电' end) AS `run_state` from ((`warranty_infos` `wi` join `machine_infos` `mi`) join `machine_room` `mr`) where ((`wi`.`machine_id` = `mi`.`machine_id`) and (`mi`.`machine_roomid` = `mr`.`room_id`)) order by `mr`.`room_name`,`mi`.`cabinet_name`,`mi`.`start_position` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_warranty` AS select `wi`.`w_id` AS `w_id`,`wi`.`machine_id` AS `machine_id`,`mr`.`room_name` AS `room_name`,`mi`.`cabinet_name` AS `cabinet_name`,`mi`.`start_position` AS `start_position`,`mi`.`machine_name` AS `machine_name`,`mi`.`mg_ip` AS `mg_ip`,`mi`.`bmc_ip` AS `bmc_ip`,`mi`.`machine_sn` AS `machine_sn`,`wi`.`start_date` AS `start_date`,`wi`.`end_date` AS `end_date`,`wi`.`organ` AS `organ`,(case when (`wi`.`w_type` = 0) then '未知' when (`wi`.`w_type` = 1) then '原厂保' when (`wi`.`w_type` = 2) then '继保' end) AS `w_type`,(case when (`wi`.`is_under` = 0) then '未知' when (`wi`.`is_under` = 1) then '在保内' when (`wi`.`is_under` = 2) then '已过保' end) AS `is_under`,`wi`.`comment` AS `comment`,(case when (`mi`.`run_state` = 1) then '运行' when (`mi`.`run_state` = 2) then '断网' when (`mi`.`run_state` = 3) then '已过保' when (`mi`.`run_state` = 4) then '下架' when (`mi`.`run_state` = 5) then '未加电' end) AS `run_state` from (((`warranty_infos` `wi` join `machine_infos` `mi`) join `machine_room` `mr`) join (select max(`warranty_infos`.`w_id`) AS `wid`,`warranty_infos`.`machine_id` AS `machine_id` from `warranty_infos` group by `warranty_infos`.`machine_id`) `t` on(((`t`.`machine_id` = `wi`.`machine_id`) and (`t`.`wid` = `wi`.`w_id`)))) where ((`wi`.`machine_id` = `mi`.`machine_id`) and (`mi`.`machine_roomid` = `mr`.`room_id`)) group by `wi`.`machine_id` order by `mr`.`room_name`,`mi`.`cabinet_name`,`mi`.`start_position` desc ;
+
+-- ----------------------------
+-- Event structure for Evnt_addSortid
+-- ----------------------------
+DROP EVENT IF EXISTS `Evnt_addSortid`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` EVENT `Evnt_addSortid` ON SCHEDULE EVERY 1 MINUTE STARTS '2020-09-15 10:54:35' ON COMPLETION NOT PRESERVE ENABLE COMMENT '补全设备信息表中分类ID及机房编号' DO BEGIN
+
+# 更新并补全设备信息表中分类ID信息
+UPDATE machine_infos
+ INNER JOIN machine_sort ON machine_infos.machine_sort_name = machine_sort.sort_name
+SET machine_infos.machine_sort_id = machine_sort.sort_id;
+
+
+UPDATE machine_infos
+ INNER JOIN cabinet ON machine_infos.cabinet_name = cabinet.cab_num
+SET machine_infos.cabinet_id = cabinet.cab_id;
+
+# 更新并补全设备上下架表中分类ID信息
+
+UPDATE shelf_manage
+ INNER JOIN cabinet ON shelf_manage.cabinet_name = cabinet.cab_num
+SET shelf_manage.cabinet_id = cabinet.cab_id;
+
+END
+;;
+DELIMITER ;

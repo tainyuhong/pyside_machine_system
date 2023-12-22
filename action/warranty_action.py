@@ -15,8 +15,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         self.get_under()  # 显示是否在保内下拉菜单
         # 设置表格相关信息
         self.warranty_select.setHorizontalHeaderLabels(
-            ['维保信息ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '序列号',
-             '维保开始日', '维保结束日', '保修时长', '维保类型', '是否在保内', '备注'])
+            ['维保ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '序列号',
+             '维保开始日', '维保结束日', '维保单位', '维保类型', '是否在保内', '备注'])
 
         # 初始化定义分页信息
         self.current_page = 1
@@ -60,7 +60,7 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
         sql = '''SELECT w_id, machine_id, room_name, cabinet_name, start_position, machine_name, mg_ip, bmc_ip, 
-                machine_sn,start_date, end_date, how_long, w_type, is_under, comment
+                machine_sn,start_date, end_date, organ, w_type, is_under, comment
                      FROM view_warranty  WHERE 1=1 
               '''
 
@@ -176,6 +176,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         self.warranty_select.setColumnWidth(10, 100)  # 设备结束日期列宽
         # print('self.select_values',self.select_values)
         self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
+        self.warranty_select.resizeRowsToContents()  # 对于单元格内容过长自动换行
+
 
     # 转到指定页事件
     def goToPage(self, sql, sql_args):

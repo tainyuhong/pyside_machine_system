@@ -3,9 +3,14 @@ from pathlib import Path
 from peewee import *
 from playhouse.shortcuts import ReconnectMixin
 import logging
+from loguru import logger as log # 新日志插件
 
 # 定义日志格式
 logging.basicConfig(level=logging.WARN, format='%(asctime)s %(levelname)s %(message)s', filename='machine-sys.log')
+
+# 定义新日志插件格式
+log.add('manager-machine.log', level='DEBUG',
+           format='<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>', )
 
 cf = configparser.ConfigParser(allow_no_value=True)
 base_file = Path(__file__).parent  # 获取文件的绝对路径
@@ -183,6 +188,8 @@ class MachineList(BaseModel):
     machine_admin = CharField(null=True)
     comments = CharField(null=True)
     run_state = CharField(null=True)
+    organ = CharField(null=True)
+    is_under = IntegerField(null=True)
 
     class Meta:
         table_name = 'machine_list'
@@ -306,7 +313,7 @@ class ViewWarranty(BaseModel):
     cabinet_name = CharField(null=True)
     comment = CharField(null=True)
     end_date = DateField(null=True)
-    how_long = IntegerField(null=True)
+    organ = CharField(null=True)
     is_under = CharField(null=True)
     machine_id = IntegerField()
     machine_name = CharField(null=True)
@@ -330,7 +337,7 @@ class WarrantyInfos(BaseModel):
     """
     comment = CharField(null=True)
     end_date = DateField(null=True)
-    how_long = IntegerField(null=True)
+    organ = CharField(null=True)
     is_under = IntegerField(null=True)
     machine = ForeignKeyField(column_name='machine_id', field='machine_id', model=MachineInfos)
     start_date = DateField(null=True)
@@ -346,7 +353,8 @@ class Organization(BaseModel):
     单位信息表
     """
     org_id = IntegerField(null=False)
-    org_name=CharField(null=False)
+    org_name = CharField(null=False)
     remarks = CharField(null=True)
+
     class Meta:
         table_name = 'organization'

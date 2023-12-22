@@ -1,7 +1,7 @@
 import sys
 from ui.warranty_config import Ui_WarrantyConfig, QTableWidgetItem
-from PySide6 import QtWidgets, QtCore
-from db.db_orm import Organization, MachineSort, MachineList
+from PySide6 import QtWidgets, QtCore,QtGui
+from db.db_orm import Organization, MachineSort, MachineList, WarrantyInfos, db, log
 from action.pub_infos import PubSwitch
 
 
@@ -11,6 +11,7 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
         self.setupUi(self)
         self.pub_infos = PubSwitch()
         self.set_wide()  # 调用表格列设置宽度
+        self.set_time()  # 设置默认维保信息
 
         self.sql_join = []
         self.sql = {}  # 用于保存获取的查询条件拼接字段 字典
@@ -23,11 +24,18 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
         # 查询按钮事件
         self.bt_select.clicked.connect(self.display)
 
+        # 全选按钮事件
+        self.bt_select_all.clicked.connect(self.select_all)
+
         # 提交按钮事件
         self.bt_commit.clicked.connect(self.commit)
 
     # 设置表格各列的宽度
     def set_wide(self):
+        """
+        设置表格各列的宽度
+        :return:
+        """
         self.tb_display.setColumnWidth(0, 70)
         self.tb_display.setColumnWidth(1, 50)
         self.tb_display.setColumnWidth(2, 50)
@@ -72,19 +80,25 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
         self.cb_org.addItem('')
         self.cb_org.addItems(data)
 
+    # 设置默认的维保时间范围
+    def set_time(self):
+        self.dt_start.setDate(QtCore.QDate.currentDate())
+        # 在设置了开始时间后结束时间默认增加12个月
+        self.dt_end.setDate(QtCore.QDate.currentDate().addYears(1))
+
     # 显示查询结果至页面
     def display(self):
-        self.tb_display.clearContents()     # 清空表格中内容
-        self.tb_display.scrollToTop()       # 将滚动条滚动到顶端
-        self.sql_join = []      # 置空
-        print('打印',self.sql_join)
-        # 判断查询条件
-        self.get_room()
-        self.get_cabinet()
-        self.get_sort()
-        self.get_machine_name()
-        self.get_ip()
-        self.get_machine_sn()
+        self.tb_display.clearContents()  # 清空表格中内容
+        self.tb_display.scrollToTop()  # 将滚动条滚动到顶端
+        self.sql_join = []  # 置空，保证每次重新获取新的查询条件
+
+        # 判断查询条件并拼接
+        self.get_room()  # 判断是否选择机房
+        self.get_cabinet()  # 判断是否选择机柜
+        self.get_sort()  # 判断是否选择设备分类
+        self.get_machine_name()  # 判断是否选输入设备名称
+        self.get_ip()  # 判断是否输入设备IP
+        self.get_machine_sn()  # 判断是否输入设备序列号
 
         # 获取查询结果
         # 定义查询语句
@@ -92,17 +106,14 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
                                    MachineList.start_position, MachineList.postion_u, MachineList.machine_name,
                                    MachineList.machine_sort_name, MachineList.machine_factory, MachineList.model,
                                    MachineList.machine_sn, MachineList.machine_admin, MachineList.mg_ip,
-                                   MachineList.bmc_ip, MachineList.comments)
+                                   MachineList.bmc_ip, MachineList.organ, MachineList.is_under, MachineList.comments)
 
         temp = [key == value for key, value in self.sql.items()]
-        print('temp', temp)
         # 当拼接sql不为空时，按条件进行查询
         self.sql_join = self.sql_join + temp
-        print('执行SQL前',self.sql_join)
         if self.sql_join:
-            print('sql', self.sql_join)
             data_model = query.where(*self.sql_join).tuples()
-            print('data_model',data_model)
+            # print('data_model',data_model)
         else:
             # 当拼接sql没有输入条件时，查询所有
             data_model = query.tuples()
@@ -116,21 +127,39 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
         self.tb_display.setRowCount(data_count)  # 根据内容设置行数
         for row, d1 in enumerate(data):
             for col, d2 in enumerate(d1):
+                item_data = QTableWidgetItem(str(data[row][col]))
                 # 当为第一列时添加复选框按钮
                 if col == 0:
-                    self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
-                    self.tb_display.item(row, 0).setCheckState(QtCore.Qt.Unchecked)  # 添加复选框
+                    self.tb_display.setItem(row, col, item_data)
+                    self.tb_display.item(row, 0).setCheckState(QtCore.Qt.CheckState.Unchecked)  # 添加复选框
                 else:
                     # 将查询的数据中None字段，显示为空字符''
                     if data[row][col] is None:
                         self.tb_display.setItem(row, col, QTableWidgetItem(''))
                     else:
-                        self.tb_display.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+                        # self.tb_display.setItem(row, col, item_data)
+                        if col == 14:
+                            if item_data == '保内':
+                                item_data.setBackground(QtGui.QColor(50,205,50))  # 设置单元格背景颜色
+                                self.tb_display.setItem(0, 0, item_data)  # 将以上设置赋给1行1列单元格
+                            elif item_data == '过保':
+                                item_data.setBackground(QtGui.QColor(255,182,193))  # 设置单元格背景颜色
+                                self.tb_display.setItem(0, 0, item_data)  # 将以上设置赋给1行1列单元格
+                            else:
+                                self.tb_display.setItem(row, col, item_data)
+
+        # # 设置颜色
+        # self.set_color()
+
         # self.tb_display.resizeColumnsToContents()  # 自适应列宽
         self.tb_display.resizeRowsToContents()  # 对于单元格内容过长自动换行
 
     # 获取查询条件--机房
     def get_room(self):
+        """
+        拼接机房SQL
+        :return:
+        """
         if self.cb_room.currentText() != '所有':
             self.sql[MachineList.room_name] = self.cb_room.currentText()
         else:
@@ -139,6 +168,10 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
 
     # 获取查询条件--机柜
     def get_cabinet(self):
+        """
+        拼接机柜SQL
+        :return:
+        """
         if self.cb_cabinet.currentText() != '所有':
             self.sql[MachineList.cab_name] = self.cb_cabinet.currentText()
         else:
@@ -147,6 +180,10 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
 
     # 获取查询条件--设备分类
     def get_sort(self):
+        """
+        拼接设备分类 模糊查询 SQL
+        :return:
+        """
         if self.cb_sort.currentText() != '所有':
             self.sql[MachineList.machine_sort_name] = self.cb_sort.currentText()
         else:
@@ -155,17 +192,22 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
 
     # 获取查询条件--设备名称
     def get_machine_name(self):
+        """
+        拼接设备名称 模糊查询SQL
+        :return:
+        """
         if self.le_machine_name.text().strip() != '':
-            print('模糊查询前：', MachineList.machine_name.contains(self.le_machine_name.text().strip()).__dict__)
             self.sql_join.append(MachineList.machine_name.contains(self.le_machine_name.text().strip()))
-            print('模糊查询后：', self.sql_join)
+            # print('模糊查询后：', self.sql_join)
         else:
-            print('模糊查询----：', self.sql_join,MachineList.machine_name)
-            if MachineList.machine_name in self.sql_join:
-                self.sql_join.remove(MachineList.machine_name)
+            pass
 
     # 获取查询条件--设备ip
     def get_ip(self):
+        """
+        拼接设备IP模糊查询  SQL
+        :return:
+        """
         if self.le_ip.text().strip() != '':
             if self.rd_mg_ip.isChecked():
                 self.sql_join.append(MachineList.mg_ip.contains(self.le_ip.text().strip()))
@@ -174,24 +216,89 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
                 self.sql_join.append(MachineList.bmc_ip.contains(self.le_ip.text().strip()))
                 # self.sql[MachineList.bmc_ip] = self.le_ip.text().strip()
         else:
-            if MachineList.mg_ip in self.sql_join:
-                self.sql_join.remove(MachineList.mg_ip)
-            elif MachineList.bmc_ip in self.sql_join:
-                self.sql_join.remove(MachineList.bmc_ip)
+            pass
 
     # 获取查询条件--设备序列号
     def get_machine_sn(self):
         if self.le_sn.text().strip() != '':
             self.sql_join.append(MachineList.machine_sn.contains(self.le_sn.text().strip()))
         else:
-            if MachineList.machine_sn in self.sql_join:
-                self.sql_join.remove(MachineList.machine_sn)
+            pass
+
+    # 全选按钮
+    def select_all(self):
+        row_count = self.tb_display.rowCount()  # 总行数
+
+        for row in range(row_count):
+            item = self.tb_display.item(row, 0)
+            if item is not None and item.checkState() != QtCore.Qt.CheckState.Checked:
+                # 全部选择
+                item.setCheckState(QtCore.Qt.CheckState.Checked)
+            elif item is not None and item.checkState() == QtCore.Qt.CheckState.Checked:
+                # 全部取消
+                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            else:
+                pass
+
+    # # 对维保情况设置颜色
+    # def set_color(self):
+    #     items = []  #
+    #     row_count = self.tb_display.rowCount()  # 总行数
+    #     for row in range(row_count):
+    #         item = self.tb_display.item(row, 0)
+    #         items.append(item.text())
+    #     print('items', items)
 
     def commit(self):
         """
         提交维保信息配置
         :return:
         """
+        # 判断是否选择维保单位
+        if self.cb_org.currentIndex() != 0:
+
+            # 获取选择设备
+            selected_item = []  # 选择的设备
+            row_count = self.tb_display.rowCount()  # 总行数
+            for row in range(row_count):
+                item = self.tb_display.item(row, 0)
+                # 将钩选状态的设备 加到选择的selected_item列表中
+                if item is not None and item.checkState() == QtCore.Qt.CheckState.Checked:
+                    selected_item.append((item.text(), self.cb_org.currentText(),
+                                          self.dt_start.text(),
+                                          self.dt_end.text(), 2, 1))  # 2:表示续保，1：表示维保期内
+                else:
+                    pass
+
+            print('selected_item', selected_item)
+            log.debug('selected_item')
+
+            # 判断是否有选择设备
+            if len(selected_item) > 0:
+
+                # 判断是否确定提交，添加到数据库中
+                if QtWidgets.QMessageBox.question(self, '维保信息配置',
+                                                  '确认要配置选择的设备吗？') == QtWidgets.QMessageBox.StandardButton.Yes:
+                    log.debug('提交维保配置信息')
+                    # 保存至数据库
+                    with db.atomic():
+                        try:
+                            WarrantyInfos.insert_many(selected_item, fields=[WarrantyInfos.machine, WarrantyInfos.organ,
+                                                                             WarrantyInfos.start_date,
+                                                                             WarrantyInfos.end_date,
+                                                                             WarrantyInfos.w_type,
+                                                                             WarrantyInfos.is_under]).execute()
+                        except Exception as e:
+                            print('数据提交错误：', e)
+                        else:
+                            print('维保信息配置成功！')
+                            QtWidgets.QMessageBox.information(self, '维保信息配置', '配置成功！')
+
+            else:
+                QtWidgets.QMessageBox.warning(self, '维保信息配置', '请钩选需要配置的设备，再提交！')
+
+        else:
+            QtWidgets.QMessageBox.warning(self, '维保信息配置', '请选择维保单位再进行提交！')
 
 
 if __name__ == '__main__':
