@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'warranty_config.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.2.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -209,7 +209,7 @@ class Ui_WarrantyConfig(object):
         self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
         self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_display.setAlternatingRowColors(True)
-        self.tb_display.setSelectionBehavior(QAbstractItemView.SelectItems)
+        self.tb_display.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tb_display.setGridStyle(Qt.SolidLine)
         self.tb_display.setSortingEnabled(False)
         self.tb_display.setRowCount(8)

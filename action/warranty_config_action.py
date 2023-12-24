@@ -132,24 +132,24 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
                 if col == 0:
                     self.tb_display.setItem(row, col, item_data)
                     self.tb_display.item(row, 0).setCheckState(QtCore.Qt.CheckState.Unchecked)  # 添加复选框
+                if col == 14:
+                    if item_data.text() == '保内':
+                        item_data.setBackground(QtGui.QColor(50, 205, 50))  # 设置单元格背景颜色
+                        self.tb_display.setItem(row, col, item_data)
+                    elif item_data == '过保':
+                        item_data.setBackground(QtGui.QColor(255, 182, 193))  # 设置单元格背景颜色
+                        self.tb_display.setItem(row, col, item_data)
+                    else:
+                        self.tb_display.setItem(row, col, item_data)
+
                 else:
                     # 将查询的数据中None字段，显示为空字符''
+                    # print(data[row][col])
                     if data[row][col] is None:
                         self.tb_display.setItem(row, col, QTableWidgetItem(''))
                     else:
-                        # self.tb_display.setItem(row, col, item_data)
-                        if col == 14:
-                            if item_data == '保内':
-                                item_data.setBackground(QtGui.QColor(50,205,50))  # 设置单元格背景颜色
-                                self.tb_display.setItem(0, 0, item_data)  # 将以上设置赋给1行1列单元格
-                            elif item_data == '过保':
-                                item_data.setBackground(QtGui.QColor(255,182,193))  # 设置单元格背景颜色
-                                self.tb_display.setItem(0, 0, item_data)  # 将以上设置赋给1行1列单元格
-                            else:
-                                self.tb_display.setItem(row, col, item_data)
+                        self.tb_display.setItem(row, col, item_data)
 
-        # # 设置颜色
-        # self.set_color()
 
         # self.tb_display.resizeColumnsToContents()  # 自适应列宽
         self.tb_display.resizeRowsToContents()  # 对于单元格内容过长自动换行
