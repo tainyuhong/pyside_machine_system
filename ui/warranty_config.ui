@@ -57,34 +57,79 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,2,1,1,1,2">
+         <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,1,1,2,1,1,1,1,1,1">
           <property name="spacing">
            <number>15</number>
           </property>
-          <item row="1" column="3">
-           <widget class="QRadioButton" name="rd_bmc_ip">
+          <item row="0" column="2">
+           <widget class="QLabel" name="lb_machine_name">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>带外IP</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>机房</string>
+             <string>设备名称</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>设备类型</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3" colspan="2">
+           <widget class="QLineEdit" name="le_machine_name">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="8">
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>设备品牌</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="6" colspan="2">
+           <widget class="QComboBox" name="cb_sort">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="10">
+           <widget class="QPushButton" name="bt_select">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>查询</string>
             </property>
            </widget>
           </item>
@@ -102,24 +147,18 @@
             </item>
            </widget>
           </item>
-          <item row="0" column="3" colspan="2">
-           <widget class="QLineEdit" name="le_machine_name">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="8">
-           <widget class="QPushButton" name="bt_select">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_5">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>查询</string>
+             <string>机房</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -135,6 +174,75 @@
               <string>所有</string>
              </property>
             </item>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QRadioButton" name="rd_bmc_ip">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>带外IP</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>机柜</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="5">
+           <widget class="QLabel" name="label_6">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>序列号</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="10">
+           <widget class="QPushButton" name="bt_flush">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="toolTip">
+             <string>刷新新上架设备维保信息</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255, 85, 0)</string>
+            </property>
+            <property name="text">
+             <string>刷新维保状态</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="6" colspan="2">
+           <widget class="QLineEdit" name="le_sn">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
            </widget>
           </item>
           <item row="1" column="2">
@@ -164,81 +272,33 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
+          <item row="0" column="9">
+           <widget class="QComboBox" name="cb_manfactur">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="9">
+           <widget class="QComboBox" name="cb_is_under">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="8">
+           <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>机柜</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="lb_machine_name">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>设备名称</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="6" colspan="2">
-           <widget class="QComboBox" name="cb_sort">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="5">
-           <widget class="QLabel" name="label_7">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>设备类型</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="5">
-           <widget class="QLabel" name="label_6">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>序列号</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="6" colspan="2">
-           <widget class="QLineEdit" name="le_sn">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
+             <string>维保状态</string>
             </property>
            </widget>
           </item>
@@ -249,6 +309,9 @@
      </item>
      <item>
       <widget class="QTableWidget" name="tb_display">
+       <property name="toolTip">
+        <string/>
+       </property>
        <property name="styleSheet">
         <string notr="true">selection-background-color: rgb(255, 170, 0);</string>
        </property>
@@ -270,6 +333,9 @@
        <property name="rowCount">
         <number>8</number>
        </property>
+       <property name="columnCount">
+        <number>16</number>
+       </property>
        <attribute name="horizontalHeaderDefaultSectionSize">
         <number>80</number>
        </attribute>
@@ -284,91 +350,22 @@
        <row/>
        <row/>
        <row/>
-       <column>
-        <property name="text">
-         <string>设备ID</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>机房</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>机柜</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>下U位</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>上U位</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备名称</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备分类</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备厂商</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备型号</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>序列号</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>负责人</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>管理IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>带外IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>维保单位</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>维保状态</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>备注</string>
-        </property>
-       </column>
-       <item row="0" column="0">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
       </widget>
      </item>
      <item>

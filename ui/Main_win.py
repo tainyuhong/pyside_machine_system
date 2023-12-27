@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenu,
     QMenuBar, QSizePolicy, QStatusBar, QToolBar,
     QVBoxLayout, QWidget)
-from img import picture_rc
+import img.picture_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -81,13 +81,21 @@ class Ui_MainWindow(object):
         self.actionexport_exl.setObjectName(u"actionexport_exl")
         self.actionwb = QAction(MainWindow)
         self.actionwb.setObjectName(u"actionwb")
+        icon6 = QIcon()
+        icon6.addFile(u":/\u67e5\u8be2/warrany.ico", QSize(), QIcon.Normal, QIcon.Off)
+        self.actionwb.setIcon(icon6)
         self.actionprintbx = QAction(MainWindow)
         self.actionprintbx.setObjectName(u"actionprintbx")
         self.action_machine_sw = QAction(MainWindow)
         self.action_machine_sw.setObjectName(u"action_machine_sw")
-        icon6 = QIcon()
-        icon6.addFile(u":/\u67e5\u8be2/sw.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.action_machine_sw.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u":/\u67e5\u8be2/sw.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_machine_sw.setIcon(icon7)
+        self.action_warranty_config = QAction(MainWindow)
+        self.action_warranty_config.setObjectName(u"action_warranty_config")
+        icon8 = QIcon()
+        icon8.addFile(u":/\u67e5\u8be2/warrany_conf.gif", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_warranty_config.setIcon(icon8)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -140,6 +148,7 @@ class Ui_MainWindow(object):
         self.mu_machine.addSeparator()
         self.mu_machine.addAction(self.actionexport_exl)
         self.mu_machine.addSeparator()
+        self.mu_machine.addAction(self.action_warranty_config)
         self.mu_machine.addAction(self.actionprintbx)
         self.mu_select.addAction(self.actioncxsb)
         self.mu_select.addSeparator()
@@ -165,6 +174,8 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.action_machine_sw)
         self.toolBar.addAction(self.action_report)
         self.toolBar.addSeparator()
+        self.toolBar.addAction(self.action_warranty_config)
+        self.toolBar.addAction(self.actionwb)
 
         self.retranslateUi(MainWindow)
 
@@ -202,6 +213,7 @@ class Ui_MainWindow(object):
         self.actionwb.setText(QCoreApplication.translate("MainWindow", u"\u7ef4\u4fdd\u4fe1\u606f\u67e5\u8be2", None))
         self.actionprintbx.setText(QCoreApplication.translate("MainWindow", u"\u6807\u7b7e\u7ba1\u7406", None))
         self.action_machine_sw.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4f4d\u7f6e\u8c03\u6574", None))
+        self.action_warranty_config.setText(QCoreApplication.translate("MainWindow", u"\u7ef4\u4fe1\u606f\u914d\u7f6e", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u8bbe\u5907\u4fe1\u606f\u7ba1\u7406\u7cfb\u7edf\n"
 " PySide6-V1.0", None))
         self.mu_baseinfo.setTitle(QCoreApplication.translate("MainWindow", u"\u57fa\u7840\u4fe1\u606f", None))

@@ -66,6 +66,7 @@ color: rgba(106, 106, 106, 20);</string>
     <addaction name="separator"/>
     <addaction name="actionexport_exl"/>
     <addaction name="separator"/>
+    <addaction name="action_warranty_config"/>
     <addaction name="actionprintbx"/>
    </widget>
    <widget class="QMenu" name="mu_select">
@@ -130,6 +131,8 @@ color: rgba(106, 106, 106, 20);</string>
    <addaction name="action_machine_sw"/>
    <addaction name="action_report"/>
    <addaction name="separator"/>
+   <addaction name="action_warranty_config"/>
+   <addaction name="actionwb"/>
   </widget>
   <action name="actionjfgl">
    <property name="text">
@@ -249,6 +252,10 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
   </action>
   <action name="actionwb">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/warrany.ico</normaloff>:/查询/warrany.ico</iconset>
+   </property>
    <property name="text">
     <string>维保信息查询</string>
    </property>
@@ -265,6 +272,15 @@ color: rgba(106, 106, 106, 20);</string>
    </property>
    <property name="text">
     <string>设备位置调整</string>
+   </property>
+  </action>
+  <action name="action_warranty_config">
+   <property name="icon">
+    <iconset resource="../img/picture.qrc">
+     <normaloff>:/查询/warrany_conf.gif</normaloff>:/查询/warrany_conf.gif</iconset>
+   </property>
+   <property name="text">
+    <string>维信息配置</string>
    </property>
   </action>
  </widget>

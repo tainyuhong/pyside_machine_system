@@ -1,7 +1,7 @@
-import logging
 import sys
 import time
 from PySide6 import QtWidgets, QtCore
+from db.db_orm import db,log
 from ui.Main_win import *
 from action.machine_select_action import UiMachineSelect
 from action.machine_imp_exp import UiImport
@@ -17,10 +17,10 @@ from action.check_config_action import UiCconfigCheck
 from action.password_config_action import UiPassword
 from action.report_action import MachineReport              # 生成设备统计报表
 from action.export_to_excel_action import ExportExcel       # 导出设备信息
-from action.warranty_action import UiWarrantySelect        # 维保信息查询
-from action.create_label_action import CreateLabel       # 生成设备标签
+from action.warranty_action import UiWarrantySelect         # 维保信息查询
+from action.create_label_action import CreateLabel          # 生成设备标签
 from action.machine_switch_action import UiSwitch           # 设备位置调整
-from db.db_orm import db
+from action.warranty_config_action import WarrantyConfig    # 维保信息配置
 
 
 class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -33,15 +33,17 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.action_base.triggered.connect(self.base_info_win)
 
         # 查询管理
-        # 定义设备查询菜单触发事件
+        # 定义  设备查询菜单触发事件
         self.actioncxsb.triggered.connect(self.show_select_win)
-        # 定义设备落位图菜单触发事件
+        # 定义设备  落位图菜单触发事件
         self.action_top.triggered.connect(self.show_top_win)
-        # 定义设备分析报告页面
+        # 定义设备  分析报告页面
         self.action_report.triggered.connect(self.anlysis_report_win)
-        # 定义维保信息查询菜单触发事件
+        # 定义维保信息 查询 菜单触发事件
         self.actionwb.triggered.connect(self.show_wb_select_win)
-        # 定义设备标签模板导出
+        # 定义维保信息配置  菜单触发事件
+        self.action_warranty_config.triggered.connect(self.show_warranty_config_win)
+        # 定义设备  标签模板导出
         self.actionprintbx.triggered.connect(self.show_print_label)     # 生成设备标签
 
         # 定义批量导入菜单触发事件
@@ -90,6 +92,11 @@ class UiMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_wb_select_win():
         select_wb_win = UiWarrantySelect()     # 维保信息查询
         select_wb_win.show()
+
+    # 定义设备维保信息配置窗口
+    def show_warranty_config_win(self):
+        self.warranty_config_win = WarrantyConfig()  # 维保信息查询
+        self.warranty_config_win.show()
 
     # 定义生成设备标签
     @staticmethod
@@ -205,7 +212,7 @@ class DbStat(QObject):
             # database.connect(True)
         except Exception as e:
             self.db_signal.emit('False')  # 连接异常发送False信号
-            logging.critical('错误：{}'.format(e))
+            log.critical(f'错误：{e}')
             # QtWidgets.QMessageBox.critical(self,'数据库连接错误', '无法连接到数据库，请检查数据库配置信息是否正确！')
         else:
             self.db_signal.emit('True')  # 连接正常发送True信号

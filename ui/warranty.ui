@@ -282,19 +282,13 @@
            <number>15</number>
           </property>
           <property name="columnCount">
-           <number>15</number>
+           <number>18</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderCascadingSectionResizes">
            <bool>false</bool>
-          </attribute>
-          <attribute name="horizontalHeaderMinimumSectionSize">
-           <number>50</number>
-          </attribute>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>70</number>
           </attribute>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>true</bool>
@@ -323,6 +317,9 @@
           <row/>
           <row/>
           <row/>
+          <column/>
+          <column/>
+          <column/>
           <column/>
           <column/>
           <column/>

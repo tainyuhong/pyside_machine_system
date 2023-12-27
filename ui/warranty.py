@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'warranty.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.5.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -188,8 +188,8 @@ class Ui_Warranty(object):
         self.verticalLayout.addWidget(self.groupBox)
 
         self.warranty_select = QTableWidget(self.vbox)
-        if (self.warranty_select.columnCount() < 14):
-            self.warranty_select.setColumnCount(14)
+        if (self.warranty_select.columnCount() < 18):
+            self.warranty_select.setColumnCount(18)
         if (self.warranty_select.rowCount() < 15):
             self.warranty_select.setRowCount(15)
         self.warranty_select.setObjectName(u"warranty_select")
@@ -206,11 +206,9 @@ class Ui_Warranty(object):
         self.warranty_select.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.warranty_select.setGridStyle(Qt.SolidLine)
         self.warranty_select.setRowCount(15)
-        self.warranty_select.setColumnCount(14)
+        self.warranty_select.setColumnCount(18)
         self.warranty_select.horizontalHeader().setVisible(True)
         self.warranty_select.horizontalHeader().setCascadingSectionResizes(False)
-        self.warranty_select.horizontalHeader().setMinimumSectionSize(50)
-        self.warranty_select.horizontalHeader().setDefaultSectionSize(70)
         self.warranty_select.horizontalHeader().setHighlightSections(True)
         self.warranty_select.horizontalHeader().setProperty("showSortIndicator", False)
         self.warranty_select.verticalHeader().setVisible(False)

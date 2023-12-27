@@ -9,25 +9,47 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
     def __init__(self, parent=None):
         super(UiWarrantySelect, self).__init__(parent)
         self.setupUi(self)
+        self.set_table_info()  # 初始化表格信息
         self.pub_infos = PubSwitch()
         self.get_room_data()  # 显示机房信息
         self.get_warranty_type()  # 显示维保类型下拉菜单
         self.get_under()  # 显示是否在保内下拉菜单
-        # 设置表格相关信息
-        self.warranty_select.setHorizontalHeaderLabels(
-            ['维保ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '序列号',
-             '维保开始日', '维保结束日', '维保单位', '维保类型', '是否在保内', '备注'])
 
         # 初始化定义分页信息
         self.current_page = 1
         self.select_values = []  # 查询条件值
         self.select_btn.clicked.connect(self.get_input_data)  # 按条件进行查询
         # 分页查询按钮事件
-        self.go_btn.clicked.connect(lambda: self.goToPage(self.data_sql, self.select_values[:-1]))  # 定义转到按钮点击事件
-        self.next_btn.clicked.connect(lambda: self.nextPage(self.data_sql, self.select_values[:-1]))  # 定义下一页按钮事件
-        self.pre_btn.clicked.connect(lambda: self.prePage(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
-        self.home_btn.clicked.connect(lambda: self.firstPage(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件
-        self.last_btn.clicked.connect(lambda: self.lastPage(self.data_sql, self.select_values[:-1]))  # 定义最后一页事件
+        self.go_btn.clicked.connect(lambda: self.go_to_page(self.data_sql, self.select_values[:-1]))  # 定义转到按钮点击事件
+        self.next_btn.clicked.connect(lambda: self.next_page(self.data_sql, self.select_values[:-1]))  # 定义下一页按钮事件
+        self.pre_btn.clicked.connect(lambda: self.pre_page(self.data_sql, self.select_values[:-1]))  # 定义上一页按钮事件
+        self.home_btn.clicked.connect(lambda: self.first_page(self.data_sql, self.select_values[:-1]))  # # 定义首页按钮事件
+        self.last_btn.clicked.connect(lambda: self.last_page(self.data_sql, self.select_values[:-1]))  # 定义最后一页事件
+
+    # 初始化设置表格表头及列宽信息
+    def set_table_info(self):
+        # 设置表格相关信息
+        self.warranty_select.setHorizontalHeaderLabels(
+            ['维保ID', '设备ID', '机房名称', '机柜名称', 'U位', '设备名称', '带内IP', '带外IP', '设备品牌', '序列号',
+             '设备类型', '维保开始日', '维保结束日', '维保单位', '维保类型', '是否在保内', '运行状态', '备注'])
+
+        # 设置指定列的列宽
+        self.warranty_select.setColumnWidth(0, 50)
+        self.warranty_select.setColumnWidth(1, 50)
+        self.warranty_select.setColumnWidth(2, 50)
+        self.warranty_select.setColumnWidth(3, 50)
+        self.warranty_select.setColumnWidth(4, 50)
+        self.warranty_select.setColumnWidth(5, 180)  # 设备名称列宽
+        self.warranty_select.setColumnWidth(6, 120)  # 带内IP列宽
+        self.warranty_select.setColumnWidth(7, 120)  # bmc_ip列宽
+        self.warranty_select.setColumnWidth(8, 80)  # 设备品牌
+        self.warranty_select.setColumnWidth(9, 150)  # 序列号
+        self.warranty_select.setColumnWidth(10, 80)  # 设备类型
+        self.warranty_select.setColumnWidth(11, 80)  # 维保开始日列宽
+        self.warranty_select.setColumnWidth(12, 80)  # 设备结束日期列宽
+        self.warranty_select.setColumnWidth(13, 100)
+        self.warranty_select.setColumnWidth(14, 80)
+        self.warranty_select.setColumnWidth(15, 80)
 
     # 获取机房名称信息
     def get_room_data(self):
@@ -59,8 +81,8 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
 
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
-        sql = '''SELECT w_id, machine_id, room_name, cabinet_name, start_position, machine_name, mg_ip, bmc_ip, 
-                machine_sn,start_date, end_date, organ, w_type, is_under, comment
+        sql = '''SELECT w_id, machine_id, room_name, cabinet_name, start_position, machine_name, mg_ip, bmc_ip, machine_factory,
+                machine_sn,machine_sort_name,start_date, end_date, organ, w_type, is_under,run_state, comment
                      FROM view_warranty  WHERE 1=1 
               '''
 
@@ -112,9 +134,9 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # print('查询条件',self.select_values)
         # print('查询SQL',self.data_sql)
         if not self.select_values:
-            self.recordQuery(self.data_sql, [0])
+            self.record_query(self.data_sql, [0])
         else:
-            self.recordQuery(self.data_sql, 0, self.select_values)  # 按查询查询记录
+            self.record_query(self.data_sql, 0, self.select_values)  # 按查询查询记录
         # print('总页数', self.totalPage)
         self.current_page = 1
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
@@ -138,11 +160,11 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         return self.totalPage
 
     # 定义查询记录并显示数据
-    def recordQuery(self, sql, limiIndex, sql_args=None):
+    def record_query(self, sql, limit_index, sql_args=None):
         """
         定义查询记录并显示数据
         :param sql:     不带分页功能的查询语句
-        :param limiIndex:   sql索引记录开始点
+        :param limit_index:   sql索引记录开始点
         :param sql_args:    传入sql的参数
         :return:
         """
@@ -151,11 +173,11 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # print('limiIndex',limiIndex)
 
         if sql_args is None:
-            page_data = db.execute_sql(sql_page, limiIndex).fetchall()  # 每页数据内容
+            page_data = db.execute_sql(sql_page, limit_index).fetchall()  # 每页数据内容
             # print('查询页数据：',page_data)
             # page_data = self.db.query_single(sql_page, limiIndex)  # 每页数据内容
         else:
-            sql_args.append(limiIndex)  # 将索引记录放入SQL传入的参数列表中
+            sql_args.append(limit_index)  # 将索引记录放入SQL传入的参数列表中
             # print('有参数sql_args:',sql_args)
             page_data = db.execute_sql(sql_page, sql_args).fetchall()  # 每页数据内容
             # print('查询页数据：', page_data)
@@ -167,26 +189,18 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
                     self.warranty_select.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:
                     self.warranty_select.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
-        # self.warranty_select.resizeColumnsToContents()  # 自适应列宽
-        self.warranty_select.setColumnWidth(5, 200)  # 设备名称列宽
-        self.warranty_select.setColumnWidth(6, 150)  # 带内IP列宽
-        self.warranty_select.setColumnWidth(7, 150)  # bmc_ip列宽
-        self.warranty_select.setColumnWidth(8, 200)  # 序列号列宽
-        self.warranty_select.setColumnWidth(9, 100)  # 设备开始日期列宽
-        self.warranty_select.setColumnWidth(10, 100)  # 设备结束日期列宽
-        # print('self.select_values',self.select_values)
-        self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values最除索引记录的所有参数
         self.warranty_select.resizeRowsToContents()  # 对于单元格内容过长自动换行
-
+        # print('self.select_values',self.select_values)
+        self.page_record(self.data_sql, self.select_values[:-1])  # 显示总页数 self.select_values 清除索引记录的所有参数
 
     # 转到指定页事件
-    def goToPage(self, sql, sql_args):
+    def go_to_page(self, sql, sql_args):
         if self.page_input_le.text() != '' and int(self.page_input_le.text()) <= self.totalPage and int(
                 self.page_input_le.text()) > 0:
             self.current_page = int(self.page_input_le.text())  # 获取输入的查询页数
-            limiIndex = (int(self.page_input_le.text()) - 1) * 15  # 定位查询开始记录索引点
-            sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
-            self.recordQuery(sql, sql_args)  # 查询数据并进行显示
+            limit_index = (int(self.page_input_le.text()) - 1) * 15  # 定位查询开始记录索引点
+            sql_args.append(limit_index)  # 将sql分页索引开始记录值添加到sql参数列表中
+            self.record_query(sql, sql_args)  # 查询数据并进行显示
             self.page_input_le.setText('')
             self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
             if self.current_page == self.totalPage:
@@ -209,14 +223,14 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
             QtWidgets.QMessageBox.information(self, '提示', '请输入正确的跳转页数')
 
     # 下一页查询事件
-    def nextPage(self, sql, sql_args):
+    def next_page(self, sql, sql_args):
         # print('self.currentPage',self.current_page)
         # print('self.totalPage',self.totalPage)
         if self.current_page < self.totalPage:
-            limiIndex = self.current_page * 15  # 获取当前索引号
-            sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
+            limit_index = self.current_page * 15  # 获取当前索引号
+            sql_args.append(limit_index)  # 将sql分页索引开始记录值添加到sql参数列表中
             # print('下一页按钮中sql_args：',sql_args)
-            self.recordQuery(sql, sql_args)  # 传入值进行查询
+            self.record_query(sql, sql_args)  # 传入值进行查询
             # print('当前页：',self.current_page)
             self.pre_btn.setDisabled(False)  # 上一页按钮可用
             self.next_btn.setDisabled(False)  # 下一页按钮可用
@@ -235,13 +249,13 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         # print('当前页：', self.current_page)
 
     # 上一页查询事件
-    def prePage(self, sql, sql_args):
-        limiIndex = (self.current_page - 2) * 15  # 获取当前索引号
+    def pre_page(self, sql, sql_args):
+        limit_index = (self.current_page - 2) * 15  # 获取当前索引号
         self.current_page -= 1
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
-        if limiIndex >= 0:
-            sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
-            self.recordQuery(sql, sql_args)
+        if limit_index >= 0:
+            sql_args.append(limit_index)  # 将sql分页索引开始记录值添加到sql参数列表中
+            self.record_query(sql, sql_args)
             # print('向前--当前页', self.current_page)
             # print('limiIndex:',limiIndex)
             self.pre_btn.setDisabled(False)
@@ -259,10 +273,10 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
             return
 
     # 首页查询事件
-    def firstPage(self, sql, sql_args):
-        limiIndex = 0  # 获取当前索引号
-        sql_args.append(limiIndex)  # 将sql分页索引开始记录值添加到sql参数列表中
-        self.recordQuery(sql, sql_args)
+    def first_page(self, sql, sql_args):
+        limit_index = 0  # 获取当前索引号
+        sql_args.append(limit_index)  # 将sql分页索引开始记录值添加到sql参数列表中
+        self.record_query(sql, sql_args)
         self.current_page = 1  # 当索引小于0时，设置默认当前页为第一页
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
         self.pre_btn.setDisabled(True)  # 当为第一页时，上一页按钮不可用
@@ -271,11 +285,11 @@ class UiWarrantySelect(QtWidgets.QWidget, Ui_Warranty):
         self.last_btn.setDisabled(False)  # 当为第一页时，最后一页按钮不可用
 
     # 最后一页查询事件
-    def lastPage(self, sql, sql_args):
+    def last_page(self, sql, sql_args):
         # print('最后一页',self.totalPage)
         limiindex = (self.totalPage - 1) * 15  # 获取当前索引号
         sql_args.append(limiindex)  # 将sql分页索引开始记录值添加到sql参数列表中
-        self.recordQuery(sql, sql_args)
+        self.record_query(sql, sql_args)
         self.current_page = self.totalPage
         self.current_page_lb.setText('当前第 {} 页'.format(self.current_page))  # 显示当前页数
         self.pre_btn.setDisabled(False)  # 当为第一页时，按钮可用
