@@ -11,19 +11,19 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
         super(WarrantyConfig, self).__init__(parent)
         self.setupUi(self)
         self.pub_infos = PubSwitch()
-        self.set_header_info()          # 调用表格列设置宽度
-        self.set_time()                 # 设置默认维保信息
+        self.set_header_info()  # 调用表格列设置宽度
+        self.set_time()  # 设置默认维保信息
 
         self.sql_join = []
-        self.sql = {}                   # 用于保存获取的查询条件拼接字段 字典
+        self.sql = {}  # 用于保存获取的查询条件拼接字段 字典
 
         # 下拉菜单信息显示
-        self.display_room()             # 显示机房下拉菜单内容
-        self.display_sort()             # 显示分类信息
+        self.display_room()  # 显示机房下拉菜单内容
+        self.display_sort()  # 显示分类信息
         self.cb_room.currentIndexChanged.connect(self.display_cabinet)  # 定义机房下拉菜单触发事件
-        self.display_manufacturer()     # 显示设备品牌信息
-        self.display_is_under()         # 显示维保状态下拉菜单
-        self.display_organization()     # 显示厂商信息
+        self.display_manufacturer()  # 显示设备品牌信息
+        self.display_is_under()  # 显示维保状态下拉菜单
+        self.display_organization()  # 显示厂商信息
 
         # 表格中单元格点击事件
         self.tb_display.itemClicked.connect(self.selected_item)
@@ -99,8 +99,7 @@ class WarrantyConfig(QtWidgets.QWidget, Ui_WarrantyConfig):
 
     # 显示维保状态
     def display_is_under(self):
-        self.cb_is_under.addItems(['所有','未知','过保','保内'])
-
+        self.cb_is_under.addItems(['所有', '未知', '过保', '保内'])
 
     # 获取维保厂商信息
     def display_organization(self):
