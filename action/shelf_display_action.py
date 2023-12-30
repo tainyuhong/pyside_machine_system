@@ -14,6 +14,10 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(UiShelfDisplay, self).__init__(parent)
         self.setupUi(self)
+
+        self.sql = []   # 用于接收拼接SQL
+        self.down_sql = []      # 用于接收拼接下架SQL
+
         # self.tabWidget.currentChanged.connect(self.print_win_index)
         # 上架信息窗口
         # self.display_up_data()  # 默认页面查询
@@ -37,39 +41,21 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     # 上架信息查询
     def display_up_data(self, up_date=None):
         self.tb_up.clearContents()  # 清空表格中内容
+        self.sql = []
+        # 拼接SQL
+        self.choose_reup()          # 判断是否钩上架
+        self.choose_date()          # 判断日期
 
-        # 判断是否钩选重新上架
-        if self.ckb_reupshelf.isChecked():
-            # print('重新上架的')
-            if up_date is not None:
-                updata_model = ViewUpshelf.select().where(
-                    ViewUpshelf.date == up_date & ViewUpshelf.up_or_down == 3)  # 定义数据查询模型
-                updata = [
-                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
-                     i.machine_sn,
-                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
-            else:
-                updata_model = ViewUpshelf.select().where(ViewUpshelf.up_or_down == 3)  # 定义数据查询模型
-                updata = [
-                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
-                     i.machine_sn,
-                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
-            # print('上架数据：',updata,len(updata))
+        sql = ViewUpshelf.select(ViewUpshelf.machine_id,ViewUpshelf.machine_name,ViewUpshelf.postion,
+                                          ViewUpshelf.machine_factory,ViewUpshelf.machine_sort_name, ViewUpshelf.model,ViewUpshelf.machine_sn,
+                                          ViewUpshelf.mg_ip,ViewUpshelf.date, ViewUpshelf.operator,
+                                          ViewUpshelf.machine_admin,ViewUpshelf.comments)
+        if len(self.sql) > 0:
+            updata_model = sql.where(* self.sql).tuples()  # 定义数据查询模型
         else:
-            if up_date is not None:
-                updata_model = ViewUpshelf.select().where(
-                    ViewUpshelf.date == up_date & ViewUpshelf.up_or_down == 1)  # 定义数据查询模型
-                updata = [
-                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
-                     i.machine_sn,
-                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
-            else:
-                updata_model = ViewUpshelf.select().where(ViewUpshelf.up_or_down == 1)  # 定义数据查询模型
-                updata = [
-                    (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model,
-                     i.machine_sn,
-                     i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in updata_model]  # 定义显示数据内容
-            # print('上架数据：',updata,len(updata))
+            updata_model = sql.tuples()
+        updata = [v for v in updata_model]
+        # print('up sql',updata_model.sql())
 
         # 判断查询到的数据是否为0
         if len(updata) != 0:
@@ -86,6 +72,28 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             self.tb_up.horizontalHeader().setDefaultSectionSize(80)  # 设置默认宽度为80
             QtWidgets.QMessageBox.warning(self, '上架信息查询', '未查询到任何上架信息！')
             self.btn_export_up.setDisabled(True)  # 禁用导出按钮
+
+    # 判断是否钩选重复上架
+    def choose_reup(self):
+        if self.ckb_reupshelf.isChecked():
+            self.sql.append(ViewUpshelf.up_or_down == 3)
+        else:
+            self.sql.append(ViewUpshelf.up_or_down == 1)
+
+    # 判断是否钩选上架日期
+    def choose_date(self):
+        # print('日期',self.up_date.text())
+        if self.ckb_up.isChecked():
+            self.sql.append(ViewUpshelf.date == self.up_date.text())
+        else:
+            pass
+
+    # 判断是否钩选下架日期
+    def choose_down_date(self):
+        if self.ckb_down.isChecked():
+            self.down_sql.append(ViewDownshelf.date == self.down_date.text())
+        else:
+            self.down_sql.append(ViewDownshelf.up_or_down == 2)
 
     # 导出上架信息至excel
     def export_up_to_xls(self, table):
@@ -134,42 +142,42 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         # 判断第一行第一列是否有数据，如果没有则没有需要导出的数据
         if self.tb_down.item(0, 0):
             with xw.App(visible=False, add_book=False) as xl_app:
-                # 打开模板表
-                wb = xl_app.books.open(Path(__file__).parents[1] / 'machine_template' / 'down_audit_tmp.xlsx')
-                sh = wb.sheets[0]
-                # 下架设备数据写入到EXCEL中
-                row_count = self.tb_down.rowCount()  # 行数
-                # 如果行数大于13则复制格式到多余的行上
-                if row_count > 13:
-                    for _ in range(row_count - 13):
-                        sh.range('A15', 'J15').copy(sh.range((16 + _, 1), (16 + _, 10)))
-
-                num = 1  # 初始化序号
-                for cell_row in range(row_count):
-                    # 序号
-                    sh.cells(cell_row + 3, 1).value = num
-                    # 设备名称
-                    sh.cells(cell_row + 3, 2).value = self.tb_down.item(cell_row, 1).text()
-                    # 位置
-                    sh.cells(cell_row + 3, 3).value = self.tb_down.item(cell_row, 2).text()
-                    # 品牌
-                    sh.cells(cell_row + 3, 4).value = self.tb_down.item(cell_row, 3).text()
-                    # 类型
-                    sh.cells(cell_row + 3, 5).value = self.tb_down.item(cell_row, 4).text()
-                    # 型号
-                    sh.cells(cell_row + 3, 6).value = self.tb_down.item(cell_row, 5).text()
-                    # 序列号
-                    sh.cells(cell_row + 3, 7).value = self.tb_down.item(cell_row, 6).text()
-                    # 管理IP
-                    sh.cells(cell_row + 3, 8).value = self.tb_down.item(cell_row, 7).text()
-                    # 下架日期
-                    sh.cells(cell_row + 3, 9).value = self.tb_down.item(cell_row, 8).text()
-                    # 备注
-                    sh.cells(cell_row + 3, 10).value = self.tb_down.item(cell_row, 11).text()
-                    num += 1  # 每添加一行增加1
-
                 filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
                 if ok:
+                    # 打开模板表
+                    wb = xl_app.books.open(Path(__file__).parents[1] / 'machine_template' / 'down_audit_tmp.xlsx')
+                    sh = wb.sheets[0]
+
+                    # 下架设备数据写入到EXCEL中
+                    row_count = self.tb_down.rowCount()  # 行数
+                    # 如果行数大于13则复制格式到多余的行上
+                    if row_count > 13:
+                        for _ in range(row_count - 13):
+                            sh.range('A15', 'J15').copy(sh.range((16 + _, 1), (16 + _, 10)))
+
+                    # num = 1  # 初始化序号
+                    # for cell_row in range(row_count):
+                    #     # 序号
+                    #     sh.cells(cell_row + 3, 1).value = num
+                    #     # 设备名称
+                    #     sh.cells(cell_row + 3, 2).value = self.tb_down.item(cell_row, 1).text()
+                    #     # 位置
+                    #     sh.cells(cell_row + 3, 3).value = self.tb_down.item(cell_row, 2).text()
+                    #     # 品牌
+                    #     sh.cells(cell_row + 3, 4).value = self.tb_down.item(cell_row, 3).text()
+                    #     # 类型
+                    #     sh.cells(cell_row + 3, 5).value = self.tb_down.item(cell_row, 4).text()
+                    #     # 型号
+                    #     sh.cells(cell_row + 3, 6).value = self.tb_down.item(cell_row, 5).text()
+                    #     # 序列号
+                    #     sh.cells(cell_row + 3, 7).value = self.tb_down.item(cell_row, 6).text()
+                    #     # 管理IP
+                    #     sh.cells(cell_row + 3, 8).value = self.tb_down.item(cell_row, 7).text()
+                    #     # 下架日期
+                    #     sh.cells(cell_row + 3, 9).value = self.tb_down.item(cell_row, 8).text()
+                    #     # 备注
+                    #     sh.cells(cell_row + 3, 10).value = self.tb_down.item(cell_row, 11).text()
+                    #     num += 1  # 每添加一行增加1
                     wb.save(filesave)  # 保存excel
                     wb.close()
                     QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
@@ -211,27 +219,53 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     # 下架信息查询
     def display_down_data(self, down_date=None):
         self.tb_down.clearContents()  # 清空表格中内容
-        if down_date is not None:
-            data_model = ViewDownshelf.select().where(ViewDownshelf.date == down_date)  # 定义数据查询模型
-            data = [
-                (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-                 i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
 
-            # 获取重复下架的设备信息
-            redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
-                ViewDownshelf.up_or_down == 4).tuples()
-            redown_data = [red[0] for red in redown_data_model]
-            # print('重复上架设备：', redown_data)
+        self.down_sql = []
+        self.choose_down_date()     # 判断是否钩下架时间
+
+        sql = ViewDownshelf.select(ViewDownshelf.machine_id,ViewDownshelf.machine_name,ViewDownshelf.postion,
+                                          ViewDownshelf.machine_factory,ViewDownshelf.machine_sort_name,ViewDownshelf.model,
+                                          ViewDownshelf.machine_sn,ViewDownshelf.mg_ip,ViewDownshelf.date,ViewDownshelf.operator,
+                                          ViewDownshelf.machine_admin,ViewDownshelf.comments)
+        if len(self.down_sql) > 0:
+            data_model = sql.where(* self.down_sql).tuples()
         else:
-            data_model = ViewDownshelf.select()  # 定义数据查询模型
-            data = [
-                (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-                 i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
+            data_model = sql.tuples()
+        print('down sql', data_model.sql())
+        data = [d for d in data_model]
 
-            # 获取重复下架的设备信息
-            redown_data_model = ViewDownshelf.select(ViewDownshelf.machine_id).where(
-                ViewDownshelf.up_or_down == 4).tuples()
-            redown_data = [red[0] for red in redown_data_model]
+        # 获取重复下架的设备信息
+        redown_data_model = ViewDownshelf.select(ViewDownshelf.machine_id).where(
+            ViewDownshelf.up_or_down == 4).tuples()
+        redown_data = [red[0] for red in redown_data_model]
+
+        # 获取重复下架的设备信息
+        # redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
+        #     ViewDownshelf.up_or_down == 4).tuples()
+        # redown_data = [red[0] for red in redown_data_model]
+        # print('重复上架设备：', redown_data)
+
+        # if down_date is not None:
+        #     data_model = ViewDownshelf.select().where(ViewDownshelf.date == down_date)  # 定义数据查询模型
+        #     data = [
+        #         (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
+        #          i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
+        #
+        #     # 获取重复下架的设备信息
+        #     redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
+        #         ViewDownshelf.up_or_down == 4).tuples()
+        #     redown_data = [red[0] for red in redown_data_model]
+        #     # print('重复上架设备：', redown_data)
+        # else:
+        #     data_model = ViewDownshelf.select()  # 定义数据查询模型
+        #     data = [
+        #         (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
+        #          i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
+        #
+        #     # 获取重复下架的设备信息
+        #     redown_data_model = ViewDownshelf.select(ViewDownshelf.machine_id).where(
+        #         ViewDownshelf.up_or_down == 4).tuples()
+        #     redown_data = [red[0] for red in redown_data_model]
             # print('重复上架设备：', redown_data)
 
         # print('上架数据：', data)

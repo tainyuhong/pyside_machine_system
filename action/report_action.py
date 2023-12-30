@@ -59,7 +59,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
         barseries.setLabelsVisible(True)
         barseries.setLabelsPosition(QAbstractBarSeries.LabelsOutsideEnd)
         room_barset.setLabelColor('blue')
-        use_room_barset.setLabelColor('blue')
+        use_room_barset.setLabelColor('green')
 
     # 创建机柜图表
     def create_cabinet_chart(self):
@@ -87,7 +87,8 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
                     use_cabinet_data.append(0)  # 如果机房中没有设备则设置数据为0
                     break
         # print(room_name, cabinet_data, use_cabinet_data)
-        # print(cabinet_data)
+        print('总量：',cabinet_data)
+        print('使用量：',use_cabinet_data)
         # 创建条状图
         barseries = QBarSeries()
         # 将柱状图添加到图表展示窗口中
@@ -122,7 +123,7 @@ class MachineReport(Ui_report_form, QtWidgets.QWidget):
         barseries.setLabelsVisible(True)
         barseries.setLabelsPosition(QAbstractBarSeries.LabelsOutsideEnd)
         cabinet_barset.setLabelColor('blue')
-        use_cabinet_barset.setLabelColor('blue')
+        use_cabinet_barset.setLabelColor('green')
 
         # 设置条状单元数据
         cabinet_barset.append(cabinet_data)

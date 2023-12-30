@@ -9,16 +9,10 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
     def __init__(self, parent=None):
         super(UiMachineSelect, self).__init__(parent)
         self.setupUi(self)
+        self.set_table()  # 初始化设置表格信息
         self.pub_infos = PubSwitch()
         self.get_room_data()                    # 显示机房信息
         self.get_machine_sort()                 # 显示设备分类信息下拉菜单
-
-        # 设置表格相关信息
-        self.select_table.setHorizontalHeaderLabels(
-            ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
-             '带内IP',
-             '带外IP', '设备管理员','运行状态','备注'])
-        self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
 
         # 机房下拉菜单触发事件
         self.room.currentIndexChanged.connect(self.get_cabinet_data)        # 获取机柜信息
@@ -45,6 +39,33 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
 
         # 表格控件选中事件
         self.select_table.clicked.connect(self.display_warranty_info)  # 定义表格点击事件
+
+    # 初始化设置表格表头及列宽信息
+    def set_table(self):
+        # 设置表格相关信息
+        self.select_table.setHorizontalHeaderLabels(
+            ['设备ID', '机房', '机柜', 'U位', 'U数', '设备类型', '设备品牌', '设备型号', '设备序列号', '设备名称',
+             '带内IP', '带外IP', '设备管理员', '运行状态', '维保状态', '维保公司', '备注'])
+        self.select_table.setStyleSheet("alternate-background-color: SkyBlue;background-color: Azure;")  # 设置行的交替显示背景颜色
+        # 设置各列默认宽度
+        self.select_table.setColumnWidth(0,50)
+        self.select_table.setColumnWidth(1,50)
+        self.select_table.setColumnWidth(2,50)
+        self.select_table.setColumnWidth(3,40)
+        self.select_table.setColumnWidth(4,40)
+        self.select_table.setColumnWidth(5,80)
+        self.select_table.setColumnWidth(6,80)
+        self.select_table.setColumnWidth(7,100)
+        self.select_table.setColumnWidth(8,180)
+        self.select_table.setColumnWidth(9,200)
+        self.select_table.setColumnWidth(10,120)
+        self.select_table.setColumnWidth(11,120)
+        self.select_table.setColumnWidth(12,80)
+        self.select_table.setColumnWidth(13,80)
+        self.select_table.setColumnWidth(14,80)
+        self.select_table.setColumnWidth(15,100)
+        self.select_table.setColumnWidth(16,100)
+
 
     # 获取机房名称信息
     def get_room_data(self):
@@ -81,7 +102,7 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
         # 根据条件查询设备
         sel_values = []  # 用于保存获取的查询条件列表
         sql = '''SELECT machine_id, room_name, cab_name, start_position, postion_u, machine_sort_name, 
-        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin, run_state,comments
+        machine_factory, model, machine_sn, machine_name, mg_ip, bmc_ip, machine_admin, run_state,is_under,organ,comments
         FROM machine_list  where 1 = 1 '''
 
         # 判断并组合查询SQL
@@ -180,12 +201,12 @@ class UiMachineSelect(QtWidgets.QWidget, Ui_MachineSelect):
             # page_data = self.db.query_single(sql_page, sql_args)  # 每页数据内容
         self.select_table.clearContents()  # 清除所有内容
         for i in range(len(page_data)):
-            for _ in range(15):  # 15为列数
+            for _ in range(self.select_table.columnCount()):  # 循环列数
                 if page_data[i][_] is None:
                     self.select_table.setItem(i, _, QTableWidgetItem(''))  # 显示单元格数据
                 else:
                     self.select_table.setItem(i, _, QTableWidgetItem(str(page_data[i][_])))  # 显示单元格数据
-        self.select_table.resizeColumnsToContents()  # 自适应列宽
+        self.select_table.resizeRowsToContents()  # 自适应列宽
         # 查找单元格为关机的单元格并设置相应颜色
         items = self.select_table.findItems('关机', Qt.MatchExactly)
         if len(items) > 0:

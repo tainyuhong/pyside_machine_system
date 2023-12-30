@@ -86,7 +86,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1,1,3,1,2,1,1,0">
+            <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1,1,3,1,2,1,1">
              <item row="0" column="2">
               <widget class="QRadioButton" name="rd_mg_ip">
                <property name="text">
@@ -290,7 +290,7 @@
            <number>15</number>
           </property>
           <property name="columnCount">
-           <number>15</number>
+           <number>17</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
@@ -325,6 +325,8 @@
           <row/>
           <row/>
           <row/>
+          <column/>
+          <column/>
           <column/>
           <column/>
           <column/>

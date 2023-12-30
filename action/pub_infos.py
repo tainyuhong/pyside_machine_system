@@ -56,19 +56,21 @@ class PubSwitch:
         :param room_name: 传一个机房名称 :string
         :return: 返回每个机房内在用的机柜信息列表 -->list
         """
-        if type(room_name) == str:
-            cabinet_data = Cabinet.select(Cabinet.cab_num).join(MachineRoom)\
-                .where(Cabinet.is_use == 1 and MachineRoom.room_id == Cabinet.room and
-                       MachineRoom.room_name == room_name).order_by(Cabinet.cab_num)  # 查询父类不为空的分类
-            # 定义一个机柜列表
-            cabinet_list = []
-            # 添加到机柜列表中
-            for i in cabinet_data:
-                # print('机柜信息：', i.cab_num)
-                cabinet_list.append(i.cab_num)
-            return cabinet_list
-        else:
-            return 'room错误：请传入一个字符串'
+        # print(room_name)
+        cabinet_data = Cabinet.select(Cabinet.cab_num).join(MachineRoom)\
+            .where((Cabinet.is_use == 1) & (MachineRoom.room_id == Cabinet.room) &
+                   (MachineRoom.room_name == room_name)).order_by(Cabinet.cab_num)  # 查询父类不为空的分类
+        # 定义一个机柜列表
+        cabinet_list = []
+        # print('sql',cabinet_data.sql())
+        # 添加到机柜列表中
+        for i in cabinet_data:
+            # print('机柜信息：', i.cab_num)
+            cabinet_list.append(i.cab_num)
+        # print(cabinet_list)
+        return cabinet_list
+    # else:
+    #     return 'room错误：请传入一个字符串'
 
 
 if __name__ == '__main__':
