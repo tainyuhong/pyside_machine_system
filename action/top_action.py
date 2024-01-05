@@ -70,7 +70,7 @@ class DisplayTop(QtWidgets.QWidget, Ui_top):
                 jigui = machine[0]  # 相当于表格的列
                 u_postion = machine[1]  # 相当于表格的行
                 item_data = '\n\r'.join(machine[3:])
-                print('item_data', item_data)
+                # print('item_data', item_data)
                 if item_data == '\n\r\n\r':
                     item_data = '未知设备名称及IP'
                 item = QtWidgets.QTableWidgetItem(item_data)  # 定义单元格内容

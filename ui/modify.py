@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'modify.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.1
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -177,53 +177,11 @@ class Ui_modify(object):
         self.tb_display = QTableWidget(modify)
         if (self.tb_display.columnCount() < 21):
             self.tb_display.setColumnCount(21)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(4, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(5, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(6, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(7, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(8, __qtablewidgetitem8)
-        __qtablewidgetitem9 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(9, __qtablewidgetitem9)
-        __qtablewidgetitem10 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(10, __qtablewidgetitem10)
-        __qtablewidgetitem11 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(11, __qtablewidgetitem11)
-        __qtablewidgetitem12 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(12, __qtablewidgetitem12)
-        __qtablewidgetitem13 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(13, __qtablewidgetitem13)
-        __qtablewidgetitem14 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(14, __qtablewidgetitem14)
-        __qtablewidgetitem15 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(15, __qtablewidgetitem15)
-        __qtablewidgetitem16 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(16, __qtablewidgetitem16)
-        __qtablewidgetitem17 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(17, __qtablewidgetitem17)
-        __qtablewidgetitem18 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(18, __qtablewidgetitem18)
-        __qtablewidgetitem19 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(19, __qtablewidgetitem19)
-        __qtablewidgetitem20 = QTableWidgetItem()
-        self.tb_display.setHorizontalHeaderItem(20, __qtablewidgetitem20)
         if (self.tb_display.rowCount() < 15):
             self.tb_display.setRowCount(15)
         self.tb_display.setObjectName(u"tb_display")
         self.tb_display.setStyleSheet(u"selection-background-color: rgb(255, 170, 0);")
-        self.tb_display.setEditTriggers(QAbstractItemView.DoubleClicked)
+        self.tb_display.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tb_display.setAlternatingRowColors(True)
         self.tb_display.setGridStyle(Qt.SolidLine)
         self.tb_display.setSortingEnabled(False)
@@ -305,48 +263,6 @@ class Ui_modify(object):
         self.label_4.setText(QCoreApplication.translate("modify", u"\u5e8f\u5217\u53f7", None))
         self.lb_machine_name.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None))
         self.ck_is_down.setText(QCoreApplication.translate("modify", u"\u5df2\u4e0b\u67b6", None))
-        ___qtablewidgetitem = self.tb_display.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907ID", None));
-        ___qtablewidgetitem1 = self.tb_display.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("modify", u"\u673a\u623f", None));
-        ___qtablewidgetitem2 = self.tb_display.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("modify", u"\u673a\u67dc", None));
-        ___qtablewidgetitem3 = self.tb_display.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("modify", u"\u4e0bU\u4f4d", None));
-        ___qtablewidgetitem4 = self.tb_display.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("modify", u"\u4e0aU\u4f4d", None));
-        ___qtablewidgetitem5 = self.tb_display.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u540d\u79f0", None));
-        ___qtablewidgetitem6 = self.tb_display.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u5206\u7c7b", None));
-        ___qtablewidgetitem7 = self.tb_display.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u5382\u5546", None));
-        ___qtablewidgetitem8 = self.tb_display.horizontalHeaderItem(8)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("modify", u"\u8bbe\u5907\u578b\u53f7", None));
-        ___qtablewidgetitem9 = self.tb_display.horizontalHeaderItem(9)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("modify", u"\u5e8f\u5217\u53f7", None));
-        ___qtablewidgetitem10 = self.tb_display.horizontalHeaderItem(10)
-        ___qtablewidgetitem10.setText(QCoreApplication.translate("modify", u"\u7ba1\u7406IP", None));
-        ___qtablewidgetitem11 = self.tb_display.horizontalHeaderItem(11)
-        ___qtablewidgetitem11.setText(QCoreApplication.translate("modify", u"BMC IP", None));
-        ___qtablewidgetitem12 = self.tb_display.horizontalHeaderItem(12)
-        ___qtablewidgetitem12.setText(QCoreApplication.translate("modify", u"\u5e94\u7528IP", None));
-        ___qtablewidgetitem13 = self.tb_display.horizontalHeaderItem(13)
-        ___qtablewidgetitem13.setText(QCoreApplication.translate("modify", u"\u4e1a\u52a1\u7c7b\u578b", None));
-        ___qtablewidgetitem14 = self.tb_display.horizontalHeaderItem(14)
-        ___qtablewidgetitem14.setText(QCoreApplication.translate("modify", u"\u8fd0\u884c\u72b6\u6001", None));
-        ___qtablewidgetitem15 = self.tb_display.horizontalHeaderItem(15)
-        ___qtablewidgetitem15.setText(QCoreApplication.translate("modify", u"\u8d1f\u8d23\u4eba", None));
-        ___qtablewidgetitem16 = self.tb_display.horizontalHeaderItem(16)
-        ___qtablewidgetitem16.setText(QCoreApplication.translate("modify", u"\u5e94\u7528\u7ba1\u7406\u5458", None));
-        ___qtablewidgetitem17 = self.tb_display.horizontalHeaderItem(17)
-        ___qtablewidgetitem17.setText(QCoreApplication.translate("modify", u"\u51fa\u5382\u65e5\u671f", None));
-        ___qtablewidgetitem18 = self.tb_display.horizontalHeaderItem(18)
-        ___qtablewidgetitem18.setText(QCoreApplication.translate("modify", u"\u5230\u4fdd\u65e5\u671f", None));
-        ___qtablewidgetitem19 = self.tb_display.horizontalHeaderItem(19)
-        ___qtablewidgetitem19.setText(QCoreApplication.translate("modify", u"\u8d44\u4ea7\u7f16\u53f7", None));
-        ___qtablewidgetitem20 = self.tb_display.horizontalHeaderItem(20)
-        ___qtablewidgetitem20.setText(QCoreApplication.translate("modify", u"\u5907\u6ce8", None));
         self.bt_modify.setText(QCoreApplication.translate("modify", u"\u4fee    \u6539", None))
         self.bt_save.setText(QCoreApplication.translate("modify", u"\u4fdd\u5b58", None))
         self.lb_status.setText(QCoreApplication.translate("modify", u"\u72b6\u6001\u680f", None))

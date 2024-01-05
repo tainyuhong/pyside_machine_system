@@ -277,7 +277,7 @@
         <string notr="true">selection-background-color: rgb(255, 170, 0);</string>
        </property>
        <property name="editTriggers">
-        <set>QAbstractItemView::DoubleClicked</set>
+        <set>QAbstractItemView::NoEditTriggers</set>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
@@ -309,111 +309,27 @@
        <row/>
        <row/>
        <row/>
-       <column>
-        <property name="text">
-         <string>设备ID</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>机房</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>机柜</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>下U位</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>上U位</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备名称</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备分类</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备厂商</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>设备型号</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>序列号</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>管理IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>BMC IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>应用IP</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>业务类型</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>运行状态</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>负责人</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>应用管理员</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>出厂日期</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>到保日期</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>资产编号</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>备注</string>
-        </property>
-       </column>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
+       <column/>
       </widget>
      </item>
      <item>

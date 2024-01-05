@@ -1,6 +1,7 @@
 import sys
 from ui.modify import *
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore, QtGui
+from PySide6.QtGui import QFontMetrics
 from action.pub_infos import PubSwitch  # 机房信息
 from db.db_orm import *
 
@@ -19,14 +20,16 @@ from db.db_orm import *
 """
 
 
-class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
+class UiModifyMachine(QtWidgets.QWidget, Ui_modify):
     is_selected = False  # 是否再次查询
 
     def __init__(self, parent=None):
         super(UiModifyMachine, self).__init__(parent)
+        self.setupUi(self)  # 初始化窗口
+        self.set_table_info()  # 初始化表格参数信息
         self.room = PubSwitch()  # 创建机房对象
         self.room_name = self.room.get_room()  # 获取机房名称信息
-        self.setupUi(self)
+
         self.modify_data = []  # 暂存修改数据元素及值
         self.get_room()  # 获取机房信息并显示至下拉菜单中
         self.get_machine_sort()  # 显示设备分类信息
@@ -37,6 +40,19 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         self.bt_clear.clicked.connect(self.clear)  # 清空条件框内容
         self.bt_modify.clicked.connect(self.open_modify)  # 进入修改状态
         self.bt_save.clicked.connect(self.submit_modify)  # 保存修改
+
+    # 定义表格表头及各列宽度
+    def set_table_info(self):
+        table_info = {'设备ID': 50, '机房': 50, '机柜': 50, '下U位': 50, '上U位': 50, '设备名称': 180, '设备分类': 100,
+                      '设备厂商': 100, '设备型号': 100, '序列号': 170, '管理IP': 100, 'BMC IP': 100, '应用IP': 100,
+                      '业务类型': 80, '运行状态': 80, '负责人': 80, '应用管理员': 80, '出厂日期': 100, '到保日期': 100,
+                      '资产编号': 100, '备注': 150}
+        # 设置表格表头信息
+        self.tb_display.setHorizontalHeaderLabels(table_info.keys())
+
+        # 设置指定列的列宽
+        for num, width in enumerate(table_info.values()):
+            self.tb_display.setColumnWidth(num, width)  # 设置指定列的列宽
 
     # 获取机房信息并显示到下拉菜单中
     def get_room(self):
@@ -74,7 +90,7 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         if self.is_selected:
             # print('断开信号---')
             self.tb_display.itemChanged.disconnect(self.display_changed)  # 启用单元格式信号
-            self.is_selected = False                # 修改标记为false,未查询
+            self.is_selected = False  # 修改标记为false,未查询
         else:
             # print('不断开信号')
             pass
@@ -139,25 +155,19 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         self.tb_display.clearContents()
         # 将查询结果显示在表格控件中
         for row, d1 in enumerate(result):
-            # print('每一行数据：',d1)
             for col, d2 in enumerate(d1):
                 # # 添加机房下拉菜控件
-                # cb = QComboBox()
-                # cb.addItems(self.room_name.values())
-                if col == 0:
-                    self.tb_display.setItem(row, col, QTableWidgetItem(str(result[row][col])))
-                    self.tb_display.item(row, 0).setFlags(Qt.ItemIsEnabled)  # 第一列设置为不可编辑
                 if col == 1:
                     self.tb_display.setItem(row, col, QTableWidgetItem(self.room.room_swap_id(room_id=d2)))
                     # cb.setCurrentText(self.room.room_swap_id(room_id=d2))  # 将机房ID转换为机房名称并设置为当前选择项
-                    # cb.setDisabled(True)    # 设置下拉菜单不可编辑
-                    # self.tb_display.setCellWidget(row, 1, cb)  # 将机房下拉菜单添加到表格对应位置
+
                 else:
                     if d2 is None:
                         self.tb_display.setItem(row, col, QTableWidgetItem(''))
                     else:
                         self.tb_display.setItem(row, col, QTableWidgetItem(str(result[row][col])))
-        self.tb_display.resizeColumnsToContents()  # 自适应列宽
+        self.tb_display.resizeRowsToContents()  # 自适应行高,根据内容自动换行
+
         self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 设置表格为不可修改状态
         self.tb_display.setToolTip(
             '业务类型：1生产,2电渠,3灾备,4开发,5备份,6分行\n\r运行状态:1运行,2断网,3关机,4下架,5未加电')
@@ -183,6 +193,10 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
         self.is_selected = True
         self.modify_data = []  # 置空暂存列表数据
         self.tb_display.setEditTriggers(QtWidgets.QAbstractItemView.DoubleClicked)  # 允许编辑
+
+        # 使用委托，设置第1-3列不可编辑,控制设备类型一列
+        self.tb_display.setItemDelegate(ColumnEditDelegate(self))
+
         self.tb_display.itemChanged.connect(self.display_changed)  # 启用单元格式信号
         # 在点击了修改按钮后设置为不可用，避免重复点击修改按钮
         self.bt_modify.setDisabled(True)
@@ -252,6 +266,29 @@ class UiModifyMachine(Ui_modify, QtWidgets.QWidget):
             self.tb_display.itemChanged.disconnect(self.display_changed)  # 断开信号
         else:
             QtWidgets.QMessageBox.warning(self, '修改设备', '没有数据需要保存！')
+
+
+# 创建一个1-3列不可编辑的委托,创建设备类型列的委托
+class ColumnEditDelegate(QtWidgets.QStyledItemDelegate):
+    """
+    创建一个1-3列不可编辑的委托,创建设备类型列的委托
+    """
+
+    def __init__(self, parent=None):
+        super(ColumnEditDelegate, self).__init__(parent)
+
+    def createEditor(self, parent, option, index):
+        data_model = MachineSort.select(MachineSort.sort_name).where(MachineSort.part_sort.is_null(False)).order_by(
+            MachineSort.sort_id)
+        sort = [i.sort_name for i in data_model]
+        if index.column() == 6:
+            editor = QtWidgets.QComboBox(parent)
+            editor.addItems(sort)
+            return editor
+        elif index.column() not in (0, 1, 2):
+            return super(ColumnEditDelegate, self).createEditor(parent, option, index)
+        else:
+            pass
 
 
 if __name__ == '__main__':
