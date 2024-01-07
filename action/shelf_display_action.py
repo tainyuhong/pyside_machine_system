@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from time import time
 from ui.shelf_display import *
 from PySide6 import QtWidgets
 from db.db_orm import *
@@ -23,7 +24,9 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
         # self.display_up_data()  # 默认页面查询
         self.bt_up_select.clicked.connect(
             lambda: self.select(self.ckb_up, self.up_date, self.display_up_data))  # 定义查询按钮事件
-        self.ckb_up.stateChanged.connect(lambda: self.checkbox_state(self.ckb_up, self.up_date))
+
+        # 设置上架日期复选框事件
+        self.ckb_up.stateChanged.connect(lambda: self.checkbox_state(self.ckb_up, self.up_date,self.end_up_time))
         self.btn_export_up.clicked.connect(lambda: self.export_up_to_xls(self.tb_up))  # 导出上架信息
 
         # 下架信息窗口
@@ -33,7 +36,8 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             pass
         self.bt_down_select.clicked.connect(lambda: self.select(self.ckb_down, self.down_date,
                                                                 self.display_down_data))  # 定义查询按钮事件
-        self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date))
+        # 设置下架日期复选框事件
+        self.ckb_down.stateChanged.connect(lambda: self.checkbox_state(self.ckb_down, self.down_date,self.end_down_time))
         # self.btn_export_down.clicked.connect(lambda: self.export_up_to_xls(self.tb_down))  # 导出下架信息
         self.btn_export_down.clicked.connect(self.exp_down_list)  # 导出下架信息
         self.bt_hand_over.clicked.connect(self.create_hand_over_list)  # 生成移交清单
@@ -84,14 +88,14 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
     def choose_date(self):
         # print('日期',self.up_date.text())
         if self.ckb_up.isChecked():
-            self.sql.append(ViewUpshelf.date == self.up_date.text())
+            self.sql.append(ViewUpshelf.date.between(self.up_date.text(),self.end_up_time.text()) )
         else:
             pass
 
     # 判断是否钩选下架日期
     def choose_down_date(self):
         if self.ckb_down.isChecked():
-            self.down_sql.append(ViewDownshelf.date == self.down_date.text())
+            self.down_sql.append(ViewDownshelf.date.between(self.down_date.text(),self.end_down_time.text()))
         else:
             self.down_sql.append(ViewDownshelf.up_or_down == 2)
 
@@ -123,9 +127,15 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                     # excel中进行文本格式化后再写入内容
                     sh.range((2, 2), (row_count + 1, col_count + 1)).options(expand='table').api.NumberFormat = '@'
                     # 从页面表格中获取数据写入到EXCEL中
+                    data = []       # 表单数据内容
                     for cell_row in range(row_count):
+                        data_row = []       # 接收每一行数据内容
                         for cell_col in range(col_count):
-                            sh.cells(cell_row + 2, cell_col + 1).value = table.item(cell_row, cell_col).text()
+                            data_row.append(table.item(cell_row, cell_col).text())
+                        data.append(data_row)
+
+                    # 向表格中一次性写入所有数据
+                    sh.range(2, 1).options(expand='table').value=data
                     # 自适应列宽
                     sh.autofit('c')
                     # 添加边框线
@@ -155,29 +165,23 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                         for _ in range(row_count - 13):
                             sh.range('A15', 'J15').copy(sh.range((16 + _, 1), (16 + _, 10)))
 
-                    # num = 1  # 初始化序号
-                    # for cell_row in range(row_count):
-                    #     # 序号
-                    #     sh.cells(cell_row + 3, 1).value = num
-                    #     # 设备名称
-                    #     sh.cells(cell_row + 3, 2).value = self.tb_down.item(cell_row, 1).text()
-                    #     # 位置
-                    #     sh.cells(cell_row + 3, 3).value = self.tb_down.item(cell_row, 2).text()
-                    #     # 品牌
-                    #     sh.cells(cell_row + 3, 4).value = self.tb_down.item(cell_row, 3).text()
-                    #     # 类型
-                    #     sh.cells(cell_row + 3, 5).value = self.tb_down.item(cell_row, 4).text()
-                    #     # 型号
-                    #     sh.cells(cell_row + 3, 6).value = self.tb_down.item(cell_row, 5).text()
-                    #     # 序列号
-                    #     sh.cells(cell_row + 3, 7).value = self.tb_down.item(cell_row, 6).text()
-                    #     # 管理IP
-                    #     sh.cells(cell_row + 3, 8).value = self.tb_down.item(cell_row, 7).text()
-                    #     # 下架日期
-                    #     sh.cells(cell_row + 3, 9).value = self.tb_down.item(cell_row, 8).text()
-                    #     # 备注
-                    #     sh.cells(cell_row + 3, 10).value = self.tb_down.item(cell_row, 11).text()
-                    #     num += 1  # 每添加一行增加1
+                    num = 1  # 初始化序号
+                    data = []       # 接收查到的到表格数据
+                    for cell_row in range(row_count):
+                        # 接收查到的到表格的行数据
+                        row_data = [num, self.tb_down.item(cell_row, 1).text(), self.tb_down.item(cell_row, 2).text(),
+                                    self.tb_down.item(cell_row, 3).text(), self.tb_down.item(cell_row, 4).text(),
+                                    self.tb_down.item(cell_row, 5).text(), self.tb_down.item(cell_row, 6).text(),
+                                    self.tb_down.item(cell_row, 7).text(), self.tb_down.item(cell_row, 8).text(),
+                                    self.tb_down.item(cell_row, 11).text()]
+                        num += 1  # 每添加一行增加1
+
+                        # 将每一行数据提交到总表中
+                        data.append(row_data)
+
+                    # 将获取到的页面数据插入到表格中
+                    # print('data',data)
+                    sh.range(3, 1).options(expand='table').value = data
                     wb.save(filesave)  # 保存excel
                     wb.close()
                     QtWidgets.QMessageBox.information(self, '导出完成', '导出完成！')
@@ -198,14 +202,20 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                 # 设备清单数据写入到EXCEL中
                 row_count = self.tb_down.rowCount()  # 行数
                 # col_count = self.tb_down.columnCount()  # 列数
+                # 定义存放从页面获取的表格数据内容
+                data = []
                 for cell_row in range(row_count):
-                    # 设备型号
-                    sh.cells(cell_row + 6, 2).value = self.tb_down.item(cell_row, 3).text() + self.tb_down.item(
-                        cell_row, 5).text()
-                    # 数量
-                    sh.cells(cell_row + 6, 3).value = 1
-                    # 序列号
-                    sh.cells(cell_row + 6, 4).value = self.tb_down.item(cell_row, 6).text()
+                    # 获取每行的数据   设备型号,数量,序列号
+                    row_data = [self.tb_down.item(cell_row, 3).text() + self.tb_down.item(
+                        cell_row, 5).text(),1,self.tb_down.item(cell_row, 6).text()]
+                    # 将行数据加入到data列表中
+                    data.append(row_data)
+
+                # 所获取的所有数据写入到表格中
+                sh.range(6,2).options(expand='table').value=data
+
+                # todo 对于超过10的数据还需要对格式进行调整优化否则没有序列及字体或格式有问题
+                # print('data',data)
 
                 filesave, ok = QtWidgets.QFileDialog.getSaveFileName(self, '保存到excel', '', '*.xlsx')
                 if ok:
@@ -228,10 +238,10 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
                                           ViewDownshelf.machine_sn,ViewDownshelf.mg_ip,ViewDownshelf.date,ViewDownshelf.operator,
                                           ViewDownshelf.machine_admin,ViewDownshelf.comments)
         if len(self.down_sql) > 0:
-            data_model = sql.where(* self.down_sql).tuples()
+            data_model = sql.where(* self.down_sql).tuples().order_by(ViewDownshelf.date.desc())
         else:
-            data_model = sql.tuples()
-        print('down sql', data_model.sql())
+            data_model = sql.tuples().order_by(ViewDownshelf.date.desc())
+        # print('down sql', data_model.sql())
         data = [d for d in data_model]
 
         # 获取重复下架的设备信息
@@ -239,36 +249,7 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             ViewDownshelf.up_or_down == 4).tuples()
         redown_data = [red[0] for red in redown_data_model]
 
-        # 获取重复下架的设备信息
-        # redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
-        #     ViewDownshelf.up_or_down == 4).tuples()
-        # redown_data = [red[0] for red in redown_data_model]
-        # print('重复上架设备：', redown_data)
-
-        # if down_date is not None:
-        #     data_model = ViewDownshelf.select().where(ViewDownshelf.date == down_date)  # 定义数据查询模型
-        #     data = [
-        #         (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-        #          i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
-        #
-        #     # 获取重复下架的设备信息
-        #     redown_data_model = ViewDownshelf.select(ViewDownshelf.date == down_date & ViewDownshelf.machine_id).where(
-        #         ViewDownshelf.up_or_down == 4).tuples()
-        #     redown_data = [red[0] for red in redown_data_model]
-        #     # print('重复上架设备：', redown_data)
-        # else:
-        #     data_model = ViewDownshelf.select()  # 定义数据查询模型
-        #     data = [
-        #         (i.machine_id, i.machine_name, i.postion, i.machine_factory, i.machine_sort_name, i.model, i.machine_sn,
-        #          i.mg_ip, i.date, i.operator, i.machine_admin, i.comments) for i in data_model]  # 定义显示数据内容
-        #
-        #     # 获取重复下架的设备信息
-        #     redown_data_model = ViewDownshelf.select(ViewDownshelf.machine_id).where(
-        #         ViewDownshelf.up_or_down == 4).tuples()
-        #     redown_data = [red[0] for red in redown_data_model]
-            # print('重复上架设备：', redown_data)
-
-        # print('上架数据：', data)
+        # 处理并显示查询数据
         if len(data) != 0:
             # 显示到页面中
             self.tb_down.setRowCount(len(data))  # 定义表格显示内容行数
@@ -308,14 +289,21 @@ class UiShelfDisplay(Ui_shelf_display, QtWidgets.QWidget):
             fuc()
 
     # 定义是否启用时间选择控件
-    def checkbox_state(self, ckbox, dt):
+    def checkbox_state(self, ckbox, dt,dt_end):
         if ckbox.checkState() == Qt.Checked:
-            dt.setDate(QDate.currentDate())  # 设置日期为当前日期
+            # 开始时间
+            dt.setDate(QDate.currentDate())         # 设置日期为当前日期
             dt.setEnabled(True)
             dt.setReadOnly(False)
             dt.setCalendarPopup(True)
+            # 结束时间
+            dt_end.setDate(QDate.currentDate())  # 设置默认结束时间为当前时期
+            dt_end.setEnabled(True)
+            dt_end.setReadOnly(False)
+            dt_end.setCalendarPopup(True)
         else:
             dt.setEnabled(False)
+            dt_end.setEnabled(False)
 
 
 if __name__ == '__main__':
